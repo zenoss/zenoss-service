@@ -1,0 +1,100 @@
+{
+    "Description": "Master Server for HBase",
+    "Command": "/usr/bin/run-hbase-master.sh /etc/hbase-site.xml",
+    "ConfigFiles": {
+      "/etc/hbase-site.xml": {
+        "FileName": "/etc/hbase-site.xml",
+        "Owner": "hbase:hbase",
+        "Permissions": "0664"
+      },
+      "/etc/hbase-env.sh": {
+        "FileName": "/etc/hbase-env.sh",
+        "Owner": "hbase:hbase",
+        "Permissions": "0775"
+      }
+    },
+    "Hostname": "localhost",
+    "Privileged": true,
+    "Endpoints": [
+        {
+            "Name": "hbase-master-1",
+            "Application": "hbase-master-1",
+            "PortNumber": 60000,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Name": "hbase-master-rest",
+            "Application": "hbase-master-rest",
+            "PortNumber": 61000,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Name": "hbase-masterinfo-1",
+            "Application": "hbase-masterinfo-1",
+            "PortNumber": 60010,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "Vhosts": ["hbase"]
+        },
+        {
+            "Name": "hbase-regionserver",
+            "Application": "hbase-regionserver",
+            "PortNumber": 60200,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Name": "zookeeper-client",
+            "Application": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        }
+      ],
+    "ImageID": "zenoss/hbase:v3",
+    "Privileged": true,
+    "Instances": {
+        "min": 1
+    },
+    "RAMCommitment": 268435456,
+    "CPUCommitment": 1,
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/log/hbase/hbase-master.log",
+            "type": "mysql"
+        }
+    ],
+    "Name": "HMaster",
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####":         "drwxr-xr-x  2 hbase hbase 4.0K Apr 15 12:57 /var/hbase",
+            "Owner":         "hbase:hbase",
+            "Permission":    "0755",
+            "ResourcePath":  "hbase-master",
+            "ContainerPath": "/var/hbase"
+        }
+    ],
+    "HealthChecks": {
+        "cluster_healthy": {
+            "Script": "curl -f -s http://127.0.0.1:61000/status/cluster | grep -q '0 dead'",
+            "Interval": 10.0
+        },
+        "rest_answering": {
+            "Script": "curl -o /dev/null -f -s http://127.0.0.1:61000/status/cluster",
+            "Interval": 10.0
+        }
+    },    
+    "Prereqs": [
+        {
+            "Name": "All ZooKeepers up",
+            "Script": "{{with $zks := (child (parent .) \"ZooKeeper\").Instances }}{{ range (each $zks) }}echo ruok | nc -q10 zk{{plus 1 .}} 2181 | grep imok {{if ne (plus 1 .) $zks}}&& {{end}}{{end}}{{end}}"
+        }
+    ]
+}

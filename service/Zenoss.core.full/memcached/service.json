@@ -1,0 +1,38 @@
+{
+    "Description": "Free & open source, high-performance, distributed memory object caching system",
+    "Command": "/bin/memcached -u nobody -v -m {{percentScale .RAMCommitment 0.9 | bytesToMB}}",
+    "ConfigFiles": {
+	"/etc/sysconfig/memcached": {
+            "FileName": "/etc/sysconfig/memcached",
+            "Owner": "root:root",
+            "Permissions": "0644"
+	}
+    },
+    "Endpoints": [
+        {
+            "Name": "memcached",
+            "Application": "memcached",
+            "PortNumber": 11211,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        }
+    ],
+    "ImageID": "zenoss/zenoss5x",
+    "Instances": {
+        "min": 1
+    },
+    "RAMCommitment": 536870912,
+    "CPUCommitment": 1,
+    "Launch": "auto",
+    "Name": "memcached",
+    "Services": [],
+    "Tags": [
+        "daemon"
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Script": "echo stats | nc localhost 11211 | grep -q uptime",
+            "Interval": 5.0
+        }
+    }
+}

@@ -1,0 +1,42 @@
+authEnabled: true
+
+logging:
+    level: INFO
+
+http:
+  port: 8443
+  adminPort: 58443
+  connectorType: nonblocking
+  ssl:
+      keyStore: etc/metric-consumer-app/cert/ssl.pfx
+      keyStorePassword: zapp_pass
+      keyStoreType:     pkcs12
+
+webSocketConfiguration:
+    maxTextMessageSize: 10485760
+
+metricService:
+    jobSize: 1000
+    highCollisionMark: 200000
+    maxClientWaitTime: 10000
+    minTimeBetweenBroadcast: 500
+    tsdbWriterThreads: 1
+    maxIdleTime: 10000
+    maxConnectionBackOff: 5000
+    minConnectionBackOff: 100
+    openTsdbClientPool:
+      maxKeepAliveTime: 300000
+      minTestTime:       60000
+      clientBufferSize:  65536
+      clients:
+        - {host: localhost, port: 4242}
+
+      clientFactory:
+        keepAlive:          true
+        connectTimeout:     1000
+        soTimeout:          50
+
+managedReporter:
+    metricReporters:
+      - {posterType: http, username: "$env[CONTROLPLANE_CONSUMER_USERNAME]", password: "$env[CONTROLPLANE_CONSUMER_PASSWORD]", urlEnvironment: "CONTROLPLANE_CONSUMER_URL"}
+      - {posterType: bean, beanName: metric-service-poster}
