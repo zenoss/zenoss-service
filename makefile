@@ -9,7 +9,7 @@ BUILD_NUMBER    ?= $(shell date +%y%m%d)
 # date roll-over edge case incurred by lazy evaluation.
 #
 _BUILD_NUMBER    := $(BUILD_NUMBER)
-BUILD_IMAGE      ?= "zenoss/rpmbuild:centos7"
+BUILD_IMAGE      ?= "zenoss/svcdefbuild:trusty"
 SRCROOT          ?= $(shell pwd)/src
 BUILD_TYPE       ?= core
 BUILD_NAME       ?= zenoss_$(BUILD_TYPE)-$(VERSION)
@@ -19,6 +19,8 @@ MILESTONE        ?= unstable # unstable | testing | stable
 MILESTONE_SUFFIX  = $(patsubst %,-%,$(strip $(MILESTONE)))
 RELEASE_PHASE    ?= # eg, b2 | a1 | rc1 | <blank>
 _RELEASE_PHASE   := $(strip $(RELEASE_PHASE))
+PWD				  = $(shell pwd)
+UID				  = $(shell id -u)
 
 # Allow milestone to influence our artifact versioning.
 IMAGE_TAG      = $($(strip $(MILESTONE))_TAG)
@@ -41,6 +43,7 @@ docker.io_SUFFIX      = $(MILESTONE_SUFFIX)
 
 docker_HOST           = docker.io
 docker_PREFIX         = $($(docker_HOST)_REGPATH)$($(docker_HOST)_USER)/
+
 #
 # docker_HOST         docker_PREFIX
 # ------------------  -------------------
@@ -72,7 +75,8 @@ jsonsrc_opentsdb_ImageID = zenoss/opentsdb:v8
 desired_opentsdb_ImageID = $(docker_PREFIX)opentsdb:$(opentsdb_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_opentsdb_ImageID),$(desired_opentsdb_ImageID)
 
-.PHONY: default
+.PHONY: default docker_buildimage docker_svcdefpkg-% docker_svcdef-%
+
 
 $(SRCROOT):
 	services
@@ -176,6 +180,16 @@ svcdefpkg-%: | $(svcdef_BUILD_DIR) $(OUTPUT)
 		TEMPLATE_FILE=../$(svcdef_BUILD_DIR)/$(product)-$(IMAGE_TAG).json \
 		rpm
 	cp pkg/$(product)-*.rpm $(OUTPUT)
+
+######################
+# Dockerized targets #
+#####################
+
+docker_buildimage:
+	$(DOCKER) build -t $(BUILD_IMAGE) hack/
+
+docker_svcdefpkg-%: docker_buildimage
+	$(DOCKER) run -v $(PWD):/mnt/pwd -w /mnt/pwd $(BUILD_IMAGE) bash -c '/mnt/pwd/pkg/add_user.sh $(UID) && su serviceduser -c "make BUILD_NUMBER=$(BUILD_NUMBER) svcdefpkg-$*"'
 
 clean:
 	@for dir in $(MKDIRS) ;\
