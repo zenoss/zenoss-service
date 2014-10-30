@@ -3,7 +3,7 @@ hbase_VERSION    = v3
 opentsdb_VERSION = v8
 
 DOCKER          ?= $(shell which docker)
-BUILD_NUMBER    ?= $(shell date +%y%m%d)
+BUILD_NUMBER    ?= $(shell date +%Y%m%d%H%M%S)
 #
 # Latch in the date with an immediate assignment to avoid
 # date roll-over edge case incurred by lazy evaluation.
