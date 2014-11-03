@@ -53,7 +53,7 @@
         }
       ],
     "Privileged": true,
-    "ImageID": "zenoss/hbase:v3",
+    "ImageID": "zenoss/hbase:v4",
     "Instances": {
         "min": 3
     },

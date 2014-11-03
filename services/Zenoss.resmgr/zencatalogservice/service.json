@@ -42,11 +42,11 @@
                 "zeneventserver"
             ],
             "path": "/opt/zenoss/log/zencatalogservice.log",
-            "type": "zeneventserver"
+            "type": "zencatalogservice"
         },
         {
             "path": "/opt/zenoss/log/zencatalogservice-stdio*.log",
-            "type": "zeneventserver_stdio"
+            "type": "zencatalogservice_stdio"
         }
     ],
     "Name": "zencatalogservice",

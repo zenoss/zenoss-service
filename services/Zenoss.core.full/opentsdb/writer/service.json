@@ -36,7 +36,7 @@
             "Purpose": "import_all"
         }
     ],
-    "ImageID": "zenoss/opentsdb:v8",
+    "ImageID": "zenoss/opentsdb:v9",
     "Instances": {
         "min": 1
     },
