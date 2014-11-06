@@ -1,0 +1,86 @@
+{
+    "Description": "RabbitMQ server",
+    "Command": "/usr/sbin/rabbitmq-server",
+    "ConfigFiles": {
+      "/etc/rabbitmq/rabbitmq.config": {
+        "FileName": "/etc/rabbitmq/rabbitmq.config",
+        "Owner": "root:root",
+        "Permissions": "0664"
+      },
+      "/etc/rabbitmq/rabbitmq-env.conf": {
+        "FileName": "/etc/rabbitmq/rabbitmq-env.conf",
+        "Owner": "root:root",
+        "Permissions": "0664"
+      }
+    },
+    "Endpoints": [
+        {
+            "Name": "rabbitmq admin",
+            "Application": "rabbitmq_admin",
+            "PortNumber": 15672,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "Vhosts": ["rabbitmq"]
+        },
+        {
+            "Name": "rabbitmq",
+            "Application": "rabbitmq",
+            "PortNumber": 5672,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "AddressConfig": {
+                "Port": 5672,
+                "Protocol": "tcp"
+            }
+        }
+    ],
+    "ImageID": "zenoss/zenoss5x",
+    "Instances": {
+        "min": 1
+    },
+    "RAMCommitment": 268435456,
+    "CPUCommitment": 1,
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/log/rabbitmq/rabbit@localhost.log",
+            "type": "rabbitmq"
+        },
+        {
+            "path": "/var/log/rabbitmq/rabbit@localhost-sasl.log",
+            "type": "rabbitmq_sasl"
+        }
+    ],
+    "Name": "RabbitMQ",
+    "Services": [],
+    "Snapshot": {
+        "Pause":  "PAUSE_CHECK_TIMEOUT=60 ${ZENHOME:-/opt/zenoss}/bin/quiesce-rabbitmq.sh pause",
+        "Resume": "${ZENHOME:-/opt/zenoss}/bin/quiesce-rabbitmq.sh resume"
+    },
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####":         "drwxr-x--- 4 rabbitmq rabbitmq 4096 Feb 25 21:25 /var/lib/rabbitmq",
+            "Owner":         "rabbitmq:rabbitmq",
+            "Permission":    "0750",
+            "ResourcePath":  "rabbitmq",
+            "ContainerPath": "/var/lib/rabbitmq"
+        }
+    ],
+    "HealthChecks": {
+       "user": {
+             "Script":  "/opt/zenoss/bin/healthchecks/RabbitMQ/user {{(getContext . \"global.conf.amqpuser\")}} {{(getContext . \"global.conf.amqppassword\")}}",
+             "Interval": 15.0
+        },
+        "admin": {
+            "Script": "curl -s -u {{(getContext . \"global.conf.amqpuser\")}}:{{(getContext . \"global.conf.amqppassword\")}} http://localhost:15672/api/vhosts | grep -q /zenoss",
+            "Interval": 10.0
+        },
+        "publishing": {
+            "Script": "curl -s -u {{(getContext . \"global.conf.amqpuser\")}}:{{(getContext . \"global.conf.amqppassword\")}} http://localhost:15672/api/aliveness-test/%2F",
+            "Interval": 10.0
+        }
+    }
+}

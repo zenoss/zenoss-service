@@ -1,0 +1,98 @@
+{
+    "Description": "Centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services",
+    "Command": "/usr/bin/run-zk.sh /etc/zookeeper.cfg",
+    "ConfigFiles": {
+      "/etc/zookeeper.cfg": {
+        "FileName": "/etc/zookeeper.cfg",
+        "Owner": "zookeeper:zookeeper",
+        "Permissions": "0664"
+      },
+      "/var/lib/zookeeper/myid": {
+        "FileName": "/var/lib/zookeeper/myid",
+        "Owner": "zookeeper:zookeeper",
+        "Permissions": "0664"
+      }
+    },
+    "Hostname": "zk{{ plus 1 .InstanceID }}",
+    "Privileged": true,
+    "Endpoints": [
+        {
+            "Name": "zookeeper-client",
+            "Application": "zookeeper-client",
+            "PortNumber": 2181,
+            "PortTemplate": "{{ plus .InstanceID 2181}}",
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Name": "zookeeper-quorum",
+            "Application": "zookeeper-quorum",
+            "PortNumber": 2888,
+            "PortTemplate": "{{ plus .InstanceID 2888}}",
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Name": "zookeeper-leader",
+            "Application": "zookeeper-leader",
+            "PortNumber": 3888,
+            "PortTemplate": "{{ plus .InstanceID 3888}}",
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Name": "zookeeper-clients",
+            "Application": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Name": "zookeeper-quora",
+            "Application": "zookeeper-quorum",
+            "PortNumber": 2888,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Name": "zookeeper-leaders",
+            "Application": "zookeeper-leader",
+            "PortNumber": 3888,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        }
+    ],
+    "ImageID": "zenoss/hbase:v4",
+    "Instances": {
+								"max": 1,
+        "min": 1
+    },
+    "RAMCommitment": 268435456,
+    "CPUCommitment": 1,
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/log/zookeeper/zookeeper.log",
+            "type": "mysql"
+        }
+    ],
+    "Name": "ZooKeeper",
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####":         "drwxr-xr-x  2 zookeeper zookeeper 4.0K Apr 15 12:57 /var/lib/zookeeper/version-2",
+            "Owner":         "zookeeper:zookeeper",
+            "Permission":    "0755",
+            "ResourcePath":  "hbase-zookeeper-{{ plus 1 .InstanceID }}",
+            "ContainerPath": "/var/lib/zookeeper/version-2"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Script": "echo stats | nc -q 1 localhost {{ plus 2181 .InstanceID }} | grep -q Zookeeper",
+            "Interval": 5.0
+        }
+    }
+}
