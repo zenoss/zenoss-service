@@ -43,7 +43,7 @@ export DESCRIPTION
 all: desc
 
 desc:
-	echo "Usage: make svcdef deb or make rpm. Both options package $(FULL_NAME)-$(PKG_VERSION)."
+	echo "Usage: make deb or make rpm. Both options package $(FULL_NAME)-$(PKG_VERSION)."
 
 .PHONY: clean_files
 clean_files:

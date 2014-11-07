@@ -40,12 +40,14 @@ quay.io_REGPATH       = quay.io/
 quay.io_USER          = zenossinc
 quay.io_core_REPO     = zenoss-core
 quay.io_resmgr_REPO   = zenoss-resmgr
+quay.io_ucspm_REPO    = zenoss-ucspm
 quay.io_SUFFIX        = $(MILESTONE_SUFFIX)
 
 docker.io_REGPATH     =
 docker.io_USER        = zenoss
 docker.io_core_REPO   = core
 docker.io_resmgr_REPO = resmgr
+docker.io_ucspm_REPO  = ucspm
 docker.io_SUFFIX      = $(MILESTONE_SUFFIX)
 
 docker_HOST           = docker.io
@@ -119,7 +121,7 @@ $(SVCDEF_EXE):
 # service definitions for each product
 # to be managed by serviced.
 #-------------------------------------#
-svcdef_PRODUCTS = zenoss-core zenoss-resmgr
+svcdef_PRODUCTS = zenoss-core zenoss-resmgr zenoss-ucspm
 svcdef_SRC_DIR  = services
 
 zenoss-core-$(BUILD_TAG).json_SRC_DIR   := $(svcdef_SRC_DIR)/Zenoss.core
@@ -127,6 +129,9 @@ zenoss-core-$(BUILD_TAG).json_SRC       := $(shell find $(zenoss-core-$(BUILD_TA
 
 zenoss-resmgr-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/Zenoss.resmgr
 zenoss-resmgr-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-resmgr-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json')
+
+zenoss-ucspm-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/Zenoss.ucspm
+zenoss-ucspm-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-ucspm-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json')
 #-------------------------------------#
  
 # Rule to build service defintions for a list of products.
@@ -134,6 +139,7 @@ zenoss-resmgr-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-resmgr-$(BUILD_
 #
 # e.g., <dir>/templates/zenoss-core-5.0.0_140705.json
 #       <dir>/templates/zenoss-resmgr-5.0.0_140705.json
+#       <dir>/templates/zenoss-ucspm-5.0.0_140705.json
 #
 svcdef_BUILD_DIR      = pkg/templates
 svcdef_BUILD_TARGETS := $(foreach product,$(svcdef_PRODUCTS),$(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json)
