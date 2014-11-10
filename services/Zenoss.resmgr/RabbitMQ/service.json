@@ -79,7 +79,7 @@
             "Interval": 10.0
         },
         "publishing": {
-            "Script": "curl -s -u {{(getContext . \"global.conf.amqpuser\")}}:{{(getContext . \"global.conf.amqppassword\")}} http://localhost:15672/api/aliveness-test/%2F",
+            "Script": "curl -s -u {{(getContext . \"global.conf.amqpuser\")}}:{{(getContext . \"global.conf.amqppassword\")}} http://localhost:15672/api/aliveness-test/%2Fzenoss | grep -q '{\"status\":\"ok\"}'",
             "Interval": 10.0
         }
     }
