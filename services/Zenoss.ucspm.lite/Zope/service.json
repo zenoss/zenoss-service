@@ -149,6 +149,12 @@
         },
         {
             "Owner": "zenoss:zenoss",
+            "Permission": "0775",
+            "ResourcePath": "zenpack-backup",
+            "ContainerPath": "/opt/zenoss/.ZenPacks"
+        },
+        {
+            "Owner": "zenoss:zenoss",
             "ContainerPath": "/home/zenoss/.ssh",
             "Type": "",
             "ResourcePath": ".ssh",
