@@ -1,1 +1,3 @@
 This is where the packaging stuff for zenoss-*-service packages goes.
+
+Usage: make deb or make rpm. Both options package $(NAME)-service-$(PKG_VERSION).

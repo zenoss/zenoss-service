@@ -1,0 +1,59 @@
+{
+    "Description": "Performs distributed bash executions",
+    "Command": "su - zenoss -c '/opt/zenoss/bin/zminion --minion-name zminion_{{(parent .).Name}} serve'",
+    "Endpoints": [
+        {
+            "Name": "zenhub",
+            "Application": "{{(parent (parent .)).Name}}_zenhubPB",
+            "PortNumber": 8789,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Name": "redis",
+            "Application": "redis",
+            "PortNumber": 6379,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Name": "controlplane_consumer",
+            "Application": "controlplane_consumer",
+            "PortNumber": 8444,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        }
+    ],
+    "ImageID": "zenoss/zenoss5x",
+    "Instances": {
+        "min": 1,
+        "max": 1
+    },
+    "RAMCommitment": 268435456,
+    "CPUCommitment": 1,
+    "Launch": "auto",
+    "Name": "zminion",
+    "Tags": [
+        "daemon",
+        "collector"
+    ],
+    "HealthChecks": {
+        "zenhub_answering": {
+            "Script": "/opt/zenoss/bin/healthchecks/zenhub_answering",
+            "Interval": 10.0
+        },
+        "redis_answering": {
+            "Script": "/opt/zenoss/bin/healthchecks/redis_answering",
+            "Interval": 5.0
+        }
+    },
+    "Volumes": [
+        {
+            "Owner": "zenoss:zenoss",
+            "ContainerPath": "/home/zenoss/.ssh",
+            "Type": "",
+            "ResourcePath": ".ssh",
+            "Permission": "0755"
+        }
+    ]
+}

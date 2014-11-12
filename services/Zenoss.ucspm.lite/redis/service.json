@@ -1,0 +1,77 @@
+{
+    "Description": "Redis server",
+    "Command": "/usr/bin/redis-server /etc/redis.conf",
+    "Endpoints": [
+        {
+            "Name": "redis",
+            "Application": "redis",
+            "PortNumber": 6379,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        }
+    ],
+    "ImageID": "zenoss/zenoss5x",
+    "Instances": {
+        "min": 1
+    },
+    "RAMCommitment": 268435456,
+    "CPUCommitment": 1,
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/log/redis/redis.log",
+            "type": "redis"
+        }
+    ],
+    "Name": "redis",
+    "Tags": [
+        "daemon"
+    ],
+    "MonitoringProfile": {
+        "MetricConfigs": [
+            {
+                "ID": "redis",
+                "Name": "redis internal metrics",
+                "Description": "redis internal metrics",
+                "Metrics": [
+                    {"ID": "redis.total_commands_processed", "Name":"Total Commands", "Description": "Number of commands processed by redis.", "Counter": true, "Unit": "Count"}
+                ]
+            }
+        ],
+        "GraphConfigs": [
+            {
+                "id": "totalcommands",
+                "name": "Total Commands",
+                "footer": false,
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Commands/s",
+                "description": "Number of commands per second",
+                "range": {
+                    "start": "1h-ago",
+                    "end": "0s-ago"
+                },
+                "datapoints": [
+                    {
+                        "aggregator":   "avg",
+                        "fill":         false,
+                        "format":       "%d",
+                        "id":           "total_commands_processed",
+                        "legend":       "Data Points",
+                        "metric":       "redis.total_commands_processed",
+                        "metricSource": "redis",
+                        "name":         "Total Commands",
+                        "rate":         true,
+                        "type":         "line"
+                    }
+                ]
+            }
+        ]
+    },
+    "HealthChecks": {
+        "metrics": {
+            "Script": "/opt/zenoss/bin/healthchecks/redis/metrics",
+            "Interval": 15
+        }
+    }
+}
