@@ -38,7 +38,7 @@
             "Purpose": "export"
         },
         {
-            "Name": "mysql",
+            "Name": "mariadb",
             "Application": "zodb_.*",
             "Purpose": "import"
         },

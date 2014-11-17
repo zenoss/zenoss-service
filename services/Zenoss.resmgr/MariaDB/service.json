@@ -3,8 +3,8 @@
     "Command": "/usr/bin/mysqld_safe",
     "Endpoints": [
         {
-            "Name": "mysql",
-            "Application": "zodb_mysql",
+            "Name": "mariadb",
+            "Application": "zodb_mariadb",
             "PortNumber": 3306,
             "Protocol": "tcp",
             "Purpose": "export"
