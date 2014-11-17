@@ -141,13 +141,6 @@
             "ContainerPath": "/opt/zenoss/export"
         },
         {
-            "#####": "drwxrwxr-x 4 zenup zenoss 4096 Jul 18 11:20 /opt/zenup/log",
-            "Owner": "zenup:zenoss",
-            "Permission": "0775",
-            "ResourcePath": "zenup-logs",
-            "ContainerPath": "/opt/zenup/log"
-        },
-        {
             "Owner": "zenoss:zenoss",
             "Permission": "0775",
             "ResourcePath": "zenpack-backup",
@@ -165,8 +158,7 @@
         "help": "${ZENHOME:-/opt/zenoss}/bin/zenrun help.sh",
         "zendmd": "NOCOMMIT=true ${ZENHOME:-/opt/zenoss}/bin/zenrun zendmd",
         "zenmib": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
-        "zenpack": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",
-        "zenup": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenup.sh"
+        "zenpack": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}"
     },
     "HealthChecks": {
         "running": {
