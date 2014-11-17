@@ -100,7 +100,7 @@
     },
     "Prereqs": [
         {
-            "Name": "MySQL connectivity",
+            "Name": "MariaDB connectivity",
             "Script": "export TERM=xterm; mysql --host=127.0.0.1 --port=3306 -c ';' 2>&1 | grep denied"
         }
     ],
