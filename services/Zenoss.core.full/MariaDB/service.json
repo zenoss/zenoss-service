@@ -23,7 +23,7 @@
             "type": "mysql"
         }
     ],
-    "Name": "MySQL",
+    "Name": "MariaDB",
     "Runs": {
         "rebuild_zodb_session": "${ZENHOME:-/opt/zenoss}/bin/zenrun mysql.sh rebuild_zodb_session"
     },
