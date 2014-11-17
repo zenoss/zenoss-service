@@ -20,7 +20,7 @@
     "LogConfigs": [
         {
             "path": "/var/log/mysqld.log",
-            "type": "mysql"
+            "type": "mariadb"
         }
     ],
     "Name": "MariaDB",
