@@ -1,5 +1,5 @@
 {
-    "Description": "MySQL database server",
+    "Description": "MariaDB database server",
     "Command": "/usr/bin/mysqld_safe",
     "Endpoints": [
         {
