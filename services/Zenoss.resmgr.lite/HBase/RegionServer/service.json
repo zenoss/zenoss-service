@@ -60,6 +60,7 @@
     "RAMCommitment": 268435456,
     "CPUCommitment": 1,
     "Launch": "auto",
+    "HostPolicy": "PREFER_SEPARATE",
     "LogConfigs": [
         {
             "path": "/var/log/hbase/hbase-regionserver.log",

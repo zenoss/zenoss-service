@@ -69,6 +69,7 @@
     "RAMCommitment": 1073741824,
     "CPUCommitment": 1,
     "Launch": "auto",
+    "HostPolicy": "PREFER_SEPARATE",
     "LogConfigs": [
         {
             "path": "/var/log/zookeeper/zookeeper.log",
