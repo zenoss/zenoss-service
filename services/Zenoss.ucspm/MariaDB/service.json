@@ -39,7 +39,7 @@
             "#####":         "drwxr-xr-x 12 mysql mysql 4096 Feb 25 21:27 /var/lib/mysql/",
             "Owner":         "mysql:mysql",
             "Permission":    "0755",
-            "ResourcePath":  "mysql",
+            "ResourcePath":  "mariadb",
             "ContainerPath": "/var/lib/mysql"
         }
     ],
