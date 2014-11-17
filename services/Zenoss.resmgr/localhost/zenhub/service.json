@@ -169,8 +169,8 @@
             "Script": "pgrep -fu zenoss zenhubworker.py > /dev/null",
             "Interval": 5.0
         },
-        "mysql_answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/mysql_answering",
+        "mariadb_answering": {
+            "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering",
             "Interval": 10.0
         },
         "memcached_answering": {

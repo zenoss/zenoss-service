@@ -125,8 +125,8 @@
             "Script": "curl -f -s http://localhost:8084/zeneventserver/api/1.0/heartbeats/ | grep -q '^{\"heartbeats\":'",
             "Interval": 5.0
         },
-        "mysql_answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/mysql_answering",
+        "mariadb_answering": {
+            "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering",
             "Interval": 10.0
         },
         "redis_answering": {
