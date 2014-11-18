@@ -64,7 +64,7 @@
     "LogConfigs": [
         {
             "path": "/var/log/hbase/hbase-regionserver.log",
-            "type": "mysql"
+            "type": "hbase"
         }
     ],
     "Name": "RegionServer",

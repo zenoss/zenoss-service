@@ -65,7 +65,7 @@
     "LogConfigs": [
         {
             "path": "/var/log/hbase/hbase-master.log",
-            "type": "mysql"
+            "type": "hbase"
         }
     ],
     "Name": "HMaster",
