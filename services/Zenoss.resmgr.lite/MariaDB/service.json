@@ -14,7 +14,7 @@
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": 2147483648,
+    "RAMCommitment": "2G",
     "CPUCommitment": 4,
     "Launch": "auto",
     "LogConfigs": [
