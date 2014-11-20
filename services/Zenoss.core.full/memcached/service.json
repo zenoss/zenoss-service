@@ -21,7 +21,7 @@
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": 536870912,
+    "RAMCommitment": "512M",
     "CPUCommitment": 1,
     "Launch": "auto",
     "Name": "memcached",
