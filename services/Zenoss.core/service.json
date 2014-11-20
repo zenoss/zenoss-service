@@ -1,7 +1,7 @@
 {
     "Title": "zproxy",
     "Description": "Zenoss Core",
-    "RAMCommitment": 268435456,
+    "RAMCommitment": "256M",
     "CPUCommitment": 1,
     "Launch": "auto",
     "Name": "Zenoss",
