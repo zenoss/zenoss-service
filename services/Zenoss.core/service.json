@@ -1,7 +1,7 @@
 {
     "Title": "zproxy",
     "Description": "Zenoss Core",
-    "RAMCommitment": 268435456,
+    "RAMCommitment": "256M",
     "CPUCommitment": 1,
     "Launch": "auto",
     "Name": "Zenoss",
@@ -37,7 +37,7 @@
         "global.conf.zencatalogservice-uri": "http://127.0.0.1:8085",
         "global.conf.zauth-password": "MY_PASSWORD",
         "global.conf.zauth-username": "zenoss_system",
-        "ZenPack.Default.RAMCommitment": 268435456,
+        "ZenPack.Default.RAMCommitment": "256M",
         "ZenPack.Default.WorkerArgs": ""
     },
     "Command": "redis-server /etc/redis.conf & /bin/sh -c \"cd /opt/zenoss && exec ./zproxy/sbin/zproxy start\"",
