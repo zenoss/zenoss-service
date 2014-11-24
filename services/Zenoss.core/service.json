@@ -41,6 +41,13 @@
         "ZenPack.Default.WorkerArgs": ""
     },
     "Command": "redis-server /etc/redis.conf & /bin/sh -c \"cd /opt/zenoss && exec ./zproxy/sbin/zproxy start\"",
+    "ConfigFiles": {
+        "/opt/zenoss/zproxy/conf/zproxy-nginx.conf": {
+            "Filename": "/opt/zenoss/zproxy/conf/zproxy-nginx.conf",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "644"
+        }
+    },
     "Endpoints": [
         {
             "Name": "zproxy",
