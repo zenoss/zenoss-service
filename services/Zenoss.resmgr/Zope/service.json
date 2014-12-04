@@ -159,7 +159,8 @@
         "help": "${ZENHOME:-/opt/zenoss}/bin/zenrun help.sh",
         "zendmd": "NOCOMMIT=true ${ZENHOME:-/opt/zenoss}/bin/zenrun zendmd",
         "zenmib": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
-        "zenpack": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}"
+        "zenpack": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",
+        "upgrade": "${ZENHOME:-/opt/zenoss}/bin/zenrun upgrade.sh doUpgrade"
     },
     "HealthChecks": {
         "running": {
