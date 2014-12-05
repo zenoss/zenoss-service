@@ -36,11 +36,39 @@
                 "Name": "redis internal metrics",
                 "Description": "redis internal metrics",
                 "Metrics": [
-                    {"ID": "redis.total_commands_processed", "Name":"Total Commands", "Description": "Number of commands processed by redis.", "Counter": true, "Unit": "Count"}
+                    {"ID": "redis.total_commands_processed", "Name":"Total Commands", "Description": "Number of commands processed by redis.", "Counter": true, "Unit": "Count"},
+                    {"ID": "redis.metricsLength", "Name":"Metrics Queue Length", "Description": "Number of metrics awaiting processing", "Counter": false, "Unit": "Count"}
                 ]
             }
         ],
         "GraphConfigs": [
+            {
+                "id": "metricqueue",
+                "name": "Metric Queue Length",
+                "footer": false,
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Metrics",
+                "description": "Number of metrics awaiting processing",
+                "range": {
+                    "start": "1h-ago",
+                    "end": "0s-ago"
+                },
+                "datapoints": [
+                    {
+                        "aggregator":   "sum",
+                        "fill":         false,
+                        "format":       "%d",
+                        "id":           "metricsLength",
+                        "legend":       "Metrics",
+                        "metric":       "redis.metricsLength",
+                        "metricSource": "redis",
+                        "name":         "Metric Queue Length",
+                        "rate":         false,
+                        "type":         "line"
+                    }
+                ]
+            },
             {
                 "id": "totalcommands",
                 "name": "Total Commands",
@@ -72,7 +100,7 @@
     },
     "HealthChecks": {
         "metrics": {
-            "Script": "/opt/zenoss/bin/healthchecks/redis/metrics",
+            "Script": "/opt/zenoss/bin/healthchecks/collectorredis/metrics",
             "Interval": 15
         }
     }
