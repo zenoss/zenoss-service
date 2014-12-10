@@ -113,6 +113,20 @@
     ],
     "Volumes": [
         {
+            "#####": "drwxr-xr-x 2 zenoss zenoss 4096 Feb  6 19:11 /opt/zenoss/.pc",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0755",
+            "ResourcePath": "zenoss-custom-patches-pc",
+            "ContainerPath": "/opt/zenoss/.pc"
+        },
+        {
+            "#####": "drwxr-xr-x 2 zenoss zenoss 4096 Feb  6 19:11 /opt/zenoss/patches",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0755",
+            "ResourcePath": "zenoss-custom-patches",
+            "ContainerPath": "/opt/zenoss/patches"
+        },
+        {
             "#####": "drwxr-xr-x 2 zenoss zenoss 4096 Feb  6 19:11 /opt/zenoss/log/jobs",
             "Owner": "zenoss:zenoss",
             "Permission": "0755",
@@ -148,6 +162,7 @@
         }
     ],
     "Runs": {
+        "apply-custom-patches": "${ZENHOME:-/opt/zenoss}/bin/zenrun patch.sh applyPatches",
         "help": "${ZENHOME:-/opt/zenoss}/bin/zenrun help.sh",
         "zendmd": "NOCOMMIT=true ${ZENHOME:-/opt/zenoss}/bin/zenrun zendmd",
         "zenmib": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
