@@ -182,10 +182,6 @@
             "Script": "/opt/zenoss/bin/healthchecks/zproxy_answering",
             "Interval": 10.0
         },
-        "answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/zenhub_answering",
-            "Interval": 5.0
-        },
         "catalogservice_answering": {
             "Script": "/opt/zenoss/bin/healthchecks/catalogservice_answering",
             "Interval": 10.0

@@ -111,10 +111,6 @@
             "Script": "/opt/zenoss/bin/healthchecks/zenjobs/stable_workers",
             "Interval": 5.0
         },
-        "zenhub_answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/zenhub_answering",
-            "Interval": 10.0
-        },
         "mariadb_answering": {
             "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering",
             "Interval": 10.0
