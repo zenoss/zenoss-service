@@ -127,10 +127,6 @@
             "Script": "/opt/zenoss/bin/healthchecks/zproxy_answering",
             "Interval": 10.0
         },
-        "answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/zenhub_answering",
-            "Interval": 5.0
-        },
         "rpc_listening": {
             "Comment": "TODO: exercise API, if possible",
             "Script": "nmap -oG - -Pn -sS -p 8081 127.0.0.1 | grep -q 8081/open",
