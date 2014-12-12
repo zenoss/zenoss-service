@@ -38,10 +38,6 @@
         "collector"
     ],
     "HealthChecks": {
-        "zenhub_answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/zenhub_answering",
-            "Interval": 10.0
-        },
         "redis_answering": {
             "Script": "/opt/zenoss/bin/healthchecks/redis_answering",
             "Interval": 5.0
