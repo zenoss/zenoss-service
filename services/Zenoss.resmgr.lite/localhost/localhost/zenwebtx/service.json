@@ -76,6 +76,7 @@
     "Name": "zenwebtx",
     "Services": [],
     "Tags": [
+        "ZenPacks.zenoss.ZenWebTx",
         "daemon",
         "collector"
     ],

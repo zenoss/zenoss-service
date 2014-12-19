@@ -83,6 +83,7 @@
     "Name": "zenpython",
     "Services": [],
     "Tags": [
+        "ZenPacks.zenoss.PythonCollector",
         "daemon",
         "collector"
     ],

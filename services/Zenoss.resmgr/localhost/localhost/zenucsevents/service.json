@@ -76,6 +76,7 @@
     "Name": "zenucsevents",
     "Services": [],
     "Tags": [
+        "ZenPacks.zenoss.CiscoUCS",
         "daemon",
         "collector"
     ],
