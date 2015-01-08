@@ -1,5 +1,5 @@
 {
-    "Description": "Pulls metric data from CentralQuery",
+    "Description": "Pushes metric data into OpenTSDB",
     "Actions": {
       "debug": "bash -c 'curl -X POST http://localhost:58443/tasks/debugtoggle'"
     },
