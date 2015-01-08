@@ -46,6 +46,11 @@
             "PortNumber": 8444,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Name": "rabbitmq",
+            "Application": "rabbitmq.*",
+            "Purpose": "import"
         }
     ],
     "ImageID": "zenoss/zenoss5x",
