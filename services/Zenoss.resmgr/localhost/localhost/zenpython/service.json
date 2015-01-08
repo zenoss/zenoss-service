@@ -49,7 +49,9 @@
         },
         {
             "Name": "rabbitmq",
-            "Application": "rabbitmq.*",
+            "Application": "rabbitmq",
+            "PortNumber": 5672,
+            "Protocol": "tcp",
             "Purpose": "import"
         }
     ],
