@@ -38,7 +38,8 @@
         "global.conf.zauth-password": "MY_PASSWORD",
         "global.conf.zauth-username": "zenoss_system",
         "ZenPack.Default.RAMCommitment": "1G",
-        "ZenPack.Default.WorkerArgs": ""
+        "ZenPack.Default.WorkerArgs": "",
+        "tsd.storage.enable_compaction": "True"
     },
     "Command": "redis-server /etc/redis.conf & /bin/sh -c \"cd /opt/zenoss && exec ./zproxy/sbin/zproxy start\"",
     "ConfigFiles": {

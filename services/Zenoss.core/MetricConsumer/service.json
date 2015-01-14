@@ -1,5 +1,5 @@
 {
-    "Description": "Pulls metric data from CentralQuery",
+    "Description": "Pushes metric data into OpenTSDB",
     "Actions": {
       "debug": "bash -c 'curl -X POST http://localhost:58443/tasks/debugtoggle'"
     },
@@ -167,6 +167,14 @@
                 ]
             },
             {
+                "ID": "MetricsQueue.inFlight",
+                "Name": "Queued Metrics",
+                "Description": "Queued Metric Count",
+                "Metrics": [
+                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalInFlight.count", "Name": "MetricsQueue Queued Metric couint" }
+                ]
+            },
+            {
                 "ID": "MetricsWebResource.post",
                 "Name": "MetricsWebResource Post Statistics",
                 "Description": "HTTP Post Statistics for the MetricsWebResource",
@@ -184,6 +192,71 @@
                     { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.98Percentile", "Name": "MetricWebResource Content-Length Histogram 98%" },
                     { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.99Percentile", "Name": "MetricWebResource Content-Length Histogram 99%" },
                     { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.999Percentile", "Name": "MetricWebResource Content-Length Histogram 99.9%" }
+                ]
+            }
+        ],
+        "GraphConfigs": [
+            {
+                "id": "queuedMetrics",
+                "name": "Queued Metrics",
+                "footer": false,
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Queued Metrics",
+                "description": "Queued Metric Count",
+                "range": {
+                    "start": "1h-ago",
+                    "end": "0s-ago"
+                },
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "queued",
+                        "legend": "queued",
+                        "metric": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalInFlight.count",
+                        "metricSource": "MetricsQueue.inFlight",
+                        "name": "queued",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ]
+            },
+            {
+                "id": "dataPoints",
+                "name": "Data Points",
+                "footer": false,
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Data Points",
+                "description": "Number of datapoints received / transmitted per second.",
+                "range": {
+                    "start": "1h-ago",
+                    "end": "0s-ago"
+                },
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "outgoing",
+                        "legend": "outgoing",
+                        "metric": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.count",
+                        "metricSource": "MetricsQueue.totalOutgoing",
+                        "name": "outgoing",
+                        "rate": true,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "incoming",
+                        "legend": "incoming",
+                        "metric": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalIncoming.count",
+                        "metricSource": "MetricsQueue.totalIncoming",
+                        "name": "incoming",
+                        "rate": true,
+                        "type": "line"
+                    }
                 ]
             }
         ]

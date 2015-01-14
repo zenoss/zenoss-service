@@ -76,6 +76,7 @@
     "Name": "zenjmx",
     "Services": [],
     "Tags": [
+        "ZenPacks.zenoss.ZenJMX",
         "daemon",
         "collector"
     ],

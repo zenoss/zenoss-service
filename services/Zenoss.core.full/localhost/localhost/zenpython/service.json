@@ -46,6 +46,13 @@
             "PortNumber": 8444,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Name": "rabbitmq",
+            "Application": "rabbitmq",
+            "PortNumber": 5672,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "ImageID": "zenoss/zenoss5x",
@@ -74,6 +81,7 @@
     "Name": "zenpython",
     "Services": [],
     "Tags": [
+        "ZenPacks.zenoss.PythonCollector",
         "daemon",
         "collector"
     ],
