@@ -25,14 +25,14 @@ UID				  = $(shell id -u)
 # Allow milestone to influence our artifact versioning.
 BUILD_TAG      = $($(strip $(MILESTONE))_TAG)
 stable_TAG     = $(VERSION)
-testing_TAG    = $(VERSION)$(_RELEASE_PHASE)_$(_BUILD_NUMBER)
+testing_TAG    = $(VERSION)$(_RELEASE_PHASE)
 unstable_TAG   = $(VERSION)_$(_BUILD_NUMBER)
 
 # Suck in reference to an image
 IMAGE_NUMBER        ?= ""
 IMAGE_TAG            = $($(strip $(MILESTONE))_IMAGE_TAG)
 stable_IMAGE_TAG     = $(VERSION)
-testing_IMAEG_TAG    = $(VERSION)$(_RELEASE_PHASE)_$(IMAGE_NUMBER)
+testing_IMAGE_TAG    = $(VERSION)$(_RELEASE_PHASE)
 unstable_IMAGE_TAG   = $(VERSION)_$(IMAGE_NUMBER)
 
 # Describe docker repositories where we push entitled content.
