@@ -34,7 +34,7 @@ metricService:
       clientFactory:
         keepAlive:          true
         connectTimeout:     1000
-        soTimeout:          50
+        soTimeout:          1000
 
 managedReporter:
     metricReporters:
