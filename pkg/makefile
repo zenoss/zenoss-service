@@ -20,7 +20,7 @@ PKGROOT       = pkgroot/$(FULL_NAME)
 # included as part of the package's version.  If a release phase is 
 # included, the build number will be left off the package version.
 ifeq "$(RELEASE_PHASE)" ""
-PKG_VERSION = $(VERSION)$(RELEASE_PHASE)-$(BUILD_NUMBER)
+PKG_VERSION = $(VERSION)-$(BUILD_NUMBER)
 else
 PKG_VERSION = $(VERSION)$(RELEASE_PHASE)
 endif
