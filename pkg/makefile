@@ -12,14 +12,17 @@ NAME          = product
 FULL_NAME     = $(NAME)-service
 #FROMVERSION  = 0.3.70
 VERSION       = 5.0.0
-RELEASE_PHASE = 
+RELEASE_PHASE = # eg, b2 | a1 | rc1 | <blank>
 MAINTAINER    ="Zenoss CM <cm@zenoss.com>"
 PKGROOT       = pkgroot/$(FULL_NAME)
 
-ifeq "$(BUILD_NUMBER)" ""
-PKG_VERSION = $(VERSION)$(RELEASE_PHASE)
+# A build number is only expected on nightly 'unstable' builds, and will be
+# included as part of the package's version.  If a release phase is 
+# included, the build number will be left off the package version.
+ifeq "$(RELEASE_PHASE)" ""
+PKG_VERSION = $(VERSION)-$(BUILD_NUMBER)
 else
-PKG_VERSION = $(VERSION)$(RELEASE_PHASE)-$(BUILD_NUMBER)
+PKG_VERSION = $(VERSION)$(RELEASE_PHASE)
 endif
 
 ifeq "$(FROMVERSION)" ""
