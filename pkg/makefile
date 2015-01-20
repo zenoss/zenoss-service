@@ -12,7 +12,7 @@ NAME          = product
 FULL_NAME     = $(NAME)-service
 #FROMVERSION  = 0.3.70
 VERSION       = 5.0.0
-RELEASE_PHASE = # eg, b2 | a1 | rc1 | <blank>
+RELEASE_PHASE = # eg, ALPHA1 | BETA1 | CR1 | GA
 MAINTAINER    ="Zenoss CM <cm@zenoss.com>"
 PKGROOT       = pkgroot/$(FULL_NAME)
 
