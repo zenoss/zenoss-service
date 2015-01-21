@@ -51,6 +51,13 @@
             "Purpose": "import"
         },
         {
+            "Name": "zep",
+            "Application": "zep",
+            "PortNumber": 8084,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Name": "controlplane_consumer",
             "Application": "controlplane_consumer",
             "PortNumber": 8444,
