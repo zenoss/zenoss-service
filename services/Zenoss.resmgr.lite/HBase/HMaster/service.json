@@ -54,7 +54,7 @@
             "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
         }
       ],
-    "ImageID": "zenoss/hbase:v5",
+    "ImageID": "zenoss/hbase:xx",
     "Privileged": true,
     "Instances": {
         "min": 1

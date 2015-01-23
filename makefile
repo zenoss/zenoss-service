@@ -1,5 +1,5 @@
 VERSION         ?= 5.0.0
-hbase_VERSION    = v3
+hbase_VERSION    = v4
 opentsdb_VERSION = v12
 
 DOCKER          ?= $(shell which docker)
@@ -76,7 +76,7 @@ svcdef_ImageID_maps   += $(jsonsrc_zenoss_ImageID),$(desired_zenoss_ImageID)
 # NB: jsonsrc_<prod>_ImageID = what is currently in the source code.
 #     desired_<prod>_ImageID = what you want the ID to be
 #
-jsonsrc_hbase_ImageID = zenoss/hbase:v3
+jsonsrc_hbase_ImageID = zenoss/hbase:xx
 desired_hbase_ImageID = $(docker_PREFIX)hbase:$(hbase_VERSION)
 svcdef_ImageID_maps  += $(jsonsrc_hbase_ImageID),$(desired_hbase_ImageID)
 #
@@ -203,7 +203,6 @@ docker_buildimage:
 
 docker_svcdefpkg-%: docker_buildimage
 	$(DOCKER) run -v $(PWD):/mnt/pwd \
-		-v $(OUTPUT):/mnt/pwd/output \
 		-w /mnt/pwd \
 		$(BUILD_IMAGE) \
 		bash -c '/mnt/pwd/pkg/add_user.sh $(UID) && su serviceduser -c "make BUILD_NUMBER=$(_BUILD_NUMBER) IMAGE_NUMBER=$(IMAGE_NUMBER) MILESTONE=$(MILESTONE) RELEASE_PHASE=$(RELEASE_PHASE) svcdefpkg-$*"'
