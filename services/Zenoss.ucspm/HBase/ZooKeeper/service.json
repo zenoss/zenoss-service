@@ -62,7 +62,7 @@
             "Purpose": "import_all"
         }
     ],
-    "ImageID": "zenoss/hbase:v4",
+    "ImageID": "zenoss/hbase:xx",
     "Instances": {
         "min": 3
     },
