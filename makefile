@@ -1,4 +1,8 @@
+# VERSION is the full Zenoss version; e.g., 5.0.0
+# SHORT_VERSION is the two-digit Zenoss version; e.g., 5.0
 VERSION         ?= 5.0.0
+SHORT_VERSION   ?= 5.0
+
 hbase_VERSION    = v4
 opentsdb_VERSION = v12
 
@@ -16,8 +20,8 @@ BUILD_NAME       ?= zenoss_$(BUILD_TYPE)-$(VERSION)
 PREFIX           ?= /opt/zenoss
 OUTPUT           ?= $(PWD)/output
 MILESTONE        ?= unstable # unstable | testing | stable
-MILESTONE_SUFFIX  = $(patsubst %,-%,$(strip $(MILESTONE)))
-RELEASE_PHASE    ?= # eg, b2 | a1 | rc1 | <blank>
+MILESTONE_SUFFIX  =
+RELEASE_PHASE    ?= # eg, beta2 | alpha1 | cr1 | <blank>
 _RELEASE_PHASE   := $(strip $(RELEASE_PHASE))
 PWD				  = $(shell pwd)
 UID				  = $(shell id -u)
@@ -25,29 +29,31 @@ UID				  = $(shell id -u)
 # Allow milestone to influence our artifact versioning.
 BUILD_TAG      = $($(strip $(MILESTONE))_TAG)
 stable_TAG     = $(VERSION)
-testing_TAG    = $(VERSION)$(_RELEASE_PHASE)
+testing_TAG    = $(VERSION)_$(_RELEASE_PHASE)
 unstable_TAG   = $(VERSION)_$(_BUILD_NUMBER)
 
 # Suck in reference to an image
 IMAGE_NUMBER        ?= ""
 IMAGE_TAG            = $($(strip $(MILESTONE))_IMAGE_TAG)
 stable_IMAGE_TAG     = $(VERSION)
-testing_IMAGE_TAG    = $(VERSION)$(_RELEASE_PHASE)
-unstable_IMAGE_TAG   = $(VERSION)_$(IMAGE_NUMBER)
+testing_IMAGE_TAG    = $(VERSION)_$(_RELEASE_PHASE)
+unstable_IMAGE_TAG   = $(VERSION)_$(IMAGE_NUMBER)_unstable
 
 # Describe docker repositories where we push entitled content.
+repo_name_suffix      := _$(SHORT_VERSION)
+
 quay.io_REGPATH       = quay.io/
 quay.io_USER          = zenossinc
-quay.io_core_REPO     = zenoss-core
-quay.io_resmgr_REPO   = zenoss-resmgr
-quay.io_ucspm_REPO    = zenoss-ucspm
+quay.io_core_REPO     = zenoss-core$(repo_name_suffix)
+quay.io_resmgr_REPO   = zenoss-resmgr$(repo_name_suffix)
+quay.io_ucspm_REPO    = zenoss-ucspm$(repo_name_suffix)
 quay.io_SUFFIX        = $(MILESTONE_SUFFIX)
 
 docker.io_REGPATH     =
 docker.io_USER        = zenoss
-docker.io_core_REPO   = core
-docker.io_resmgr_REPO = resmgr
-docker.io_ucspm_REPO  = ucspm
+docker.io_core_REPO   = core$(repo_name_suffix)
+docker.io_resmgr_REPO = resmgr$(repo_name_suffix)
+docker.io_ucspm_REPO  = ucspm$(repo_name_suffix)
 docker.io_SUFFIX      = $(MILESTONE_SUFFIX)
 
 docker_HOST           = docker.io
@@ -203,6 +209,7 @@ docker_buildimage:
 
 docker_svcdefpkg-%: docker_buildimage
 	$(DOCKER) run -v $(PWD):/mnt/pwd \
+		-v $(OUTPUT):/mnt/pwd/output \
 		-w /mnt/pwd \
 		$(BUILD_IMAGE) \
 		bash -c '/mnt/pwd/pkg/add_user.sh $(UID) && su serviceduser -c "make BUILD_NUMBER=$(_BUILD_NUMBER) IMAGE_NUMBER=$(IMAGE_NUMBER) MILESTONE=$(MILESTONE) RELEASE_PHASE=$(RELEASE_PHASE) svcdefpkg-$*"'
