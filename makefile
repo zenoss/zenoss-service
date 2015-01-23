@@ -3,7 +3,7 @@
 VERSION         ?= 5.0.0
 SHORT_VERSION   ?= 5.0
 
-hbase_VERSION    = v4
+hbase_VERSION    = v5
 opentsdb_VERSION = v12
 
 DOCKER          ?= $(shell which docker)
