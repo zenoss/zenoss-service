@@ -1,6 +1,6 @@
 VERSION         ?= 5.0.0
 hbase_VERSION    = v3
-opentsdb_VERSION = v8
+opentsdb_VERSION = v12
 
 DOCKER          ?= $(shell which docker)
 BUILD_NUMBER    ?= $(shell date +%Y%m%d%H%M%S)
@@ -80,7 +80,7 @@ jsonsrc_hbase_ImageID = zenoss/hbase:v3
 desired_hbase_ImageID = $(docker_PREFIX)hbase:$(hbase_VERSION)
 svcdef_ImageID_maps  += $(jsonsrc_hbase_ImageID),$(desired_hbase_ImageID)
 #
-jsonsrc_opentsdb_ImageID = zenoss/opentsdb:v8
+jsonsrc_opentsdb_ImageID = zenoss/opentsdb:xx
 desired_opentsdb_ImageID = $(docker_PREFIX)opentsdb:$(opentsdb_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_opentsdb_ImageID),$(desired_opentsdb_ImageID)
 
