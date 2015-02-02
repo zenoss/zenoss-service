@@ -4,7 +4,7 @@ VERSION         ?= 5.0.0
 SHORT_VERSION   ?= 5.0
 
 hbase_VERSION    = v5
-opentsdb_VERSION = v12
+opentsdb_VERSION = v13
 
 DOCKER          ?= $(shell which docker)
 BUILD_NUMBER    ?= $(shell date +%Y%m%d%H%M%S)

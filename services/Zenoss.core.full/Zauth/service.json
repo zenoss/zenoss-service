@@ -48,6 +48,13 @@
             "PortNumber": 5672,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Name": "redis",
+            "Application": "redis",
+            "PortNumber": 6379,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "ImageID": "zenoss/zenoss5x",

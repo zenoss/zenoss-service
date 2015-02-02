@@ -46,6 +46,13 @@
             "Name": "rabbitmq",
             "Application": "rabbitmq.*",
             "Purpose": "import"
+        },
+        {
+            "Name": "redis",
+            "Application": "redis",
+            "PortNumber": 6379,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "ImageID": "zenoss/zenoss5x",
