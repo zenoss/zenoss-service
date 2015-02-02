@@ -39,7 +39,7 @@
         "global.conf.zauth-username": "zenoss_system",
         "ZenPack.Default.RAMCommitment": "1G",
         "ZenPack.Default.WorkerArgs": "--workers {{.Instances}} --workerid $CONTROLPLANE_INSTANCE_ID",
-        "tsd.storage.enable_compaction": "True"
+        "tsd.storage.enable_compaction": "False"
     },
     "Command": "redis-server /etc/redis.conf & /bin/sh -c \"cd /opt/zenoss && exec ./zproxy/sbin/zproxy start\"",
     "ConfigFiles": {
