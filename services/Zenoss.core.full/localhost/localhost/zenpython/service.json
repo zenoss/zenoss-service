@@ -46,6 +46,13 @@
             "PortNumber": 8444,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Name": "rabbitmq",
+            "Application": "rabbitmq",
+            "PortNumber": 5672,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "ImageID": "zenoss/zenoss5x",
@@ -53,7 +60,7 @@
         "min": 1,
         "max": 1
     },
-    "RAMCommitment": 1073741824,
+    "RAMCommitment": "1G",
     "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [
@@ -74,6 +81,7 @@
     "Name": "zenpython",
     "Services": [],
     "Tags": [
+        "ZenPacks.zenoss.PythonCollector",
         "daemon",
         "collector"
     ],
@@ -357,6 +365,12 @@
             "Type": "",
             "ResourcePath": ".ssh",
             "Permission": "0755"
+        },
+        {
+            "Owner": "zenoss:zenoss",
+            "ResourcePath": "var-zenpacks",
+            "ContainerPath": "/var/zenoss",
+            "Permission": "0775"
         }
     ]
 }

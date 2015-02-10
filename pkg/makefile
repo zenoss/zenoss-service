@@ -12,14 +12,35 @@ NAME          = product
 FULL_NAME     = $(NAME)-service
 #FROMVERSION  = 0.3.70
 VERSION       = 5.0.0
-RELEASE_PHASE = 
+RELEASE_PHASE = # eg, ALPHA1 | BETA1 | CR1 | GA
 MAINTAINER    ="Zenoss CM <cm@zenoss.com>"
 PKGROOT       = pkgroot/$(FULL_NAME)
 
-ifeq "$(BUILD_NUMBER)" ""
-PKG_VERSION = $(VERSION)$(RELEASE_PHASE)
+# Package versions will follow the following idiom:
+#
+#   BUILD_NUMBER=1234
+#   RELEASE_PHASE=#ignored
+#   NIGHTLY: serviced-1.0.0-0.0.1234.unstable (where 1234 is the build number)
+#
+#   RELEASE_PHASE=ALPHA1
+#   BUILD_NUMBER=#ignored
+#   TESTING: serviced-1.0.0-0.1.ALPHA1 (where ALPHA1 is the release phase.  Could be any of
+#                                       ALPHA#, BETA#, CR#, or GA)
+#
+#   RELEASE_PHASE=GA
+#   BUILD_NUMBER=#ignored
+#   STABLE:  serviced-1.0.0-1 (this is special, and will result in a '1' REVISION)
+
+PKG_VERSION = $(VERSION)
+ifeq "$(RELEASE_PHASE)" ""
+    ITERATION = 0.0.$(BUILD_NUMBER).unstable
 else
-PKG_VERSION = $(VERSION)$(RELEASE_PHASE)-$(BUILD_NUMBER)
+    # Included a RELEASE_PHASE - assume NOT a nightly build
+    ifeq "$(RELEASE_PHASE)" "GA"
+        ITERATION = 1
+    else
+        ITERATION = 0.1.$(RELEASE_PHASE)
+    endif
 endif
 
 ifeq "$(FROMVERSION)" ""
@@ -43,7 +64,7 @@ export DESCRIPTION
 all: desc
 
 desc:
-	echo "Usage: make svcdef deb or make rpm. Both options package $(FULL_NAME)-$(PKG_VERSION)."
+	echo "Usage: make deb or make rpm. Both options package $(FULL_NAME)-$(PKG_VERSION)."
 
 .PHONY: clean_files
 clean_files:
@@ -89,7 +110,7 @@ mrclean: clean
 ZENPIPPKGSURL = http://zenpip.zendev.org/packages
 serviced:
 	echo " extracting: $@"
-	curl -s $(ZENPIPPKGSURL)/serviced-6380f807e34f07ca3a1ab7d7181136091062f9c2-dirty.tgz | \
+	curl -s $(ZENPIPPKGSURL)/serviced-e80a617cd935bb27df28d8056fea578bc7a08adb.tgz | \
 		tar -v -xz --transform 's|.*/||g' ./opt/serviced/bin/serviced
 
 # Make root dir for packaging
@@ -107,6 +128,7 @@ deb: stage_pkg
 	fpm \
 		-n $(FULL_NAME) \
 		-v $(DEB_PKG_VERSION) \
+		--iteration $(ITERATION) \
 		-s dir \
 		-d serviced \
 		-t deb \
@@ -123,6 +145,7 @@ rpm: stage_pkg
 	fpm \
 		-n $(FULL_NAME) \
 		-v $(PKG_VERSION) \
+		--iteration $(ITERATION) \
 		-s dir \
 		-d serviced \
 		-t rpm \

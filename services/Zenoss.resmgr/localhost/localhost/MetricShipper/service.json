@@ -1,5 +1,5 @@
 {
-    "Description": "Relay metric data to CentralQuery",
+    "Description": "Pushes metric data to a MetricConsumer",
     "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/metricshipper/supervisord.conf\"",
     "ConfigFiles": {
         "/opt/zenoss/etc/metricshipper/metricshipper.yaml": {
@@ -28,7 +28,7 @@
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": 1073741824,
+    "RAMCommitment": "1G",
     "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [

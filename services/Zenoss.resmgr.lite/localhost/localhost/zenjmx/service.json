@@ -48,7 +48,7 @@
     "ChangeOptions": [
         "restartAllOnInstanceChanged"
     ],
-    "RAMCommitment": 268435456,
+    "RAMCommitment": "256M",
     "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [
@@ -76,6 +76,7 @@
     "Name": "zenjmx",
     "Services": [],
     "Tags": [
+        "ZenPacks.zenoss.ZenJMX",
         "daemon",
         "collector"
     ],
@@ -347,6 +348,12 @@
             "Type": "",
             "ResourcePath": ".ssh",
             "Permission": "0755"
+        },
+        {
+            "Owner": "zenoss:zenoss",
+            "ResourcePath": "var-zenpacks",
+            "ContainerPath": "/var/zenoss",
+            "Permission": "0775"
         }
     ]
 }

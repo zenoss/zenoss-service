@@ -5,6 +5,11 @@
     },
     "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/central-query/supervisord.conf\"",
     "ConfigFiles": {
+       "/opt/zenoss/etc/central-query/central-query_supervisor.conf": {
+            "FileName": "/opt/zenoss/etc/central-query/central-query_supervisor.conf",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0644"
+       },
 	"/opt/zenoss/etc/central-query/configuration.yaml": {
             "FileName": "/opt/zenoss/etc/central-query/configuration.yaml",
             "Owner": "zenoss:zenoss",
@@ -38,7 +43,7 @@
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": 1073741824,
+    "RAMCommitment": "1G",
     "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [

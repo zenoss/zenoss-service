@@ -1,6 +1,10 @@
+# VERSION is the full Zenoss version; e.g., 5.0.0
+# SHORT_VERSION is the two-digit Zenoss version; e.g., 5.0
 VERSION         ?= 5.0.0
-hbase_VERSION    = v3
-opentsdb_VERSION = v8
+SHORT_VERSION   ?= 5.0
+
+hbase_VERSION    = v6
+opentsdb_VERSION = v13
 
 DOCKER          ?= $(shell which docker)
 BUILD_NUMBER    ?= $(shell date +%Y%m%d%H%M%S)
@@ -16,29 +20,40 @@ BUILD_NAME       ?= zenoss_$(BUILD_TYPE)-$(VERSION)
 PREFIX           ?= /opt/zenoss
 OUTPUT           ?= $(PWD)/output
 MILESTONE        ?= unstable # unstable | testing | stable
-MILESTONE_SUFFIX  = $(patsubst %,-%,$(strip $(MILESTONE)))
-RELEASE_PHASE    ?= # eg, b2 | a1 | rc1 | <blank>
+MILESTONE_SUFFIX  =
+RELEASE_PHASE    ?= # eg, beta2 | alpha1 | cr1 | <blank>
 _RELEASE_PHASE   := $(strip $(RELEASE_PHASE))
 PWD				  = $(shell pwd)
 UID				  = $(shell id -u)
 
 # Allow milestone to influence our artifact versioning.
-IMAGE_TAG      = $($(strip $(MILESTONE))_TAG)
+BUILD_TAG      = $($(strip $(MILESTONE))_TAG)
 stable_TAG     = $(VERSION)
-testing_TAG    = $(VERSION)$(_RELEASE_PHASE)_$(_BUILD_NUMBER)
+testing_TAG    = $(VERSION)_$(_RELEASE_PHASE)
 unstable_TAG   = $(VERSION)_$(_BUILD_NUMBER)
 
+# Suck in reference to an image
+IMAGE_NUMBER        ?= ""
+IMAGE_TAG            = $($(strip $(MILESTONE))_IMAGE_TAG)
+stable_IMAGE_TAG     = $(VERSION)
+testing_IMAGE_TAG    = $(VERSION)_$(_RELEASE_PHASE)
+unstable_IMAGE_TAG   = $(VERSION)_$(IMAGE_NUMBER)_unstable
+
 # Describe docker repositories where we push entitled content.
+repo_name_suffix      := _$(SHORT_VERSION)
+
 quay.io_REGPATH       = quay.io/
 quay.io_USER          = zenossinc
-quay.io_core_REPO     = zenoss-core
-quay.io_resmgr_REPO   = zenoss-resmgr
+quay.io_core_REPO     = zenoss-core$(repo_name_suffix)
+quay.io_resmgr_REPO   = zenoss-resmgr$(repo_name_suffix)
+quay.io_ucspm_REPO    = zenoss-ucspm$(repo_name_suffix)
 quay.io_SUFFIX        = $(MILESTONE_SUFFIX)
 
 docker.io_REGPATH     =
 docker.io_USER        = zenoss
-docker.io_core_REPO   = core
-docker.io_resmgr_REPO = resmgr
+docker.io_core_REPO   = core$(repo_name_suffix)
+docker.io_resmgr_REPO = resmgr$(repo_name_suffix)
+docker.io_ucspm_REPO  = ucspm$(repo_name_suffix)
 docker.io_SUFFIX      = $(MILESTONE_SUFFIX)
 
 docker_HOST           = docker.io
@@ -67,11 +82,11 @@ svcdef_ImageID_maps   += $(jsonsrc_zenoss_ImageID),$(desired_zenoss_ImageID)
 # NB: jsonsrc_<prod>_ImageID = what is currently in the source code.
 #     desired_<prod>_ImageID = what you want the ID to be
 #
-jsonsrc_hbase_ImageID = zenoss/hbase:v3
+jsonsrc_hbase_ImageID = zenoss/hbase:xx
 desired_hbase_ImageID = $(docker_PREFIX)hbase:$(hbase_VERSION)
 svcdef_ImageID_maps  += $(jsonsrc_hbase_ImageID),$(desired_hbase_ImageID)
 #
-jsonsrc_opentsdb_ImageID = zenoss/opentsdb:v8
+jsonsrc_opentsdb_ImageID = zenoss/opentsdb:xx
 desired_opentsdb_ImageID = $(docker_PREFIX)opentsdb:$(opentsdb_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_opentsdb_ImageID),$(desired_opentsdb_ImageID)
 
@@ -112,14 +127,17 @@ $(SVCDEF_EXE):
 # service definitions for each product
 # to be managed by serviced.
 #-------------------------------------#
-svcdef_PRODUCTS = zenoss-core zenoss-resmgr
+svcdef_PRODUCTS = zenoss-core zenoss-resmgr zenoss-ucspm
 svcdef_SRC_DIR  = services
 
-zenoss-core-$(IMAGE_TAG).json_SRC_DIR   := $(svcdef_SRC_DIR)/Zenoss.core
-zenoss-core-$(IMAGE_TAG).json_SRC       := $(shell find $(zenoss-core-$(IMAGE_TAG).json_SRC_DIR) -type f -name '*.json')
+zenoss-core-$(BUILD_TAG).json_SRC_DIR   := $(svcdef_SRC_DIR)/Zenoss.core
+zenoss-core-$(BUILD_TAG).json_SRC       := $(shell find $(zenoss-core-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json')
 
-zenoss-resmgr-$(IMAGE_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/Zenoss.resmgr
-zenoss-resmgr-$(IMAGE_TAG).json_SRC     := $(shell find $(zenoss-resmgr-$(IMAGE_TAG).json_SRC_DIR) -type f -name '*.json')
+zenoss-resmgr-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/Zenoss.resmgr
+zenoss-resmgr-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-resmgr-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json')
+
+zenoss-ucspm-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/Zenoss.ucspm
+zenoss-ucspm-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-ucspm-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json')
 #-------------------------------------#
  
 # Rule to build service defintions for a list of products.
@@ -127,11 +145,12 @@ zenoss-resmgr-$(IMAGE_TAG).json_SRC     := $(shell find $(zenoss-resmgr-$(IMAGE_
 #
 # e.g., <dir>/templates/zenoss-core-5.0.0_140705.json
 #       <dir>/templates/zenoss-resmgr-5.0.0_140705.json
+#       <dir>/templates/zenoss-ucspm-5.0.0_140705.json
 #
 svcdef_BUILD_DIR      = pkg/templates
-svcdef_BUILD_TARGETS := $(foreach product,$(svcdef_PRODUCTS),$(svcdef_BUILD_DIR)/$(product)-$(IMAGE_TAG).json)
+svcdef_BUILD_TARGETS := $(foreach product,$(svcdef_PRODUCTS),$(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json)
 .SECONDEXPANSION:
-$(svcdef_BUILD_TARGETS): short_product = $(patsubst zenoss-%,%,$(patsubst %-$(IMAGE_TAG).json,%,$(@F)))
+$(svcdef_BUILD_TARGETS): short_product = $(patsubst zenoss-%,%,$(patsubst %-$(BUILD_TAG).json,%,$(@F)))
 $(svcdef_BUILD_TARGETS): map_opt       = $(patsubst %,-map %,$(svcdef_ImageID_maps))
 $(svcdef_BUILD_TARGETS): src_dir       = $($(@F)_SRC_DIR)
 $(svcdef_BUILD_TARGETS): $$($$(@F)_SRC) | $(SVCDEF_EXE) $(OUTPUT) $$(@D)
@@ -154,7 +173,7 @@ $(svcdef_BUILD_TARGETS): $$($$(@F)_SRC) | $(SVCDEF_EXE) $(OUTPUT) $$(@D)
 # Usage:  make svcdef-core  or  make svcdef-zenoss-core
 #
 svcdef-%: product = $(patsubst %,zenoss-%,$(patsubst zenoss-%,%,$*))
-svcdef-%: target  = $(svcdef_BUILD_DIR)/$(product)-$(IMAGE_TAG).json
+svcdef-%: target  = $(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json
 svcdef-%: | $(svcdef_BUILD_DIR)
 	$(MAKE) $(target)
 
@@ -162,22 +181,22 @@ svcdefpkg-%: product = $(patsubst %,zenoss-%,$(patsubst zenoss-%,%,$*))
 svcdefpkg-%: | $(svcdef_BUILD_DIR) $(OUTPUT)
 	cd pkg && make clean
 	# Generate service definitions for this tag
-	$(MAKE) $(svcdef_BUILD_DIR)/$(product)-$(IMAGE_TAG).json
+	$(MAKE) $(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json
 	# Package the template
 	cd pkg && make \
 		VERSION=$(VERSION) \
-		BUILD_NUMBER=$(_BUILD_NUMBER) \
+		BUILD_NUMBER=$(BUILD_NUMBER) \
 		RELEASE_PHASE=$(_RELEASE_PHASE) \
 		NAME=$(product) \
-		TEMPLATE_FILE=../$(svcdef_BUILD_DIR)/$(product)-$(IMAGE_TAG).json \
+		TEMPLATE_FILE=../$(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json \
 		deb
 	cp pkg/$(product)-*.deb $(OUTPUT)
 	cd pkg && make \
 		VERSION=$(VERSION) \
-		BUILD_NUMBER=$(_BUILD_NUMBER) \
+		BUILD_NUMBER=$(BUILD_NUMBER) \
 		RELEASE_PHASE=$(_RELEASE_PHASE) \
 		NAME=$(product) \
-		TEMPLATE_FILE=../$(svcdef_BUILD_DIR)/$(product)-$(IMAGE_TAG).json \
+		TEMPLATE_FILE=../$(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json \
 		rpm
 	cp pkg/$(product)-*.rpm $(OUTPUT)
 
@@ -189,7 +208,11 @@ docker_buildimage:
 	$(DOCKER) build -t $(BUILD_IMAGE) hack/
 
 docker_svcdefpkg-%: docker_buildimage
-	$(DOCKER) run -v $(PWD):/mnt/pwd -w /mnt/pwd $(BUILD_IMAGE) bash -c '/mnt/pwd/pkg/add_user.sh $(UID) && su serviceduser -c "make BUILD_NUMBER=$(BUILD_NUMBER) svcdefpkg-$*"'
+	$(DOCKER) run -v $(PWD):/mnt/pwd \
+		-v $(OUTPUT):/mnt/pwd/output \
+		-w /mnt/pwd \
+		$(BUILD_IMAGE) \
+		bash -c '/mnt/pwd/pkg/add_user.sh $(UID) && su serviceduser -c "make BUILD_NUMBER=$(_BUILD_NUMBER) IMAGE_NUMBER=$(IMAGE_NUMBER) MILESTONE=$(MILESTONE) RELEASE_PHASE=$(RELEASE_PHASE) svcdefpkg-$*"'
 
 clean:
 	@for dir in $(MKDIRS) ;\

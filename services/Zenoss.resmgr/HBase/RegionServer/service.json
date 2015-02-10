@@ -53,17 +53,18 @@
         }
       ],
     "Privileged": true,
-    "ImageID": "zenoss/hbase:v3",
+    "ImageID": "zenoss/hbase:xx",
     "Instances": {
         "min": 3
     },
-    "RAMCommitment": 1073741824,
+    "RAMCommitment": "1G",
     "CPUCommitment": 1,
     "Launch": "auto",
+    "HostPolicy": "PREFER_SEPARATE",
     "LogConfigs": [
         {
             "path": "/var/log/hbase/hbase-regionserver.log",
-            "type": "mysql"
+            "type": "hbase"
         }
     ],
     "Name": "RegionServer",
@@ -92,7 +93,7 @@
     "Prereqs": [
         {
             "Name": "HBase Master up",
-            "Script": "curl -s -f http://127.0.0.1:61000/status/cluster | grep -q '0 dead'"
+            "Script": "curl -s -f http://127.0.0.1:61000/version/cluster &> /dev/null"
         }
     ]
 }

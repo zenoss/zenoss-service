@@ -1,0 +1,2516 @@
+# The service defs in this directory were moved from 
+# https://github.com/zenoss/platform-build/tree/develop/services
+#
+# This is the commit history of the service definitions at that location
+
+commit 514be8ad624dfbab03648b6b1d8f0e863faec5de
+Merge: ebc23ca 7ad7c1a
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Wed Oct 29 17:04:44 2014 -0500
+
+    Merge pull request #407 from zenoss/feature/ZEN-14172
+    
+    added support for serviced service run mysql rebuild_zodb_session
+
+commit 7ad7c1af7f72935340bdaa030c53df03182fa10d
+Author: Phil Lu <plu@zenoss.com>
+Date:   Wed Oct 29 14:13:53 2014 -0500
+
+    added support for serviced service run mysql rebuild_zodb_session
+
+commit 3ab4ab4ee7f9426a2eb202cf5c571ba2dda491a2
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Wed Oct 29 12:57:39 2014 -0500
+
+    Changed the splitting strategy for hbase regions
+
+commit 9c07802f5e0d92088208c02cce5a6a507e5225ca
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Mon Oct 27 10:36:18 2014 -0500
+
+    Increment hbase image version
+
+commit cc7d4e267e9c45891f7ec2b3ef54a3fa9df7c2ad
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Mon Oct 27 10:38:22 2014 -0500
+
+    ZEN-15089: Make zencatalogservice log config have correct type
+
+commit 85cb1226760489fac2891ef4c9cc3351969eed28
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Thu Oct 16 08:38:29 2014 -0500
+
+    Remove redundant rabbit_admin healthcheck
+
+commit 47d3e6739aaaa533e9bc53e5fd9ce0d82729d489
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Thu Oct 16 08:38:29 2014 -0500
+
+    Inject amqp user/password into rabbit healthcheck
+
+commit 947d006a5300801c94b74c1ad4f160d890da4d89
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Thu Oct 16 08:38:29 2014 -0500
+
+    Add rabbitmq user healthcheck
+
+commit 7788aaedb3249e0851e115ba36bf3c457611a26c
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Wed Oct 15 12:24:00 2014 -0500
+
+    Mounting .ssh volume to all z-services
+
+commit bd421f0c7a4937ae4d998640dc575ab0194ce711
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Tue Oct 14 16:30:47 2014 -0500
+
+    add websocket throughput graph
+
+commit dd58bc526b8fbda6c61260d43244b9e15de823fe
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Mon Oct 13 12:42:22 2014 -0500
+
+    add datapoint graph to metricshipper
+
+commit 8600ccc78a4bc9064040580c9dc75c75ae525b3c
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:01:25 2014 -0500
+
+    Increase health check intervals to 5 seconds
+
+commit 0ec28bac7cca7e6e89699947ee0088c9a2bd4975
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:17 2014 -0500
+
+    Replaced 'running' health checks with pgrep
+
+commit 18488d27c883b4a5cc1abe63fd6323a506ea519b
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:17 2014 -0500
+
+    Replace stable_workers health check
+
+commit acebb47cc447ec4d8cdadbfa3e64659fc09d9084
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:17 2014 -0500
+
+    Replace zenhub listening health check
+
+commit 5e115eff67c9fd379617d5a7757cff3315f8fd11
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:17 2014 -0500
+
+    Remove inappropriate "connected" healthchecks
+    
+    These healthchecks are expensive and do not work in the face of
+    log rotation
+
+commit 2fc920e23b300f8f137554c53da5f555b1b2d1dc
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:17 2014 -0500
+
+    Replace metricshipper running health checks
+
+commit 5207911cd43e8a3f8ab5a8c364deb4615e6bc75b
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:17 2014 -0500
+
+    Replace metrics inline healthcheck
+
+commit 9bdc4a4800a5427c303444b3ba931c406ac7b27a
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:17 2014 -0500
+
+    Replace store_answering inline healthcheck
+
+commit 1f9d4f2cfd9104ab93156a3ebc6fd40a9c791153
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:17 2014 -0500
+
+    Replace catalogservice_answering inline healthcheck
+
+commit 1a9935f41dfe2c86a67d6921bebf6898bd364c5d
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:17 2014 -0500
+
+    Replace memcached_answering inline healthcheck
+
+commit d26331f654ad98a22dbb64c0eaa768960210834e
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:16 2014 -0500
+
+    Replace zep_answering inline healthcheck
+
+commit b6e83972beb8b7be9b1f786d7d38e8e7f85a4cde
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:16 2014 -0500
+
+    Replace zproxy_answering inline healthcheck
+
+commit 035d0a33c08882cbebd8cf8a7ecfafcf936bd938
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:16 2014 -0500
+
+    Replace mysql_answering inline healthcheck
+
+commit a567f436de7fea9cdc4b843e6c5cdd27457b63ac
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:16 2014 -0500
+
+    Replace zenhub_answering inline healthcheck
+
+commit ea50cfd1449277fc55b2775b6646dce7b9ad457b
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:16 2014 -0500
+
+    Replace redis_answering inline healthcheck
+
+commit 217470c7567061bd64cc885093658d6e26a11a1b
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Oct 10 17:00:16 2014 -0500
+
+    Replace rabbit inline healthcheck with script
+
+commit 54c157fd70b8693d87f506ec89a625066d1c8d3b
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Fri Oct 10 10:43:19 2014 -0500
+
+    add duplicate fixing tag to opentsdb.conf
+
+commit 2581799180de1fb109a2788aee3d6c62ca644f58
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Wed Oct 8 15:28:06 2014 -0500
+
+    update zope.conf filter to properly handle python
+
+commit 56cfc33f0d8a7576d041baf284586c30f3406546
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Wed Oct 8 13:46:40 2014 -0500
+
+    * fixes ZEN-14827: add internal metrics for zenucsevents, zenwebtx and zenvsphere
+
+commit a53d3034ab015df437b033d785882c5791e57b36
+Merge: 800884d 324fce9
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Wed Oct 8 13:32:09 2014 -0500
+
+    Merge pull request #376 from zenoss/feature/exposeRabbit
+    
+    Expose rabbitmq and rabbitmq-admin
+
+commit 324fce9b9389f0fe59082715af7d3a6dbdc7b6f5
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Wed Oct 8 13:13:30 2014 -0500
+
+    Expose rabbitmq and rabbitmq-admin
+
+commit 2a4d25e6d9bf85df61168c344dcea063622a3477
+Merge: dff7c5b 9739143
+Author: Phil Lu <plu@zenoss.com>
+Date:   Tue Oct 7 08:03:22 2014 -0500
+
+    Merge pull request #373 from zenoss/feature/ZEN-14697
+    
+    * fixes ZEN-14697, zminion is already a daemon under the localhost collector organizer
+
+commit 6d0ef21188a4d27f649796595f133dc45da15862
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Mon Oct 6 18:08:14 2014 -0500
+
+    * fixes ZEN-14767, fix overlooked rabbitmq imports and health checks in resmgr services
+
+commit 97391431cf7497b66ff67092eaa6d566cb2da3e2
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Mon Oct 6 17:53:34 2014 -0500
+
+    * fixes ZEN-14697, zminion is already a daemon under the localhost collector organizer
+
+commit 8f80156fa3ed8f0c4c59364653ace9213564932b
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Fri Oct 3 16:43:56 2014 -0500
+
+    backing out another change that is not part of this fix.
+
+commit d3814a6e46488649841fa1756b550da6d7cb7e8d
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Fri Oct 3 16:41:05 2014 -0500
+
+    backing out a change that is not part of this fix.
+
+commit df42484c79e08e4a8a4aeb83a0cfd7edb79b0af3
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Fri Oct 3 16:38:47 2014 -0500
+
+    re-adding changes for ZEN-12443
+
+commit ec4f23238b2a19db484c1715d253f82a72dd62ea
+Author: Mike Orr <morr-zenoss@users.noreply.github.com>
+Date:   Fri Oct 3 16:10:38 2014 -0500
+
+    Revert "Feature/zen 12443 b"
+
+commit 4b4d3f71a3eea83daa8b8aa60b824b1839f346ca
+Merge: 1e627c4 8599bf5
+Author: Mike Orr <morr-zenoss@users.noreply.github.com>
+Date:   Fri Oct 3 16:07:52 2014 -0500
+
+    Merge pull request #370 from zenoss/feature/ZEN-12443B
+    
+    Feature/zen 12443 b
+
+commit 04ae397aae0913c6a66d90992fb2b515c9b8c685
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Fri Oct 3 13:52:55 2014 -0500
+
+    Update watchdog to check HBase status; tweaked timeouts.
+
+commit 1f879543c5d146b70405ec733949712aaf64c885
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Mon Sep 29 15:23:23 2014 -0500
+
+    Typo in zminion syntax for localhost collector
+
+commit be4ee73dc01b2c4c23bbcbe77197c1815fc806cb
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Fri Sep 26 14:12:18 2014 -0500
+
+    fixes ZEN-13781, dataPoints is a counter type
+
+commit f19df507b9afda9b5e256234e6eef383ba1cf7fa
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Fri Sep 26 13:12:37 2014 -0500
+
+    fixes ZEN-13781, dataPoints is a counter type
+
+commit 96409ce3bdbba52444a218a6ed999a60ca5de5d1
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Fri Sep 26 11:13:49 2014 -0500
+
+    Reference specific version of library, rather than head
+
+commit 64387a3cc29d3ecf94ebfb2177286a434e0a02d2
+Merge: 40f811a 5b6ca9f
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Fri Sep 26 09:16:27 2014 -0500
+
+    Merge pull request #362 from zenoss/feature/zen-14391
+    
+    Added HBase region pre-splits
+
+commit 442acf9901d1800358cb16628b8837dfddfd1c17
+Author: jplouis <jplouis@gmail.com>
+Date:   Fri Sep 26 08:45:53 2014 -0500
+
+    add zproxy import to zep
+
+commit 5b6ca9fbcff4da9851e5725d3099d5369c029e81
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Fri Sep 26 08:32:22 2014 -0500
+
+    Bumped the versions
+
+commit 093cb16625caf4b5d1e984479019152dd3602840
+Author: Phil Lu <plu@zenoss.com>
+Date:   Wed Sep 24 21:29:53 2014 -0500
+
+    fixed missing double quote
+
+commit 9de8af1766242e775d692af8d99ccebf042b5f13
+Merge: 451d861 1de9f1e
+Author: jplouis <jplouis@gmail.com>
+Date:   Wed Sep 24 20:17:26 2014 -0500
+
+    Merge pull request #360 from zenoss/feature/fixNmapHealthChecks
+    
+    Fix bad grep for nmap in health check
+
+commit 451d861f6db7be0e6d57857142433313ca822aea
+Merge: 8989a50 9ac1b24
+Author: jplouis <jplouis@gmail.com>
+Date:   Wed Sep 24 19:32:14 2014 -0500
+
+    Merge pull request #359 from zenoss/feature/ZEN-14496
+    
+    Replace opentsdb asynchbase library with forked version.
+
+commit 1de9f1ef41003897fb642ea81ac61a517cb799fc
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Wed Sep 24 19:30:05 2014 -0500
+
+    Fix bad grep for nmap in health check
+
+commit 9ac1b241266a453fbfa97d8c174b1c972c6958e1
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Wed Sep 24 19:23:54 2014 -0500
+
+    Replace opentsdb asynchbase library with forked version.
+
+commit dc6469d2dcb19880d2817084da528cb6db72356a
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Wed Sep 24 17:08:18 2014 -0500
+
+    Bump max_connections for MySQL
+
+commit f2471449988585e2df276c7e1573d4cf1e72a04b
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Tue Sep 23 15:22:42 2014 -0500
+
+    * fixes ZEN-14445, remove another --workers option
+
+commit d062f125b7f3773ba72fd58345c68d622a6f0f77
+Merge: e0e25b2 484a348
+Author: Phil Lu <plu@zenoss.com>
+Date:   Mon Sep 22 15:47:42 2014 -0500
+
+    Merge pull request #353 from zenoss/feature/ZEN-14445
+    
+    * fixes ZEN-14445: remove workers, cworkers and devices-per-worker options
+
+commit 484a3483118dab700302ceda07c165ad6470db0c
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Mon Sep 22 13:10:55 2014 -0500
+
+    * fixes ZEN-14445: remove workers, cworkers and devices-per-worker options
+
+commit 5f406dcba79771af358747a325646af429c3f176
+Merge: 5ead436 89e2384
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Thu Sep 18 18:42:15 2014 -0500
+
+    Merge branch 'develop' into feature/ZEN-12443
+
+commit 5ead43674dee7315a14fe382f3f31855416dd679
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Thu Sep 18 18:40:18 2014 -0500
+
+    Add watchdog to keep an eye on opentsdb.
+
+commit 522bf742e6970d920751259572b6d1c60298b8aa
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Thu Sep 18 13:20:01 2014 -0500
+
+    fixes ZEN-14377, bump default RAM commitment for zeneventserver to 4GB
+
+commit 35f6541a4a3fa6cd69f726daad27cedd3f48f6ba
+Merge: 49e46f6 79a962b
+Author: jplouis <jplouis@gmail.com>
+Date:   Thu Sep 18 11:45:50 2014 -0500
+
+    Merge pull request #349 from zenoss/feature/ZEN-14411
+    
+    Properly path to the regionserver parent
+
+commit 79a962b82dda42a2467023dce29a0dbf69673b9c
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Sep 18 11:43:48 2014 -0500
+
+    Whoops, unbreak resmgr.lite
+
+commit b85b6ea58b1ff6a0750f7681643293aef9ffc252
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Sep 18 11:41:41 2014 -0500
+
+    Properly path to the regionserver parent
+
+commit d79a9ca110ac9b820b8238cccdf3c622bac5f161
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Thu Sep 18 09:13:23 2014 -0500
+
+    Switched zenhub to use the global redis
+
+commit 777e5ae1c6fd3a984ced263235afa50c8d0442fd
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Wed Sep 17 17:05:11 2014 -0500
+
+    * fixes CC-151, test aliveness of rabbitmq server
+
+commit 4a130eb121977cb83e0bc54752f7f7a559f0f08a
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Wed Sep 17 16:36:11 2014 -0500
+
+    fixes CC-151, rabbitmqctl in health checks is leaking erlang subprocesses, rely only on the http admin interface for health checks
+
+commit 866f7793d1fcbfdfbe65d4a724b12c9ad7398800
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Wed Sep 17 09:26:05 2014 -0500
+
+    Fix the image versions for opentsdb and hbase.
+
+commit fe647a08fd7fb95ec016d7c7e4234d37b34e1b60
+Merge: 8e6ff8f 9fd0557
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Sep 16 14:44:56 2014 -0500
+
+    Merge pull request #344 from zenoss/feature/ZEN-14075-hbase
+    
+    Make HBase so quiet
+
+commit 9fd05571c1661b1e5f134796b8cfc35273cdd724
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Tue Sep 16 14:38:28 2014 -0500
+
+    Move changes to other services
+
+commit 1bb0afa7ee66a71093eeb18c50f6cfeb5e122cb4
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Tue Sep 16 14:15:17 2014 -0500
+
+    Hooray, HBase
+
+commit 446909e490781bd689e3103bdc72862e508eacaa
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Tue Sep 16 13:05:09 2014 -0500
+
+    Add zenup log location to DFS
+
+commit 5884090a49838453f3af801418bd895ab81f6217
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Sep 11 14:39:08 2014 -0500
+
+    Change RM name
+
+commit 4872de03aaff1cecd2ddb2784b489622b2472771
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Sep 11 14:29:21 2014 -0500
+
+    Quiet logging as well
+
+commit 457bedc8415a5f84b1d39ac1bbe79c34564855c2
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Sep 11 14:24:06 2014 -0500
+
+    Quiet RabbitMQ everywhere else
+
+commit f0ca617fdebc3b1997db3d3662b5cee4b51eb1e3
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Sep 11 13:18:34 2014 -0500
+
+    Quiet RabbitMQ in Zenoss.core
+
+commit aa56c436ee4b742b87c8f43b497220d362ae2563
+Merge: 4a8d578 a9ec307
+Author: Evan <epowell@users.noreply.github.com>
+Date:   Wed Sep 10 10:21:09 2014 -0500
+
+    Merge pull request #330 from zenoss/feature/CC-54
+    
+    * fixes CC-54, add title for top level app to display in graphs
+
+commit 5a4af62cf134a58a508c2f16cc48b9e2c5fef3ae
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Wed Sep 10 08:27:46 2014 -0500
+
+    Set zauth password
+    
+    Set zauth password to a value that will indicate that it should be
+    changed by the end user
+
+commit 9ce7dd1d6d4e7e0ec4ed3c13a78f73fad50fc4c9
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Mon Sep 8 14:36:49 2014 -0500
+
+    Set metricshipper user/passwd from root context
+
+commit 189640a20ec44cf8f90d806b6210b2d99b509681
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Mon Sep 8 14:32:09 2014 -0500
+
+    Expose metricshipper.yaml config file to serviced
+
+commit a9ec307bb6d9281a4b5f3f084a121c8419f1ad68
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Mon Sep 8 09:29:32 2014 -0500
+
+    * fixes CC-54, add title for top level app to display in graphs
+
+commit d021a649676825ef6bed1f7bcf03030be308f211
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Sep 5 12:49:43 2014 -0500
+
+    Add global.conf to zenoss services
+
+commit 35cdd3ffe182f705639d7182ad47effdf096bbf3
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri Sep 5 12:23:35 2014 -0500
+
+    Add global.conf parameters to context
+
+commit e8c4ff8085e6c14d346f2f5b86cdea6cae01f776
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Thu Sep 4 12:17:03 2014 -0500
+
+    add total commands per second graph to redis
+
+commit bb51be39a703aa36a396b8d636a3b79636de34e5
+Merge: 40bd506 17d10d5
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Wed Sep 3 17:13:53 2014 -0500
+
+    Merge pull request #322 from zenoss/feature/TA22292
+    
+    added zminion/service.json
+
+commit 40bd506988ed85666f7552024a846468c0b29e6d
+Merge: b148830 8676b06
+Author: jplouis <jplouis@gmail.com>
+Date:   Wed Sep 3 17:12:16 2014 -0500
+
+    Merge pull request #324 from zenoss/feature/ZEN-14046
+    
+    Update health checks so they do not write to filesystem.
+
+commit 8676b0687edda0b9aa4bdef875fd2bc1e7904be6
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Wed Sep 3 17:05:31 2014 -0500
+
+    Update health checks so they do not write to filesystem.
+
+commit fd0e35bf222d8bf69c48f59b2ee6e39b77b2a98a
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Wed Sep 3 16:38:56 2014 -0500
+
+    Ephemeral staging branch for holding changes for the nightly zup manifest
+
+commit 17d10d5dcf313fee38195b771613930ef7202a65
+Author: Phil Lu <plu@zenoss.com>
+Date:   Tue Sep 2 15:31:48 2014 -0500
+
+    added zminion/service.json
+
+commit 5b19980b05fd8dd3db0e3665953ce8646a355701
+Merge: 2e8f354 2c9932d
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Tue Sep 2 15:42:08 2014 -0500
+
+    Merge pull request #320 from zenoss/fix/cc-89
+    
+    remove logging healthchecks
+
+commit 2c9932d1735dc73051fca96cb9037eea7ad827c1
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Tue Sep 2 14:52:14 2014 -0500
+
+    remove logging healthcheck
+
+commit 4fc1eb4f2bf76f9fd34470974f15f88f7584c31b
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Tue Sep 2 14:28:57 2014 -0500
+
+    rename prereq check to reflect actual name of zencatalogservice
+
+commit 1cc368c30f2751bddaa97d0e31ab33d8cf0e35e9
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Tue Sep 2 14:18:17 2014 -0500
+
+    add zencatalogservice as a pre-req check to avoid invalidation worker leak, fixes ZEN-12558
+
+commit 0fa8a1026718e3aa0486f51dadd28e276ab3b3ce
+Author: Seth Cleveland <scleveland@zenoss.com>
+Date:   Fri Aug 29 15:38:33 2014 -0500
+
+    Adding units for graphs and cleaning up monitoring profiles
+
+commit 7f2d0bf8054a4c6f38765c52a6e455da1f25aaca
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Thu Aug 28 16:48:10 2014 -0500
+
+    Remove zproxy-nginx.conf from published config files
+
+commit 0390d9262009ce1eea90752d81906708dd3d19e4
+Merge: 34aae21 71e8414
+Author: Joseph Hanson <jhanson@zenoss.com>
+Date:   Thu Aug 28 15:24:56 2014 -0500
+
+    Merge pull request #310 from zenoss/feature/ZEN-13885
+    
+    Expose opentsdb configuration via CC
+
+commit 71e841495882f8f6626f2baccfa4ee0e07f14e94
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Thu Aug 28 14:56:17 2014 -0500
+
+    Expose opentsdb configuration via CC
+    
+    Use templating to populate config file fields, rather than env variables. This necessitates
+    modifying the start-opentsdb-client.sh file on the opentsdb image, and bumping the docker
+    image (zenoss/opentsb) to v3.
+
+commit 9c89d9531305f906cbbb31c308ff83a19b798951
+Author: Jason Huie <jhuie@zenoss.com>
+Date:   Wed Aug 27 17:58:33 2014 -0500
+
+    Add version number to top-level services
+
+commit 6633a10b5e772462d5bb5562150e293735557c76
+Author: jplouis <jplouis@gmail.com>
+Date:   Wed Aug 27 16:15:43 2014 -0500
+
+    fix log file name
+
+commit 5c8a21f74837582afdc4904d14978fdd01d2f02a
+Author: jplouis <jplouis@gmail.com>
+Date:   Wed Aug 27 14:51:30 2014 -0500
+
+    change service to refernce correct nginx log files
+
+commit d1ee1c3288e29bf7ba493a72be0e212f8e505ca5
+Merge: 92b7d98 db284b7
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Wed Aug 27 10:22:02 2014 -0500
+
+    Merge pull request #305 from zenoss/feature/ZEN-12694
+    
+    Expose config files through control center for multiple services
+
+commit 7154744893ac6fd71863dea5011b4fc08b577808
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Tue Aug 26 20:37:14 2014 -0500
+
+    Adjust zeneventserver CPU commitment
+
+commit 8d823e512f86944f76b881c83d314388a5a4fc21
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Tue Aug 26 20:29:14 2014 -0500
+
+    Add CPU commitment
+    
+    Add default CPU commitment to all services that have a RAM commitmen
+    grep --include \*.json -r -L CPUCommitment . | xargs -L1 sed -i -e 's|\(.*"RAMCommitment":.*\)|\1\n    "CPUCommitment│": 1,|'
+
+commit 28347df9c76459cfce0e8fd553d99a9e21585098
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Tue Aug 26 20:22:10 2014 -0500
+
+    Remove RAMCommitment from services with no command
+    
+    grep -L -r --include \*.json Command | xargs -L 1 sed -i -e '/.*RAMCommitment.*/d'
+
+commit db284b7a95c2475210bdba811a2810ff9cfbb7a5
+Merge: bfc10b1 5792779
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Tue Aug 26 17:56:23 2014 -0500
+
+    Resolve merge conflicts from develop.
+
+commit bfc10b12e03d8c85120c4d8476f4ed024fc77513
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Tue Aug 26 17:41:36 2014 -0500
+
+    Expose config files through control center for multiple services
+
+commit b6a6e7731e63a33784ff87a60b566845fe7e781d
+Merge: f8695d5 cc2e9e2
+Author: Zenoss Bot <zenossbot@zenoss.com>
+Date:   Tue Aug 26 11:28:47 2014 -0500
+
+    Automated merge from v5.0.0b2
+
+commit e9cfc2678416e912cf66e47cd2855806f8bf3984
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Tue Aug 26 10:27:53 2014 -0500
+
+    ZEN-13876: Change the manual launch configs to auto
+
+commit 9b77b35e4372f1789934bfce0416b0a30b905ed5
+Author: Clark Phillips <cphillips@zenoss.com>
+Date:   Tue Aug 26 09:10:10 2014 -0500
+
+    Adding /opt/zenoss/var/ext/ to zenjobs
+
+commit 5c2bb2701f75cf3a15f37455105f92f85e32ab72
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Fri Aug 22 16:55:34 2014 -0500
+
+    Make Xmx on zep
+
+commit 7e9a67ac3063799f137cf3069fe90b5a774bde6b
+Merge: 3757780 8d7ec32
+Author: Phil Lu <plu@zenoss.com>
+Date:   Thu Aug 21 14:07:17 2014 -0500
+
+    Merge pull request #292 from zenoss/feature/SetZopeDefault
+    
+    Setting default instances on Zope for RM
+
+commit de2e9bf49ae28bb638706783bbc857646e5b0ea8
+Author: Jason Huie <jhuie@zenoss.com>
+Date:   Thu Aug 21 12:05:01 2014 -0500
+
+    Resmgr -> Resmgr Lite
+
+commit 6800f1419ac052e3ed0a650c40144456756a85bc
+Author: Jason Huie <jhuie@zenoss.com>
+Date:   Thu Aug 21 11:53:12 2014 -0500
+
+    Add descriptions
+
+commit 8d7ec32cdb41145eb26d49bed43b03a80fcde168
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Wed Aug 20 21:40:39 2014 -0500
+
+    Setting default instances on Zope for RM
+
+commit de029db8ad20be99867fef1ae995f5e4d744c6a8
+Merge: b75cad1 ee209c8
+Author: Zenoss Bot <zenossbot@zenoss.com>
+Date:   Tue Aug 19 16:28:43 2014 -0500
+
+    Automated merge from v5.0.0b2
+
+commit add9938aad095726fc6674e7069d31d3ec9c31c2
+Author: morr-zenoss <morr@zenoss.com>
+Date:   Tue Aug 19 15:53:28 2014 -0500
+
+    Fix ZEN-13538: run MetricShipper at top level
+
+commit 4b57451a767f9fc746e8ed54e41a58110a03b77b
+Author: Jason Huie <jhuie@zenoss.com>
+Date:   Tue Aug 19 15:42:15 2014 -0500
+
+    Move zproxy to top level service
+    
+    Adds health check for "Ready" status
+
+commit d89a3b29e31bf65fdd3a8390a78c11137eb4debb
+Merge: 8c94a61 d4bbaf3
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Mon Aug 18 23:39:44 2014 -0500
+
+    Merge remote-tracking branch 'origin' into feature/useDefaultFormatOnCharts
+
+commit 8c94a61e4ba86f486509f4f3d1e1e99416a1d9c0
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Mon Aug 18 23:38:04 2014 -0500
+
+    use default formatting for collector graphs to avoid rounding errors making the graphs look wrong
+
+commit 0b53caf35c328734406fe8a88e9ed211fbf2e209
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Fri Aug 15 15:32:45 2014 -0500
+
+    ZEN-10536: Fix ZEP not logging to its logfile
+
+commit a251a94c11c393c5ff402ba0c62e17ba02a5f33e
+Merge: a98333a 274c49a
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Aug 14 15:30:29 2014 -0500
+
+    Merge branch 'v5.0.0b2' into develop
+
+commit 2927ebd4918a7ff6535c6fb91694a37e855fd86d
+Merge: ca26d50 43528c3
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Thu Aug 14 11:34:01 2014 -0500
+
+    Merge pull request #278 from zenoss/feature/ZEN-5633
+    
+    fixes ZEN-5633: default zeneventd nice value to +10
+
+commit 7cd81c3d9ec9bb4a682ddc0534e1b4ce44034358
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Aug 14 11:14:14 2014 -0500
+
+    Make Zenoss.core.lite the default Zenoss.core, and tweak to have a single RegionServer
+
+commit 43528c3af90c383dcee3fc3a69fffbbb79c4bf5d
+Author: Phil Lu <plu@zenoss.com>
+Date:   Wed Aug 13 15:05:45 2014 -0500
+
+    fixes ZEN-5633: default zeneventd nice value to +10
+
+commit b16d9462e3e4db042c76fb6a567e90ce52e223d3
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Tue Aug 12 10:46:18 2014 -0500
+
+    display data points graph as rate
+
+commit 23eba19f3916397f8ce70089df2ccfcc46b84314
+Author: Clark Phillips <cphillips@zenoss.com>
+Date:   Thu Aug 7 16:11:38 2014 -0500
+
+    importing zenhub_rpc to zenactiond to allow zensendevent to run in zenationd
+
+commit d101836969363ebbaa09f9e6b75f945ee9e39930
+Author: Clark Phillips <cphillips@zenoss.com>
+Date:   Wed Aug 6 10:54:03 2014 -0500
+
+    updating opentsdb image for SNAPPY compression
+
+commit 9c474f4ed7a1e200bf0bb525d72359387258476b
+Author: Phil Lu <plu@zenoss.com>
+Date:   Mon Aug 4 15:40:46 2014 -0500
+
+    add "collector" tag to localhost/collectorredis and localhost/MetricShipper so they are replicated when creating new collectors
+
+commit 6543c01c5c2243e09f6622236a553bdde17becb6
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Mon Aug 4 11:09:59 2014 -0500
+
+    add missed precisions
+
+commit 1d50b8739518fd513151a445ea5a42a757d58a68
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Mon Aug 4 11:08:18 2014 -0500
+
+    add greater precision to eventCount and eventQueueLength internal metric graphs
+
+commit fe7b5fb25bb862516a81b5ed1c3b1c0c9b44eaf9
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Fri Aug 1 15:27:18 2014 -0500
+
+    Don't use sudo to run health checks
+
+commit ec840a8511eaceaf9cb1759a2834b26c0aff4fa2
+Merge: efd1cc3 d5e8076
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Jul 31 14:20:23 2014 -0500
+
+    Merge branch 'develop' into feature/centos7
+
+commit d5ca6addf2b2fdf7dbdaffb708a3945462c46494
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Wed Jul 30 19:38:00 2014 -0500
+
+    Now with centos7
+
+commit bb58588134ce796b41b21d40f8baffa372fd211f
+Author: Jason Huie <jhuie@zenoss.com>
+Date:   Tue Jul 29 09:13:50 2014 -0500
+
+    Min/Max instances -> 0
+
+commit bee5d12146e2bad6dab6a1eeaedfefdf97adaacc
+Author: Jason Huie <jhuie@zenoss.com>
+Date:   Tue Jul 29 09:03:07 2014 -0500
+
+    Add max instance to top level service
+
+commit c9e29f5e34010fa6d3a77c6dc1d975cd51dbd07a
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Fri Jul 25 21:07:13 2014 -0500
+
+    set appropriate labels on 'Lite' versions of templates
+
+commit f4708a737581e7ca5962164a6a15e6cec11cb5d6
+Author: jplouis <jplouis@gmail.com>
+Date:   Fri Jul 25 16:09:56 2014 -0500
+
+    fix templating syntax
+
+commit cd5f4173aabbca34f1bf340733affbd067d212c2
+Author: jplouis <jplouis@gmail.com>
+Date:   Fri Jul 25 16:02:44 2014 -0500
+
+    add a redis at the collector level and move metric shipper to collector
+
+commit 4244c8c5d40c8b801e64335b51fa5add6a105e63
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Jul 24 15:36:23 2014 -0500
+
+    Use tmp volumes instead
+
+commit 236302c4fa2befbd2a8309efaa84b00380002e16
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Thu Jul 24 12:46:50 2014 -0500
+
+    Add volume for /opt/zenoss/var/zeneventserver
+
+commit 7bfbcb74a7ec08f5581cdfb23a40a7c71d5f4d57
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Wed Jul 23 21:24:11 2014 -0500
+
+    Use runzope instead of zopectl fg
+
+commit 58586469ddb59ed234d4beea6d68a40b2f8c9a7a
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Wed Jul 23 21:14:47 2014 -0500
+
+    Add volumes for zproxy caching
+
+commit 0db3fd2c28fd63c7860a9c7a80e8e29c7cb76be6
+Merge: 86670e8 f264674
+Author: Phil Lu <plu@zenoss.com>
+Date:   Wed Jul 23 16:33:27 2014 -0500
+
+    Merge pull request #228 from zenoss/feature/ZEN-13039
+    
+    Feature/zen 13039
+
+commit f264674e36573f32c889527cfa3748e0408fd554
+Author: jplouis <jplouis@gmail.com>
+Date:   Wed Jul 23 15:28:18 2014 -0500
+
+    opentsdb image doesn't have curl
+
+commit a31aba816b2e273c8d91426599615d83690207dc
+Merge: eb6e848 f6a7356
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Wed Jul 23 14:21:32 2014 -0500
+
+    Merge branch 'develop' into feature/ZEN-12819
+
+commit 8a9f7e0d1bc788781bc9e237922631e986720ffc
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Wed Jul 23 14:19:57 2014 -0500
+
+    Get it in the resmgr.lite as well
+
+commit b220512db721f79634e86ab0b9e8fe58bb330262
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Wed Jul 23 14:17:28 2014 -0500
+
+    Add health checks for everything
+
+commit 4f4953272a85d30993195059fad8c879cc626c9e
+Author: jplouis <jplouis@gmail.com>
+Date:   Wed Jul 23 14:02:39 2014 -0500
+
+    add --fail to get non zero exit code and keep opentsdb check from blocking
+
+commit 18fdf83aa88541f238b1d5500605bcce3adc3aeb
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Wed Jul 23 13:36:44 2014 -0500
+
+    Changed memcached_answering health checks
+    
+    Eliminates health check flapping by giving memcached more time to respond to ping.
+    (Possibly) Fixes ZEN-12753
+
+commit 4a5ddf5b1901d36431fbf56f75cb780b4e6b8204
+Author: jplouis <jplouis@gmail.com>
+Date:   Wed Jul 23 13:35:17 2014 -0500
+
+    use central queries own health check
+
+commit aa186377e8ecec3e0ba891f733068f64368756b8
+Merge: 792cbce d3d3be9
+Author: sethcleveland <seth.cleveland@gmail.com>
+Date:   Wed Jul 23 13:25:06 2014 -0500
+
+    Merge pull request #221 from zenoss/feature/zenpackTenantDefaults
+    
+    Zenpack default service properties
+
+commit 1d9ef7c30eefeed265280cd5c5b8c9bd24757430
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Wed Jul 23 11:20:19 2014 -0500
+
+    Changed zenhub_answering checks
+    
+    Eliminates health check flapping by giving zenhub more time to respond
+    to ping.
+    One second to respond in zenhub service, five seconds for other services.
+
+commit d3d3be9ca7d567335ddb73e0483161dc9f350589
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Wed Jul 23 10:46:52 2014 -0500
+
+    Zenpack default service properties
+
+commit b32c29daffeb434f511dafbde35507a2615b2fbf
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Tue Jul 22 16:45:47 2014 -0500
+
+    Add basic service def
+
+commit b69d37b0e5862c1dadc003cccc51f1e6c251b3f0
+Author: Seth Cleveland <scleveland@zenoss.com>
+Date:   Tue Jul 22 14:40:18 2014 -0500
+
+    Fix log stash multiline detection
+
+commit 31598efa705d3519573399857396ee78a63030f0
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Mon Jul 21 15:21:12 2014 -0500
+
+    added to lite profiles as well
+
+commit 7030a9bcba5f42d1f2ea6938f3e92b6e08a6214f
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Mon Jul 21 15:16:32 2014 -0500
+
+    add pidfile to mysql resmgr
+
+commit 5d606e5b6fa01a05ee110674a2e1ac37d5e4fb8b
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Mon Jul 21 13:56:54 2014 -0500
+
+    add pidfile to mysql so we can shut it down
+
+commit 649e56ced24ab09df1efcf3674e3fe0448bc8f3a
+Author: Dmitry <dsuvorov@zenoss.com>
+Date:   Mon Jul 21 16:19:00 2014 +0300
+
+    Added additional volume to Zope
+
+commit 4526901950151840bf3de731285ecf89b756e43d
+Merge: 2c816bb de86718
+Author: John Crocker <jafcrocker@users.noreply.github.com>
+Date:   Thu Jul 17 15:23:44 2014 -0500
+
+    Merge pull request #204 from zenoss/feature/TA21952-resmgr
+    
+    Confirmed zenoss runs and models devices
+
+commit de86718354012ec58f9628c18ed171ca1fb80f40
+Author: Ward K Harold <wkharold@gmail.com>
+Date:   Thu Jul 17 15:16:15 2014 -0500
+
+    Drop number of Zope's to 1; incorporate changes to zenactiond/zeneventd logging health checks
+
+commit 2c816bb377c107741481cff5ab6152d002f0a425
+Merge: 53781f8 f93d83e
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Thu Jul 17 14:29:03 2014 -0500
+
+    Merge pull request #205 from zenoss/feature/fixLoggingHealthchecks
+    
+    Fix time frame for logging health check
+
+commit f93d83ed348a980a7e352bac0e5f0c1103165056
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Thu Jul 17 14:12:22 2014 -0500
+
+    Fix time frame for logging health check
+    
+    These two daemons log every minute
+    This now matches the definition in core.
+
+commit 79fa8f49c954e0490f9b04c62d19e7b7a4355cfa
+Author: Ward K Harold <wkharold@gmail.com>
+Date:   Thu Jul 17 12:34:24 2014 -0500
+
+    Shrink the resmgr profile so that you can run it on smaller boxes
+
+commit 3935f0c1d26ef25c3dacadcd1503f3a0706b8548
+Author: Ward K Harold <wkharold@gmail.com>
+Date:   Thu Jul 17 10:34:27 2014 -0500
+
+    Initial Zenoss.resmgr lite profile
+
+commit 53781f8fa6d32aabdd22ab0c406ceb4043b393c6
+Merge: 233be31 e73efa9
+Author: Evan <epowell@users.noreply.github.com>
+Date:   Thu Jul 17 10:16:02 2014 -0500
+
+    Merge pull request #192 from zenoss/feature/ZEN-12563
+    
+    Adding audit.log to LogConfig for all zenoss services
+
+commit e73efa9cfb378da2f3b014d84ad46607b4158e2a
+Author: Seth Cleveland <scleveland@zenoss.com>
+Date:   Thu Jul 17 10:13:12 2014 -0500
+
+    removing double LogConfig entries
+
+commit 9bc756cc32cbfcd0388101bba98294435df1b03f
+Author: Andrew Lapidas <alapidas@gmail.com>
+Date:   Thu Jul 17 09:49:06 2014 -0500
+
+    Adding missing volume + zenup run to core Zope serv. templates
+
+commit 14b3ababf717e8be506b48b4d02b1d5817a23981
+Author: Seth Cleveland <scleveland@zenoss.com>
+Date:   Wed Jul 16 14:38:58 2014 -0500
+
+    adding audit logs to all zen processes
+
+commit 06add7c3788c10ec6707e5f5b791ae8df83561f0
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Tue Jul 15 14:07:43 2014 -0500
+
+    Remove obsolete environment variables
+    
+    CONTROLPLANE_SYSTEM_* variables are set in /etc/profile.d so do
+    not need to be included in the zenpack command
+
+commit 2af0461e8c17b26cb2b687faa3a69247d2485cf9
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Tue Jul 15 09:03:49 2014 -0500
+
+    Remove obsolete environment variables
+    
+    CONTROLPLANE_SYSTEM_* variables are set in /etc/profile.d so do
+    not need to be included in the zenpack command
+
+commit 3ac582ecdbceae42ee832af33402a656a51cdb7f
+Author: Philip Carinhas <pcarinhas@zenoss.com>
+Date:   Sun Jul 13 17:08:05 2014 -0500
+
+    Fix typo in metrics
+
+commit 76a192b1ff9d534594331debc54f815e26628160
+Merge: 368aea8 6bfab98
+Author: John Crocker <jafcrocker@users.noreply.github.com>
+Date:   Fri Jul 11 16:20:53 2014 -0500
+
+    Merge pull request #195 from zenoss/feature/ZEN-12697
+    
+    added zenmib to Zope Runs
+
+commit 6bfab9879e873b45a5c0d8e7ef50b8d401e53819
+Author: Phil Lu <plu@zenoss.com>
+Date:   Fri Jul 11 16:05:00 2014 -0500
+
+    use zenmib.sh in zenrun.d instead of zenmib
+
+commit 7ee9a479699a108b169ae879d8a3cdebf252aed8
+Author: Phil Lu <plu@zenoss.com>
+Date:   Fri Jul 11 14:18:37 2014 -0500
+
+    added zenmib to Zope Runs
+
+commit 9c916e905f1ee49779afb1bcbb72121bc363c230
+Author: Seth Cleveland <scleveland@zenoss.com>
+Date:   Thu Jul 10 13:48:14 2014 -0500
+
+    Adding audit.log to LogConfig for all services that require zodb
+
+commit 8735963c973ba028781c118236d1c02f40d8175a
+Merge: ef4247d 2247365
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Wed Jul 9 17:09:22 2014 -0500
+
+    Merge branch 'develop' into feature/dockerhub
+
+commit ef4247d85e80fd7d07097cc26cf95d0e281e4419
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Wed Jul 9 16:24:04 2014 -0500
+
+    Rewrite everything to use docker.io instead of quay.io
+
+commit 9c63c8ca6d60e8f9ca4b19fe9cce777a44b610b9
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Wed Jul 9 14:23:06 2014 -0500
+
+    all the graphs
+
+commit 3914b0a4c4e79ac84ebe802101a29c768ef6c227
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Tue Jul 8 13:48:45 2014 -0500
+
+    unfix the fix
+
+commit f8792471b0634511fd22fe5c75d868861e82c7c1
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Tue Jul 8 13:37:41 2014 -0500
+
+    add portnumber and protocol to mysql import in zauth service def
+
+commit 6bf456ab34f8aaa50fe42fb2af833c1010e51f02
+Merge: bf8438c 5ab68a5
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Tue Jul 8 10:55:00 2014 -0500
+
+    Merge branch 'develop' into feature/graphdefs
+
+commit bf8438c793490cfda8e5b1a46641517cabd39cf3
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Tue Jul 8 10:54:29 2014 -0500
+
+    various graphs
+
+commit 6d3f57b7cefad0a29c4c61487eb3e68c32629757
+Author: Seth Cleveland <scleveland@zenoss.com>
+Date:   Tue Jul 8 10:20:02 2014 -0500
+
+    Change service template evaluation from .Id to .ID
+
+commit 02a3d67c5dd7c1dfa629ee38c6988bcd892511e4
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Jul 7 21:04:48 2014 -0500
+
+    Undo unnecessary zope mins
+
+commit eb876bcc341cd932605b6733865c710c6f63c445
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Jul 7 20:54:36 2014 -0500
+
+    Update zk resmgr health check
+
+commit dd321bffca6299929ed977b924c63affc5e12446
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Jul 7 20:47:02 2014 -0500
+
+    Update services to have proper health checks, prereqs and commands
+
+commit ca33f24ac217785daea54cea301f309df8f7e9fb
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Jul 7 19:34:39 2014 -0500
+
+    Use templatized prereqs/healthchecks
+
+commit 570148cc928c086d047688cf289b712fd5e133de
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Jul 7 17:26:10 2014 -0500
+
+    Remove erroneous import_all
+
+commit 8bc84e77ba9a26f270eec15f7bf6a272f67e476a
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Jul 7 17:22:46 2014 -0500
+
+    Fix ZooKeeper services
+
+commit fa22bffd5db24f4e00f480c84c307a2b27629d6b
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Jul 7 17:12:03 2014 -0500
+
+    Remove unnecessary stuff
+
+commit 653a8559d7de3996141a51d6d8f859315c67e056
+Merge: 0bd358d 95dc4da
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Jul 7 17:09:33 2014 -0500
+
+    Update RegionServer health check
+
+commit 0bd358df8ba7e623936d4391114fadf5d07b7d97
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Jul 7 17:07:04 2014 -0500
+
+    Update resmgr service definitions
+
+commit 745f2284020065e79140ec078e0594fa1d9efa27
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Jul 7 17:03:15 2014 -0500
+
+    Import RegionServers into RegionServers
+
+commit b5d1f9de392b033d9e9be3bf11e2153cd95aa90d
+Author: Chris Johnson <chris@kindkid.com>
+Date:   Fri Jun 27 11:37:23 2014 -0500
+
+    Accurate health checks
+
+commit 6b3a43cb01fd61417230efc08ec6d1f5009689f4
+Merge: 7052e2a 15239d7
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Jul 7 16:21:22 2014 -0500
+
+    Merge branch 'develop' into feature/dynamic_endpoints
+    
+    Conflicts:
+    	services/Zenoss.core/HBase/RegionServer/regionserver-1/service.json
+    	services/Zenoss.core/HBase/RegionServer/regionserver-2/service.json
+    	services/Zenoss.core/HBase/RegionServer/regionserver-3/service.json
+    	services/Zenoss.core/HBase/ZooKeeper/zk1/service.json
+    	services/Zenoss.core/HBase/ZooKeeper/zk2/service.json
+    	services/Zenoss.core/HBase/ZooKeeper/zk3/service.json
+
+commit 7052e2a44f458e345889387e889c137e1a9e980a
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Jul 7 16:18:00 2014 -0500
+
+    Minor cleanup, name changes
+
+commit 15239d74ecf5487294a7866b85f6ac70ec816015
+Merge: e6f64a2 2b9f266
+Author: jplouis <jplouis@gmail.com>
+Date:   Mon Jul 7 15:23:40 2014 -0500
+
+    Merge pull request #174 from zenoss/feature/ZEN-12629
+    
+    use health check interval as float
+
+commit e6f64a23d1bd3c295516b9a07e208d300a76ae5a
+Merge: 4a116dd 99d0d31
+Author: Evan <epowell@users.noreply.github.com>
+Date:   Mon Jul 7 09:10:28 2014 -0500
+
+    Merge pull request #175 from zenoss/feature/zenpythonzproxy
+    
+    zproxy endpoint for zenpython, for calc perf
+
+commit 2b9f2669d82c7138866520b6db361af517060160
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Thu Jul 3 17:21:25 2014 -0500
+
+    use health check interval as float
+
+commit 2ca2a07ae2ca00ccea35a2c8d28015f359b80264
+Author: Phil Lu <plu@zenoss.com>
+Date:   Fri Jul 4 08:50:00 2014 -0500
+
+    revert previous commit - Volumes for Zope in Zenoss.core should not be the same as Zenoss.resmgr - see df435362d9d04f8d0f5a38784d78815523195e31
+
+commit 99d0d31b522584ec9391bb150f4c514f5c39c8c2
+Author: Eric Miller <emiller@zenoss.com>
+Date:   Thu Jul 3 19:05:02 2014 -0500
+
+    zproxy endpoint for zenpython, for calc perf
+
+commit d6eef0a744854aba051e263bf569e866e6a2fafa
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Jul 3 15:55:28 2014 -0500
+
+    Update to use one zookeeper
+
+commit 843a2aa30cca5e9aaedb50cedd787101257fbe15
+Author: Phil Lu <plu@zenoss.com>
+Date:   Thu Jul 3 15:43:08 2014 -0500
+
+    Volumes for Zope in Zenoss.core should be the same as Zenoss.resmgr
+
+commit 47d7687b0eae0d84d56db086fea6422bc96cdabf
+Merge: 2be0ef6 5356a70
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Jul 3 15:12:16 2014 -0500
+
+    Merge branch 'develop' into feature/dynamic_endpoints
+    
+    Conflicts:
+    	services/Zenoss.core/HBase/RegionServer/regionserver-1/service.json
+    	services/Zenoss.core/HBase/RegionServer/regionserver-2/service.json
+    	services/Zenoss.core/HBase/RegionServer/regionserver-3/service.json
+    	services/Zenoss.core/HBase/ZooKeeper/zk1/service.json
+    	services/Zenoss.core/HBase/ZooKeeper/zk2/service.json
+    	services/Zenoss.core/HBase/ZooKeeper/zk3/service.json
+
+commit 2be0ef698f70dd21b11da86e9881ac30aa6ae0db
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Jul 3 15:09:30 2014 -0500
+
+    Fix template
+
+commit 5356a70408da2412409abcd83dc0c6cb2a323ea6
+Merge: 35f8ad7 5ac8d49
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Jul 3 14:23:03 2014 -0500
+
+    Merge pull request #172 from zenoss/fix/ZEN-12271
+    
+    update hbase ImageID from v1 to v2
+
+commit 5ac8d493ad841f9b87a073a2f8f37a5852526ad3
+Author: Phil Lu <plu@zenoss.com>
+Date:   Thu Jul 3 14:21:34 2014 -0500
+
+    update hbase ImageID from v1 to v2
+
+commit 35f8ad715423996743747bdd52fc2b43690c131b
+Merge: e263627 750aa5c
+Author: Evan <epowell@users.noreply.github.com>
+Date:   Thu Jul 3 10:20:32 2014 -0500
+
+    Merge pull request #166 from zenoss/feature/add_graphconfigs_to_services
+    
+    Add GraphConfigs to service definitions by adding a monitoring profile
+
+commit e263627ebf4beb97853a128a6d9e995fe850fc71
+Merge: 58279d2 f4837bc
+Author: sethcleveland <seth.cleveland@gmail.com>
+Date:   Thu Jul 3 10:03:13 2014 -0500
+
+    Merge pull request #168 from zenoss/feature/changeOptions
+    
+    Add a ChangeOption for restarting all instances
+
+commit 69490fcb7baa33947fe34e90b2cbebfdd77dcf45
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Jul 3 08:35:44 2014 -0500
+
+    Almost got a config file working
+
+commit dbaafe150fcb528e362852d1534dc9a0d60a1c32
+Merge: 3c961ca 821f809
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Wed Jul 2 17:19:28 2014 -0500
+
+    Merge pull request #139 from zenoss/feature/ZopeTuning
+    
+    minimal tuning of zope
+
+commit f4837bc3a736a47f7ec092691f79218377522752
+Author: Evan Powell <epowell@zenoss.com>
+Date:   Thu Jun 19 14:24:08 2014 -0500
+
+    Add a ChangeOption for restarting all instances
+
+commit 750aa5cbbc37592d3b708b5ef802e9f0c32ac380
+Author: Seth Cleveland <seth.cleveland@gmail.com>
+Date:   Wed Jul 2 09:59:15 2014 -0500
+
+    Add GraphConfigs to service definitions by adding a monitoring profile
+
+commit f6bf2d3efd29022e0e22e9c3bc8e34e576b4e045
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Tue Jul 1 13:13:56 2014 -0500
+
+    Update to avoid a bash wrapper in the service command
+
+commit 101f4704ff7dd0edb8b65c1edd09f5da83d8f239
+Merge: a4c760c 8f45d17
+Author: G Streiff <gstreiff@zenoss.com>
+Date:   Fri Jun 27 12:27:55 2014 -0500
+
+    resolve merge conflict
+
+commit e22549db651575ba4283b5c4205167ecc05f2554
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Fri Jun 27 09:05:49 2014 -0500
+
+    Added missing configs
+
+commit 5271fa1393f4febb2b656ba0533ab9fd2d30e812
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Fri Jun 27 09:05:23 2014 -0500
+
+    Saving state
+
+commit b07f1aa5639ac6b3bc17bdf43fa82593d20d94d7
+Author: G Streiff <gstreiff@zenoss.com>
+Date:   Thu Jun 26 16:30:13 2014 -0500
+
+    fix description Zenoss core svcdef json
+
+commit 6a3e3e1d0d4205129467bbaf56c8ef809abcdb39
+Merge: 240d0c3 92358dd
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Thu Jun 26 14:53:50 2014 -0500
+
+    Merge pull request #161 from zenoss/feature/allmetrics
+    
+    add metric configs to service definitions
+
+commit 92358dda17284bf23e2d66ab97c06c8bda0d9462
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Thu Jun 26 14:47:31 2014 -0500
+
+    metrics update
+
+commit 240d0c3eb39904ebe2a889cb55f47a6c205d7106
+Merge: d030fc2 8e7cbce
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Thu Jun 26 12:06:01 2014 -0500
+
+    Merge pull request #162 from zenoss/feature/ZEN-12429
+    
+    set cycle flags on daemons so heartbeats will be sent
+
+commit 58670da6127f88e191814d5405a44f3f71063356
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Thu Jun 26 11:05:18 2014 -0500
+
+    add metric configs to service definitions
+
+commit 688a5b8ca28ff16d198cb67bd53bbe2a7a0ad0ae
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Jun 26 09:14:58 2014 -0500
+
+    Working on zookeeper
+
+commit 8e7cbce1ff19a55fe5a976bdf7eaa414cd096235
+Author: jplouis <jplouis@gmail.com>
+Date:   Wed Jun 25 18:19:41 2014 -0500
+
+    set cycle flags on daemons so heartbeats will be sent
+
+commit c4ecdfd004cbdf8b5bd4a934e793bd4b14f14f2d
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Tue Jun 24 15:08:30 2014 -0500
+
+    Have regionservers wait for endpoints to get set up
+
+commit 5f4a5dc44b12ba3ec8ad8a7dd6aa765c12d1788d
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Tue Jun 24 14:32:29 2014 -0500
+
+    added metrics for metric shipper
+
+commit cc61f37a82b9e71f44619f90bc7bca4d9784af82
+Author: jplouis <jplouis@gmail.com>
+Date:   Mon Jun 23 20:47:55 2014 -0500
+
+    set ram commitment to 4gb
+
+commit 6dea1562e6e09832d09156898ca98d81bd595b1c
+Author: jplouis <jplouis@gmail.com>
+Date:   Mon Jun 23 20:13:31 2014 -0500
+
+    set RM hbase region servers to 4GB heap
+
+commit 309645e54dd7a57458d12349d9ebcd2799d3444e
+Merge: 64b80af b081634
+Author: wkharold <wkharold@gmail.com>
+Date:   Mon Jun 23 18:45:19 2014 -0500
+
+    Merge pull request #156 from zenoss/feature/ZEN-12412
+    
+    add 1gb memory limit to redis
+
+commit 64b80afaf3814328681971606b29e1a496f7e8a9
+Merge: 9025cb4 3003541
+Author: John Crocker <jafcrocker@users.noreply.github.com>
+Date:   Mon Jun 23 15:34:23 2014 -0500
+
+    Merge pull request #157 from zenoss/feature/zenup
+    
+    Feature/zenup
+
+commit 300354187d979da28a3eef3f6abae03f9297f3ce
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Mon Jun 23 15:22:41 2014 -0500
+
+    fixed json error
+
+commit 9b0b07523991677ad09c76522df2809d92b3fcc6
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Mon Jun 23 15:21:37 2014 -0500
+
+    added zenup capability to Zope service
+
+commit b0816341efb831eb4100d853650f3346fdd2fcd3
+Author: jplouis <jplouis@gmail.com>
+Date:   Mon Jun 23 11:56:49 2014 -0500
+
+    add 1gb memory limit to redis
+
+commit 438003b8752a6d0120cfab3501ae5da21cfbe1f5
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Jun 23 08:52:34 2014 -0500
+
+    Service def changes
+
+commit 52b5814e5e0edfcca829946f348bb587fa4069ed
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Fri Jun 20 10:29:30 2014 -0500
+
+    fix name in metric shipper service defs
+
+commit 4bc9188aace3d0a4765ec6b0b7c1d5fc16858b9f
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Wed Jun 18 13:38:00 2014 -0500
+
+    add sleep to regionserver check
+
+commit 708b48a372c31d3edeafe2604a340f9bf629283c
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Wed Jun 18 11:40:14 2014 -0500
+
+    working
+
+commit 4631082da74a58e88da95372aa0e560e899eb301
+Author: Evan Powell <epowell@zenoss.com>
+Date:   Tue Jun 17 12:34:48 2014 -0500
+
+    Limit zentrap/zensyslog instances to 1
+
+commit f38168e925846b0478185f2e58bb92623728034c
+Author: Evan Powell <epowell@zenoss.com>
+Date:   Tue Jun 17 12:33:44 2014 -0500
+
+    Limit Core instances to 1
+
+commit e01070c9da7c4b079ebaf1d4f3aa3688db831fc1
+Author: Evan Powell <epowell@zenoss.com>
+Date:   Mon Jun 16 12:53:14 2014 -0500
+
+    Add workers and workerid args to service defs
+
+commit ec927d17783ce03ff5e77b6555183233e030ed72
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Fri Jun 13 12:20:49 2014 -0500
+
+    Update service definitions to use explicit tag.
+
+commit 4b1d46d33468028cc4b0cf73265b913d99ee27ba
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Jun 12 08:56:42 2014 -0500
+
+    Add templatized monitor arg to command
+
+commit 46e88ba2ef425b26eaa70be1e3e7d8f5da640189
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Wed Jun 11 19:17:36 2014 -0500
+
+    Update service definitions to set the monitor in the command. In a later release, we will make sure config files are set up properly.
+
+commit 821f8096bfbd814096735a7d2a4f4dd06dca9ee9
+Author: daniel-garcia <daniel@danielgarcia.info>
+Date:   Wed Jun 11 14:14:45 2014 -0500
+
+    use RAMCommitment for memcached size
+
+commit ca47e04b9960f8f668c9e96e5d553f9dd2f77eb8
+Merge: e6ce41f ad9ca74
+Author: daniel-garcia <daniel@danielgarcia.info>
+Date:   Wed Jun 11 14:09:35 2014 -0500
+
+    Merge branch 'feature/ZopeTuning' of github.com:zenoss/platform-build into feature/ZopeTuning
+
+commit e6ce41fb6eb4cbc24e9f5fb0813205f71a9b1a71
+Author: daniel-garcia <daniel@danielgarcia.info>
+Date:   Wed Jun 11 14:09:27 2014 -0500
+
+    set cachesize to be proportional to RAMCommitment
+
+commit ad9ca743e375922b6aff5845840cfee950dd0f81
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Sun Jun 8 23:17:04 2014 -0500
+
+    change mysql prereq script to check with proper database & creds, change zthreads based on default browser behavior
+
+commit 89a177c0fbe85ad9ba3922eb6b6efe0e1a385e6a
+Author: daniel-garcia <daniel@danielgarcia.info>
+Date:   Fri Jun 6 14:57:13 2014 -0500
+
+    minimal tuning of zope
+
+commit 551962532ca3762c038846c2bc17a81431267b95
+Merge: 11c1474 95d6175
+Author: Daniel Garcia <daniel@danielgarcia.info>
+Date:   Fri Jun 6 10:33:54 2014 -0500
+
+    Merge pull request #138 from zenoss/feature/ZEN-3473
+    
+    Feature/zen 3473
+
+commit 95d617517ccfa56c684cc7f8c9d2eff18ad88bcf
+Author: Evan Powell <epowell@zenoss.com>
+Date:   Fri Jun 6 09:16:09 2014 -0500
+
+    Update buffer_pool_instances with a TODO
+
+commit d5dd4bc8499df31eb648d7489890a63a6d5cb61b
+Author: Evan Powell <epowell@zenoss.com>
+Date:   Fri Jun 6 09:13:21 2014 -0500
+
+    Get rid of /etc/sysctl since it won't apply anyway.
+
+commit b7a1cee15a074a8cab73ab3c1a4e29df84a23445
+Author: Evan Powell <epowell@zenoss.com>
+Date:   Fri Jun 6 09:11:18 2014 -0500
+
+    Remove commented example config - it won't work, so don't let them use it
+
+commit bf44ce9ca6b66283d7f30847cde4bb37661dd3aa
+Author: Evan Powell <epowell@zenoss.com>
+Date:   Thu Jun 5 12:24:58 2014 -0500
+
+    Turn off AHI for resmgr installs, they will be larger than core.
+
+commit ecf95d3bbcd3bcc5e585990d0b1f00e113272e1e
+Author: Evan Powell <epowell@zenoss.com>
+Date:   Thu Jun 5 12:09:49 2014 -0500
+
+    Adjust resmgr mysql
+
+commit a0e82f5d4c6c85700cbcc26b701d3c42fee3beff
+Author: Evan Powell <epowell@zenoss.com>
+Date:   Thu Jun 5 11:24:06 2014 -0500
+
+    Add base my.cnf at image creation time. Adjustments to runtime my.cnf.
+
+commit 11c1474148cff2d612e1ae42504688430d92525c
+Merge: d36298b ade1909
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Jun 5 10:27:14 2014 -0500
+
+    Merge pull request #137 from zenoss/fix/zope-perm-denied
+    
+    revert fix MySQL connectivity
+
+commit ade1909a37ee1be54e1a754c8ef62b13d898988d
+Author: Phil Lu <plu@zenoss.com>
+Date:   Thu Jun 5 10:20:24 2014 -0500
+
+    revert fix MySQL connectivity
+
+commit d36298be4f0aa3ca93d2d28921311e82e735f708
+Merge: 7a39ca1 0cbb01a
+Author: Clark Phillips <clark.r.phillips@gmail.com>
+Date:   Thu Jun 5 09:16:38 2014 -0500
+
+    Merge pull request #136 from zenoss/fix/zope-perm-denied
+    
+    fixed permission check
+
+commit 0cbb01a8502880f1762f2c4771f8aa3a87fb1bc4
+Author: Phil Lu <plu@zenoss.com>
+Date:   Thu Jun 5 09:13:26 2014 -0500
+
+    fixed permission check
+
+commit 7a39ca199f550492b2609dea4e18d2ff9a3bc280
+Merge: 759de1a eb059af
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Jun 5 09:07:49 2014 -0500
+
+    Merge pull request #135 from zenoss/fix/zope-perm-denied
+    
+    fixed permission check
+
+commit eb059aff0d26771483716d4c14f76a645d543b20
+Author: Phil Lu <plu@zenoss.com>
+Date:   Thu Jun 5 09:03:11 2014 -0500
+
+    fixed permission check
+
+commit 364c3ba32947139bb89993f1ba088b1aca5d1676
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Wed Jun 4 21:26:04 2014 -0500
+
+    Require 2 regionservers before assigning regions.
+
+commit cfe8c11c672f6ad8ff68c9dbe5282b2cd5ef6f69
+Author: Evan Powell <epowell@zenoss.com>
+Date:   Wed Jun 4 18:25:05 2014 -0500
+
+    Add my.cnf and sysctl.cnf to configs for core MySQL
+
+commit d42fad54a2d55c5fc1537613ae16b0a128ce8796
+Author: Jason Huie <jhuie@zenoss.com>
+Date:   Wed Jun 4 15:28:48 2014 -0500
+
+    Undo accidental push
+
+commit 7fc1239b9a84ef6dfe46991860c43d89f1ca3bce
+Author: Jason Huie <jhuie@zenoss.com>
+Date:   Wed Jun 4 15:22:41 2014 -0500
+
+    Add missing comma before RAMCommitment
+
+commit 629dcb70fe234884001b12e2ab250c9b5544921e
+Author: Seth Cleveland <seth.cleveland@gmail.com>
+Date:   Wed Jun 4 09:53:29 2014 -0500
+
+    CentralQuery MetricConfig Data
+
+commit 898165a96de0ada64dcf7e117330dd358cdc7463
+Author: Seth Cleveland <seth.cleveland@gmail.com>
+Date:   Tue Jun 3 16:17:31 2014 -0500
+
+    Define MetricConsumer metrics
+
+commit 654fe5c0b9dcd0a92e9d67ea8c9b26f91875bea3
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Tue Jun 3 11:17:23 2014 -0500
+
+    Add zproxy endpoint import to the Zope service
+
+commit 865cb247797cbd474aeb1ae9c23a325dabe9beef
+Author: daniel-garcia <daniel@danielgarcia.info>
+Date:   Tue Jun 3 10:10:54 2014 -0500
+
+    add a default ram commitment to all services
+
+commit 4d777dafa944498a7ecbc0baa7cb7e6e849e18ce
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Fri May 30 15:23:50 2014 -0500
+
+    Bump default number of zopes to 2
+
+commit db1c26a9c495933fdf30dc706d96f5c96ee374fe
+Author: Phil Lu <plu@zenoss.com>
+Date:   Thu May 29 13:55:15 2014 -0500
+
+    added import for zep port 8084
+
+commit 4fd16e0e60e429cda0956a855ce1d9f242bd6d31
+Author: daniel-garcia <daniel@danielgarcia.info>
+Date:   Tue May 27 15:45:51 2014 -0500
+
+    rely on /etc/profile.d environment injected by container controller to preserve environment
+
+commit 7292b749b449720d52e29a2b888fb6902e85e00f
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Thu May 22 15:01:30 2014 -0500
+
+    mysql prereq all the things
+
+commit fb9accc8ed37bbe695b489103ac604df15b5aa94
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Thu May 22 14:53:00 2014 -0500
+
+    don't forget resmgr
+
+commit 739acc6feffdcbc75c6a0707fc24f7d55d6c3de1
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Thu May 22 11:04:13 2014 -0500
+
+    add MySQL prereq to Zauth
+
+commit 1bc7fd3dc6b90a9707c4faa847d037af62f297db
+Author: jplouis <jplouis@gmail.com>
+Date:   Sat May 17 11:22:23 2014 -0500
+
+        change from ImageId to ImageID
+
+commit cdfb266dbea15966e74b5f3f3d9a9b37a07a9e60
+Merge: b647d6b 776a8bb
+Author: Joseph Hanson <jhanson@zenoss.com>
+Date:   Fri May 16 19:21:12 2014 -0500
+
+    Merge pull request #111 from zenoss/feature/healthchecks
+    
+    Add heartbeats to all services.
+
+commit 13c4c9c1ff3a38901d3b8568e19801d4bdea5666
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Fri May 16 16:00:03 2014 -0500
+
+    Import mysql endpoints using regexp
+
+commit 776a8bb93cf041696f4fb953ec8f21580a8aa173
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Fri May 16 13:33:30 2014 -0500
+
+    resmgr heartbeats
+
+commit f7ee67fb6f5d212810fb3107adcc4ab2698dc935
+Merge: 6cf862b 346cf27
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Fri May 16 12:43:09 2014 -0500
+
+    Merge branch 'develop' into feature/healthchecks
+
+commit 0cc96264fe793024d5a81c9cb00813946fad8742
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Thu May 15 15:19:42 2014 -0500
+
+    Import mysql endpoints using regexp
+    
+    Use regexp matching on zodb* for importing mysql endpoints.  This allows
+      impact server to export zodb_impact and have all zodb importers connect
+      to it.
+
+commit 6cf862b044e6d05def00d7eba9e818902d0966c3
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Wed May 14 14:35:47 2014 -0500
+
+    core heartbeats
+
+commit 83a0002a01f2d65be353b9f590c676ff90e43264
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Wed May 14 11:11:46 2014 -0500
+
+    zauth heartbeat
+
+commit b3c87ec2fa76073c43745bea77f093d64286e530
+Author: daniel-garcia <daniel@danielgarcia.info>
+Date:   Mon May 12 16:21:09 2014 -0500
+
+    don't run as zenoss user
+
+commit a8b1c751ca3130e2c19b08df9eb25dcd42bac0d4
+Author: daniel-garcia <daniel@danielgarcia.info>
+Date:   Mon May 12 15:52:21 2014 -0500
+
+    use zproxy directly without supervisord
+
+commit bb192b34eacd30108d999c7230a9128bb607e29d
+Author: Phil Lu <plu@zenoss.com>
+Date:   Wed May 7 08:31:54 2014 -0500
+
+    workaround for docker 0.10.0 issues with bindmounting files
+
+commit 5828df36015d0d501dab1e5e49381fb215153b12
+Merge: c8cf8bd d8ec1f7
+Author: smousa <smousa@zenoss.com>
+Date:   Fri May 2 15:47:17 2014 -0500
+
+    Merge pull request #104 from zenoss/feature/zkcluster
+    
+    Use virtual addresses to provide a ZooKeeper cluster for HBase
+
+commit d8ec1f744b0b4ae7793158091f4f5adc6a8df8d8
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Fri May 2 15:27:07 2014 -0500
+
+    Copy HBase cluster over to resmgr
+
+commit c32f4a0cf25bf1d00efb1446479976064a114382
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Fri May 2 15:25:23 2014 -0500
+
+    Updates to services to provide a ZooKeeper cluster with virtual addresses
+
+commit df435362d9d04f8d0f5a38784d78815523195e31
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu May 1 16:09:20 2014 -0500
+
+    Added zookeeper cluster
+
+commit c8cf8bd805cdfb522eeddb5fb02f2271793c370a
+Merge: 8f79313 feef3d7
+Author: Phil Lu <plu@zenoss.com>
+Date:   Thu May 1 12:46:32 2014 -0500
+
+    Merge pull request #103 from zenoss/feature/zenpackCleanup
+    
+    Incorporate review feedback
+
+commit feef3d7b7f0c48871428490d81b303dad0521437
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Thu May 1 11:46:55 2014 -0500
+
+    Incorporate review feedback
+    
+    zenpackwrapper.sh -> zenpack.sh
+    --SERVICE_ID -> --service-id
+    %SERVICE_ID% -> {{.Id}}
+
+commit 341eda5f17b4160c0d88c6a0f4b35577f9d306b8
+Author: Phil Lu <plu@zenoss.com>
+Date:   Thu May 1 11:35:28 2014 -0500
+
+    uncapitalize UDP for new validation
+
+commit 9076cebda1c8d314a0366e58a74eda29cd2eddc1
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Wed Apr 30 10:38:51 2014 -0500
+
+    Add environment variable to zope zenpack command
+
+commit ae70ea9509f144ef28d8b409cfc81291aa924845
+Author: John Crocker <jcrocker@zenoss.com>
+Date:   Thu Apr 24 15:41:57 2014 -0500
+
+    Add 'zenpack' command to zope container
+
+commit d53cfec956c7adb1d29a7cda6dd9a76030314525
+Merge: 2f0b300 de9beb0
+Author: smousa <smousa@zenoss.com>
+Date:   Tue Apr 22 13:38:46 2014 -0500
+
+    Merge pull request #94 from zenoss/feature/hbaseinzenoss
+    
+    HBase cluster in Zenoss
+
+commit de9beb026092c42261fbe43b5981e7ef36972190
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Tue Apr 22 11:26:57 2014 -0500
+
+    Add privileged flag
+
+commit e1ddcb144180d29bc8d60ca234f28b7ce5aaf348
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Tue Apr 22 11:17:32 2014 -0500
+
+    Update resmgr opentsdb to point to HBase
+
+commit 966fb0a7b7f176eb6a5b3865e717dc8c8abaa959
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Tue Apr 22 11:14:42 2014 -0500
+
+    Upgrade to opentsdb next branch, which supports HBase 0.96
+
+commit 0df3796f53bdec22815aaacc0c8773f19dc6c089
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Mon Apr 21 22:11:44 2014 -0500
+
+    Get everything working except opentsdb
+
+commit 2f0b30014a7329142667c8ded747753ce0b6e588
+Merge: e368937 1759cc3
+Author: jplouis <jplouis@gmail.com>
+Date:   Fri Apr 18 16:05:14 2014 -0500
+
+    Merge pull request #92 from zenoss/feature/action_template
+    
+    Feature/action template
+
+commit 1759cc37756c26e03b8ca895743d78fe3f86d519
+Author: Phil Lu <plu@zenoss.com>
+Date:   Fri Apr 18 12:37:24 2014 -0500
+
+    added debug/stats Actions to Zenoss.resmgr CentralQuery/MetricConsumer
+
+commit 0b67a31a80888b36f1dc756f9344d6e4f801031f
+Author: Phil Lu <plu@zenoss.com>
+Date:   Fri Apr 18 12:35:58 2014 -0500
+
+    added debug/stats Actions to Zenoss.resmgr zenactiond/zeneventd/zenjobs
+
+commit 208b2b0b23f5f9cbe2ff3f54a9d12380689ac43a
+Author: Phil Lu <plu@zenoss.com>
+Date:   Fri Apr 18 12:33:44 2014 -0500
+
+    added Actions for zenhub for Zenoss.resmgr
+
+commit edf106fe5654f185e949ec613cc9f0718f2c1819
+Author: Phil Lu <plu@zenoss.com>
+Date:   Fri Apr 18 12:30:43 2014 -0500
+
+    port Zenoss.core localhost/localhost Actions to Zenoss.resmgr
+
+commit 4dbee142bc676727d42cb6f90ba08c6a8339ada7
+Author: Phil Lu <plu@zenoss.com>
+Date:   Fri Apr 18 04:52:28 2014 -0500
+
+    added debug/stats actions to zenjmx and zenpython
+
+commit 0517a5faf51c484de32dbfebcfcd4b6cbedf389b
+Author: Phil Lu <plu@zenoss.com>
+Date:   Fri Apr 18 04:29:23 2014 -0500
+
+    rename ZenJobs to zenjobs for easier scripting
+
+commit 916dae58da8458686fef1a7371d552ab96e95b2f
+Author: Phil Lu <plu@zenoss.com>
+Date:   Fri Apr 18 04:26:59 2014 -0500
+
+    rename ZenActiond to zenactiond for easier scripting
+
+commit f821dea84e850fc1da3642b1b2ff96121be686fe
+Author: Phil Lu <plu@zenoss.com>
+Date:   Fri Apr 18 04:25:07 2014 -0500
+
+    rename ZenEventd to zeneventd for easier scripting
+
+commit 0fcfdc6a4521756e266a64318a39ff4c7e85be5c
+Author: Phil Lu <plu@zenoss.com>
+Date:   Fri Apr 18 03:57:52 2014 -0500
+
+    rename ZenHub to zenhub for easier scripting
+
+commit 42c94f3373c296341fb4703ad064fe515a5391bb
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Apr 17 22:43:08 2014 -0500
+
+    Add HBase in Zenoss
+
+commit 4bfdce5d37873c75bf2daf3c81015113092e4098
+Author: Phil Lu <plu@zenoss.com>
+Date:   Thu Apr 17 11:08:22 2014 -0500
+
+    added debug action to CentralQuery
+
+commit 070482c6d856f4df75f80a6c8b872a43511408ec
+Author: Phil Lu <plu@zenoss.com>
+Date:   Thu Apr 17 10:49:27 2014 -0500
+
+    MetricConsumer action debug needed bash -c
+
+commit 1f43ba5ef2f630a7920173a71c7ba68329d87b80
+Author: Phil Lu <plu@zenoss.com>
+Date:   Thu Apr 17 10:16:00 2014 -0500
+
+    fixed zenhub debug/stats actions
+
+commit 6f776a925daae79e8e61bcb790166531339d2dde
+Author: Phil Lu <plu@zenoss.com>
+Date:   Wed Apr 16 21:54:24 2014 -0500
+
+    added daemons in prodbin to core
+
+commit ce6c22bb140783d63731902111a50f782d2a6e3a
+Author: Phil Lu <plu@zenoss.com>
+Date:   Wed Apr 16 17:27:29 2014 -0500
+
+    added debug action for MetricConsumer
+
+commit 3712738438d22ea948e3e90b3844727b95e0119f
+Author: Phil Lu <plu@zenoss.com>
+Date:   Wed Apr 16 14:47:16 2014 -0500
+
+    convert Actions to use text/template, {{.Name}}
+
+commit 6bb100e4ecd5759086988d3eee670de354d76912
+Merge: ddc79ab 7746c89
+Author: jplouis <jplouis@gmail.com>
+Date:   Wed Apr 16 12:51:16 2014 -0500
+
+    Merge pull request #87 from zenoss/feature/metric_data_supports_multi_tenancy
+    
+    fix zauth login and route zapp metrics to cp consumer
+
+commit 6218df5786534fb59eb1b0871d785b060756656f
+Author: Phil Lu <plu@zenoss.com>
+Date:   Wed Apr 16 11:02:17 2014 -0500
+
+    move su - zenoss to service definition to allow for root actions
+
+commit 3f71d3568f85c835b59a0601709f74dc6723c5fc
+Author: Phil Lu <plu@zenoss.com>
+Date:   Tue Apr 15 16:49:10 2014 -0500
+
+    added debug/stats action to zenjobs and zenperfsnmp
+
+commit 770389df41df3a3c09dd928542771f329de350a9
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Tue Apr 15 16:27:15 2014 -0500
+
+    update resmgr for https changes
+
+commit e7f6a346ac6e570a1d2ca4e664669272e08f63ff
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Mon Apr 14 15:17:38 2014 -0500
+
+    zope.conf port
+
+commit f52148b99f89455f804002c51ea37388cfc40e2b
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Mon Apr 14 10:30:29 2014 -0500
+
+    instance tag
+
+commit 10b17fb5b369099c933fb80a4524765ea01e79fe
+Author: Rye Terrell <rterrell@zenoss.com>
+Date:   Mon Apr 14 10:10:25 2014 -0500
+
+    configs
+
+commit 7746c890e545b1d433dd75a22d9942aeac3bc45b
+Author: Seth Cleveland <seth.cleveland@gmail.com>
+Date:   Fri Apr 11 15:48:44 2014 -0500
+
+    fix zauth login and route zapp metrics to cp consumer
+
+commit 0f508296a984db8fbcd26dc200106604f6a08649
+Author: daniel-garcia <daniel@danielgarcia.info>
+Date:   Fri Apr 4 10:16:12 2014 -0500
+
+    use quay.io instead of zenoss inc, to avoid breaking alpha2
+
+commit 86b03d0ef053d9aa60a4d6545a43ec6740063a84
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Apr 1 15:36:27 2014 -0500
+
+    fix fix
+
+commit b1885f39a5bfdea9e4d5d57eedfb40836ce98ab8
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Apr 1 15:22:28 2014 -0500
+
+    fix service defs I hope
+
+commit dd54fbd144d73c0f98b5ddca9722a9c18cb98218
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Thu Mar 27 13:02:58 2014 -0500
+
+    Fix accidental checkin
+
+commit c6393e7d45e11ef17ad3017e4268cefb0b552df6
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Wed Mar 26 10:09:26 2014 -0500
+
+    Core works
+
+commit 66f24c5760d90d8cf58a4636bc358b2684869c49
+Author: Ian McCracken <ian.mccracken@gmail.com>
+Date:   Tue Mar 25 17:13:45 2014 -0500
+
+    Saving state
+
+commit e547c1a7c09051b53039c46b295bb0db17021426
+Merge: 2e10704 acc9d38
+Author: Joseph Hanson <jhanson@zenoss.com>
+Date:   Tue Mar 25 11:48:21 2014 -0500
+
+    Merge pull request #68 from zenoss/feature/separate-containers
+    
+    Feature/separate containers
+
+commit acc9d3816b9ac4087bddb6e3191325a8cfeba8ec
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 25 10:52:30 2014 -0500
+
+    zproxy update
+
+commit fc2d1d1375d1cbdd1abd61779be557c252456267
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 25 10:44:45 2014 -0500
+
+    zproxy update
+
+commit 2e10704ec7f740c9826830aa96fa1ee217dd58b8
+Merge: a173512 4413ab8
+Author: Joseph Hanson <jhanson@zenoss.com>
+Date:   Tue Mar 25 10:39:43 2014 -0500
+
+    Merge pull request #66 from zenoss/feature/separate-containers
+    
+    Separate containers.
+
+commit 4413ab8ce5b0e58ed65f7b000ea1fcc8b02f5c4a
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 25 10:37:22 2014 -0500
+
+    zauth logfix
+
+commit cdf9e230250e51e9db2426d1410a4f0421282770
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 25 10:34:46 2014 -0500
+
+    zauth logfix
+
+commit 324dc8fbf57fe3b8857519c520d1f80ba41c5eb7
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 25 10:15:33 2014 -0500
+
+    zauth changes
+
+commit 9d8ef956aa3163fb6ee73be11115cb59f814b9c8
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Mon Mar 24 13:38:28 2014 -0500
+
+    update service definitions
+
+commit f66d2dcd652101abd5dbd7a9b49bf131c25fbd97
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Thu Mar 20 14:36:03 2014 -0500
+
+    updated serviced definition to suit the new zenrun changes
+
+commit 033175de3fd1d2f45588e1c2da7b50072c2df4ce
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Thu Mar 20 13:59:57 2014 -0500
+
+    changed run directory to zenrun.d
+
+commit a7e16af3a3cd2a8ccdf2a4da3f9388809d53b75f
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Thu Mar 20 13:58:19 2014 -0500
+
+    Putting the whole command in the service definition
+
+commit 22e332cd210253be74f0cb8fdd90d0970a349394
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Thu Mar 20 13:33:40 2014 -0500
+
+    Using zenhome arg
+
+commit 150b1b876d36c359a1575482e6ad99f4c6b0bdab
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Thu Mar 20 13:32:58 2014 -0500
+
+    Using zenhome arg
+
+commit 781c994012cddb4041381999beb6a790917ac650
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Thu Mar 20 08:17:28 2014 -0500
+
+    Added zendmd to Zope.core and Zope.resmgr
+
+commit 84fb4211cd5d9cb0c9db07c26979248a9073314b
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Wed Mar 19 16:00:35 2014 -0500
+
+    update zproxy service definition
+
+commit 588a5b7cf951d94f188eb6e6c8a15ca6c2cc742a
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Wed Mar 19 14:36:35 2014 -0500
+
+    remove zsupervisord
+
+commit e61079ca693efb068730489228fea34518dc30aa
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Wed Mar 19 14:33:32 2014 -0500
+
+    fix services
+
+commit a76a2bb75a916bcc061adb3fd5e5956fde93d527
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Wed Mar 19 11:44:45 2014 -0500
+
+    clean up json
+
+commit 60f2312d9fad15d1234d43ad7b0ae502e581dc36
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Wed Mar 19 11:07:31 2014 -0500
+
+    metric shipper
+
+commit 774926317758a5671a428e7e747fc6704f6550dd
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Wed Mar 19 10:17:20 2014 -0500
+
+    service.json update
+
+commit 927c1e1d6994c28871e773501d65989d5b65d022
+Merge: 7480792 404351a
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Wed Mar 19 10:08:23 2014 -0500
+
+    merge conflict
+
+commit 7480792c13dfc52a2b3272d1a121d582ff818091
+Merge: 53f7ab6 897468b
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Wed Mar 19 10:05:14 2014 -0500
+
+    merge conflict
+
+commit 53f7ab64a00cdd54d06ab334f17be76c44ea208c
+Merge: 850aaee e3f547e
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Wed Mar 19 10:02:38 2014 -0500
+
+    Merge branch 'feature/metric-consumer-container' into feature/separate-containers
+
+commit 850aaeea53b5bc92151bc9c29f272f71a9573604
+Merge: 0e6b118 7c45040
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Wed Mar 19 10:01:23 2014 -0500
+
+    Merge branch 'feature/zproxy' into feature/separate-containers
+
+commit 897468bcee43635aa3ecdfe5a498c69ecb08717d
+Merge: 2c051ed 33b88de
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Wed Mar 19 09:59:46 2014 -0500
+
+    Merge branch 'feature/central-query-container' of github.com:zenoss/platform-build into feature/central-query-container
+
+commit 2c051ed0d049e7b57b65d5ec2b3adca80ebf13f9
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Wed Mar 19 09:59:39 2014 -0500
+
+    point to given supervisord.conf
+
+commit 2f72e5b1d7b8661bc0d88693d14d42e2f318b5ae
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Wed Mar 19 09:14:43 2014 -0500
+
+    renamed example to help
+
+commit e634d19114529ee7954eb59b244c2bb0bb2724ff
+Author: Summer Mousa <smousa@zenoss.com>
+Date:   Wed Mar 19 09:06:06 2014 -0500
+
+    Added 'Runs' field to the service definition for resmgr/Zope
+
+commit e3f547e72883f59f3a9f083883bdcf1a75fa3529
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 16:15:23 2014 -0500
+
+    Update service.json
+
+commit 3d4b3eb1fc4e247923067e417afaf31af8fb3dd0
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 16:15:11 2014 -0500
+
+    Update service.json
+
+commit 33b88def4489c32fd53134853932bf0f0edb8ec0
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 16:13:52 2014 -0500
+
+    Update service.json
+
+commit 312db7fdc2b92f977c9b9ad43c2a28523a5f04b6
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 16:13:38 2014 -0500
+
+    Update service.json
+
+commit 8cadcb8ce6f4d6dc3f973a41c9db268e3a308b7f
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 16:13:15 2014 -0500
+
+    Update service.json
+
+commit 404351ade1276d9ab1f8549cc10d87a9621bcd47
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 15:59:07 2014 -0500
+
+    zauth container
+
+commit b2375a1a1b0b70d43942a7c61caf3446fdfca2eb
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 15:39:19 2014 -0500
+
+    Update service.json
+
+commit 306965cd727e62c5fb78b89f3965b5076dc2f3ed
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 15:39:05 2014 -0500
+
+    Update service.json
+
+commit 80f3ef7afb9a2d950af6b263fd685027516fccbc
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 15:38:36 2014 -0500
+
+    Update service.json
+
+commit e2b4d325da54f58377ca1b457c508e69d76d3a83
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 15:38:20 2014 -0500
+
+    Update service.json
+
+commit d38b33f235385eed1812be5f8ba13a9a5ddbe32b
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 15:22:09 2014 -0500
+
+    central query container
+
+commit 9ac9332b3dca695d4e46b9273e74534f8579ec88
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 14:59:21 2014 -0500
+
+    service.json fix
+
+commit 7ad2b3ef7dbc13d2e85f091b40abbe4518eced89
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 13:58:25 2014 -0500
+
+    put metric-consumer in its own container
+
+commit 7c45040677b0771148f750540bd8e1180f1f7529
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Tue Mar 18 11:00:56 2014 -0500
+
+    dont run supervisor as daemon
+
+commit 92d92cffb759cfd34cdec3d4a789ccc64278ee26
+Author: Rye Terrell <ryeterrell@ryeterrell.net>
+Date:   Mon Mar 17 13:30:41 2014 -0500
+
+    zproxy separation
+
+commit 77d439a646a803b02377c0ba63599d708da0d82e
+Author: Seth Cleveland <seth.cleveland@gmail.com>
+Date:   Fri Mar 14 15:52:18 2014 -0500
+
+    HBASE Operational Support
+    
+      - Scripts for starting opentsdb with zookeeper quorum
+      - OpenTsdb readers and writers
+
+commit ff0f28a9f7db48c54225da06724fe157dad72287
+Merge: 6571859 4a51974
+Author: Joseph Hanson <jhanson@zenoss.com>
+Date:   Tue Mar 11 18:01:10 2014 +0000
+
+    merged in changes
+
+commit 65718594af09539b58d54c6e66e7ad7e6fb0b7be
+Author: Joseph Hanson <jhanson@zenoss.com>
+Date:   Tue Mar 11 18:00:41 2014 +0000
+
+    reviewed by plu fixes ZEN-10447 update the service definition to pass in control plane injected environmental variables
+
+commit ed5b5dcf38a6bda397d875bb4256cad07fce50c4
+Author: Phil Lu <plu@zenoss.com>
+Date:   Tue Mar 11 12:41:01 2014 -0500
+
+    fix redis for resmgr similar to core
+
+commit 9026767300d3ecc0047975de277d95c5c98f5802
+Author: Phil Lu <plu@zenoss.com>
+Date:   Tue Mar 11 12:00:55 2014 -0500
+
+    WORKAROUND: removed redis from zsupervisord; unbind localhost from /etc/redis.conf
+
+commit bc382a12320a98297002ecc143fdbbb12dd30b17
+Author: jplouis <jplouis@gmail.com>
+Date:   Mon Mar 10 18:38:01 2014 -0500
+
+    zauth needs mysql
+
+commit 7e8ac38946bae5c52e43926cfaf0626d6dda6604
+Author: daniel-garcia <daniel@danielgarcia.info>
+Date:   Mon Mar 10 00:04:56 2014 -0500
+
+    rename resmgr services dir to hook in to build
+
+commit e122574903607fb82e063945631f0aa75ab0868b
+Author: daniel-garcia <daniel@danielgarcia.info>
+Date:   Sun Mar 9 22:16:56 2014 -0500
+
+    add initial core definitions

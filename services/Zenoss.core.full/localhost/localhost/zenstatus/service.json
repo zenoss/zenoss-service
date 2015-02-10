@@ -46,7 +46,7 @@
         "min": 1,
         "max": 1
     },
-    "RAMCommitment": 1073741824,
+    "RAMCommitment": "1G",
     "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [
@@ -339,6 +339,12 @@
             "Type": "",
             "ResourcePath": ".ssh",
             "Permission": "0755"
+        },
+        {
+            "Owner": "zenoss:zenoss",
+            "ResourcePath": "var-zenpacks",
+            "ContainerPath": "/var/zenoss",
+            "Permission": "0775"
         }
     ]
 }

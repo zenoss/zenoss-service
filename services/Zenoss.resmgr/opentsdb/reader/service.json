@@ -37,11 +37,11 @@
             "Purpose": "import_all"
         }
     ],
-    "ImageID": "zenoss/opentsdb:v8",
+    "ImageID": "zenoss/opentsdb:xx",
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": 1073741824,
+    "RAMCommitment": "1G",
     "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [

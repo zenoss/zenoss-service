@@ -15,7 +15,7 @@
         "min": 1,
         "max": 1
     },
-    "RAMCommitment": 1073741824,
+    "RAMCommitment": "1G",
     "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [
@@ -36,11 +36,51 @@
                 "Name": "redis internal metrics",
                 "Description": "redis internal metrics",
                 "Metrics": [
-                    {"ID": "redis.total_commands_processed", "Name":"Total Commands", "Description": "Number of commands processed by redis.", "Counter": true, "Unit": "Count"}
+                    {
+                        "ID": "redis.total_commands_processed",
+                        "Name": "Total Commands",
+                        "Description": "Number of commands processed by redis.",
+                        "Counter": true,
+                        "Unit": "Count"
+                    },
+                    {
+                        "ID": "redis.metricsLength",
+                        "Name": "Metrics Queue Length",
+                        "Description": "Number of metrics awaiting processing",
+                        "Counter": false,
+                        "Unit": "Count"
+                    }
                 ]
             }
         ],
         "GraphConfigs": [
+            {
+                "id": "metricqueue",
+                "name": "Metric Queue Length",
+                "footer": false,
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Metrics",
+                "description": "Number of metrics awaiting processing",
+                "range": {
+                    "start": "1h-ago",
+                    "end": "0s-ago"
+                },
+                "datapoints": [
+                    {
+                        "aggregator": "sum",
+                        "fill": false,
+                        "format": "%d",
+                        "id": "metricsLength",
+                        "legend": "Metrics",
+                        "metric": "redis.metricsLength",
+                        "metricSource": "redis",
+                        "name": "Metric Queue Length",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ]
+            },
             {
                 "id": "totalcommands",
                 "name": "Total Commands",
@@ -55,16 +95,16 @@
                 },
                 "datapoints": [
                     {
-                        "aggregator":   "avg",
-                        "fill":         false,
-                        "format":       "%d",
-                        "id":           "total_commands_processed",
-                        "legend":       "Data Points",
-                        "metric":       "redis.total_commands_processed",
+                        "aggregator": "avg",
+                        "fill": false,
+                        "format": "%d",
+                        "id": "total_commands_processed",
+                        "legend": "Data Points",
+                        "metric": "redis.total_commands_processed",
                         "metricSource": "redis",
-                        "name":         "Total Commands",
-                        "rate":         true,
-                        "type":         "line"
+                        "name": "Total Commands",
+                        "rate": true,
+                        "type": "line"
                     }
                 ]
             }
@@ -72,8 +112,17 @@
     },
     "HealthChecks": {
         "metrics": {
-            "Script": "/opt/zenoss/bin/healthchecks/redis/metrics",
+            "Script": "/opt/zenoss/bin/healthchecks/collectorredis/metrics",
             "Interval": 15
         }
-    }
+    },
+    "Volumes": [
+        {
+            "Owner": "root:root",
+            "#####": "drwxr-xr-x 2 zenoss zenoss 4096 Feb 6 19:11 /var/lib/redis",
+            "Permission": "0755",
+            "ContainerPath": "/var/lib/redis",
+            "ResourcePath": "{{(parent (parent .)).Name}}/{{(parent .).Name}}_collectorredis"
+        }
+    ]
 }

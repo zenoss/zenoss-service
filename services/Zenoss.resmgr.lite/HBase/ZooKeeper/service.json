@@ -62,18 +62,19 @@
             "Purpose": "import_all"
         }
     ],
-    "ImageID": "zenoss/hbase:v3",
+    "ImageID": "zenoss/hbase:xx",
     "Instances": {
 								"max": 1,
         "min": 1
     },
-    "RAMCommitment": 268435456,
+    "RAMCommitment": "256M",
     "CPUCommitment": 1,
     "Launch": "auto",
+    "HostPolicy": "PREFER_SEPARATE",
     "LogConfigs": [
         {
             "path": "/var/log/zookeeper/zookeeper.log",
-            "type": "mysql"
+            "type": "hbase"
         }
     ],
     "Name": "ZooKeeper",

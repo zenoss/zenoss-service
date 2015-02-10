@@ -27,7 +27,7 @@
             "Purpose": "import"
         },
         {
-            "Name": "mysql",
+            "Name": "mariadb",
             "Application": "zodb_.*",
             "Purpose": "import"
         },
@@ -62,7 +62,7 @@
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": 268435456,
+    "RAMCommitment": "256M",
     "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [
@@ -100,6 +100,12 @@
             "Type": "",
             "ResourcePath": ".ssh",
             "Permission": "0755"
+        },
+        {
+            "Owner": "zenoss:zenoss",
+            "ResourcePath": "var-zenpacks",
+            "ContainerPath": "/var/zenoss",
+            "Permission": "0775"
         }
     ],
     "HealthChecks": {
@@ -111,12 +117,8 @@
             "Script": "/opt/zenoss/bin/healthchecks/zenjobs/stable_workers",
             "Interval": 5.0
         },
-        "zenhub_answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/zenhub_answering",
-            "Interval": 10.0
-        },
-        "mysql_answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/mysql_answering",
+        "mariadb_answering": {
+            "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering",
             "Interval": 10.0
         },
         "redis_answering": {
@@ -130,7 +132,7 @@
     },
     "Prereqs": [
         {
-            "Name": "MySQL connectivity",
+            "Name": "MariaDB connectivity",
             "Script": "su - zenoss -c '/opt/zenoss/bin/python /opt/zenoss/Products/ZenUtils/ZenDB.py --usedb zodb --execsql=\";\"'"
         }
     ]

@@ -14,7 +14,7 @@
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": 1073741824,
+    "RAMCommitment": "1G",
     "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [
@@ -30,7 +30,16 @@
     "HealthChecks": {
         "answering": {
             "Script": "redis-cli ping | grep -q PONG",
-            "Interval": 5.0            
+            "Interval": 5.0
         }
-    }
+    },
+    "Volumes": [
+        {
+            "Owner": "root:root",
+            "#####": "drwxr-xr-x 2 zenoss zenoss 4096 Feb  6 19:11 /var/lib/redis",
+            "ContainerPath": "/var/lib/redis",
+            "ResourcePath": "redis",
+            "Permission": "0755"
+        }
+    ]
 }

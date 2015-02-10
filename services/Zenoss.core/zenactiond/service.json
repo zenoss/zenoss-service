@@ -4,7 +4,7 @@
         "debug": "su - zenoss -c '${ZENHOME:-/opt/zenoss}/bin/{{.Name}} debug'",
         "stats": "su - zenoss -c '${ZENHOME:-/opt/zenoss}/bin/{{.Name}} stats'"
     },
-    "Command": "su - zenoss -c \"/opt/zenoss/bin/zenactiond run -c --duallog \"",
+    "Command": "su - zenoss -c \"/opt/zenoss/bin/zenactiond run -c --duallog --workerid $CONTROLPLANE_INSTANCE_ID  \"",
     "ConfigFiles": {
         "/opt/zenoss/etc/global.conf": {
             "Filename": "/opt/zenoss/etc/global.conf",
@@ -20,7 +20,7 @@
     },
     "Endpoints": [
         {
-            "Name": "mysql",
+            "Name": "mariadb",
             "Application": "zodb_.*",
             "Purpose": "import"
         },
@@ -51,6 +51,13 @@
             "Purpose": "import"
         },
         {
+            "Name": "zep",
+            "Application": "zep",
+            "PortNumber": 8084,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Name": "controlplane_consumer",
             "Application": "controlplane_consumer",
             "PortNumber": 8444,
@@ -62,7 +69,7 @@
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": 268435456,
+    "RAMCommitment": "256M",
     "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [
@@ -81,8 +88,8 @@
             "Script": "pgrep -fu zenoss zenactiond.py > /dev/null",
             "Interval": 5.0
         },
-        "mysql_answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/mysql_answering",
+        "mariadb_answering": {
+            "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering",
             "Interval": 10.0
         },
         "redis_answering": {
@@ -96,7 +103,7 @@
     },
     "Prereqs": [
         {
-            "Name": "MySQL connectivity",
+            "Name": "MariaDB connectivity",
             "Script": "export TERM=xterm; mysql --host=127.0.0.1 --port=3306 -c ';' 2>&1 | grep denied"
         }
     ],
@@ -107,6 +114,12 @@
             "Type": "",
             "ResourcePath": ".ssh",
             "Permission": "0755"
+        },
+        {
+            "Owner": "zenoss:zenoss",
+            "ResourcePath": "var-zenpacks",
+            "ContainerPath": "/var/zenoss",
+            "Permission": "0775"
         }
     ]
 }

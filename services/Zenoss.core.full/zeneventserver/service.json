@@ -31,7 +31,7 @@
     },
     "Endpoints": [
         {
-            "Name": "mysql",
+            "Name": "mariadb",
             "Application": "zodb_.*",
             "Purpose": "import"
         },
@@ -80,7 +80,7 @@
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": 1073741824,
+    "RAMCommitment": "1G",
     "CPUCommitment": 2,
     "Launch": "auto",
     "LogConfigs": [
@@ -114,6 +114,12 @@
             "Type": "",
             "ResourcePath": ".ssh",
             "Permission": "0755"
+        },
+        {
+            "Owner": "zenoss:zenoss",
+            "ResourcePath": "var-zenpacks",
+            "ContainerPath": "/var/zenoss",
+            "Permission": "0775"
         }
     ],
     "HealthChecks": {
@@ -125,8 +131,8 @@
             "Script": "curl -f -s http://localhost:8084/zeneventserver/api/1.0/heartbeats/ | grep -q '^{\"heartbeats\":'",
             "Interval": 5.0
         },
-        "mysql_answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/mysql_answering",
+        "mariadb_answering": {
+            "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering",
             "Interval": 10.0
         },
         "memcached_answering": {
@@ -148,7 +154,7 @@
     },
     "Prereqs": [
         {
-            "Name": "MySQL connectivity",
+            "Name": "MariaDB connectivity",
             "Script": "su - zenoss -c '/opt/zenoss/bin/python /opt/zenoss/Products/ZenUtils/ZenDB.py --usedb zep --execsql=\";\"'"
         }
     ]

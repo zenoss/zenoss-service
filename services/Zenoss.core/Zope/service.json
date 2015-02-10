@@ -10,7 +10,7 @@
             "Purpose": "import"
         },
         {
-            "Name": "mysql",
+            "Name": "mariadb",
             "Application": "zodb_.*",
             "Purpose": "import"
         },
@@ -66,7 +66,7 @@
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": 268435456,
+    "RAMCommitment": "256M",
     "CPUCommitment": 1,
     "Launch": "auto",
     "ConfigFiles": {
@@ -113,6 +113,20 @@
     ],
     "Volumes": [
         {
+            "#####": "drwxr-xr-x 2 zenoss zenoss 4096 Feb  6 19:11 /opt/zenoss/.pc",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0755",
+            "ResourcePath": "zenoss-custom-patches-pc",
+            "ContainerPath": "/opt/zenoss/.pc"
+        },
+        {
+            "#####": "drwxr-xr-x 2 zenoss zenoss 4096 Feb  6 19:11 /opt/zenoss/patches",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0755",
+            "ResourcePath": "zenoss-custom-patches",
+            "ContainerPath": "/opt/zenoss/patches"
+        },
+        {
             "#####": "drwxr-xr-x 2 zenoss zenoss 4096 Feb  6 19:11 /opt/zenoss/log/jobs",
             "Owner": "zenoss:zenoss",
             "Permission": "0755",
@@ -134,11 +148,10 @@
             "ContainerPath": "/opt/zenoss/export"
         },
         {
-            "#####": "drwxrwxr-x 4 zenup zenoss 4096 Jul 18 11:20 /opt/zenup/log",
-            "Owner": "zenup:zenoss",
+            "Owner": "zenoss:zenoss",
             "Permission": "0775",
-            "ResourcePath": "zenup-logs",
-            "ContainerPath": "/opt/zenup/log"
+            "ResourcePath": "zenpack-backup",
+            "ContainerPath": "/opt/zenoss/.ZenPacks"
         },
         {
             "Owner": "zenoss:zenoss",
@@ -146,14 +159,22 @@
             "Type": "",
             "ResourcePath": ".ssh",
             "Permission": "0755"
+        },
+        {
+            "Owner": "zenoss:zenoss",
+            "ResourcePath": "var-zenpacks",
+            "ContainerPath": "/var/zenoss",
+            "Permission": "0775"
         }
     ],
     "Runs": {
+        "apply-custom-patches": "${ZENHOME:-/opt/zenoss}/bin/zenrun patch.sh applyPatches",
         "help": "${ZENHOME:-/opt/zenoss}/bin/zenrun help.sh",
+        "install-percona": "NOCOMMIT=true ${ZENHOME:-/opt/zenoss}/bin/zenrun percona.sh install",
         "zendmd": "NOCOMMIT=true ${ZENHOME:-/opt/zenoss}/bin/zenrun zendmd",
         "zenmib": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
         "zenpack": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",
-        "zenup": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenup.sh"
+        "upgrade": "${ZENHOME:-/opt/zenoss}/bin/zenrun upgrade.sh doUpgrade"
     },
     "HealthChecks": {
         "running": {
@@ -164,12 +185,8 @@
             "Script": "curl -o /dev/null -w '%{redirect_url}' -s http://localhost:9080/zport/dmd | grep -q acl_users",
             "Interval": 10.0
         },
-        "zenhub_answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/zenhub_answering",
-            "Interval": 10.0
-        },
-        "mysql_answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/mysql_answering",
+        "mariadb_answering": {
+            "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering",
             "Interval": 10.0
         },
         "redis_answering": {
@@ -191,7 +208,7 @@
     },
     "Prereqs": [
         {
-            "Name": "MySQL connectivity",
+            "Name": "MariaDB connectivity",
             "Script": "su - zenoss -c '/opt/zenoss/bin/python /opt/zenoss/Products/ZenUtils/ZenDB.py --usedb zodb --execsql=\";\"'"
         }
     ]

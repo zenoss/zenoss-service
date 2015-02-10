@@ -54,18 +54,18 @@
             "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
         }
       ],
-    "ImageID": "zenoss/hbase:v3",
+    "ImageID": "zenoss/hbase:xx",
     "Privileged": true,
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": 268435456,
+    "RAMCommitment": "1G",
     "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [
         {
             "path": "/var/log/hbase/hbase-master.log",
-            "type": "mysql"
+            "type": "hbase"
         }
     ],
     "Name": "HMaster",
