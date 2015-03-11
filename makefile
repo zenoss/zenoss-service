@@ -21,21 +21,21 @@ PREFIX           ?= /opt/zenoss
 OUTPUT           ?= $(PWD)/output
 MILESTONE        ?= unstable # unstable | testing | stable
 MILESTONE_SUFFIX  =
-RELEASE_PHASE    ?= # eg, beta2 | alpha1 | cr1 | <blank>
+RELEASE_PHASE    ?= # eg, BETA2 | ALPHA1 | CR13 | 1 | 2 | <blank>
 _RELEASE_PHASE   := $(strip $(RELEASE_PHASE))
 PWD				  = $(shell pwd)
 UID				  = $(shell id -u)
 
 # Allow milestone to influence our artifact versioning.
 BUILD_TAG      = $($(strip $(MILESTONE))_TAG)
-stable_TAG     = $(VERSION)
+stable_TAG     = $(VERSION)_$(_RELEASE_PHASE)
 testing_TAG    = $(VERSION)_$(_RELEASE_PHASE)
 unstable_TAG   = $(VERSION)_$(_BUILD_NUMBER)
 
 # Suck in reference to an image
 IMAGE_NUMBER        ?= ""
 IMAGE_TAG            = $($(strip $(MILESTONE))_IMAGE_TAG)
-stable_IMAGE_TAG     = $(VERSION)
+stable_IMAGE_TAG     = $(VERSION)_$(_RELEASE_PHASE)
 testing_IMAGE_TAG    = $(VERSION)_$(_RELEASE_PHASE)
 unstable_IMAGE_TAG   = $(VERSION)_$(IMAGE_NUMBER)_unstable
 
