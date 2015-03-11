@@ -6,8 +6,6 @@
 set -e
 set -x
 
-. ~/.bashrc
-
 repo_tag() {
     flavor="$1"        # examples: core, resmgr
     maturity="$2"      # examples: stable, testing, unstable
