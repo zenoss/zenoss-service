@@ -35,13 +35,17 @@ repo_tag() {
     echo ${repo}:${tag}
 }
 
-# No quoting FLAVORS below in order to split the string on spaces
-for FLAVOR in $FLAVORS; do
-    FROM_STRING=$(repo_tag "$FLAVOR" "$FROM_MATURITY" "$FROM_RELEASEPHASE")
-    TO_STRING=$(repo_tag "$FLAVOR" "$TO_MATURITY" "$TO_RELEASEPHASE")
-    docker pull "$FROM_STRING"
-    docker tag  "$FROM_STRING" "$TO_STRING"
-    docker push "$TO_STRING"
-done
+case $VERSION in
+    *)
+        # No quoting FLAVORS below in order to split the string on spaces
+        for FLAVOR in $FLAVORS; do
+            FROM_STRING=$(repo_tag "$FLAVOR" "$FROM_MATURITY" "$FROM_RELEASEPHASE")
+            TO_STRING=$(repo_tag "$FLAVOR" "$TO_MATURITY" "$TO_RELEASEPHASE")
+            docker pull "$FROM_STRING"
+            docker tag  "$FROM_STRING" "$TO_STRING"
+            docker push "$TO_STRING"
+        done
+        ;;
+esac
 
 
