@@ -27,17 +27,22 @@ PKGROOT       = pkgroot/$(FULL_NAME)
 #   TESTING: serviced-1.0.0-0.1.ALPHA1 (where ALPHA1 is the release phase.  Could be any of
 #                                       ALPHA#, BETA#, CR#, or GA)
 #
-#   RELEASE_PHASE=GA
+#   RELEASE_PHASE=1    # GA
 #   BUILD_NUMBER=#ignored
 #   STABLE:  serviced-1.0.0-1 (this is special, and will result in a '1' REVISION)
+#
+#   RELEASE_PHASE=2    # GA2
+#   BUILD_NUMBER=#ignored
+#   STABLE:  serviced-1.0.0-2 (this is special, and will result in a '2' REVISION)
+
 
 PKG_VERSION = $(VERSION)
 ifeq "$(RELEASE_PHASE)" ""
     ITERATION = 0.0.$(BUILD_NUMBER).unstable
 else
     # Included a RELEASE_PHASE - assume NOT a nightly build
-    ifeq "$(RELEASE_PHASE)" "GA"
-        ITERATION = 1
+    ifeq "$(RELEASE_PHASE)" "$(shell echo $(RELEASE_PHASE) | tr -cd '[:digit:]')"
+        ITERATION = $(RELEASE_PHASE)
     else
         ITERATION = 0.1.$(RELEASE_PHASE)
     endif
