@@ -43,6 +43,11 @@ case $VERSION in
             docker pull "$FROM_STRING"
             docker tag -f "$FROM_STRING" "$TO_STRING"
             docker push "$TO_STRING"
+            if [[ "$TO_MATURITY" = "stable" ]]; then
+                LATEST_STRING="$(echo $TO_STRING | cut -f1 -d:):${VERSION}"
+                docker tag -f "$FROM_STRING" "$LATEST_STRING"
+                docker push "$LATEST_STRING"
+            fi
         done
         ;;
 esac
