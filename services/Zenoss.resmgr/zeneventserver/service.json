@@ -32,7 +32,9 @@
     "Endpoints": [
         {
             "Name": "zep_mariadb",
-            "Application": "zep_.*",
+            "Application": "zep_mariadb",
+            "PortNumber": 3306,
+            "Protocol": "tcp",
             "Purpose": "import"
         },
         {
