@@ -31,8 +31,8 @@
     },
     "Endpoints": [
         {
-            "Name": "mariadb",
-            "Application": "zodb_.*",
+            "Name": "zep_mariadb",
+            "Application": "zep_.*",
             "Purpose": "import"
         },
         {
