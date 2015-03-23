@@ -45,6 +45,7 @@
             "Name": "rabbitmq_inet_dist",
             "Application": "rabbitmq_inet_dist",
             "PortNumber":44001,
+            "PortTemplate": "{{plus .InstanceID 44001}}",
             "Protocol":"tcp",
             "Purpose":"export"
         },
@@ -52,6 +53,7 @@
             "Name": "rabbitmq_epmds",
             "Application": "rabbitmq_epmd",
             "PortNumber":4369,
+            "PortTemplate": "{{plus .InstanceID 14369}}",
             "Protocol":"tcp",
             "Purpose":"import_all",
             "VirtualAddress": "rbt{{.InstanceID}}:4369"
@@ -93,6 +95,12 @@
         }
     ],
     "Name": "RabbitMQ",
+    "Prereqs": [
+        {
+            "Name": "Cluster Leader Start",
+            "Script": "[ $(hostname) == 'rbt0' ] || rabbitmqctl -n rabbit@rbt0 status"
+        }
+    ],
     "Services": [],
     "Snapshot": {
         "Pause":  "PAUSE_CHECK_TIMEOUT=60 ${ZENHOME:-/opt/zenoss}/bin/quiesce-rabbitmq.sh pause",
