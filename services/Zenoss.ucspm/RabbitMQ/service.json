@@ -114,7 +114,7 @@
             "#####":         "drwxr-x--- 4 rabbitmq rabbitmq 4096 Feb 25 21:25 /var/lib/rabbitmq",
             "Owner":         "rabbitmq:rabbitmq",
             "Permission":    "0750",
-            "ResourcePath":  "rabbitmq{{.InstanceID}}",
+            "ResourcePath":  "rabbitmq/{{.InstanceID}}",
             "ContainerPath": "/var/lib/rabbitmq"
         }
     ],
