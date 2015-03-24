@@ -26,7 +26,6 @@
             "Name": "rabbitmq",
             "Application": "rabbitmq",
             "PortNumber": 5672,
-            "PortTemplate": "{{plus .InstanceID 5672}}",
             "Protocol": "tcp",
             "Purpose": "export",
             "AddressConfig": {
@@ -45,7 +44,6 @@
             "Name": "rabbitmq_inet_dist",
             "Application": "rabbitmq_inet_dist",
             "PortNumber":44001,
-            "PortTemplate": "{{plus .InstanceID 44001}}",
             "Protocol":"tcp",
             "Purpose":"export"
         },
@@ -62,6 +60,7 @@
             "Name": "rabbitmq_inet_dists",
             "Application": "rabbitmq_inet_dist",
             "PortNumber":44001,
+            "PortTemplate": "{{plus .InstanceID 49001}}",
             "Protocol":"tcp",
             "Purpose":"import_all",
             "VirtualAddress": "rbt{{.InstanceID}}:44001"
@@ -70,6 +69,7 @@
             "Name": "rabbitmqs",
             "Application": "rabbitmq",
             "PortNumber": 5672,
+            "PortTemplate": "{{plus .InstanceID 35672}}",
             "Protocol": "tcp",
             "Purpose": "import_all",
             "VirtualAddress": "rbt{{.InstanceID}}:5672"
@@ -98,7 +98,7 @@
     "Prereqs": [
         {
             "Name": "Cluster Leader Start",
-            "Script": "[ $(hostname) == 'rbt0' ] || rabbitmqctl -n rabbit@rbt0 status"
+            "Script": "[ $(hostname) == 'rbt0' ] || rabbitmqctl -n rabbit@rbt0 status | grep nodedown || sleep 5"
         }
     ],
     "Services": [],
