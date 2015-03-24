@@ -32,13 +32,56 @@
                 "Port": 5672,
                 "Protocol": "tcp"
             }
+        },
+        {
+            "Name": "rabbitmq_epmd",
+            "Application": "rabbitmq_epmd",
+            "PortNumber":4369,
+            "Protocol":"tcp",
+            "Purpose":"export"
+        },
+        {
+            "Name": "rabbitmq_inet_dist",
+            "Application": "rabbitmq_inet_dist",
+            "PortNumber":44001,
+            "Protocol":"tcp",
+            "Purpose":"export"
+        },
+        {
+            "Name": "rabbitmq_epmds",
+            "Application": "rabbitmq_epmd",
+            "PortNumber":4369,
+            "PortTemplate": "{{plus .InstanceID 14369}}",
+            "Protocol":"tcp",
+            "Purpose":"import_all",
+            "VirtualAddress": "rbt{{.InstanceID}}:4369"
+        },
+        {
+            "Name": "rabbitmq_inet_dists",
+            "Application": "rabbitmq_inet_dist",
+            "PortNumber":44001,
+            "PortTemplate": "{{plus .InstanceID 49001}}",
+            "Protocol":"tcp",
+            "Purpose":"import_all",
+            "VirtualAddress": "rbt{{.InstanceID}}:44001"
+        },
+        {
+            "Name": "rabbitmqs",
+            "Application": "rabbitmq",
+            "PortNumber": 5672,
+            "PortTemplate": "{{plus .InstanceID 35672}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "rbt{{.InstanceID}}:5672"
         }
     ],
+    "Hostname": "rbt{{.InstanceID}}",
     "ImageID": "zenoss/zenoss5x",
+    "Privileged": true,
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": "1G",
+    "RAMCommitment": "256M",
     "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [
@@ -52,6 +95,12 @@
         }
     ],
     "Name": "RabbitMQ",
+    "Prereqs": [
+        {
+            "Name": "Cluster Leader Start",
+            "Script": "[ $(hostname) == 'rbt0' ] || rabbitmqctl -n rabbit@rbt0 status | grep nodedown || sleep 5"
+        }
+    ],
     "Services": [],
     "Snapshot": {
         "Pause":  "PAUSE_CHECK_TIMEOUT=60 ${ZENHOME:-/opt/zenoss}/bin/quiesce-rabbitmq.sh pause",
@@ -65,7 +114,7 @@
             "#####":         "drwxr-x--- 4 rabbitmq rabbitmq 4096 Feb 25 21:25 /var/lib/rabbitmq",
             "Owner":         "rabbitmq:rabbitmq",
             "Permission":    "0750",
-            "ResourcePath":  "rabbitmq",
+            "ResourcePath":  "rabbitmq{{.InstanceID}}",
             "ContainerPath": "/var/lib/rabbitmq"
         }
     ],
