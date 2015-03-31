@@ -1,9 +1,9 @@
 {
-    "Description": "MariaDB database server",
+    "Description": "MariaDB model database server",
     "Command": "/usr/bin/mysqld_safe",
     "Endpoints": [
         {
-            "Name": "mariadb",
+            "Name": "zodb_mariadb",
             "Application": "zodb_mariadb",
             "PortNumber": 3306,
             "Protocol": "tcp",
@@ -12,10 +12,11 @@
     ],
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
-        "min": 1
+        "min": 1,
+        "max": 1
     },
-    "RAMCommitment": "1G",
-    "CPUCommitment": 2,
+    "RAMCommitment": "2G",
+    "CPUCommitment": 4,
     "Launch": "auto",
     "LogConfigs": [
         {
@@ -23,7 +24,7 @@
             "type": "mariadb"
         }
     ],
-    "Name": "MariaDB",
+    "Name": "mariadb-model",
     "Runs": {
         "rebuild_zodb_session": "${ZENHOME:-/opt/zenoss}/bin/zenrun mysql.sh rebuild_zodb_session"
     },
@@ -39,7 +40,7 @@
             "#####":         "drwxr-xr-x 12 mysql mysql 4096 Feb 25 21:27 /var/lib/mysql/",
             "Owner":         "mysql:mysql",
             "Permission":    "0755",
-            "ResourcePath":  "mariadb",
+            "ResourcePath":  "mariadb-model",
             "ContainerPath": "/var/lib/mysql"
         }
     ],

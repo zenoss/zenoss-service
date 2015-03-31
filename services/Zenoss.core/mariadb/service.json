@@ -14,8 +14,8 @@
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": "2G",
-    "CPUCommitment": 4,
+    "RAMCommitment": "1G",
+    "CPUCommitment": 2,
     "Launch": "auto",
     "LogConfigs": [
         {
@@ -23,7 +23,7 @@
             "type": "mariadb"
         }
     ],
-    "Name": "MariaDB",
+    "Name": "mariadb",
     "Runs": {
         "rebuild_zodb_session": "${ZENHOME:-/opt/zenoss}/bin/zenrun mysql.sh rebuild_zodb_session"
     },
