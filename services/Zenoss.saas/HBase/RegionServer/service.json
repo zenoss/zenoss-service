@@ -1,0 +1,99 @@
+{
+    "Description": "Region Server for HBase",
+    "Command": "/usr/bin/run-hbase-regionserver.sh /etc/hbase-site.xml $CONTROLPLANE_INSTANCE_ID",
+    "ConfigFiles": {
+      "/etc/hbase-site.xml": {
+        "FileName": "/etc/hbase-site.xml",
+        "Owner": "hbase:hbase",
+        "Permissions": "0664"
+      },
+      "/etc/hbase-env.sh": {
+        "FileName": "/etc/hbase-env.sh",
+        "Owner": "hbase:hbase",
+        "Permissions": "0775"
+      }
+    },
+    "Hostname": "localhost",
+    "Endpoints": [
+        {
+            "Name": "hbase-master",
+            "Application": "hbase-master-.*",
+            "Purpose": "import"
+        },
+        {
+            "Name": "hbase-regionserver",
+            "Application": "hbase-regionserver",
+            "PortNumber": 60200,
+            "PortTemplate": "{{ plus 60200 .InstanceID }}",
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Name": "hbase-regionservers",
+            "Application": "hbase-regionserver",
+            "PortNumber": 60200,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Name": "hbase-regionserverinfo",
+            "Application": "hbase-regionserverinfo",
+            "PortNumber": 60300,
+            "PortTemplate": "{{ plus 60300 .InstanceID }}",
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Name": "zookeeper-client",
+            "Application": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        }
+      ],
+    "Privileged": true,
+    "ImageID": "zenoss/hbase:xx",
+    "Instances": {
+        "min": 3
+    },
+    "RAMCommitment": "1G",
+    "CPUCommitment": 1,
+    "Launch": "auto",
+    "HostPolicy": "PREFER_SEPARATE",
+    "LogConfigs": [
+        {
+            "path": "/var/log/hbase/hbase-regionserver.log",
+            "type": "hbase"
+        }
+    ],
+    "Name": "RegionServer",
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####":         "drwxr-xr-x  2 hbase hbase 4.0K Apr 15 12:57 /var/hbase",
+            "Owner":         "hbase:hbase",
+            "Permission":    "0755",
+            "ResourcePath":  "hbase-master",
+            "ContainerPath": "/var/hbase"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Script": "nc -z localhost {{ plus 60200 .InstanceID }}",
+            "Interval": 10.0
+        },
+        "cluster_member": {
+            "Script": "curl http://localhost:61000/status/cluster | grep -q 'localhost:{{ plus 60200 .InstanceID }}'",
+            "Interval": 10.0
+        }
+    },
+    "Prereqs": [
+        {
+            "Name": "HBase Master up",
+            "Script": "curl -s -f http://127.0.0.1:61000/version/cluster &> /dev/null"
+        }
+    ]
+}
