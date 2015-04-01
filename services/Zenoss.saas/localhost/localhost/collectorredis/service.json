@@ -1,0 +1,120 @@
+{
+    "Description": "Redis server",
+    "Command": "/usr/bin/redis-server /etc/redis.conf",
+    "Endpoints": [
+        {
+            "Name": "CollectorRedis",
+            "Application": "{{(parent .).Name}}_redis",
+            "PortNumber": 6379,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        }
+    ],
+    "ImageID": "zenoss/zenoss5x",
+    "Instances": {
+        "min": 1,
+        "max": 1
+    },
+    "RAMCommitment": "1G",
+    "CPUCommitment": 1,
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/log/redis/redis.log",
+            "type": "redis"
+        }
+    ],
+    "Name": "redis",
+    "Tags": [
+        "daemon",
+        "collector"
+    ],
+    "MonitoringProfile": {
+        "MetricConfigs": [
+            {
+                "ID": "redis",
+                "Name": "redis internal metrics",
+                "Description": "redis internal metrics",
+                "Metrics": [
+                    {
+                        "ID": "redis.total_commands_processed",
+                        "Name": "Total Commands",
+                        "Description": "Number of commands processed by redis.",
+                        "Counter": true,
+                        "Unit": "Count"
+                    },
+                    {
+                        "ID": "redis.metricsLength",
+                        "Name": "Metrics Queue Length",
+                        "Description": "Number of metrics awaiting processing",
+                        "Counter": false,
+                        "Unit": "Count"
+                    }
+                ]
+            }
+        ],
+        "GraphConfigs": [
+            {
+                "id": "metricqueue",
+                "name": "Metric Queue Length",
+                "footer": false,
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Metrics",
+                "description": "Number of metrics awaiting processing",
+                "range": {
+                    "start": "1h-ago",
+                    "end": "0s-ago"
+                },
+                "datapoints": [
+                    {
+                        "aggregator": "sum",
+                        "fill": false,
+                        "format": "%d",
+                        "id": "metricsLength",
+                        "legend": "Metrics",
+                        "metric": "redis.metricsLength",
+                        "metricSource": "redis",
+                        "name": "Metric Queue Length",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ]
+            },
+            {
+                "id": "totalcommands",
+                "name": "Total Commands",
+                "footer": false,
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Commands/s",
+                "description": "Number of commands per second",
+                "range": {
+                    "start": "1h-ago",
+                    "end": "0s-ago"
+                },
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "format": "%d",
+                        "id": "total_commands_processed",
+                        "legend": "Data Points",
+                        "metric": "redis.total_commands_processed",
+                        "metricSource": "redis",
+                        "name": "Total Commands",
+                        "rate": true,
+                        "type": "line"
+                    }
+                ]
+            }
+        ]
+    },
+    "HealthChecks": {
+        "metrics": {
+            "Script": "/opt/zenoss/bin/healthchecks/collectorredis/metrics",
+            "Interval": 15
+        }
+    },
+    "Volumes": []
+}
