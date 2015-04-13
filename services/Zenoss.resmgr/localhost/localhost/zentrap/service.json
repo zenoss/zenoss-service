@@ -16,6 +16,11 @@
             "FileName": "/opt/zenoss/etc/zentrap.conf",
             "Owner": "zenoss:zenoss",
             "Permissions": "0664"
+        },
+        "/opt/zenoss/etc/zentrap.filter.conf": {
+            "FileName": "/opt/zenoss/etc/zentrap.filter.conf",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
         }
     },
     "Endpoints": [
