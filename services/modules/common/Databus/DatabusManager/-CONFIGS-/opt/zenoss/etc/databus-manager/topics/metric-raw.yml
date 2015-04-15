@@ -1,0 +1,6 @@
+ name: metric-test1
+ replication: 2
+ partition: 3
+ valueSchema: "{\"name\":\"value\",\"type\": \"int\"}"
+ 
+

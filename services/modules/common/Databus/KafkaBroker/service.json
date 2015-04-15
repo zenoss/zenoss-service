@@ -1,0 +1,79 @@
+{
+    "Name": "Kafka Broker",
+    "Description": "Message broker for the Databus",
+    "Command": "/opt/kafka/start-kafka.sh -b {{ plus 1 .InstanceID }} -c /opt/kafka/config/kafka_broker.properties -z {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}zk{{ plus 1 . }}:2181{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}} -s",
+    "ConfigFiles": {
+      "/opt/kafka/config/kafka_broker.properties": {
+        "FileName": "/opt/kafka/config/kafka_broker.properties",
+        "Owner": "root:root",
+        "Permissions": "0664"
+      }
+    },
+    "Hostname": "kfk{{.InstanceID}}",
+    "Privileged": true,
+    "Endpoints": [
+        {
+            "Name": "kafka-broker",
+            "Application": "kafka-broker",
+            "PortNumber": 9092,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Name": "zookeeper-client",
+            "Application": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        },
+        {
+            "Name": "kafka-brokers",
+            "Application": "kafka-broker",
+            "PortNumber": 9092,
+	    "PortTemplate": "{{plus .InstanceID 19092}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "kfk{{.InstanceID}}:9092"
+        }
+      ],
+    "Privileged": true,
+    "ImageID": "zenoss/kafka:0.8.2.0",
+    "Instances": {
+        "min": 3
+    },
+    "RAMCommitment": "1G",
+    "CPUCommitment": 1,
+    "Launch": "auto",
+    "HostPolicy": "PREFER_SEPARATE",
+    "LogConfigs": [
+        {
+            "path": "/var/log/kafka/kafka.log",
+            "type": "kafka"
+        }
+    ],
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####":         "drwxr-xr-x 13 root root  4096 Mar 17 15:02 /var/kafka/datalog",
+            "Owner":         "root:root",
+            "Permission":    "0755",
+            "ResourcePath":  "kafka-broker-{{ plus 1 .InstanceID }}",
+            "ContainerPath": "/var/kafka/datalog"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Script": "/usr/local/bin/checkHostPort.sh localhost 9092",
+            "Interval": 10.0
+        }
+    },    
+    "Prereqs": [
+        {
+            "Name": "ZooKeeper up",
+            "Script": "{{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}/usr/local/bin/checkHostPort.sh zk{{plus 1 .}} 2181 {{if ne (plus 1 .) $zks}}&& {{end}}{{end}}{{end}}"
+        }
+    ]
+}

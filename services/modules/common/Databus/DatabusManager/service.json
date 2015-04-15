@@ -1,0 +1,72 @@
+{
+    "Name": "Databus Manager",
+    "Description": "Databus Admin",
+    "Command": "/opt/zenoss/bin/databus-manager-start.sh -c /opt/zenoss/etc/databus-manager/databus-manager.properties -z {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}zk{{ plus 1 . }}:2181{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}} ",
+    "ConfigFiles": {
+        "/opt/zenoss/etc/databus-manager/databus-manager.properties": {
+            "FileName": "/opt/zenoss/etc/databus-manager/databus-manager.properties",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
+        }
+    },
+    "Hostname": "dm{{.InstanceID}}",
+    "Privileged": true,
+    "Endpoints": [
+        {
+            "Name": "zookeeper-client",
+            "Application": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        },
+        {
+            "Name": "kafka-brokers",
+            "Application": "kafka-broker",
+            "PortNumber": 9092,
+	    "PortTemplate": "{{plus .InstanceID 19092}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "kfk{{.InstanceID}}:9092"
+        }
+      ],
+    "Privileged": true,
+    "ImageID": "zenoss/zenoss5x",
+    "Instances": {
+        "min": 1
+    },
+    "RAMCommitment": "256M",
+    "CPUCommitment": 1,
+    "Launch": "auto",
+    "HostPolicy": "PREFER_SEPARATE",
+    "LogConfigs": [
+        {
+            "path": "/opt/zenoss/log/databus-manager.log",
+            "type": "databus-manager"
+        }
+    ],
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####":         "drwxr-xr-x 13 root root  4096 Mar 17 15:02 /var/kafka/datalog",
+            "Owner":         "zenoss:zenoss",
+            "Permission":    "0755",
+            "ResourcePath":  "databus",
+            "ContainerPath": "/var/zenoss/databus/topics"
+        }
+    ],
+    "HealthChecks": {
+        "kafka_answering": {
+            "Script": "{{with $k := (child (parent .) \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}",
+            "Interval": 10.0
+        }
+    },    
+    "Prereqs": [
+	{
+            "Name": "Kafka up",
+            "Script": "{{with $k := (child (parent .) \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
+        }
+    ]
+}

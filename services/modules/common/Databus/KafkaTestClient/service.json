@@ -1,0 +1,73 @@
+{
+    "Name": "Kafka Test Client",
+    "Description": "Databus Client for testing",
+    "Command": "/bin/bash",
+    "ConfigFiles": {
+      "/opt/kafka/config/kafka_broker.properties": {
+        "FileName": "/opt/kafka/config/kafka_broker.properties",
+        "Owner": "root:root",
+        "Permissions": "0664"
+      }
+    },
+    "Hostname": "kfkc{{.InstanceID}}",
+    "Privileged": true,
+    "Endpoints": [
+        {
+            "Name": "kafka-broker",
+            "Application": "kafka-broker",
+            "PortNumber": 9092,
+	    "PortTemplate": "{{plus .InstanceID 19092}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "kfk{{.InstanceID}}:9092"
+        },
+	{
+            "Name": "zookeeper-client",
+            "Application": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        }
+        
+      ],
+    "Privileged": true,
+    "ImageID": "zenoss/kafka:0.8.2.0",
+    "Instances": {
+        "min": 1
+    },
+    "RAMCommitment": "1G",
+    "CPUCommitment": 1,
+    "Launch": "auto",
+    "HostPolicy": "PREFER_SEPARATE",
+    "LogConfigs": [
+        {
+            "path": "/var/log/kafka/kafka.log",
+            "type": "kafka"
+        }
+    ],
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####":         "drwxr-xr-x 13 root root  4096 Mar 17 15:02 /var/kafka/datalog",
+            "Owner":         "root:root",
+            "Permission":    "0755",
+            "ResourcePath":  "kafka-client-{{ plus 1 .InstanceID }}",
+            "ContainerPath": "/var/kafka/datalog"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Script": "/usr/local/bin/checkHostPort.sh kfk0 9092",
+            "Interval": 10.0
+        }
+    },    
+    "Prereqs": [
+        {
+            "Name": "Kafka up",
+            "Script": "{{with $k := (child (parent .) \"KafkaBroker\").Instances }}{{ range (each $k) }}/usr/local/bin/checkHostPort.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
+        }
+    ]
+}

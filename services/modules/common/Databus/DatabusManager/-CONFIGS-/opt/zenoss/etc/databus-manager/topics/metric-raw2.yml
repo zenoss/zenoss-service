@@ -1,0 +1,29 @@
+ name: metric-test2
+ replication: 2
+ partition: 3
+ valueSchema: "{
+       \"type\": \"record\",
+       \"name\": \"test\",
+       \"fields\":
+         [
+           {
+             \"type\": \"string\",
+             \"name\": \"field1\"
+           },
+           {
+             \"type\": \"integer\",
+             \"name\": \"field2\"
+           }
+         ]
+     }"
+ configProps:
+  max.message.bytes: "60000"
+  
+---
+
+ name: metric-test3
+ replication: 2
+ partition: 3
+ valueSchema: "{\"name\":\"value\",\"type\": \"int\"}"
+ configProps:
+  max.message.bytes: "6000"
