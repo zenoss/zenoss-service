@@ -2,16 +2,16 @@
     "Name": "Kafka Test Client",
     "Description": "Databus Client for testing",
     "Command": "/bin/bash",
-    "ConfigFiles": {
-      "/opt/kafka/config/kafka_broker.properties": {
-        "FileName": "/opt/kafka/config/kafka_broker.properties",
-        "Owner": "root:root",
-        "Permissions": "0664"
-      }
-    },
     "Hostname": "kfkc{{.InstanceID}}",
     "Privileged": true,
     "Endpoints": [
+	{
+            "Name": "kafka-test",
+            "Application": "kafka-test",
+            "PortNumber": 8081,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
         {
             "Name": "kafka-broker",
             "Application": "kafka-broker",
@@ -60,14 +60,14 @@
     ],
     "HealthChecks": {
         "answering": {
-            "Script": "/usr/local/bin/checkHostPort.sh kfk0 9092",
+            "Script": "/usr/bin/generic_answering_check.sh kfk0 9092",
             "Interval": 10.0
         }
     },    
     "Prereqs": [
         {
             "Name": "Kafka up",
-            "Script": "{{with $k := (child (parent .) \"KafkaBroker\").Instances }}{{ range (each $k) }}/usr/local/bin/checkHostPort.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
+            "Script": "{{with $k := (child (parent .) \"KafkaBroker\").Instances }}{{ range (each $k) }}/usr/bin/generic_answering_check.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
         }
     ]
 }

@@ -1,21 +1,21 @@
 {
-    "Name": "Kafka Broker",
-    "Description": "Message broker for the Databus",
-    "Command": "/usr/bin/start-kafka.sh -b {{ .InstanceID }} -c /etc/kafka/kafka_broker.properties -z {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}zk{{ plus 1 . }}:2181{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}} -s",
+    "Name": "Schema Registry",
+    "Description": "Schema registry for the Databus",
+    "Command": "/usr/bin/start-registry.sh -c /etc/kafka/schema-registry.properties -z {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}zk{{ plus 1 . }}:2181{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}} ",
     "ConfigFiles": {
-      "/etc/kafka/kafka_broker.properties": {
-        "FileName": "/etc/kafka/kafka_broker.properties",
+      "/etc/kafka/schema-registry.properties": {
+        "FileName": "/etc/kafka/schema-registry.properties",
         "Owner": "root:root",
         "Permissions": "0664"
       }
     },
-    "Hostname": "kfk{{.InstanceID}}",
+    "Hostname": "dsr{{.InstanceID}}",
     "Privileged": true,
     "Endpoints": [
         {
-            "Name": "kafka-broker",
+            "Name": "schema-registry",
             "Application": "kafka-broker",
-            "PortNumber": 9092,
+            "PortNumber": 8081,
             "Protocol": "tcp",
             "Purpose": "export"
         },
@@ -40,33 +40,24 @@
     "Privileged": true,
     "ImageID": "zenoss/kafka:0.8.2.0",
     "Instances": {
-        "min": 3
+        "min": 1
     },
-    "RAMCommitment": "1G",
+    "RAMCommitment": "256M",
     "CPUCommitment": 1,
     "Launch": "auto",
     "HostPolicy": "PREFER_SEPARATE",
     "LogConfigs": [
         {
-            "path": "/var/log/kafka/kafka.log",
-            "type": "kafka"
+            "path": "/var/log/kafka/registry.log",
+            "type": "schema-registry"
         }
     ],
     "Tags": [
         "daemon"
     ],
-    "Volumes": [
-        {
-            "#####":         "drwxr-xr-x 13 root root  4096 Mar 17 15:02 /var/kafka/datalog",
-            "Owner":         "root:root",
-            "Permission":    "0755",
-            "ResourcePath":  "kafka-broker-{{ plus 1 .InstanceID }}",
-            "ContainerPath": "/var/kafka/datalog"
-        }
-    ],
     "HealthChecks": {
         "answering": {
-            "Script": "/usr/bin/generic_answering_check.sh localhost 9092",
+            "Script": "/usr/bin/generic_answering_check.sh localhost 8081",
             "Interval": 10.0
         }
     },    
@@ -74,6 +65,10 @@
         {
             "Name": "ZooKeeper up",
             "Script": "{{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}/usr/bin/generic_answering_check.sh zk{{plus 1 .}} 2181 {{if ne (plus 1 .) $zks}}&& {{end}}{{end}}{{end}}"
+        },
+	{
+            "Name": "Kafka up",
+            "Script": "{{with $k := (child (parent .) \"KafkaBroker\").Instances }}{{ range (each $k) }}/usr/bin/generic_answering_check.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
         }
     ]
 }

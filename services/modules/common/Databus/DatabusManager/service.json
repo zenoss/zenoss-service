@@ -1,7 +1,7 @@
 {
     "Name": "Databus Manager",
     "Description": "Databus Admin",
-    "Command": "/opt/zenoss/bin/databus-manager-start.sh -c /opt/zenoss/etc/databus-manager/databus-manager.properties -z {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}zk{{ plus 1 . }}:2181{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}} ",
+    "Command": "/opt/zenoss/bin/databus-manager-start.sh -c /opt/zenoss/etc/databus-manager/databus-manager.properties -b {{ (child (parent .) \"KafkaBroker\").Instances }} -z {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}zk{{ plus 1 . }}:2181{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}} ",
     "ConfigFiles": {
         "/opt/zenoss/etc/databus-manager/databus-manager.properties": {
             "FileName": "/opt/zenoss/etc/databus-manager/databus-manager.properties",
@@ -19,6 +19,13 @@
             "Protocol": "tcp",
             "Purpose": "import_all",
             "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        },
+	{
+            "Name": "schema-registry",
+            "Application": "kafka-broker",
+            "PortNumber": 8081,
+            "Protocol": "tcp",
+            "Purpose": "import"
         },
         {
             "Name": "kafka-brokers",
@@ -64,6 +71,10 @@
         }
     },    
     "Prereqs": [
+	{
+            "Name": "ZooKeeper up",
+            "Script": "{{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}/opt/zenoss/bin/healthchecks/generic_answering.sh zk{{plus 1 .}} 2181 {{if ne (plus 1 .) $zks}}&& {{end}}{{end}}{{end}}"
+        },
 	{
             "Name": "Kafka up",
             "Script": "{{with $k := (child (parent .) \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
