@@ -22,7 +22,7 @@
         },
 	{
             "Name": "schema-registry",
-            "Application": "kafka-broker",
+            "Application": "schema-registry",
             "PortNumber": 8081,
             "Protocol": "tcp",
             "Purpose": "import"
@@ -78,6 +78,10 @@
 	{
             "Name": "Kafka up",
             "Script": "{{with $k := (child (parent .) \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
-        }
+        },
+	{
+	    "Name": "Registry up",
+	    "Script": "/opt/zenoss/bin/healthchecks/databusregistry_answering"
+	}
     ]
 }

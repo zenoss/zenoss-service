@@ -1,7 +1,7 @@
 {
     "Name": "Schema Registry",
     "Description": "Schema registry for the Databus",
-    "Command": "/usr/bin/start-registry.sh -c /etc/kafka/schema-registry.properties -z {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}zk{{ plus 1 . }}:2181{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}} ",
+    "Command": "/usr/bin/start-registry.sh -c /etc/kafka/schema-registry.properties -z {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}zk{{ plus 1 . }}:2181{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}} -s",
     "ConfigFiles": {
       "/etc/kafka/schema-registry.properties": {
         "FileName": "/etc/kafka/schema-registry.properties",
@@ -14,7 +14,7 @@
     "Endpoints": [
         {
             "Name": "schema-registry",
-            "Application": "kafka-broker",
+            "Application": "schema-registry",
             "PortNumber": 8081,
             "Protocol": "tcp",
             "Purpose": "export"

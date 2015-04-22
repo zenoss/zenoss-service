@@ -1,6 +1,11 @@
- name: metric-test1
- replication: 2
- partition: 3
- valueSchema: "{\"name\":\"value\",\"type\": \"int\"}"
+name: metric-test1
+replication: 2
+partition: 3
+schemas:
+  VALUE :
+    type: VALUE
+    inlineContent: "{\"name\":\"value\",\"type\": \"int\"}"
+
+
  
 

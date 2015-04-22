@@ -1,29 +1,31 @@
- name: metric-test2
- replication: 2
- partition: 3
- valueSchema: "{
-       \"type\": \"record\",
-       \"name\": \"test\",
-       \"fields\":
-         [
-           {
-             \"type\": \"string\",
-             \"name\": \"field1\"
-           },
-           {
-             \"type\": \"integer\",
-             \"name\": \"field2\"
-           }
-         ]
-     }"
- configProps:
+name: metric-test2
+replication: 2
+partition: 3
+schemas:
+  ? KEY
+  :
+    inlineContent: "{\"type\": \"int\"}"
+    type: KEY
+  ? VALUE
+  :
+    type: VALUE 
+    inlineContent: "{\"type\": \"record\", \"name\": \"test\", \"fields\": [{\"type\": \"string\", \"name\": \"field1\"}, {\"type\": \"int\", \"name\": \"field2\"}]}" 
+configProps:
   max.message.bytes: "60000"
-  
+
+
 ---
 
- name: metric-test3
- replication: 2
- partition: 3
- valueSchema: "{\"name\":\"value\",\"type\": \"int\"}"
- configProps:
+name: metric-test3
+replication: 2
+partition: 3
+schemas:
+  VALUE :
+    type: VALUE
+    inlineContent: "{\"name\":\"value\",\"type\": \"int\"}"
+  KEY :
+    type: KEY
+    inlineContent:  "{\"type\": \"int\"}"
+configProps:
   max.message.bytes: "6000"
+
