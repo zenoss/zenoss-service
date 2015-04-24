@@ -5,7 +5,7 @@
     "CPUCommitment": 1,
     "Launch": "auto",
     "Name": "Zenoss",
-    "Version": "5.0.2",
+    "Version": "5.0.3",
     "Context": {
         "global.conf.zodb-db-type": "mysql",
         "global.conf.zodb-host": "127.0.0.1 ",
