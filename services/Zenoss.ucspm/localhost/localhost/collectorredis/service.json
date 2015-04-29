@@ -3,6 +3,13 @@
     "Command": "/usr/bin/redis-server /etc/redis.conf",
     "Endpoints": [
         {
+            "Name": "zproxy",
+            "Application": "zproxy",
+            "PortNumber": 8080,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Name": "CollectorRedis",
             "Application": "{{(parent .).Name}}_redis",
             "PortNumber": 6379,
