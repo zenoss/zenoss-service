@@ -16,6 +16,13 @@
     },
     "Endpoints": [
         {
+            "Name": "zproxy",
+            "Application": "zproxy",
+            "PortNumber": 8080,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Name": "zenhub",
             "Application": "localhost_zenhubPB",
             "PortNumber": 8789,
