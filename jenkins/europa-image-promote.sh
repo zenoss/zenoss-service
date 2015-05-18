@@ -44,6 +44,8 @@ case $VERSION in
             docker tag -f "$FROM_STRING" "$TO_STRING"
             docker push "$TO_STRING"
             if [[ "$TO_MATURITY" = "stable" ]]; then
+                docker pull "$TO_STRING"    # ensure new tag is available
+                docker pull "$FROM_STRING"  # allow a little time for dockerhub
                 LATEST_STRING="$(echo $TO_STRING | cut -f1 -d:):${VERSION}"
                 docker tag -f "$FROM_STRING" "$LATEST_STRING"
                 docker push "$LATEST_STRING"
