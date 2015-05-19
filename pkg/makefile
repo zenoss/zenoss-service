@@ -39,6 +39,7 @@ PKGROOT       = pkgroot/$(FULL_NAME)
 PKG_VERSION = $(VERSION)
 ifeq "$(RELEASE_PHASE)" ""
     ITERATION = 0.0.$(BUILD_NUMBER).unstable
+    BUILD_LABEL = build-$(BUILD_NUMBER)
 else
     # Included a RELEASE_PHASE - assume NOT a nightly build
     ifeq "$(RELEASE_PHASE)" "$(shell echo $(RELEASE_PHASE) | tr -cd '[:digit:]')"
@@ -46,6 +47,7 @@ else
     else
         ITERATION = 0.1.$(RELEASE_PHASE)
     endif
+    BUILD_LABEL =
 endif
 
 ifeq "$(FROMVERSION)" ""
@@ -55,7 +57,7 @@ DEB_PKG_VERSION = $(FROMVERSION)+$(PKG_VERSION)
 endif
 
 define DESCRIPTION
-Service definitions for $(NAME).
+Service definitions for $(NAME).  $(BUILD_LABEL)
 These definitions allow $(NAME) to be instantiated by the
 Zenoss Control Center serviced application into a runtime environment that
 leverages the scalability, performance, and deployment lifecycle associated
