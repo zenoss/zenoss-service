@@ -34,19 +34,38 @@ repo_tag() {
     echo ${repo}:${tag}
 }
 
+retry() {
+    local maxtries=$1
+    shift
+    local command="$@"
+    local tries=0
+    until [ ${tries} -ge ${maxtries} ]; do
+        set +e
+        ${command};
+        local result=$?;
+        set -e
+        [ ${result} = 0 ] && break
+        tries=$[$tries+1]
+        sleep 1
+    done
+    return ${result}
+}
+
 case $VERSION in
     *)
         # No quoting FLAVORS below in order to split the string on spaces
         for FLAVOR in $FLAVORS; do
             FROM_STRING=$(repo_tag "$FLAVOR" "$FROM_MATURITY" "$FROM_RELEASEPHASE")
             TO_STRING=$(repo_tag "$FLAVOR" "$TO_MATURITY" "$TO_RELEASEPHASE")
-            docker pull "$FROM_STRING"
+            retry 3 docker pull "$FROM_STRING"
             docker tag -f "$FROM_STRING" "$TO_STRING"
-            docker push "$TO_STRING"
+            retry 3 docker push "$TO_STRING"
             if [[ "$TO_MATURITY" = "stable" ]]; then
+                retry 3 docker pull "$TO_STRING"    # ensure new tag is available
+                retry 3 docker pull "$FROM_STRING"  # allow a little time for dockerhub
                 LATEST_STRING="$(echo $TO_STRING | cut -f1 -d:):${VERSION}"
                 docker tag -f "$FROM_STRING" "$LATEST_STRING"
-                docker push "$LATEST_STRING"
+                retry 3 docker push "$LATEST_STRING"
             fi
         done
         ;;
