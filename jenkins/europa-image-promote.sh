@@ -35,8 +35,8 @@ repo_tag() {
 }
 
 retry() {
-    local maxtries=$1
-    shift
+    local maxtries=$1; shift
+    local sleeptime=$1; shift
     local command="$@"
     local tries=0
     until [ ${tries} -ge ${maxtries} ]; do
@@ -46,7 +46,8 @@ retry() {
         set -e
         [ ${result} = 0 ] && break
         tries=$[$tries+1]
-        sleep 1
+        echo sleeping $sleeptime before retry
+        sleep $sleeptime
     done
     return ${result}
 }
@@ -57,15 +58,15 @@ case $VERSION in
         for FLAVOR in $FLAVORS; do
             FROM_STRING=$(repo_tag "$FLAVOR" "$FROM_MATURITY" "$FROM_RELEASEPHASE")
             TO_STRING=$(repo_tag "$FLAVOR" "$TO_MATURITY" "$TO_RELEASEPHASE")
-            retry 3 docker pull "$FROM_STRING"
+            retry 4 5s docker pull "$FROM_STRING"
             docker tag -f "$FROM_STRING" "$TO_STRING"
-            retry 3 docker push "$TO_STRING"
+            retry 10 30s docker push "$TO_STRING"
             if [[ "$TO_MATURITY" = "stable" ]]; then
-                retry 3 docker pull "$TO_STRING"    # ensure new tag is available
-                retry 3 docker pull "$FROM_STRING"  # allow a little time for dockerhub
+                retry 4 5s docker pull "$TO_STRING"    # ensure new tag is available
+                retry 4 5s docker pull "$FROM_STRING"  # allow a little time for dockerhub
                 LATEST_STRING="$(echo $TO_STRING | cut -f1 -d:):${VERSION}"
                 docker tag -f "$FROM_STRING" "$LATEST_STRING"
-                retry 3 docker push "$LATEST_STRING"
+                retry 10 30s docker push "$LATEST_STRING"
             fi
         done
         ;;
