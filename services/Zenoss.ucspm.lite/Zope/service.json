@@ -148,6 +148,13 @@
             "ContainerPath": "/opt/zenoss/var/ext"
         },
         {
+            "#####": "drwxrwxr-x 3 zenoss zenoss 4096 Jul 18 11:20 /opt/zenoss/var/flexera",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0775",
+            "ResourcePath": "zenoss-var-flexera",
+            "ContainerPath": "/opt/zenoss/var/flexera"
+        },
+        {
             "#####": "drwxrwxr-x 4 zenoss zenoss 4096 Jul 18 11:20 /opt/zenoss/export",
             "Owner": "zenoss:zenoss",
             "Permission": "0775",
