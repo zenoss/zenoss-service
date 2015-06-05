@@ -151,6 +151,34 @@
                     { "ID": "ZEN_INF.org.zenoss.app.metricresource.api.metric.remote.MetricResources.query.999Percentile", "Name": "MetricResource Content-Length Histogram 99.9%" }
                 ]
             }
+        ],
+        "GraphConfigs": [
+            {
+                "id": "queryRate",
+                "name": "Query Rate",
+                "footer": false,
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Query Rate",
+                "description": "Number of queries received per second.",
+                "range": {
+                    "start": "1h-ago",
+                    "end": "0s-ago"
+                },
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "Queries",
+                        "legend": "Queries",
+                        "metric": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.count",
+                        "metricSource": "MetricResources.query",
+                        "name": "Queries",
+                        "rate": true,
+                        "type": "line"
+                    }
+                ]
+            }
         ]
     }
 }
