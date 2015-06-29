@@ -11,6 +11,9 @@ http:
       keyStore: etc/metric-consumer-app/cert/ssl.pfx
       keyStorePassword: zapp_pass
       keyStoreType:     pkcs12
+  requestLog:
+    console:
+      enabled: false
 
 webSocketConfiguration:
     maxTextMessageSize: 10485760
