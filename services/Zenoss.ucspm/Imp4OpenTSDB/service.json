@@ -1,0 +1,116 @@
+{
+    "Name": "Imp4OpenTSDB",
+    "Description": "OpenTSDB and perf data import worker for import4",
+    "Launch": "manual",
+    "Command": "bash -c \"/import4/pkg/bin/imp4opentsdb.sh\"",
+    "Description": "OpenTSDB environment for import4",
+    "Services": [],
+    "Tags": [
+        "daemon"
+    ],
+    "ImageID": "zenoss/opentsdb:v13",
+    "Instances": {
+        "Min": 1,
+        "Max": 0,
+        "Default": 0
+    },
+    "ChangeOptions": null,
+    "HostPolicy": "",
+    "Hostname": "",
+    "Privileged": false,
+    "ConfigFiles": {
+        "/opt/zenoss/etc/opentsdb/opentsdb.conf": {
+            "Filename": "/opt/zenoss/etc/opentsdb/opentsdb.conf",
+            "Owner": "root:root",
+            "Permissions": "0644"
+        }
+    },
+    "Context": null,
+    "Endpoints": [
+    {
+        "Application": "opentsdb*",
+        "Name": "opentsdb*",
+        "PortNumber": 4242,
+        "Protocol": "tcp",
+        "Purpose": "import"
+    },
+     {
+       "Name": "zookeeper-client",
+       "Application": "zookeeper-client",
+       "PortNumber": 2181,
+       "Protocol": "tcp",
+       "Purpose": "import_all"
+     },
+     {
+       "Name": "hbase-master",
+       "Application": "hbase-master-.*",
+       "Purpose": "import"
+     },
+     {
+       "Name": "hbase-regionserver",
+       "Application": "hbase-regionserver",
+       "PortNumber": 60200,
+       "Protocol": "tcp",
+       "Purpose": "import_all"
+     }
+   ],
+   "Tasks": null,
+   "LogFilters": null,
+   "Volumes": [
+     {
+       "Owner": "zenoss:zenoss",
+       "Permission": "0777",
+       "ResourcePath": "import4",
+       "ContainerPath": "/import4"
+     }
+    ],
+   "LogConfigs": [
+     {
+       "Path": "/opt/zenoss/log/imp4_opentsdb.log",
+       "Type": "opentsdb-reader",
+       "Filters": null,
+       "LogTags": null
+     }
+   ],
+   "Snapshot": {
+     "Pause": "",
+     "Resume": ""
+   },
+   "RAMCommitment": "256M",
+   "CPUCommitment": 1,
+   "Runs": null,
+   "Actions": null,
+   "HealthChecks": {
+     "Script_OK": {
+       "Script": "[ 1 -le $(pgrep -fla '/bin/bash /import4/pkg/bin/imp4opentsdb.sh' | wc -l) ]",
+       "Interval": 15,
+       "Timeout": 0
+     }
+   },
+   "Prereqs": [
+     {
+       "Name": "HBase Regionservers up",
+       "Script": "{{with $rss := (child (child (parent .) \"HBase\") \"RegionServer\").Instances }}wget -q -O- http://localhost:61000/status/cluster | grep '{{$rss}} live servers'{{end}}"
+     },
+     {
+       "Name": "OpenTSDB up",
+       "Script": "timeout 5 /opt/opentsdb/build/tsdb uid --config=/opt/zenoss/etc/opentsdb/opentsdb.conf grep metrics jvm.uptime"
+     },
+     {
+       "Name": "DMD UUID obtained",
+       "Script": "[ -f /import4/dmd_uuid.txt ]"
+     },
+     { 
+       "Name": "imp4opentsdb script",
+       "Script": "[ -f /import4/pkg/bin/imp4opentsdb.sh ]"
+     }
+   ],
+   "MonitoringProfile": {
+     "MetricConfigs": null,
+     "GraphConfigs": null,
+     "ThresholdConfigs": null
+   },
+   "MemoryLimit": 0,
+   "CPUShares": 0,
+   "PIDFile": ""
+}
