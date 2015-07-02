@@ -10,7 +10,7 @@
     "Instances": {
         "Min": 1,
         "Max": 0,
-        "Default": 0
+        "Default": 3
     },
     "ChangeOptions": null,
     "Launch": "manual",
@@ -217,6 +217,7 @@
        "events-index": "/import4/pkg/bin/imp4_run.sh events import --index",
        "perf-import": "/import4/pkg/bin/imp4_run.sh perf import",
        "perf-verify": "/import4/pkg/bin/imp4_run.sh perf verify",
+       "perf-abort-cleanup": "(/import4/pkg/bin/abort_jobs.sh && exit 42)",
        "import4": "/import4/pkg/bin/imp4_run.sh"
    },
    "Actions": null,
