@@ -27,24 +27,12 @@
     },
     "Context": null,
     "Endpoints": [
-    {
-        "Application": "opentsdb*",
-        "Name": "opentsdb*",
-        "PortNumber": 4242,
-        "Protocol": "tcp",
-        "Purpose": "import"
-    },
      {
        "Name": "zookeeper-client",
        "Application": "zookeeper-client",
        "PortNumber": 2181,
        "Protocol": "tcp",
        "Purpose": "import_all"
-     },
-     {
-       "Name": "hbase-master",
-       "Application": "hbase-master-.*",
-       "Purpose": "import"
      },
      {
        "Name": "hbase-regionserver",
