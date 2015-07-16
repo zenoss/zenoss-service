@@ -49,7 +49,7 @@
         },
         {
             "Name": "syslog",
-            "Application": "syslog",
+            "Application": "{{(parent .).Name}}_syslog",
             "PortNumber": 514,
             "Protocol": "udp",
             "Purpose": "export",
