@@ -40,6 +40,11 @@
        "PortNumber": 60200,
        "Protocol": "tcp",
        "Purpose": "import_all"
+     },
+     {
+       "Name": "hbase-master-rest",
+       "Application": "hbase-master-rest",
+       "Purpose": "import"
      }
    ],
    "Tasks": null,
@@ -81,14 +86,14 @@
        "Script": "{{with $rss := (child (child (parent .) \"HBase\") \"RegionServer\").Instances }}wget -q -O- http://localhost:61000/status/cluster | grep '{{$rss}} live servers'{{end}}"
      },
      {
-       "Name": "OpenTSDB up",
-       "Script": "timeout 5 /opt/opentsdb/build/tsdb uid --config=/opt/zenoss/etc/opentsdb/opentsdb.conf grep metrics jvm.uptime"
+       "Name": "HBase Writable",
+       "Script": "timeout 5 /opt/opentsdb/build/tsdb mkmetric --config=/opt/zenoss/etc/opentsdb/opentsdb.conf imp4opentsdb-up"
      },
      {
        "Name": "DMD UUID obtained",
        "Script": "[ -f /import4/dmd_uuid.txt ]"
      },
-     { 
+     {
        "Name": "imp4opentsdb script",
        "Script": "[ -f /import4/pkg/bin/imp4opentsdb.sh ]"
      }
