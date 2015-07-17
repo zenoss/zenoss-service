@@ -1,0 +1,47 @@
+{
+
+    "Description": "Updates network map connections",
+    "Name": "zenmapper",
+    "Launch": "auto",
+    "ImageID": "",
+    "Command": "su - zenoss -c \"/opt/zenoss/bin/zenmapper run -c\"",
+    "ConfigFiles": {
+        "/opt/zenoss/etc/zenmapper.conf": {
+            "Filename": "/opt/zenoss/etc/zenmapper.conf",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
+        }
+    },
+    "LogConfigs": [{
+        "filters": [
+            "pythondaemon"
+        ],
+        "path": "/opt/zenoss/log/zenmapper.log",
+        "type": "zenmapper"
+    }],
+    "Instances": {
+        "min": 1
+    },
+    "Endpoints": [{
+        "Name": "mariadb",
+        "Application": "zodb_.*",
+        "Purpose": "import"
+    }, {
+        "Name": "memcached",
+        "Application": "memcached",
+        "PortNumber": 11211,
+        "Protocol": "tcp",
+        "Purpose": "import"
+    }],
+    "HealthChecks": {
+        "running": {
+            "Script": "pgrep -fu zenoss zenmapper.py > /dev/null",
+            "Interval": 5.0
+        }
+    },
+    "Tags": [
+        "daemon",
+        "ZenPacks.zenoss.Layer2"
+    ]
+
+}
