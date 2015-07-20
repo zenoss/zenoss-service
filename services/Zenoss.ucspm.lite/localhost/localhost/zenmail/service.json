@@ -64,7 +64,7 @@
             "Script": "/opt/zenoss/bin/healthchecks/zenhub_answering"
         }
     },
-    "ImageID": "",
+    "ImageID": "zenoss/zenoss5x",
     "Instances": {
         "default": 1,
         "max": 1
