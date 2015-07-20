@@ -2,7 +2,7 @@
     "Description": "Updates network map connections",
     "Name": "zenmapper",
     "Launch": "auto",
-    "ImageID": "",
+    "ImageID": "zenoss/zenoss5x",
     "Command": "su - zenoss -c \"/opt/zenoss/bin/zenmapper run -c\"",
     "ConfigFiles": {
         "/opt/zenoss/etc/zenmapper.conf": {
