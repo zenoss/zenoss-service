@@ -12,7 +12,7 @@
     "Instances": {
         "Min": 1,
         "Max": 0,
-        "Default": 4
+        "Default": 6
     },
     "ChangeOptions": null,
     "HostPolicy": "",

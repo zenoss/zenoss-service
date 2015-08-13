@@ -10,7 +10,7 @@
     "Instances": {
         "Min": 1,
         "Max": 0,
-        "Default": 3
+        "Default": 4
     },
     "ChangeOptions": null,
     "Launch": "manual",
