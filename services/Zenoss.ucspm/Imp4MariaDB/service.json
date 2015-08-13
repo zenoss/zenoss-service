@@ -102,7 +102,7 @@
      {
            "Name": "opentsdb-reader",
            "Application": "opentsdb-reader",
-           "PortNumber": 4242,
+           "PortNumber": 4243,
            "Protocol": "tcp",
            "Purpose": "import"
      },
