@@ -10,7 +10,7 @@
     "Instances": {
         "Min": 1,
         "Max": 0,
-        "Default": 3
+        "Default": 4
     },
     "ChangeOptions": null,
     "Launch": "manual",
@@ -91,6 +91,20 @@
          "Protocol": ""
        },
        "VHosts": null
+     },
+     {
+           "Name": "opentsdb-writer",
+           "Application": "opentsdb-writer",
+           "PortNumber": 4242,
+           "Protocol": "tcp",
+           "Purpose": "import"
+     },
+     {
+           "Name": "opentsdb-reader",
+           "Application": "opentsdb-reader",
+           "PortNumber": 4243,
+           "Protocol": "tcp",
+           "Purpose": "import"
      },
      {
        "Name": "zproxy",
