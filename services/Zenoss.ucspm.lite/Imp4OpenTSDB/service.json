@@ -93,10 +93,6 @@
        "Script": "{{with $rss := (child (child (parent .) \"HBase\") \"RegionServer\").Instances }}wget -q -O- http://localhost:61000/status/cluster | grep '{{$rss}} live servers'{{end}}"
      },
      {
-       "Name": "HBase Writable",
-       "Script": "timeout 5 /opt/opentsdb/build/tsdb mkmetric --config=/opt/zenoss/etc/opentsdb/opentsdb.conf imp4opentsdb-up"
-     },
-     {
        "Name": "DMD UUID obtained",
        "Script": "[ -f /import4/dmd_uuid.txt ]"
      },
