@@ -221,6 +221,7 @@
    "CPUCommitment": 1,
    "Runs": {
        "initialize": "cd $(dirname $(readlink /opt/zenoss/bin/import4)); ./install_pkg.sh && ./install_rrdtool.sh",
+       "finalize": "(/import4/pkg/bin/finalize.sh && exit 42; )",
        "check" : "/import4/pkg/bin/imp4_check.sh",
        "model-database": "/import4/pkg/bin/imp4_run.sh model import --database",
        "model-catalog": "/import4/pkg/bin/imp4_run.sh model import --catalog",
