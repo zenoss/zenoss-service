@@ -184,11 +184,11 @@
             "CommitOnSuccess": false
         },
         "install-percona": {
-            "Command": "NOCOMMIT=true ${ZENHOME:-/opt/zenoss}/bin/zenrun percona.sh install",
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun percona.sh install",
             "CommitOnSuccess": false
         },
         "zendmd": {
-            "Command": "NOCOMMIT=true ${ZENHOME:-/opt/zenoss}/bin/zenrun zendmd",
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zendmd",
             "CommitOnSuccess": false
         },
         "zenmib": {
