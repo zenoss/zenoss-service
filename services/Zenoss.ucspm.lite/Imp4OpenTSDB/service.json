@@ -78,7 +78,7 @@
    },
    "RAMCommitment": "128M",
    "CPUCommitment": 1,
-   "Runs": null,
+   "Commands": null,
    "Actions": null,
    "HealthChecks": {
      "Script_OK": {
