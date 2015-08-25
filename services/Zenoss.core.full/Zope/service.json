@@ -170,7 +170,7 @@
     "Commands": {
         "apply-custom-patches": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun patch.sh applyPatches",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": true
         },
         "help": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun help.sh",
@@ -178,7 +178,7 @@
         },
         "install-percona": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun percona.sh install",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": true
         },
         "zendmd": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zendmd",
@@ -186,11 +186,11 @@
         },
         "zenmib": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": true
         },
         "zenpack": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": true
         },
         "upgrade": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun upgrade.sh doUpgrade",

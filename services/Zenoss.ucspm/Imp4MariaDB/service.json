@@ -222,10 +222,10 @@
    "Commands": {
        "initialize": {
            "Command": "cd $(dirname $(readlink /opt/zenoss/bin/import4)); ./install_pkg.sh && ./install_rrdtool.sh",
-           "CommitOnSuccess": false
+           "CommitOnSuccess": true
        },
        "finalize": {
-           "Command": "(/import4/pkg/bin/finalize.sh && exit 42; )",
+           "Command": "/import4/pkg/bin/finalize.sh",
            "CommitOnSuccess": false
        },
        "check": {
@@ -246,7 +246,7 @@
        },
        "model-zenpack": {
            "Command": "/import4/pkg/bin/imp4_run.sh model import --zenpack",
-           "CommitOnSuccess": false
+           "CommitOnSuccess": true
        },
        "model-verify": {
            "Command": "/import4/pkg/bin/imp4_run.sh model verify",
@@ -269,7 +269,7 @@
            "CommitOnSuccess": false
        },
        "perf-abort-cleanup": {
-           "Command": "(/import4/pkg/bin/abort_jobs.sh && exit 42)",
+           "Command": "/import4/pkg/bin/abort_jobs.sh",
            "CommitOnSuccess": false
        },
        "import4": {
