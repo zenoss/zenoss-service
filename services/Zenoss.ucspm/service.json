@@ -114,7 +114,7 @@
             "Interval": 5.0
         },
         "ready": {
-            "Script": "curl http://localhost:8080/zport/dmd | grep zope > /dev/null",
+            "Script": "curl --output /dev/null --silent --head --write-out \"%{http_code}\" http://localhost:8080/zport/dmd | grep 401 >/dev/null",
             "Interval": 30.0
         }
     },
