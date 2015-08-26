@@ -175,7 +175,7 @@
         "zenmib": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
         "zenpack": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",
         "upgrade": "${ZENHOME:-/opt/zenoss}/bin/zenrun upgrade.sh doUpgrade",
-        "reportmail": "${ZENHOME:-/opt/zenoss}/bin/zenrun reportmail"
+        "reportmail": "${ZENHOME:-/opt/zenoss}/bin/zenrun reportmail.sh"
     },
     "HealthChecks": {
         "running": {
