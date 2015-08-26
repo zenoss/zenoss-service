@@ -190,6 +190,10 @@
         },
         "zenpack": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",
+            "CommitOnSuccess": false
+        },
+        "zenpack-manager": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack-manager.sh --service-id={{.ID}}",
             "CommitOnSuccess": true
         },
         "upgrade": {
