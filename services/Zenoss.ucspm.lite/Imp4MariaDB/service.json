@@ -219,21 +219,63 @@
    },
    "RAMCommitment": "256M",
    "CPUCommitment": 1,
-   "Runs": {
-       "initialize": "cd $(dirname $(readlink /opt/zenoss/bin/import4)); ./install_pkg.sh && ./install_rrdtool.sh",
-       "finalize": "(/import4/pkg/bin/finalize.sh && exit 42; )",
-       "check" : "/import4/pkg/bin/imp4_check.sh",
-       "model-database": "/import4/pkg/bin/imp4_run.sh model import --database",
-       "model-catalog": "/import4/pkg/bin/imp4_run.sh model import --catalog",
-       "model-zenmigrate": "/import4/pkg/bin/imp4_run.sh model import --zenmigrate",
-       "model-zenpack": "/import4/pkg/bin/imp4_run.sh model import --zenpack",
-       "model-verify": "/import4/pkg/bin/imp4_run.sh model verify",
-       "events-database": "/import4/pkg/bin/imp4_run.sh events import --database",
-       "events-index": "/import4/pkg/bin/imp4_run.sh events import --index",
-       "perf-import": "flock -x /import4/staging/perf_importing /import4/pkg/bin/imp4_run.sh perf import",
-       "perf-verify": "/import4/pkg/bin/imp4_run.sh perf verify",
-       "perf-abort-cleanup": "(/import4/pkg/bin/abort_jobs.sh && exit 42)",
-       "import4": "/import4/pkg/bin/imp4_run.sh"
+   "Commands": {
+       "initialize": {
+           "Command": "cd $(dirname $(readlink /opt/zenoss/bin/import4)); ./install_pkg.sh && ./install_rrdtool.sh",
+           "CommitOnSuccess": true
+       },
+       "finalize": {
+           "Command": "/import4/pkg/bin/finalize.sh",
+           "CommitOnSuccess": false
+       },
+       "check": {
+           "Command": "/import4/pkg/bin/imp4_check.sh",
+           "CommitOnSuccess": false
+       },
+       "model-database": {
+           "Command": "/import4/pkg/bin/imp4_run.sh model import --database",
+           "CommitOnSuccess": false
+       },
+       "model-catalog": {
+           "Command": "/import4/pkg/bin/imp4_run.sh model import --catalog",
+           "CommitOnSuccess": false
+       },
+       "model-zenmigrate": {
+           "Command": "/import4/pkg/bin/imp4_run.sh model import --zenmigrate",
+           "CommitOnSuccess": false
+       },
+       "model-zenpack": {
+           "Command": "/import4/pkg/bin/imp4_run.sh model import --zenpack",
+           "CommitOnSuccess": true
+       },
+       "model-verify": {
+           "Command": "/import4/pkg/bin/imp4_run.sh model verify",
+           "CommitOnSuccess": false
+       },
+       "events-database": {
+           "Command": "/import4/pkg/bin/imp4_run.sh events import --database",
+           "CommitOnSuccess": false
+       },
+       "events-index": {
+           "Command": "/import4/pkg/bin/imp4_run.sh events import --index",
+           "CommitOnSuccess": false
+       },
+       "perf-import": {
+           "Command": "flock -x /import4/staging/perf_importing /import4/pkg/bin/imp4_run.sh perf import",
+           "CommitOnSuccess": false
+       },
+       "perf-verify": {
+           "Command": "/import4/pkg/bin/imp4_run.sh perf verify",
+           "CommitOnSuccess": false
+       },
+       "perf-abort-cleanup": {
+           "Command": "/import4/pkg/bin/abort_jobs.sh",
+           "CommitOnSuccess": false
+       },
+       "import4": {
+           "Command": "/import4/pkg/bin/imp4_run.sh",
+           "CommitOnSuccess": false
+       }
    },
    "Actions": null,
    "HealthChecks": {

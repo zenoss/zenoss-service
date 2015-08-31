@@ -182,15 +182,43 @@
             "Permission": "0775"
         }
     ],
-    "Runs": {
-        "apply-custom-patches": "${ZENHOME:-/opt/zenoss}/bin/zenrun patch.sh applyPatches",
-        "help": "${ZENHOME:-/opt/zenoss}/bin/zenrun help.sh",
-        "install-percona": "NOCOMMIT=true ${ZENHOME:-/opt/zenoss}/bin/zenrun percona.sh install",
-        "zendmd": "NOCOMMIT=true ${ZENHOME:-/opt/zenoss}/bin/zenrun zendmd",
-        "zenmib": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
-        "zenpack": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",
-        "upgrade": "${ZENHOME:-/opt/zenoss}/bin/zenrun upgrade.sh doUpgrade",
-        "reportmail": "${ZENHOME:-/opt/zenoss}/bin/zenrun reportmail.sh"
+    "Commands": {
+        "apply-custom-patches": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun patch.sh applyPatches",
+            "CommitOnSuccess": true
+        },
+        "help": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun help.sh",
+            "CommitOnSuccess": false
+        },
+        "install-percona": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun percona.sh install",
+            "CommitOnSuccess": true
+        },
+        "zendmd": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zendmd",
+            "CommitOnSuccess": false
+        },
+        "zenmib": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
+            "CommitOnSuccess": true
+        },
+        "zenpack": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",
+            "CommitOnSuccess": false
+        },
+        "zenpack-manager": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack-manager.sh --service-id={{.ID}}",
+            "CommitOnSuccess": true
+        },
+        "upgrade": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun upgrade.sh doUpgrade",
+            "CommitOnSuccess": false
+        },
+        "reportmail": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun reportmail.sh",
+            "CommitOnSuccess": false
+        }
     },
     "HealthChecks": {
         "running": {

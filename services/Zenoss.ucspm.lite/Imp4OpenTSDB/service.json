@@ -3,7 +3,6 @@
     "Description": "OpenTSDB and perf data import worker for import4",
     "Launch": "manual",
     "Command": "bash -c \"/import4/pkg/bin/imp4opentsdb.sh\"",
-    "Description": "OpenTSDB environment for import4",
     "Services": [],
     "Tags": [
         "daemon"
@@ -78,7 +77,7 @@
    },
    "RAMCommitment": "128M",
    "CPUCommitment": 1,
-   "Runs": null,
+   "Commands": null,
    "Actions": null,
    "HealthChecks": {
      "Script_OK": {
