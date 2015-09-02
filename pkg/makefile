@@ -117,7 +117,7 @@ mrclean: clean
 ZENPIPPKGSURL = http://zenpip.zendev.org/packages
 serviced:
 	echo " extracting: $@"
-	curl -s $(ZENPIPPKGSURL)/serviced-e80a617cd935bb27df28d8056fea578bc7a08adb.tgz | \
+	curl -s $(ZENPIPPKGSURL)/serviced-9040d9b5109063291a855291942561defcb52f27.tgz | \
 		tar -v -xz --transform 's|.*/||g' ./opt/serviced/bin/serviced
 
 # Make root dir for packaging
