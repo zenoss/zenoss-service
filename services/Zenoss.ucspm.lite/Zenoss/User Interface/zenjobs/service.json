@@ -49,6 +49,13 @@
             "PortNumber": 8444,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Name": "zep",
+            "Application": "zep",
+            "PortNumber": 8084,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "ImageID": "zenoss/zenoss5x",
