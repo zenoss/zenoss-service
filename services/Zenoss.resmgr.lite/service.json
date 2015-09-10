@@ -114,7 +114,7 @@
             "Interval": 5.0
         },
         "ready": {
-            "Script": "curl --output /dev/null --silent --write-out \"%{http_code}\" http://localhost:8080/robots.txt | grep 401 >/dev/null",
+            "Script": "curl --output /dev/null --silent --write-out \"%{http_code}\" http://localhost:8080/robots.txt | grep 200 >/dev/null",
             "Interval": 30.0
         }
     },
