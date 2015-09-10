@@ -1,5 +1,9 @@
 {
     "Description": "",
     "Launch": "auto",
-    "Name": "User Interface"
+    "Name": "User Interface",
+    "Tags": [
+        "zenoss-ui"
+    ]
+
 }
