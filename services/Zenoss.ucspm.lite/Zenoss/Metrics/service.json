@@ -1,5 +1,9 @@
 {
     "Description": "",
     "Launch": "auto",
-    "Name": "Metrics"
+    "Name": "Metrics",
+    "Tags": [
+        "zenoss-metrics"
+    ]
+
 }
