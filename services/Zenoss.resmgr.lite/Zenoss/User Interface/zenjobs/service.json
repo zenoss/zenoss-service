@@ -56,6 +56,13 @@
             "PortNumber": 8084,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Name": "zproxy",
+            "Application": "zproxy",
+            "PortNumber": 8080,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "ImageID": "zenoss/zenoss5x",
