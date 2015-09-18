@@ -77,8 +77,7 @@
     "Name": "zenjserver",
     "Services": [],
     "Tags": [
-        "daemon",
-        "collector"
+        "daemon"
     ],
     "HealthChecks": {
         "heartbeat": {
