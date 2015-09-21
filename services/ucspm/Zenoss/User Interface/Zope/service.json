@@ -4,47 +4,58 @@
     "Commands": {
         "apply-custom-patches": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun patch.sh applyPatches",
-            "CommitOnSuccess": true
+            "CommitOnSuccess": true,
+            "Description": "Apply custom patches to the service using an installed Quilt"
         },
         "help": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun help.sh",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Display this help message"
         },
         "install-percona": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun percona.sh install",
-            "CommitOnSuccess": true
+            "CommitOnSuccess": true,
+            "Description": "Install Percona tools"
         },
         "install-quilt": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun quilt.sh install",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Install patching tool Quilt"
         },
         "reportmail": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun reportmail.sh",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Generate and email a report"
         },
         "upgrade": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun upgrade.sh doUpgrade",
-            "CommitOnSuccess": true
+            "CommitOnSuccess": true,
+            "Description": "Upgrade a Zenoss installation"
         },
         "zendmd": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zendmd",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Start an interactive zendmd session"
         },
         "zenmib": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
-            "CommitOnSuccess": true
+            "CommitOnSuccess": true,
+            "Description": "Load, convert, and import MIB files into the Zenoss DMD"
         },
         "zenossdbpack": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Run ZODB storage packing tool"
         },
         "zenpack": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Check information on available Zenpacks"
         },
         "zenpack-manager": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack-manager.sh --service-id={{.ID}}",
-            "CommitOnSuccess": true
+            "CommitOnSuccess": true,
+            "Description": "Install, create, link, or destroy Zenpacks"
         }
     },
     "ConfigFiles": {
