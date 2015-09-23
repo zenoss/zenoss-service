@@ -92,7 +92,7 @@
     ],
     "HealthChecks": {
         "answering": {
-            "Script": "echo stats | nc -q 1 localhost {{ plus 2181 .InstanceID }} | grep -q Zookeeper",
+            "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 {{ plus 2181 .InstanceID }} | grep -q Zookeeper",
             "Interval": 5.0
         }
     }
