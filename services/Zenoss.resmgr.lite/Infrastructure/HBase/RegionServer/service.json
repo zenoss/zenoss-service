@@ -82,7 +82,7 @@
     ],
     "HealthChecks": {
         "answering": {
-            "Script": "nc -z localhost {{ plus 60200 .InstanceID }}",
+            "Script": "echo | nc localhost {{ plus 60200 .InstanceID }}",
             "Interval": 10.0
         },
         "cluster_member": {

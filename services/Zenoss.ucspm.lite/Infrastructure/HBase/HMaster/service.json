@@ -94,7 +94,7 @@
     "Prereqs": [
         {
             "Name": "All ZooKeepers up",
-            "Script": "{{with $zks := (child (parent .) \"ZooKeeper\").Instances }}{{ range (each $zks) }}echo ruok | nc -q10 zk{{plus 1 .}} 2181 | grep imok {{if ne (plus 1 .) $zks}}&& {{end}}{{end}}{{end}}"
+            "Script": "{{with $zks := (child (parent .) \"ZooKeeper\").Instances }}{{ range (each $zks) }}{ echo ruok; sleep 2; } | nc zk{{plus 1 .}} 2181 | grep imok {{if ne (plus 1 .) $zks}}&& {{end}}{{end}}{{end}}"
         }
     ]
 }
