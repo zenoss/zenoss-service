@@ -31,7 +31,7 @@
     ],
     "HealthChecks": {
         "answering": {
-            "Script": "echo stats | nc localhost 11211 | grep -q uptime",
+            "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 11211 | grep -q uptime",
             "Interval": 5.0
         }
     }
