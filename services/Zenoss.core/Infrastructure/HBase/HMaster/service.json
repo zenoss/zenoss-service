@@ -36,7 +36,12 @@
             "PortNumber": 60010,
             "Protocol": "tcp",
             "Purpose": "export",
-            "Vhosts": ["hbase"]
+            "VHostList": [
+                {
+                   "Name": "hbase",
+                   "Enabled": false
+                }
+            ]
         },
         {
             "Name": "hbase-regionserver",
