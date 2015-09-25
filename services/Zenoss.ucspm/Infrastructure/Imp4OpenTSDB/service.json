@@ -7,7 +7,7 @@
     "Tags": [
         "daemon"
     ],
-    "ImageID": "zenoss/opentsdb:v13",
+    "ImageID": "",
     "Instances": {
         "Min": 1,
         "Max": 0,
