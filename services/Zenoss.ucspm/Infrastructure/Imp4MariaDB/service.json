@@ -221,7 +221,7 @@
    "CPUCommitment": 1,
    "Commands": {
        "initialize": {
-           "Command": "cd $(dirname $(readlink /opt/zenoss/bin/import4)); ./install_pkg.sh && ./install_rrdtool.sh",
+           "Command": "cd $(dirname $(readlink /opt/zenoss/bin/import4)); ./install_pkg.sh",
            "CommitOnSuccess": true
        },
        "finalize": {
