@@ -15,7 +15,12 @@
             "PortNumber": 4242,
             "Protocol": "tcp",
             "Purpose": "export",
-            "Vhosts": ["opentsdb"]
+            "VHostList": [
+                {
+                   "Name": "opentsdb",
+                   "Enabled": false
+                }
+            ]
         },
         {
             "Name": "zookeeper-client",
