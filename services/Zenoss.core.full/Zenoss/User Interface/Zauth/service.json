@@ -43,6 +43,13 @@
             "Purpose": "import"
         },
         {
+            "Name": "memcached",
+            "Application": "memcached",
+            "PortNumber": 11211,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Name": "rabbitmq",
             "Application": "rabbitmq",
             "PortNumber": 5672,
