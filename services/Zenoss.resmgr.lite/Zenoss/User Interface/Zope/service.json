@@ -15,6 +15,13 @@
             "Purpose": "import"
         },
         {
+            "Name": "memcached",
+            "Application": "memcached",
+            "PortNumber": 11211,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Name": "redis",
             "Application": "redis",
             "PortNumber": 6379,
