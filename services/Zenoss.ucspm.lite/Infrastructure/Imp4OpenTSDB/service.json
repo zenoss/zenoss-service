@@ -7,7 +7,7 @@
     "Tags": [
         "daemon"
     ],
-    "ImageID": "",
+    "ImageID": "zenoss/zenoss5x",
     "Instances": {
         "Min": 1,
         "Max": 0,
@@ -17,40 +17,14 @@
     "HostPolicy": "",
     "Hostname": "",
     "Privileged": false,
-    "ConfigFiles": {
-        "/opt/zenoss/etc/opentsdb/opentsdb.conf": {
-            "Filename": "/opt/zenoss/etc/opentsdb/opentsdb.conf",
-            "Owner": "root:root",
-            "Permissions": "0644"
-        }
-    },
     "Context": null,
     "Endpoints": [
-     {
-       "Name": "zookeeper-client",
-       "Application": "zookeeper-client",
-       "PortNumber": 2181,
-       "Protocol": "tcp",
-       "Purpose": "import_all"
-     },
-     {
-       "Name": "hbase-regionserver",
-       "Application": "hbase-regionserver",
-       "PortNumber": 60200,
-       "Protocol": "tcp",
-       "Purpose": "import_all"
-     },
      {
            "Name": "opentsdb-writer",
            "Application": "opentsdb-writer",
            "PortNumber": 4242,
            "Protocol": "tcp",
            "Purpose": "import"
-     },
-     {
-       "Name": "hbase-master-rest",
-       "Application": "hbase-master-rest",
-       "Purpose": "import"
      }
    ],
    "Tasks": null,
@@ -87,10 +61,6 @@
      }
    },
    "Prereqs": [
-     {
-       "Name": "HBase Regionservers up",
-       "Script": "{{with $rss := (child (child (parent .) \"HBase\") \"RegionServer\").Instances }}wget -q -O- http://localhost:61000/status/cluster | grep '{{$rss}} live servers'{{end}}"
-     },
      {
        "Name": "DMD UUID obtained",
        "Script": "[ -f /import4/dmd_uuid.txt ]"
