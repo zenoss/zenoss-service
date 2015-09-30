@@ -137,7 +137,7 @@
             "Interval": 5.0
         },
         "answering": {
-            "Script": "curl -f -s http://localhost:8084/zeneventserver/api/1.0/heartbeats/ | grep -q '^{\"heartbeats\":'",
+            "Script": "curl -f -s http://localhost:8084/zeneventserver/api/1.0/heartbeats/",
             "Interval": 5.0
         },
         "mariadb_answering": {
