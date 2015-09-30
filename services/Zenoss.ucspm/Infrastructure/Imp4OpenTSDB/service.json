@@ -2,7 +2,7 @@
     "Name": "Imp4OpenTSDB",
     "Description": "OpenTSDB and perf data import worker for import4",
     "Launch": "manual",
-    "Command": "bash -c \"/import4/pkg/bin/imp4opentsdb.sh\"",
+    "Command": "bash -c \"sleep 180\"",
     "Services": [],
     "Tags": [
         "daemon"
@@ -11,7 +11,7 @@
     "Instances": {
         "Min": 1,
         "Max": 0,
-        "Default": 6
+        "Default": 0
     },
     "ChangeOptions": null,
     "HostPolicy": "",
@@ -53,23 +53,6 @@
    "CPUCommitment": 1,
    "Commands": null,
    "Actions": null,
-   "HealthChecks": {
-     "Script_OK": {
-       "Script": "[ 1 -le $(pgrep -fla '/bin/bash /import4/pkg/bin/imp4opentsdb.sh' | wc -l) ]",
-       "Interval": 15,
-       "Timeout": 0
-     }
-   },
-   "Prereqs": [
-     {
-       "Name": "DMD UUID obtained",
-       "Script": "[ -f /import4/dmd_uuid.txt ]"
-     },
-     {
-       "Name": "imp4opentsdb script",
-       "Script": "[ -f /import4/pkg/bin/imp4opentsdb.sh ]"
-     }
-   ],
    "MonitoringProfile": {
      "MetricConfigs": null,
      "GraphConfigs": null,

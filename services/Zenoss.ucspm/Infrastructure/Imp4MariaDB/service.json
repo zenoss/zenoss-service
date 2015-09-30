@@ -2,7 +2,7 @@
     "Name": "Imp4MariaDB",
     "Description": "Mariadb environment and RRD converter worker for import4",
     "Launch": "manual",
-    "Command": "bash -c \"while ! ( which rrdtool && [ -f /import4/pkg/bin/imp4mariadb.sh ] ); do sleep 10; done; /import4/pkg/bin/imp4mariadb.sh\"",
+    "Command": "bash -c \"sleep 180\"",
     "ImageID": "zenoss/zenoss5x",
     "Tags": [
         "daemon"
@@ -10,7 +10,7 @@
     "Instances": {
         "Min": 1,
         "Max": 0,
-        "Default": 4
+        "Default": 0
     },
     "ChangeOptions": null,
     "Launch": "manual",
@@ -278,17 +278,6 @@
        }
    },
    "Actions": null,
-   "HealthChecks": {
-     "running": {
-       "Script": "[ 1 -le $(pgrep -fla '/bin/bash /import4/pkg/bin/imp4mariadb.sh' | wc -l) ]",
-       "Interval": 5.0
-     },
-     "dmd_ready": {
-       "Script": "[ -f /import4/dmd_uuid.txt ]",
-       "Interval": 5.0
-     }
-   },
-   "Prereqs": [],
    "MonitoringProfile": {
      "MetricConfigs": null,
      "GraphConfigs": null,
