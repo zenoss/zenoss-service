@@ -1,6 +1,6 @@
 {
     "Description": "Enables the dynamic view of organizers",
-    "Command": "su - zenoss -c \"/opt/zenoss/bin/zenjserver run -c --duallog \"",
+    "Command": "su - zenoss -c \"/opt/zenoss/bin/zenjserver run -c --logfileonly \"",
     "ConfigFiles": {
         "/opt/zenoss/etc/global.conf": {
             "Filename": "/opt/zenoss/etc/global.conf",

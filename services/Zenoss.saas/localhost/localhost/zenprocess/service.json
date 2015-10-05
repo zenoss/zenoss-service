@@ -4,7 +4,7 @@
         "debug": "su - zenoss -c '${ZENHOME:-/opt/zenoss}/bin/{{.Name}} debug'",
         "stats": "su - zenoss -c '${ZENHOME:-/opt/zenoss}/bin/{{.Name}} stats'"
     },
-    "Command": "su - zenoss -c \"/opt/zenoss/bin/zenprocess run -c --duallog --workers {{.Instances}} --workerid $CONTROLPLANE_INSTANCE_ID --monitor {{(parent .).Name}} \"",
+    "Command": "su - zenoss -c \"/opt/zenoss/bin/zenprocess run -c --logfileonly --workers {{.Instances}} --workerid $CONTROLPLANE_INSTANCE_ID --monitor {{(parent .).Name}} \"",
     "ConfigFiles": {
         "/opt/zenoss/etc/global.conf": {
             "Filename": "/opt/zenoss/etc/global.conf",
