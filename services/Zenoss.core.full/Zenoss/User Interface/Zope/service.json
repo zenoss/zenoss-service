@@ -203,6 +203,10 @@
         "reportmail": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun reportmail.sh",
             "CommitOnSuccess": false
+        },
+        "install-quilt": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun quilt.sh install",
+            "CommitOnSuccess": false
         }
     },
     "HealthChecks": {
