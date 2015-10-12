@@ -213,7 +213,7 @@
         },
         "upgrade": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun upgrade.sh doUpgrade",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": true
         },
         "reportmail": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun reportmail.sh",
