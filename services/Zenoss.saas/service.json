@@ -1,46 +1,5 @@
 {
-    "Title": "zproxy",
-    "Description": "Zenoss Resource Manager",
-    "RAMCommitment": "1G",
     "CPUCommitment": 1,
-    "Launch": "auto",
-    "Name": "Zenoss",
-    "Version": "5.1.0",
-    "Context": {
-        "global.conf.zodb-db-type": "mysql",
-        "global.conf.zodb-host": "127.0.0.1 ",
-        "global.conf.zodb-port": "3306",
-        "global.conf.zodb-db": "zodb",
-        "global.conf.zodb-user": "zenoss",
-        "global.conf.zodb-password": "zenoss",
-        "global.conf.zodb-admin-user": "root",
-        "global.conf.zodb-admin-password": "",
-        "global.conf.zodb-cacheservers": "127.0.0.1:11211",
-        "global.conf.zodb-cachesize": "1000",
-        "global.conf.amqphost": "127.0.0.1",
-        "global.conf.amqpport": "5672",
-        "global.conf.amqpvhost": "/zenoss",
-        "global.conf.amqpuser": "zenoss",
-        "global.conf.amqppassword": "zenoss",
-        "global.conf.amqpusessl": "0",
-        "global.conf.amqpadminport": "55672",
-        "global.conf.amqpadminusessl": "0",
-        "global.conf.zep-db-type": "mysql",
-        "global.conf.zep-host": "127.0.0.1",
-        "global.conf.zep-port": "3306",
-        "global.conf.zep-db": "zenoss_zep",
-        "global.conf.zep-user": "zenoss",
-        "global.conf.zep-password": "zenoss",
-        "global.conf.zep-admin-user": "root",
-        "global.conf.zep-admin-password": "",
-        "global.conf.zep-uri": "http://127.0.0.1:8084",
-        "global.conf.zencatalogservice-uri": "http://127.0.0.1:8085",
-        "global.conf.zauth-password": "MY_PASSWORD",
-        "global.conf.zauth-username": "zenoss_system",
-        "ZenPack.Default.RAMCommitment": "1G",
-        "ZenPack.Default.WorkerArgs": "--workers {{.Instances}} --workerid $CONTROLPLANE_INSTANCE_ID",
-        "tsd.storage.enable_compaction": "False"
-    },
     "Command": "redis-server /etc/redis.conf & /bin/sh -c \"cd /opt/zenoss && exec ./zproxy/sbin/zproxy start\"",
     "ConfigFiles": {
         "/opt/zenoss/zproxy/conf/zproxy-nginx.conf": {
@@ -49,48 +8,101 @@
             "Permissions": "644"
         }
     },
+    "Context": {
+        "ZenPack.Default.RAMCommitment": "1G",
+        "ZenPack.Default.WorkerArgs": "--workers {{.Instances}} --workerid $CONTROLPLANE_INSTANCE_ID",
+        "global.conf.amqpadminport": "55672",
+        "global.conf.amqpadminusessl": "0",
+        "global.conf.amqphost": "127.0.0.1",
+        "global.conf.amqppassword": "zenoss",
+        "global.conf.amqpport": "5672",
+        "global.conf.amqpuser": "zenoss",
+        "global.conf.amqpusessl": "0",
+        "global.conf.amqpvhost": "/zenoss",
+        "global.conf.zauth-password": "MY_PASSWORD",
+        "global.conf.zauth-username": "zenoss_system",
+        "global.conf.zencatalogservice-uri": "http://127.0.0.1:8085",
+        "global.conf.zep-admin-password": "",
+        "global.conf.zep-admin-user": "root",
+        "global.conf.zep-db": "zenoss_zep",
+        "global.conf.zep-db-type": "mysql",
+        "global.conf.zep-host": "127.0.0.1",
+        "global.conf.zep-password": "zenoss",
+        "global.conf.zep-port": "3306",
+        "global.conf.zep-uri": "http://127.0.0.1:8084",
+        "global.conf.zep-user": "zenoss",
+        "global.conf.zodb-admin-password": "",
+        "global.conf.zodb-admin-user": "root",
+        "global.conf.zodb-cacheservers": "127.0.0.1:11211",
+        "global.conf.zodb-cachesize": "1000",
+        "global.conf.zodb-db": "zodb",
+        "global.conf.zodb-db-type": "mysql",
+        "global.conf.zodb-host": "127.0.0.1 ",
+        "global.conf.zodb-password": "zenoss",
+        "global.conf.zodb-port": "3306",
+        "global.conf.zodb-user": "zenoss",
+        "tsd.storage.enable_compaction": "False"
+    },
+    "Description": "Zenoss Resource Manager",
     "Endpoints": [
         {
-            "Name": "zproxy",
             "Application": "zproxy",
+            "Name": "zproxy",
             "PortNumber": 8080,
             "Protocol": "tcp",
             "Purpose": "export",
-            "Vhosts": ["zenoss5"]
+            "Vhosts": [
+                "zenoss5"
+            ]
         },
         {
-            "Name": "zope",
             "Application": "zope",
+            "Name": "zope",
             "PortNumber": 9080,
             "Protocol": "tcp",
             "Purpose": "import"
         },
         {
-            "Name": "metric_consumer",
             "Application": "metric_consumer",
+            "Name": "metric_consumer",
             "PortNumber": 8443,
             "Protocol": "tcp",
             "Purpose": "import"
         },
         {
-            "Name": "zauth",
             "Application": "zauth",
+            "Name": "zauth",
             "PortNumber": 9180,
             "Protocol": "tcp",
             "Purpose": "import"
         },
         {
-            "Name": "central_query",
             "Application": "central_query",
+            "Name": "central_query",
             "PortNumber": 8888,
             "Protocol": "tcp",
             "Purpose": "import"
         }
     ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5.0,
+            "Script": "curl -f -s http://localhost:8080/ > /dev/null"
+        },
+        "ready": {
+            "Interval": 30.0,
+            "Script": "curl --output /dev/null --silent --write-out \"%{http_code}\" http://localhost:8080/robots.txt | grep 200 >/dev/null"
+        },
+        "running": {
+            "Interval": 5.0,
+            "Script": "pgrep -fu zenoss nginx >/dev/null"
+        }
+    },
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
         "min": 1
     },
+    "Launch": "auto",
     "LogConfigs": [
         {
             "path": "/opt/zenoss/zproxy/logs/access.log",
@@ -101,30 +113,20 @@
             "type": "zproxy"
         }
     ],
+    "Name": "Zenoss",
+    "RAMCommitment": "1G",
     "Tags": [
         "daemon"
     ],
-    "HealthChecks": {
-        "running": {
-            "Script": "pgrep -fu zenoss nginx >/dev/null",
-            "Interval": 5.0
-        },
-        "answering": {
-            "Script": "curl -f -s http://localhost:8080/ > /dev/null",
-            "Interval": 5.0
-        },
-        "ready": {
-            "Script": "curl --output /dev/null --silent --write-out \"%{http_code}\" http://localhost:8080/robots.txt | grep 200 >/dev/null",
-            "Interval": 30.0
-        }
-    },
+    "Title": "zproxy",
+    "Version": "5.1.0",
     "Volumes": [
         {
-            "#####":         "drwxrwxr-x  3 zenoss zenoss 4.0K Jul 24 01:54 zproxy",
-            "Owner":         "zenoss:zenoss",
-            "Permission":    "0775",
-            "ResourcePath":  "zproxy",
+            "#####": "drwxrwxr-x  3 zenoss zenoss 4.0K Jul 24 01:54 zproxy",
             "ContainerPath": "/opt/zenoss/var/zproxy",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0775",
+            "ResourcePath": "zproxy",
             "Type": "tmp"
         }
     ]
