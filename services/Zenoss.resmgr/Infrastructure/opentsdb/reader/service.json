@@ -1,13 +1,14 @@
 {
-    "Description": "Reader for OpenTSDB server",
+    "CPUCommitment": 1,
     "Command": "/opt/opentsdb/start-opentsdb.sh {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}localhost:{{plus 2181 .}}{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}}",
     "ConfigFiles": {
-	"/opt/zenoss/etc/opentsdb/opentsdb.conf": {
+        "/opt/zenoss/etc/opentsdb/opentsdb.conf": {
             "FileName": "/opt/zenoss/etc/opentsdb/opentsdb.conf",
             "Owner": "root:root",
             "Permissions": "0644"
-	}
+        }
     },
+    "Description": "Reader for OpenTSDB server",
     "Endpoints": [
         {
             "Application": "opentsdb-reader",
@@ -17,37 +18,41 @@
             "Purpose": "export",
             "VHostList": [
                 {
-                   "Name": "opentsdb",
-                   "Enabled": false
+                    "Enabled": false,
+                    "Name": "opentsdb"
                 }
             ]
         },
         {
-            "Name": "zookeeper-client",
             "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
             "PortNumber": 2181,
             "Protocol": "tcp",
             "Purpose": "import_all"
         },
         {
-            "Name": "hbase-master",
             "Application": "hbase-master-.*",
+            "Name": "hbase-master",
             "Purpose": "import"
         },
         {
-            "Name": "hbase-regionserver",
             "Application": "hbase-regionserver",
+            "Name": "hbase-regionserver",
             "PortNumber": 60200,
             "Protocol": "tcp",
             "Purpose": "import_all"
         }
     ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5.0,
+            "Script": "wget --timeout=3 --tries=1 -q -O - http://localhost:4242/api/stats"
+        }
+    },
     "ImageID": "zenoss/opentsdb:xx",
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": "1G",
-    "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [
         {
@@ -56,22 +61,15 @@
         }
     ],
     "Name": "opentsdb-reader",
-    "Services": [],
-    "Tags": [
-        "daemon"
-    ],
-    "HealthChecks": {
-        "answering": {
-            "Script": "wget --timeout=3 --tries=1 -q -O - http://localhost:4242/api/stats",
-            "Interval": 5.0
-        }
-    },
     "Prereqs": [
         {
             "Name": "HBase Regionservers up",
             "Script": "{{with $rss := (child (child (parent (parent .)) \"HBase\") \"RegionServer\").Instances }}wget -q -O- http://localhost:61000/status/cluster | grep '{{$rss}} live servers'{{end}}"
         }
+    ],
+    "RAMCommitment": "1G",
+    "Services": [],
+    "Tags": [
+        "daemon"
     ]
 }
-
-

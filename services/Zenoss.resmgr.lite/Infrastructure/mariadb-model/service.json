@@ -1,22 +1,33 @@
 {
-    "Description": "MariaDB model database server",
+    "CPUCommitment": 4,
     "Command": "/usr/bin/mysqld_safe",
+    "Commands": {
+        "rebuild_zodb_session": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun mysql.sh rebuild_zodb_session",
+            "CommitOnSuccess": false
+        }
+    },
+    "Description": "MariaDB model database server",
     "Endpoints": [
         {
-            "Name": "zodb_mariadb",
             "Application": "zodb_mariadb",
+            "Name": "zodb_mariadb",
             "PortNumber": 3306,
             "Protocol": "tcp",
             "Purpose": "export"
         }
     ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5.0,
+            "Script": "mysql --protocol TCP -uroot -hlocalhost -P3306 -e 'select 1' > /dev/null"
+        }
+    },
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
-        "min": 1,
-        "max": 1
+        "max": 1,
+        "min": 1
     },
-    "RAMCommitment": "2G",
-    "CPUCommitment": 4,
     "Launch": "auto",
     "LogConfigs": [
         {
@@ -25,12 +36,8 @@
         }
     ],
     "Name": "mariadb-model",
-    "Commands": {
-        "rebuild_zodb_session": {
-            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun mysql.sh rebuild_zodb_session",
-            "CommitOnSuccess": false
-        }
-    },
+    "PIDFile": "exec echo /var/lib/mysql/$(hostname).pid",
+    "RAMCommitment": "2G",
     "Snapshot": {
         "Pause": "PAUSE_CHECK_TIMEOUT=60 LOCK_HOLD_DURATION=600 ${ZENHOME:-/opt/zenoss}/bin/quiesce-mariadb.sh pause",
         "Resume": "${ZENHOME:-/opt/zenoss}/bin/quiesce-mariadb.sh resume"
@@ -40,18 +47,11 @@
     ],
     "Volumes": [
         {
-            "#####":         "drwxr-xr-x 12 mysql mysql 4096 Feb 25 21:27 /var/lib/mysql/",
-            "Owner":         "mysql:mysql",
-            "Permission":    "0755",
-            "ResourcePath":  "mariadb-model",
-            "ContainerPath": "/var/lib/mysql"
+            "#####": "drwxr-xr-x 12 mysql mysql 4096 Feb 25 21:27 /var/lib/mysql/",
+            "ContainerPath": "/var/lib/mysql",
+            "Owner": "mysql:mysql",
+            "Permission": "0755",
+            "ResourcePath": "mariadb-model"
         }
-    ],
-    "HealthChecks": {
-        "answering": {
-            "Script": "mysql --protocol TCP -uroot -hlocalhost -P3306 -e 'select 1' > /dev/null",
-            "Interval": 5.0
-        }
-    },
-    "PIDFile": "exec echo /var/lib/mysql/$(hostname).pid"
+    ]
 }

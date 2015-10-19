@@ -1,66 +1,74 @@
 {
-    "Description": "Region Server for HBase",
+    "CPUCommitment": 1,
     "Command": "/usr/bin/run-hbase-regionserver.sh /etc/hbase-site.xml $CONTROLPLANE_INSTANCE_ID",
     "ConfigFiles": {
-      "/etc/hbase-site.xml": {
-        "FileName": "/etc/hbase-site.xml",
-        "Owner": "hbase:hbase",
-        "Permissions": "0664"
-      },
-      "/etc/hbase-env.sh": {
-        "FileName": "/etc/hbase-env.sh",
-        "Owner": "hbase:hbase",
-        "Permissions": "0775"
-      }
+        "/etc/hbase-env.sh": {
+            "FileName": "/etc/hbase-env.sh",
+            "Owner": "hbase:hbase",
+            "Permissions": "0775"
+        },
+        "/etc/hbase-site.xml": {
+            "FileName": "/etc/hbase-site.xml",
+            "Owner": "hbase:hbase",
+            "Permissions": "0664"
+        }
     },
-    "Hostname": "localhost",
+    "Description": "Region Server for HBase",
     "Endpoints": [
         {
-            "Name": "hbase-master",
             "Application": "hbase-master-.*",
+            "Name": "hbase-master",
             "Purpose": "import"
         },
         {
-            "Name": "hbase-regionserver",
             "Application": "hbase-regionserver",
+            "Name": "hbase-regionserver",
             "PortNumber": 60200,
             "PortTemplate": "{{ plus 60200 .InstanceID }}",
             "Protocol": "tcp",
             "Purpose": "export"
         },
         {
-            "Name": "hbase-regionservers",
             "Application": "hbase-regionserver",
+            "Name": "hbase-regionservers",
             "PortNumber": 60200,
             "Protocol": "tcp",
             "Purpose": "import_all"
         },
         {
-            "Name": "hbase-regionserverinfo",
             "Application": "hbase-regionserverinfo",
+            "Name": "hbase-regionserverinfo",
             "PortNumber": 60300,
             "PortTemplate": "{{ plus 60300 .InstanceID }}",
             "Protocol": "tcp",
             "Purpose": "export"
         },
         {
-            "Name": "zookeeper-client",
             "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
             "PortNumber": 2181,
             "Protocol": "tcp",
             "Purpose": "import_all",
             "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
         }
-      ],
-    "Privileged": true,
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 10.0,
+            "Script": "echo | nc localhost {{ plus 60200 .InstanceID }}"
+        },
+        "cluster_member": {
+            "Interval": 10.0,
+            "Script": "curl http://localhost:61000/status/cluster | grep -q 'localhost:{{ plus 60200 .InstanceID }}'"
+        }
+    },
+    "HostPolicy": "PREFER_SEPARATE",
+    "Hostname": "localhost",
     "ImageID": "zenoss/hbase:xx",
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": "1G",
-    "CPUCommitment": 1,
     "Launch": "auto",
-    "HostPolicy": "PREFER_SEPARATE",
     "LogConfigs": [
         {
             "path": "/var/log/hbase/hbase-regionserver.log",
@@ -68,32 +76,24 @@
         }
     ],
     "Name": "RegionServer",
+    "Prereqs": [
+        {
+            "Name": "HBase Master up",
+            "Script": "curl -s -f http://127.0.0.1:61000/version/cluster &> /dev/null"
+        }
+    ],
+    "Privileged": true,
+    "RAMCommitment": "1G",
     "Tags": [
         "daemon"
     ],
     "Volumes": [
         {
-            "#####":         "drwxr-xr-x  2 hbase hbase 4.0K Apr 15 12:57 /var/hbase",
-            "Owner":         "hbase:hbase",
-            "Permission":    "0755",
-            "ResourcePath":  "hbase-master",
-            "ContainerPath": "/var/hbase"
-        }
-    ],
-    "HealthChecks": {
-        "answering": {
-            "Script": "echo | nc localhost {{ plus 60200 .InstanceID }}",
-            "Interval": 10.0
-        },
-        "cluster_member": {
-            "Script": "curl http://localhost:61000/status/cluster | grep -q 'localhost:{{ plus 60200 .InstanceID }}'",
-            "Interval": 10.0
-        }
-    },
-    "Prereqs": [
-        {
-            "Name": "HBase Master up",
-            "Script": "curl -s -f http://127.0.0.1:61000/version/cluster &> /dev/null"
+            "#####": "drwxr-xr-x  2 hbase hbase 4.0K Apr 15 12:57 /var/hbase",
+            "ContainerPath": "/var/hbase",
+            "Owner": "hbase:hbase",
+            "Permission": "0755",
+            "ResourcePath": "hbase-master"
         }
     ]
 }
