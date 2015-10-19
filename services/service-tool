@@ -12,7 +12,7 @@ def get_args():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="subcommand")
     format_command = subparsers.add_parser("format", description="Format services.")
-    format_command = subparsers.add_parser("validate", description="Validate services.")
+    validate_command = subparsers.add_parser("validate", description="Validate services.")
     return parser.parse_args()
 
 def get_service_filenames(root):
