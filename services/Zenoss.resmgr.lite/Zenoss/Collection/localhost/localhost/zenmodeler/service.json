@@ -101,33 +101,6 @@
                         "aggregator": "avg",
                         "fill": false,
                         "format": "%d",
-                        "id": "dataPoints",
-                        "legend": "Data Points",
-                        "metric": "dataPoints",
-                        "metricSource": "zenmodeler",
-                        "name": "Data Points",
-                        "rate": true,
-                        "type": "line"
-                    }
-                ],
-                "description": "Number of datapoints collected.",
-                "footer": false,
-                "id": "dataPoints",
-                "name": "Data Points",
-                "range": {
-                    "end": "0s-ago",
-                    "start": "1h-ago"
-                },
-                "returnset": "EXACT",
-                "type": "line",
-                "yAxisLabel": "Data Points"
-            },
-            {
-                "datapoints": [
-                    {
-                        "aggregator": "avg",
-                        "fill": false,
-                        "format": "%d",
                         "id": "devices",
                         "legend": "Devices",
                         "metric": "devices",
@@ -155,45 +128,6 @@
                         "aggregator": "avg",
                         "fill": false,
                         "format": "%d",
-                        "id": "events",
-                        "legend": "Queued",
-                        "metric": "events",
-                        "metricSource": "zenmodeler",
-                        "name": "Events",
-                        "rate": true,
-                        "type": "line"
-                    },
-                    {
-                        "aggregator": "avg",
-                        "fill": false,
-                        "format": "%d",
-                        "id": "eventCount",
-                        "legend": "Events",
-                        "metric": "eventCount",
-                        "metricSource": "zenmodeler",
-                        "name": "Event Count",
-                        "rate": true,
-                        "type": "line"
-                    }
-                ],
-                "description": "Events",
-                "footer": false,
-                "id": "events",
-                "name": "Events",
-                "range": {
-                    "end": "0s-ago",
-                    "start": "1h-ago"
-                },
-                "returnset": "EXACT",
-                "type": "line",
-                "yAxisLabel": "Events"
-            },
-            {
-                "datapoints": [
-                    {
-                        "aggregator": "avg",
-                        "fill": false,
-                        "format": "%d",
                         "id": "eventQueueLength",
                         "legend": "Event Queue Length",
                         "metric": "eventQueueLength",
@@ -214,84 +148,6 @@
                 "returnset": "EXACT",
                 "type": "line",
                 "yAxisLabel": "Event Queue Length"
-            },
-            {
-                "datapoints": [
-                    {
-                        "aggregator": "avg",
-                        "fill": false,
-                        "format": "%d",
-                        "id": "missedRuns",
-                        "legend": "Missed Runs",
-                        "metric": "missedRuns",
-                        "metricSource": "zenmodeler",
-                        "name": "Missed Runs",
-                        "rate": true,
-                        "type": "line"
-                    }
-                ],
-                "description": "Number of missed runs of tasks running on daemon.",
-                "footer": false,
-                "id": "missedRuns",
-                "name": "Missed Runs",
-                "range": {
-                    "end": "0s-ago",
-                    "start": "1h-ago"
-                },
-                "returnset": "EXACT",
-                "type": "line",
-                "yAxisLabel": "Missed Runs"
-            },
-            {
-                "datapoints": [
-                    {
-                        "aggregator": "avg",
-                        "fill": false,
-                        "format": "%d",
-                        "id": "queuedTasks",
-                        "legend": "Queued Tasks",
-                        "metric": "queuedTasks",
-                        "metricSource": "zenmodeler",
-                        "name": "Queued Tasks",
-                        "rate": false,
-                        "type": "line"
-                    },
-                    {
-                        "aggregator": "avg",
-                        "fill": false,
-                        "format": "%d",
-                        "id": "runningTasks",
-                        "legend": "Running Tasks",
-                        "metric": "runningTasks",
-                        "metricSource": "zenmodeler",
-                        "name": "Running Tasks",
-                        "rate": false,
-                        "type": "line"
-                    },
-                    {
-                        "aggregator": "avg",
-                        "fill": false,
-                        "format": "%d",
-                        "id": "taskCount",
-                        "legend": "Task Count",
-                        "metric": "taskCount",
-                        "metricSource": "zenmodeler",
-                        "name": "Task Count",
-                        "rate": false,
-                        "type": "line"
-                    }
-                ],
-                "description": "Number of queued, running, and total tasks.",
-                "footer": false,
-                "id": "tasks",
-                "name": "Tasks",
-                "range": {
-                    "end": "0s-ago",
-                    "start": "1h-ago"
-                },
-                "returnset": "EXACT",
-                "type": "line",
-                "yAxisLabel": ""
             },
             {
                 "datapoints": [
@@ -327,13 +183,6 @@
                 "ID": "zenmodeler",
                 "Metrics": [
                     {
-                        "Counter": true,
-                        "Description": "Number of datapoints collected.",
-                        "ID": "dataPoints",
-                        "Name": "Datapoints",
-                        "Unit": "Points"
-                    },
-                    {
                         "Counter": false,
                         "Description": "Daemon collection interval",
                         "ID": "cycleTime",
@@ -367,27 +216,6 @@
                         "ID": "modeledDevicesCount",
                         "Name": "Modeled Devices Count",
                         "Unit": "Devices"
-                    },
-                    {
-                        "Counter": true,
-                        "Description": "Total number of events.",
-                        "ID": "eventCount",
-                        "Name": "Event Count",
-                        "Unit": "Events"
-                    },
-                    {
-                        "Counter": true,
-                        "Description": "Number of missed runs of tasks running on daemon.",
-                        "ID": "missedRuns",
-                        "Name": "Missed Runs",
-                        "Unit": "Runs"
-                    },
-                    {
-                        "Counter": false,
-                        "Description": "Total number of tasks.",
-                        "ID": "taskCount",
-                        "Name": "Task Count",
-                        "Unit": "Tasks"
                     },
                     {
                         "Counter": false,
