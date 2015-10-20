@@ -290,20 +290,6 @@
                         "Unit": "Devices"
                     },
                     {
-                        "Counter": true,
-                        "Description": "Total number of events.",
-                        "ID": "eventCount",
-                        "Name": "Event Count",
-                        "Unit": "Events"
-                    },
-                    {
-                        "Counter": true,
-                        "Description": "Number of missed runs of tasks running on daemon.",
-                        "ID": "missedRuns",
-                        "Name": "Missed Runs",
-                        "Unit": "Runs"
-                    },
-                    {
                         "Counter": false,
                         "Description": "Number of devices that have timed out during modeling.",
                         "ID": "timedOut",
