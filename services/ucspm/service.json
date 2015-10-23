@@ -56,7 +56,9 @@
             "PortNumber": 8080,
             "Protocol": "tcp",
             "Purpose": "export",
-            "Vhosts": ["zenoss5"]
+            "Vhosts": [
+                "ucspm"
+            ]
         },
         {
             "Name": "zope",
