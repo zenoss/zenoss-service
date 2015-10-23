@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "su - zenoss -c '/opt/zenoss/bin/zminion --minion-name zminion_{{(parent .).Name}} serve'",
+    "Command": "su - zenoss -c \"/bin/supervisord -n -c /opt/zenoss/etc/zminion/supervisord.conf\"",
     "Description": "Performs distributed bash executions",
     "Endpoints": [
         {
@@ -44,6 +44,12 @@
         "min": 1
     },
     "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/zenoss/log/zminion.log",
+            "type": "zminion"
+        }
+    ],
     "Name": "zminion",
     "RAMCommitment": "256M",
     "Tags": [
