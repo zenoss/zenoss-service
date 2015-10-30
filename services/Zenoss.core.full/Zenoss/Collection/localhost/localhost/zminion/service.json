@@ -2,7 +2,6 @@
     "CPUCommitment": 1,
     "Command": "su - zenoss -c \"/bin/supervisord -n -c /opt/zenoss/etc/zminion/supervisord.conf\"",
     "Description": "Performs distributed bash executions",
-    "Command": "su - zenoss -c '/opt/zenoss/bin/zminion --minion-name zminion_{{(parent .).Name}} serve'",
     "Endpoints": [
         {
             "Name": "zproxy",
