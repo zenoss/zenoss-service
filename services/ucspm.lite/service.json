@@ -5,7 +5,7 @@
     "CPUCommitment": 1,
     "Launch": "auto",
     "Name": "UCS-PM-DEV",
-    "Version": "5.1.0",
+    "Version": "2.0.0",
     "Context": {
         "global.conf.zodb-db-type": "mysql",
         "global.conf.zodb-host": "127.0.0.1 ",
