@@ -1,0 +1,64 @@
+{
+    "Name": "Solr",
+    "Description": "Solr Cloud",
+    "Command": "/opt/solr/bin/solr -f -cloud -s /opt/solr/server/solr -DzkRun -Dbootstrap_confdir=/opt/solr/server/solr/zenoss_model/conf -Dcollection.configName=zenoss_model",
+    "ImageID": "zenoss/zenoss5x",
+    "ConfigFiles": {
+      "/opt/solr/server/solr/solr.xml": {
+        "FileName": "/opt/solr/server/solr/solr.xml",
+        "Owner": "root:root",
+        "Permissions": "0664"
+      },
+      "/opt/solr/server/solr/zenoss_model/conf/schema.xml": {
+        "FileName": "/opt/solr/server/solr/zenoss_model/conf/schema.xml",
+        "Owner": "root:root",
+        "Permissions": "0664"
+      },
+      "/opt/solr/server/solr/zenoss_model/conf/solrconfig.xml": {
+        "FileName": "/opt/solr/server/solr/zenoss_model/conf/solrconfig.xml",
+        "Owner": "root:root",
+        "Permissions": "0664"
+      },
+      "/opt/solr/server/solr/zenoss_model/core.properties": {
+        "FileName": "/opt/solr/server/solr/zenoss_model/core.properties",
+        "Owner": "root:root",
+        "Permissions": "0664"
+      }
+    },
+    "Endpoints": [
+        {
+            "Name": "solr",
+            "Application": "zodb_solr",
+            "PortNumber": 8983,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "Vhosts": ["solr"]
+        }
+    ],
+    "Instances": {
+        "min": 1,
+        "default": 1
+    },
+    "RAMCommitment": "1G",
+    "CPUCommitment": 2,
+    "Launch": "auto",
+    "LogConfigs": [],
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####":         "drwxr-x--- 4 root root 4096 Feb 25 21:25 /var/zenoss_model",
+            "Owner":         "root:root",
+            "Permission":    "0750",
+            "ResourcePath":  "solr",
+            "ContainerPath": "/var/zenoss_model"
+        }
+    ],
+    "HealthChecks": {
+      "ping": {
+        "Command": "curl -s http://127.0.0.1:8983/solr/zenoss_model/ping | grep -q solrpingqueryidallfalse10OK",
+        "Interval": 30
+      }
+    }
+}
