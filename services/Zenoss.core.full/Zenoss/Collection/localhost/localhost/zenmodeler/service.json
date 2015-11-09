@@ -120,13 +120,6 @@
                         "Unit": "Devices"
                     },
                     {
-                        "ID": "eventCount",
-                        "Name": "Event Count",
-                        "Description": "Total number of events.",
-                        "Counter": true,
-                        "Unit": "Events"
-                    },
-                    {
                         "ID": "timedOut",
                         "Name": "Timed Out",
                         "Description": "Number of devices that have timed out during modeling.",
