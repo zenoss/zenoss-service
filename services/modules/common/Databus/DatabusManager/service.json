@@ -57,7 +57,7 @@
     ],
     "Volumes": [
         {
-            "#####":         "drwxr-xr-x 13 root root  4096 Mar 17 15:02 /var/kafka/datalog",
+            "#####":         "drwxr-xr-x 13 root root  4096 Mar 17 15:02 /var/zenoss/databus/topics",
             "Owner":         "zenoss:zenoss",
             "Permission":    "0755",
             "ResourcePath":  "databus",
