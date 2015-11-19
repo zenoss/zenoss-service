@@ -1,6 +1,6 @@
 # VERSION is the full Zenoss version; e.g., 5.0.0
 # SHORT_VERSION is the two-digit Zenoss version; e.g., 5.0
-VERSION         ?= 5.0.70
+VERSION         ?= 5.1.1
 SHORT_VERSION   ?= 5.1
 
 hbase_VERSION    = v9
