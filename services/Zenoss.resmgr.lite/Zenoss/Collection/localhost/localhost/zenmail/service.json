@@ -59,13 +59,13 @@
             "Interval": 5.0,
             "Script": "pgrep -fu zenoss zenmail.py > /dev/null"
         },
-        "zenhub_answering": {
-            "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/zenhub_answering"
-        },
         "service_ready": {
             "Interval": 10.0,
             "Script": "echo 'QUIT' | nc -w 20 -C 127.0.0.1 50025 | grep -q '^220 '"
+        },
+        "zenhub_answering": {
+            "Interval": 10.0,
+            "Script": "/opt/zenoss/bin/healthchecks/zenhub_answering"
         }
     },
     "ImageID": "zenoss/zenoss5x",
