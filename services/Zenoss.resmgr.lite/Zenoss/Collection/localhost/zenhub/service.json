@@ -110,10 +110,6 @@
         "zep_answering": {
             "Interval": 10.0,
             "Script": "/opt/zenoss/bin/healthchecks/zep_answering"
-        },
-        "zproxy_answering": {
-            "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/zproxy_answering"
         }
     },
     "ImageID": "zenoss/zenoss5x",
