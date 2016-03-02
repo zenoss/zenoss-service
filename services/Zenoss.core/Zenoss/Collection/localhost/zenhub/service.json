@@ -81,6 +81,10 @@
         }
     ],
     "HealthChecks": {
+        "metric_service_answering": {
+            "Interval": 10.0,
+            "Script": "/opt/zenoss/bin/healthchecks/metrics_answering"
+        },
         "mariadb_answering": {
             "Interval": 10.0,
             "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering"

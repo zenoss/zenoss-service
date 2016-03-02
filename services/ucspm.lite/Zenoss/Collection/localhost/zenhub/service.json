@@ -74,6 +74,10 @@
         }
     ],
     "HealthChecks": {
+        "metric_service_answering": {
+            "Interval": 10.0,
+            "Script": "/opt/zenoss/bin/healthchecks/metrics_answering"
+        },
         "catalogservice_answering": {
             "Interval": 10.0,
             "Script": "/opt/zenoss/bin/healthchecks/catalogservice_answering"
