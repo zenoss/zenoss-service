@@ -60,13 +60,13 @@
         }
     ],
     "HealthChecks": {
-        "metric_consumer_answering": {
-            "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/metrics_answering" 
-        },
         "central_query_answering": {
             "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/query_answering" 
+            "Script": "/opt/zenoss/bin/healthchecks/query_answering"
+        },
+        "metric_consumer_answering": {
+            "Interval": 10.0,
+            "Script": "/opt/zenoss/bin/healthchecks/metrics_answering"
         },
         "redis_answering": {
             "Interval": 5.0,
