@@ -61,10 +61,6 @@
             "Interval": 10.0,
             "Script": "/opt/zenoss/bin/healthchecks/query_answering"
         },
-        "metric_consumer_answering": {
-            "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/metrics_answering"
-        },
         "redis_answering": {
             "Interval": 5.0,
             "Script": "/opt/zenoss/bin/healthchecks/redis_answering"
