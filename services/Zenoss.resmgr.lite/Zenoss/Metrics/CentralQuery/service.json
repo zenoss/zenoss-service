@@ -41,7 +41,7 @@
         }
     ],
     "HealthChecks": {
-        "anwering": {
+        "answering": {
             "Interval": 5.0,
             "Script": "curl --fail --max-time 4  http://localhost:58888/healthcheck"
         }
