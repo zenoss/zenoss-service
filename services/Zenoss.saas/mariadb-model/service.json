@@ -37,7 +37,7 @@
     ],
     "Name": "mariadb-model",
     "PIDFile": "exec echo /var/lib/mysql/$(hostname).pid",
-    "RAMCommitment": "2G",
+    "RAMCommitment": "4G",
     "Snapshot": {
         "Pause": "PAUSE_CHECK_TIMEOUT=60 LOCK_HOLD_DURATION=600 ${ZENHOME:-/opt/zenoss}/bin/quiesce-mariadb.sh pause",
         "Resume": "${ZENHOME:-/opt/zenoss}/bin/quiesce-mariadb.sh resume"
