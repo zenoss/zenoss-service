@@ -81,9 +81,17 @@
         }
     ],
     "HealthChecks": {
+        "central_query_answering": {
+            "Interval": 10.0,
+            "Script": "/opt/zenoss/bin/healthchecks/query_answering"
+        },
         "mariadb_answering": {
             "Interval": 10.0,
             "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering"
+        },
+        "metric_consumer_answering": {
+            "Interval": 10.0,
+            "Script": "/opt/zenoss/bin/healthchecks/metrics_answering"
         },
         "rabbit_answering": {
             "Interval": 10.0,
