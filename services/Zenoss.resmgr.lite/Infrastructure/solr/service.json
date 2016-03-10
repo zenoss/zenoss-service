@@ -1,0 +1,53 @@
+{
+    "CPUCommitment": 2,
+    "Command": "setuser solr /opt/solr/bin/solr -f -cloud -s /opt/solr/server/solr -DzkHost={{with $zks := (child (child (parent .) \"HBase\") \"ZooKeeper\").Instances }}{{range (each $zks)}}127.0.0.1:{{plus 2181 .}}{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}}",
+    "ConfigFiles": {
+        "/opt/solr/server/solr/solr.xml": {
+            "FileName": "/opt/solr/server/solr/solr.xml",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Solr Cloud",
+    "Endpoints": [
+        {
+            "Application": "zodb_solr",
+            "Name": "solr",
+            "PortNumber": 8983,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "Vhosts": [
+                "solr"
+            ]
+        },
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        }
+    ],
+    "HealthChecks": {},
+    "ImageID": "zenoss/zenoss5x",
+    "Instances": {
+        "Default": 1,
+        "Min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [],
+    "Name": "Solr",
+    "RAMCommitment": "1G",
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####": "drwxr-x--- 4 solr solr 4096 Feb 25 21:25 /opt/solr/server/lib",
+            "ContainerPath": "/opt/solr/server/lib",
+            "Owner": "solr:solr",
+            "Permission": "0750",
+            "ResourcePath": "solr-{{.InstanceID}}"
+        }
+    ]
+}
