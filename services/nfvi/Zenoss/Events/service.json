@@ -1,0 +1,9 @@
+{
+    "Description": "",
+    "Launch": "auto",
+    "Name": "Events",
+    "Tags": [
+        "zenoss-events"
+    ]
+
+}
