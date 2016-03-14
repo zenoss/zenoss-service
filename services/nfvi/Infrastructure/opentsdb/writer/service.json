@@ -1,0 +1,69 @@
+{
+    "Description": "Writer for OpenTSDB server",
+    "Command": "/opt/opentsdb/start-opentsdb.sh {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}localhost:{{plus 2181 .}}{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}}",
+    "ConfigFiles": {
+	"/opt/zenoss/etc/opentsdb/opentsdb.conf": {
+            "FileName": "/opt/zenoss/etc/opentsdb/opentsdb.conf",
+            "Owner": "root:root",
+            "Permissions": "0644"
+	}
+    },
+    "Endpoints": [
+        {
+            "Application": "opentsdb-writer",
+            "Name": "opentsdb-writer",
+            "PortNumber": 4242,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Name": "zookeeper-client",
+            "Application": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Name": "hbase-master",
+            "Application": "hbase-master-.*",
+            "Purpose": "import"
+        },
+        {
+            "Name": "hbase-regionserver",
+            "Application": "hbase-regionserver",
+            "PortNumber": 60200,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        }
+    ],
+    "ImageID": "zenoss/opentsdb:xx",
+    "Instances": {
+        "min": 1
+    },
+    "RAMCommitment": "1G",
+    "CPUCommitment": 1,
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/zenoss/log/opentsdb.log",
+            "type": "opentsdb-writer"
+        }
+    ],
+    "Name": "opentsdb-writer",
+    "Services": [],
+    "Tags": [
+        "daemon"
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Script": "wget --timeout=3 --tries=1 -q -O - http://localhost:4242/api/stats",
+            "Interval": 5.0
+        }
+    },
+    "Prereqs": [
+        {
+            "Name": "HBase Regionservers up",
+            "Script": "{{with $rss := (child (child (parent (parent .)) \"HBase\") \"RegionServer\").Instances }}wget -q -O- http://localhost:61000/status/cluster | grep '{{$rss}} live servers'{{end}}"
+        }
+    ]
+}
