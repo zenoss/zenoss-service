@@ -103,7 +103,7 @@
             "Interval": 5.0
         },
         "answering": {
-            "Script": "curl -s -XPOST http://localhost:9180/authorization/login | grep -q 'Missing Authentication Credentials'",
+            "Script": "curl -o /dev/null -w '%{redirect_url}' -s http://localhost:9180/zport/dmd | grep -q acl_users",
             "Interval": 5.0
         },
         "mariadb_answering": {
