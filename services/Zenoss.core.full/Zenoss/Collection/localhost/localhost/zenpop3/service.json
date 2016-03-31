@@ -48,7 +48,7 @@
                 "Protocol": "tcp"
             },
             "Application": "{{(parent .).Name}}_zenpop3",
-            "Name": "zenmail_pop3",
+            "Name": "zenpop3",
             "PortNumber": 110,
             "Protocol": "tcp",
             "Purpose": "export"
