@@ -1,0 +1,135 @@
+{
+    "Description": "RabbitMQ server",
+    "Command": "/usr/sbin/rabbitmq-server",
+    "ConfigFiles": {
+      "/etc/rabbitmq/rabbitmq.config": {
+        "FileName": "/etc/rabbitmq/rabbitmq.config",
+        "Owner": "root:root",
+        "Permissions": "0664"
+      },
+      "/etc/rabbitmq/rabbitmq-env.conf": {
+        "FileName": "/etc/rabbitmq/rabbitmq-env.conf",
+        "Owner": "root:root",
+        "Permissions": "0664"
+      }
+    },
+    "Endpoints": [
+        {
+            "Name": "rabbitmq admin",
+            "Application": "rabbitmq_admin",
+            "PortNumber": 15672,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "Vhosts": ["rabbitmq"]
+        },
+        {
+            "Name": "rabbitmq",
+            "Application": "rabbitmq",
+            "PortNumber": 5672,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "AddressConfig": {
+                "Port": 5672,
+                "Protocol": "tcp"
+            }
+        },
+        {
+            "Name": "rabbitmq_epmd",
+            "Application": "rabbitmq_epmd",
+            "PortNumber":4369,
+            "Protocol":"tcp",
+            "Purpose":"export"
+        },
+        {
+            "Name": "rabbitmq_inet_dist",
+            "Application": "rabbitmq_inet_dist",
+            "PortNumber":44001,
+            "Protocol":"tcp",
+            "Purpose":"export"
+        },
+        {
+            "Name": "rabbitmq_epmds",
+            "Application": "rabbitmq_epmd",
+            "PortNumber":4369,
+            "PortTemplate": "{{plus .InstanceID 14369}}",
+            "Protocol":"tcp",
+            "Purpose":"import_all",
+            "VirtualAddress": "rbt{{.InstanceID}}:4369"
+        },
+        {
+            "Name": "rabbitmq_inet_dists",
+            "Application": "rabbitmq_inet_dist",
+            "PortNumber":44001,
+            "PortTemplate": "{{plus .InstanceID 49001}}",
+            "Protocol":"tcp",
+            "Purpose":"import_all",
+            "VirtualAddress": "rbt{{.InstanceID}}:44001"
+        },
+        {
+            "Name": "rabbitmqs",
+            "Application": "rabbitmq",
+            "PortNumber": 5672,
+            "PortTemplate": "{{plus .InstanceID 35672}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "rbt{{.InstanceID}}:5672"
+        }
+    ],
+    "Hostname": "rbt{{.InstanceID}}",
+    "ImageID": "zenoss/zenoss5x",
+    "Privileged": true,
+    "Instances": {
+        "min": 1
+    },
+    "RAMCommitment": "256M",
+    "CPUCommitment": 1,
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/log/rabbitmq/rabbit@localhost.log",
+            "type": "rabbitmq"
+        },
+        {
+            "path": "/var/log/rabbitmq/rabbit@localhost-sasl.log",
+            "type": "rabbitmq_sasl"
+        }
+    ],
+    "Name": "RabbitMQ",
+    "Prereqs": [
+        {
+            "Name": "Cluster Leader Start",
+            "Script": "[ $(hostname) == 'rbt0' ] || rabbitmqctl -n rabbit@rbt0 status | grep nodedown || sleep 5"
+        }
+    ],
+    "Services": [],
+    "Snapshot": {
+        "Pause":  "PAUSE_CHECK_TIMEOUT=60 ${ZENHOME:-/opt/zenoss}/bin/quiesce-rabbitmq.sh pause",
+        "Resume": "${ZENHOME:-/opt/zenoss}/bin/quiesce-rabbitmq.sh resume"
+    },
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####":         "drwxr-x--- 4 rabbitmq rabbitmq 4096 Feb 25 21:25 /var/lib/rabbitmq",
+            "Owner":         "rabbitmq:rabbitmq",
+            "Permission":    "0750",
+            "ResourcePath":  "rabbitmq/{{.InstanceID}}",
+            "ContainerPath": "/var/lib/rabbitmq"
+        }
+    ],
+    "HealthChecks": {
+       "user": {
+             "Script":  "/opt/zenoss/bin/healthchecks/RabbitMQ/user {{(getContext . \"global.conf.amqpuser\")}} {{(getContext . \"global.conf.amqppassword\")}}",
+             "Interval": 15.0
+        },
+        "admin": {
+            "Script": "curl -s -u {{(getContext . \"global.conf.amqpuser\")}}:{{(getContext . \"global.conf.amqppassword\")}} http://localhost:15672/api/vhosts | grep -q /zenoss",
+            "Interval": 10.0
+        },
+        "publishing": {
+            "Script": "curl -s -u {{(getContext . \"global.conf.amqpuser\")}}:{{(getContext . \"global.conf.amqppassword\")}} http://localhost:15672/api/aliveness-test/%2Fzenoss | grep -q '{\"status\":\"ok\"}'",
+            "Interval": 10.0
+        }
+    }
+}
