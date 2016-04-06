@@ -1,50 +1,59 @@
 {
-    "Description": "Pushes metric data into OpenTSDB",
     "Actions": {
-      "debug": "bash -c 'curl -X POST http://localhost:58443/tasks/debugtoggle'"
+        "debug": "bash -c 'curl -X POST http://localhost:58443/tasks/debugtoggle'"
     },
+    "CPUCommitment": 1,
     "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/metric-consumer-app/supervisord.conf\"",
     "ConfigFiles": {
-       "/opt/zenoss/etc/metric-consumer-app/metric-consumer-app_supervisor.conf": {
-            "FileName": "/opt/zenoss/etc/metric-consumer-app/metric-consumer-app_supervisor.conf",
-            "Owner": "zenoss:zenoss",
-            "Permissions": "0644"
-       },
-	"/opt/zenoss/etc/metric-consumer-app/configuration.yaml": {
+        "/opt/zenoss/etc/metric-consumer-app/configuration.yaml": {
             "FileName": "/opt/zenoss/etc/metric-consumer-app/configuration.yaml",
             "Owner": "zenoss:zenoss",
             "Permissions": "0644"
-	}
+        },
+        "/opt/zenoss/etc/metric-consumer-app/metric-consumer-app_supervisor.conf": {
+            "FileName": "/opt/zenoss/etc/metric-consumer-app/metric-consumer-app_supervisor.conf",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0644"
+        }
     },
+    "Description": "Pushes metric data into OpenTSDB",
     "Endpoints": [
         {
-            "Name": "metric_consumer",
             "Application": "metric_consumer",
+            "Name": "metric_consumer",
             "PortNumber": 8443,
             "Protocol": "tcp",
             "Purpose": "export"
         },
         {
-            "Name": "zproxy",
             "Application": "zproxy",
+            "Name": "zproxy",
             "PortNumber": 8080,
             "Protocol": "tcp",
             "Purpose": "import"
         },
         {
-            "Name": "opentsdb-writer",
             "Application": "opentsdb-writer",
+            "Name": "opentsdb-writer",
             "PortNumber": 4242,
             "Protocol": "tcp",
             "Purpose": "import"
         }
     ],
+    "HealthChecks": {
+        "listening": {
+            "Interval": 10.0,
+            "Script": "nmap -oG - -Pn -sS -p 8443 127.0.0.1 | grep -q 8443/open"
+        },
+        "stats_listening": {
+            "Interval": 5.0,
+            "Script": "curl -s http://localhost:58443/metrics | grep -q org.zenoss.app.consumer.metric.impl.MetricsQueue"
+        }
+    },
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
         "min": 1
     },
-    "RAMCommitment": "1G",
-    "CPUCommitment": 1,
     "Launch": "auto",
     "LogConfigs": [
         {
@@ -55,158 +64,9 @@
             "type": "metricconsumer"
         }
     ],
-    "Name": "metric_consumer",
-    "Tags": [
-        "daemon"
-    ],
-    "HealthChecks": {
-        "listening": {
-            "Script": "nmap -oG - -Pn -sS -p 8443 127.0.0.1 | grep -q 8443/open",
-            "Interval": 10.0
-        },
-        "stats_listening": {
-            "Script": "curl -s http://localhost:58443/metrics | grep -q org.zenoss.app.consumer.metric.impl.MetricsQueue",
-            "Interval": 5.0
-        }
-    },
     "MonitoringProfile": {
-        "MetricConfigs": [
-            {
-                "ID": "jvm.fd_usage",
-                "Name": "JVM File Descriptor Usage",
-                "Description": "JVM File Descriptor Usage Statistics",
-                "Metrics": [
-                    { "ID": "jvm.fd_usage", "Name": "FD Usage Count" }
-                ]
-            },
-            {
-                "ID": "jvm.thread",
-                "Name": "JVM Thread",
-                "Description": "JVM Thread Type Statistics",
-                "Metrics": [
-                    { "ID": "jvm.thread_count", "Name": "JVM Thread Count" },
-                    { "ID": "jvm.daemon_thread_count", "Name": "JVM Daemon Thread Count" }
-                ]
-            },
-            {
-                "ID": "jvm.memory",
-                "Name": "JVM Memory",
-                "Description": "JVM heap vs. non-heap memory usage",
-                "Metrics": [
-                    { "ID": "jvm.memory.heap_usage", "Name": "JVM Heap Memory Usage" },
-                    { "ID": "jvm.memory.non_heap_usage", "Name": "JVM Non-Heap Memory Usage" }
-                ]
-            },
-            {
-                "ID": "jvm.memory.memory_pool_usages",
-                "Name": "JVM Memory Pool",
-                "Description": "JVM Memory Pool Usage",
-                "Metrics": [
-                    { "ID": "jvm.memory.memory_pool_usages.Code_Cache", "Name": "Code Cache" },
-                    { "ID": "jvm.memory.memory_pool_usages.PS_Eden_Space", "Name": "Eden Space" },
-                    { "ID": "jvm.memory.memory_pool_usages.PS_Old_Gen", "Name": "Old Generation" },
-                    { "ID": "jvm.memory.memory_pool_usages.PS_Perm_Gen", "Name": "Permanent Generation" },
-                    { "ID": "jvm.memory.memory_pool_usages.PS_Survivor_Space", "Name": "Survivor Space" }
-                ]
-            },
-            {
-                "ID": "jvm.gc",
-                "Name": "JVM Garbage Collection",
-                "Description": "JVM Garbage Collection Statistics",
-                "Metrics": [
-                    { "ID": "jvm.gc.PS_MarkSweep.runs", "Name": "JVM Garbage Collection MarkSweep Runs" },
-                    { "ID": "jvm.gc.PS_MarkSweep.time", "Name": "JVM Garbage Collection MarkSweep Time" },
-                    { "ID": "jvm.gc.PS_Scavenge.runs", "Name": "JVM Garbage Collection Scavenge Runs" },
-                    { "ID": "jvm.gc.PS_Scavenge.time", "Name": "JVM Garbage Collection Scavenge Time" }
-                ]
-            },
-            {
-                "ID": "jvm.threads-states",
-                "Name": "JVM Thread States",
-                "Description": "JVM Thread States",
-                "Metrics": [
-                    { "ID": "jvm.thread-states.blocked", "Name": "JVM Threads in Blocked State" },
-                    { "ID": "jvm.thread-states.new", "Name": "JVM Threads in New State" },
-                    { "ID": "jvm.thread-states.runnable", "Name": "JVM Threads in Runnable State" },
-                    { "ID": "jvm.thread-states.terminated", "Name": "JVM Threads in Terminated State" },
-                    { "ID": "jvm.thread-states.timed_waiting", "Name": "JVM Threads in Timed Waiting State" },
-                    { "ID": "jvm.thread-states.waiting", "Name": "JVM Threads in Waiting State" }
-                ]
-            },
-            {
-                "ID": "MetricsQueue.totalIncoming",
-                "Name": "Total Incoming Metrics",
-                "Description": "Total Incoming Metric Statistics",
-                "Metrics": [
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalIncoming.count", "Name": "MetricsQueue Total Incoming Count" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalIncoming.meanRate", "Name": "MetricsQueue Total Incoming Mean Rate" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalIncoming.1MinuteRate", "Name": "MetricsQueue Total Incoming 1 Minute Rate" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalIncoming.5MinuteRate", "Name": "MetricsQueue Total Incoming 5 Minute Rate" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalIncoming.15MinuteRate", "Name": "MetricsQueue Total Incoming 15 MinuteRate" }
-                ]
-            },
-            {
-                "ID": "MetricsQueue.totalOutgoing",
-                "Name": "Total Incoming Metrics",
-                "Description": "Total Incoming Metric Statistics",
-                "Metrics": [
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.count", "Name": "MetricsQueue Total Incoming Count" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.meanRate", "Name": "MetricsQueue Total Incoming Mean Rate" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.1MinuteRate", "Name": "MetricsQueue Total Incoming 1 Minute Rate" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.5MinuteRate", "Name": "MetricsQueue Total Incoming 5 Minute Rate" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.15MinuteRate", "Name": "MetricsQueue Total Incoming 15 MinuteRate" }
-                ]
-            },
-            {
-                "ID": "MetricsQueue.totalErrors",
-                "Name": "Total Errors",
-                "Description": "Total Errors",
-                "Metrics": [
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalErrors.count", "Name": "MetricsQueue Total Errors Count" }
-                ]
-            },
-            {
-                "ID": "MetricsQueue.inFlight",
-                "Name": "Queued Metrics",
-                "Description": "Queued Metric Count",
-                "Metrics": [
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalInFlight.count", "Name": "MetricsQueue Queued Metric couint" }
-                ]
-            },
-            {
-                "ID": "MetricsWebResource.post",
-                "Name": "MetricsWebResource Post Statistics",
-                "Description": "HTTP Post Statistics for the MetricsWebResource",
-                "Metrics": [
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.count", "Name": "MetricWebResource Total Post" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.meanRate", "Name": "MetricWebResource Average Response Rate" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.1MinuteRate", "Name": "MetricWebResource 1 Minute Moving Average Response Rate" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.5MinuteRate", "Name": "MetricWebResource 5 Minute Moving Average Response Rate" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.15MinuteRate", "Name": "MetricWebResource 15 Minute Moving Average Response Rate" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.max", "Name": "MetricWebResource Content-Length Max" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.mean", "Name": "MetricWebResource Content-Length Mean" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.median", "Name": "MetricWebResource Content-Length Median" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.75Percentile", "Name": "MetricWebResource Content-Length Histogram 75%" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.95Percentile", "Name": "MetricWebResource Content-Length Histogram 95%" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.98Percentile", "Name": "MetricWebResource Content-Length Histogram 98%" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.99Percentile", "Name": "MetricWebResource Content-Length Histogram 99%" },
-                    { "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.999Percentile", "Name": "MetricWebResource Content-Length Histogram 99.9%" }
-                ]
-            }
-        ],
         "GraphConfigs": [
             {
-                "id": "queuedMetrics",
-                "name": "Queued Metrics",
-                "footer": false,
-                "returnset": "EXACT",
-                "type": "line",
-                "yAxisLabel": "Queued Metrics",
-                "description": "Queued Metric Count",
-                "range": {
-                    "start": "1h-ago",
-                    "end": "0s-ago"
-                },
                 "datapoints": [
                     {
                         "aggregator": "avg",
@@ -219,20 +79,20 @@
                         "rate": false,
                         "type": "line"
                     }
-                ]
-            },
-            {
-                "id": "dataPoints",
-                "name": "Data Points",
+                ],
+                "description": "Queued Metric Count",
                 "footer": false,
+                "id": "queuedMetrics",
+                "name": "Queued Metrics",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
                 "returnset": "EXACT",
                 "type": "line",
-                "yAxisLabel": "Data Points",
-                "description": "Number of datapoints received / transmitted per second.",
-                "range": {
-                    "start": "1h-ago",
-                    "end": "0s-ago"
-                },
+                "yAxisLabel": "Queued Metrics"
+            },
+            {
                 "datapoints": [
                     {
                         "aggregator": "avg",
@@ -256,8 +116,283 @@
                         "rate": true,
                         "type": "line"
                     }
-                ]
+                ],
+                "description": "Number of datapoints received / transmitted per second.",
+                "footer": false,
+                "id": "dataPoints",
+                "name": "Data Points",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Data Points"
+            }
+        ],
+        "MetricConfigs": [
+            {
+                "Description": "JVM File Descriptor Usage Statistics",
+                "ID": "jvm.fd_usage",
+                "Metrics": [
+                    {
+                        "ID": "jvm.fd_usage",
+                        "Name": "FD Usage Count"
+                    }
+                ],
+                "Name": "JVM File Descriptor Usage"
+            },
+            {
+                "Description": "JVM Thread Type Statistics",
+                "ID": "jvm.thread",
+                "Metrics": [
+                    {
+                        "ID": "jvm.thread_count",
+                        "Name": "JVM Thread Count"
+                    },
+                    {
+                        "ID": "jvm.daemon_thread_count",
+                        "Name": "JVM Daemon Thread Count"
+                    }
+                ],
+                "Name": "JVM Thread"
+            },
+            {
+                "Description": "JVM heap vs. non-heap memory usage",
+                "ID": "jvm.memory",
+                "Metrics": [
+                    {
+                        "ID": "jvm.memory.heap_usage",
+                        "Name": "JVM Heap Memory Usage"
+                    },
+                    {
+                        "ID": "jvm.memory.non_heap_usage",
+                        "Name": "JVM Non-Heap Memory Usage"
+                    }
+                ],
+                "Name": "JVM Memory"
+            },
+            {
+                "Description": "JVM Memory Pool Usage",
+                "ID": "jvm.memory.memory_pool_usages",
+                "Metrics": [
+                    {
+                        "ID": "jvm.memory.memory_pool_usages.Code_Cache",
+                        "Name": "Code Cache"
+                    },
+                    {
+                        "ID": "jvm.memory.memory_pool_usages.PS_Eden_Space",
+                        "Name": "Eden Space"
+                    },
+                    {
+                        "ID": "jvm.memory.memory_pool_usages.PS_Old_Gen",
+                        "Name": "Old Generation"
+                    },
+                    {
+                        "ID": "jvm.memory.memory_pool_usages.PS_Perm_Gen",
+                        "Name": "Permanent Generation"
+                    },
+                    {
+                        "ID": "jvm.memory.memory_pool_usages.PS_Survivor_Space",
+                        "Name": "Survivor Space"
+                    }
+                ],
+                "Name": "JVM Memory Pool"
+            },
+            {
+                "Description": "JVM Garbage Collection Statistics",
+                "ID": "jvm.gc",
+                "Metrics": [
+                    {
+                        "ID": "jvm.gc.PS_MarkSweep.runs",
+                        "Name": "JVM Garbage Collection MarkSweep Runs"
+                    },
+                    {
+                        "ID": "jvm.gc.PS_MarkSweep.time",
+                        "Name": "JVM Garbage Collection MarkSweep Time"
+                    },
+                    {
+                        "ID": "jvm.gc.PS_Scavenge.runs",
+                        "Name": "JVM Garbage Collection Scavenge Runs"
+                    },
+                    {
+                        "ID": "jvm.gc.PS_Scavenge.time",
+                        "Name": "JVM Garbage Collection Scavenge Time"
+                    }
+                ],
+                "Name": "JVM Garbage Collection"
+            },
+            {
+                "Description": "JVM Thread States",
+                "ID": "jvm.threads-states",
+                "Metrics": [
+                    {
+                        "ID": "jvm.thread-states.blocked",
+                        "Name": "JVM Threads in Blocked State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.new",
+                        "Name": "JVM Threads in New State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.runnable",
+                        "Name": "JVM Threads in Runnable State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.terminated",
+                        "Name": "JVM Threads in Terminated State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.timed_waiting",
+                        "Name": "JVM Threads in Timed Waiting State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.waiting",
+                        "Name": "JVM Threads in Waiting State"
+                    }
+                ],
+                "Name": "JVM Thread States"
+            },
+            {
+                "Description": "Total Incoming Metric Statistics",
+                "ID": "MetricsQueue.totalIncoming",
+                "Metrics": [
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalIncoming.count",
+                        "Name": "MetricsQueue Total Incoming Count"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalIncoming.meanRate",
+                        "Name": "MetricsQueue Total Incoming Mean Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalIncoming.1MinuteRate",
+                        "Name": "MetricsQueue Total Incoming 1 Minute Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalIncoming.5MinuteRate",
+                        "Name": "MetricsQueue Total Incoming 5 Minute Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalIncoming.15MinuteRate",
+                        "Name": "MetricsQueue Total Incoming 15 MinuteRate"
+                    }
+                ],
+                "Name": "Total Incoming Metrics"
+            },
+            {
+                "Description": "Total Incoming Metric Statistics",
+                "ID": "MetricsQueue.totalOutgoing",
+                "Metrics": [
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.count",
+                        "Name": "MetricsQueue Total Incoming Count"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.meanRate",
+                        "Name": "MetricsQueue Total Incoming Mean Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.1MinuteRate",
+                        "Name": "MetricsQueue Total Incoming 1 Minute Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.5MinuteRate",
+                        "Name": "MetricsQueue Total Incoming 5 Minute Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.15MinuteRate",
+                        "Name": "MetricsQueue Total Incoming 15 MinuteRate"
+                    }
+                ],
+                "Name": "Total Incoming Metrics"
+            },
+            {
+                "Description": "Total Errors",
+                "ID": "MetricsQueue.totalErrors",
+                "Metrics": [
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalErrors.count",
+                        "Name": "MetricsQueue Total Errors Count"
+                    }
+                ],
+                "Name": "Total Errors"
+            },
+            {
+                "Description": "Queued Metric Count",
+                "ID": "MetricsQueue.inFlight",
+                "Metrics": [
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalInFlight.count",
+                        "Name": "MetricsQueue Queued Metric couint"
+                    }
+                ],
+                "Name": "Queued Metrics"
+            },
+            {
+                "Description": "HTTP Post Statistics for the MetricsWebResource",
+                "ID": "MetricsWebResource.post",
+                "Metrics": [
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.count",
+                        "Name": "MetricWebResource Total Post"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.meanRate",
+                        "Name": "MetricWebResource Average Response Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.1MinuteRate",
+                        "Name": "MetricWebResource 1 Minute Moving Average Response Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.5MinuteRate",
+                        "Name": "MetricWebResource 5 Minute Moving Average Response Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.15MinuteRate",
+                        "Name": "MetricWebResource 15 Minute Moving Average Response Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.max",
+                        "Name": "MetricWebResource Content-Length Max"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.mean",
+                        "Name": "MetricWebResource Content-Length Mean"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.median",
+                        "Name": "MetricWebResource Content-Length Median"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.75Percentile",
+                        "Name": "MetricWebResource Content-Length Histogram 75%"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.95Percentile",
+                        "Name": "MetricWebResource Content-Length Histogram 95%"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.98Percentile",
+                        "Name": "MetricWebResource Content-Length Histogram 98%"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.99Percentile",
+                        "Name": "MetricWebResource Content-Length Histogram 99%"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.remote.MetricWebResource.post.999Percentile",
+                        "Name": "MetricWebResource Content-Length Histogram 99.9%"
+                    }
+                ],
+                "Name": "MetricsWebResource Post Statistics"
             }
         ]
-    }
+    },
+    "Name": "metric_consumer",
+    "RAMCommitment": "1G",
+    "Tags": [
+        "daemon"
+    ]
 }
