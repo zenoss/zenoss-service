@@ -1,0 +1,8 @@
+{
+    "Description": "",
+    "Launch": "auto",
+    "Name": "Zenoss",
+    "Tags": [
+        "zenoss-application"
+    ]
+}
