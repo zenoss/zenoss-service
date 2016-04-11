@@ -141,7 +141,7 @@ zenoss-resmgr-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-resmgr-$(BUILD_
 zenoss-ucspm-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/ucspm
 zenoss-ucspm-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-ucspm-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json' -print0)
 
-zenoss-nfvi-$(BUILD_TAG).json_SRC_DIR  := $(svcdef_SRC_DIR)/nfvi
+zenoss-nfvi-$(BUILD_TAG).json_SRC_DIR  := $(svcdef_SRC_DIR)/NFVi
 zenoss-nfvi-$(BUILD_TAG).json_SRC      := $(shell find $(zenoss-nfvi-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json' -print0)
 #-------------------------------------#
 
