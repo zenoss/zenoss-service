@@ -1,6 +1,7 @@
 {
     "Description": "OpenTSDB server",
-    "Command": "/bin/sh -c \"{{ if eq .InstanceID 0 }} export CREATE_TABLES=1;{{ end }} /opt/opentsdb/start-opentsdb.sh {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}localhost:{{plus 2181 .}}{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}}\"",
+    "CPUCommitment": 1,
+    "Command": "/bin/sh -c \"{{ if eq .InstanceID 0 }} export CREATE_TABLES=1;{{ end }} /opt/opentsdb/start-opentsdb.sh {{with $zks := (child (child (parent .) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}localhost:{{plus 2181 .}}{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}}\"",
     "ConfigFiles": {
 	"/opt/zenoss/etc/opentsdb/opentsdb.conf": {
             "FileName": "/opt/zenoss/etc/opentsdb/opentsdb.conf",
