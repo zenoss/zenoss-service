@@ -41,6 +41,10 @@
         "zenpack-manager": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack-manager.sh --service-id={{.ID}}",
             "CommitOnSuccess": true
+        },
+        "zenossdbpack": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
+            "CommitOnSuccess": false
         }
     },
     "ConfigFiles": {
@@ -204,6 +208,13 @@
     "Services": [],
     "Tags": [
         "daemon"
+    ],
+    "Tasks": [
+        {
+            "Name": "zenossdbpack",
+            "Schedule": "0 0 * * 0",
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack"
+        }
     ],
     "Volumes": [
         {
