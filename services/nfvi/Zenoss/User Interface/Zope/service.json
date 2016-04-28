@@ -34,6 +34,10 @@
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
             "CommitOnSuccess": true
         },
+        "zenossdbpack": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
+            "CommitOnSuccess": false
+        },
         "zenpack": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",
             "CommitOnSuccess": false
@@ -41,10 +45,6 @@
         "zenpack-manager": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack-manager.sh --service-id={{.ID}}",
             "CommitOnSuccess": true
-        },
-        "zenossdbpack": {
-            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
-            "CommitOnSuccess": false
         }
     },
     "ConfigFiles": {
@@ -211,9 +211,9 @@
     ],
     "Tasks": [
         {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
             "Name": "zenossdbpack",
-            "Schedule": "0 0 * * 0",
-            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack"
+            "Schedule": "0 0 * * 0"
         }
     ],
     "Volumes": [
