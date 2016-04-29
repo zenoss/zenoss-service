@@ -6,6 +6,10 @@
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun patch.sh applyPatches",
             "CommitOnSuccess": true
         },
+        "zenossdbpack": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
+            "CommitOnSuccess": false
+        },
         "help": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun help.sh",
             "CommitOnSuccess": false

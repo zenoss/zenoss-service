@@ -209,13 +209,6 @@
     "Tags": [
         "daemon"
     ],
-    "Tasks": [
-        {
-            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
-            "Name": "zenossdbpack",
-            "Schedule": "0 0 * * 0"
-        }
-    ],
     "Volumes": [
         {
             "#####": "drwxr-xr-x 2 zenoss zenoss 4096 Feb  6 19:11 /opt/zenoss/.pc",
