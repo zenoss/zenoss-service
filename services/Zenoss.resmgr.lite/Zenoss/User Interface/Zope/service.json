@@ -2,10 +2,6 @@
     "CPUCommitment": 1,
     "Command": "su - zenoss -c \"/opt/zenoss/bin/runzope\" ",
     "Commands": {
-        "zenossdbpack": {
-            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
-            "CommitOnSuccess": false
-        },
         "apply-custom-patches": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun patch.sh applyPatches",
             "CommitOnSuccess": true
@@ -37,6 +33,10 @@
         "zenmib": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
             "CommitOnSuccess": true
+        },
+        "zenossdbpack": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
+            "CommitOnSuccess": false
         },
         "zenpack": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",

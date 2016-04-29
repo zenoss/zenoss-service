@@ -30,13 +30,13 @@
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zendmd",
             "CommitOnSuccess": false
         },
-        "zenossdbpack": {
-            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
-            "CommitOnSuccess": false
-        },
         "zenmib": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
             "CommitOnSuccess": true
+        },
+        "zenossdbpack": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
+            "CommitOnSuccess": false
         },
         "zenpack": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",

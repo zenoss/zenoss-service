@@ -6,10 +6,6 @@
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun patch.sh applyPatches",
             "CommitOnSuccess": true
         },
-        "zenossdbpack": {
-            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
-            "CommitOnSuccess": false
-        },
         "help": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun help.sh",
             "CommitOnSuccess": false
@@ -37,6 +33,10 @@
         "zenmib": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
             "CommitOnSuccess": true
+        },
+        "zenossdbpack": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
+            "CommitOnSuccess": false
         },
         "zenpack": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",
