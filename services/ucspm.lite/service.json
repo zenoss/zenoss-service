@@ -51,7 +51,7 @@
             "PortList": [
                 {
                     "Enabled": true,
-                    "PortAddr": "morr-workstation:443",
+                    "PortAddr": ":443",
                     "Protocol": "https",
                     "UseTLS": true
                 }
