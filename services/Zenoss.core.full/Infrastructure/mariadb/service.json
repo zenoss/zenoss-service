@@ -1,12 +1,7 @@
 {
     "CPUCommitment": 2,
     "Command": "/usr/bin/mysqld_safe",
-    "Commands": {
-        "rebuild_zodb_session": {
-            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun mysql.sh rebuild_zodb_session",
-            "CommitOnSuccess": false
-        }
-    },
+    "Commands": {},
     "Description": "MariaDB database server",
     "Endpoints": [
         {

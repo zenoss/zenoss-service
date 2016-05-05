@@ -11,55 +11,68 @@
         },
         "events-database": {
             "Command": "/import4/pkg/bin/imp4_run.sh events import --database",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Import events database information for Import4"
         },
         "events-index": {
             "Command": "/import4/pkg/bin/imp4_run.sh events import --index",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Import events index information for Import4"
         },
         "finalize": {
             "Command": "/import4/pkg/bin/finalize.sh",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Remove Import4 artifacts from the container"
         },
         "import4": {
             "Command": "/import4/pkg/bin/imp4_run.sh",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Run an Import4 command"
         },
         "initialize": {
             "Command": "cd $(dirname $(readlink /opt/zenoss/bin/import4)); ./install_pkg.sh",
-            "CommitOnSuccess": true
+            "CommitOnSuccess": true,
+            "Description": "Prepare the container for Import4 and install RRDtool"
         },
         "model-catalog": {
             "Command": "/import4/pkg/bin/imp4_run.sh model import --catalog",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Import catalog information for Import4"
         },
         "model-database": {
             "Command": "/import4/pkg/bin/imp4_run.sh model import --database",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Import database information for Import4"
         },
         "model-verify": {
             "Command": "/import4/pkg/bin/imp4_run.sh model verify",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Perform post-validation of models for Import4"
         },
         "model-zenmigrate": {
             "Command": "/import4/pkg/bin/imp4_run.sh model import --zenmigrate",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Import zenmigrate information for Import4"
         },
         "model-zenpack": {
             "Command": "/import4/pkg/bin/imp4_run.sh model import --zenpack",
-            "CommitOnSuccess": true
+            "CommitOnSuccess": true,
+            "Description": "Import Zenpack information for Import4"
         },
         "perf-abort-cleanup": {
             "Command": "/import4/pkg/bin/abort_jobs.sh",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Deprecated"
         },
         "perf-import": {
             "Command": "flock -x /import4/staging/perf_importing /import4/pkg/bin/imp4_run.sh perf import",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Import performance data for Import4"
         },
         "perf-verify": {
             "Command": "/import4/pkg/bin/imp4_run.sh perf verify",
-            "CommitOnSuccess": false
+            "CommitOnSuccess": false,
+            "Description": "Verify performance data for Import4"
         }
     },
     "ConfigFiles": {
