@@ -188,6 +188,10 @@
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenmib.sh",
             "CommitOnSuccess": true
         },
+        "zenossdbpack": {
+            "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenossdbpack",
+            "CommitOnSuccess": false
+        },
         "zenpack": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenpack.sh --service-id={{.ID}}",
             "CommitOnSuccess": false
