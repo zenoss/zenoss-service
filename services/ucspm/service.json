@@ -52,6 +52,14 @@
     "Endpoints": [
         {
             "Name": "zproxy",
+            "PortList": [
+                {
+                    "Enabled": true,
+                    "PortAddr": ":443",
+                    "Protocol": "https",
+                    "UseTLS": true
+                }
+            ],
             "Application": "zproxy",
             "PortNumber": 8080,
             "Protocol": "tcp",
