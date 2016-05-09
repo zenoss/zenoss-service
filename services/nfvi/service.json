@@ -48,12 +48,17 @@
         {
             "Application": "zproxy",
             "Name": "zproxy",
+            "PortList": [
+                {
+                    "Enabled": true,
+                    "PortAddr": ":443",
+                    "Protocol": "https",
+                    "UseTLS": true
+                }
+            ],
             "PortNumber": 8080,
             "Protocol": "tcp",
-            "Purpose": "export",
-            "Vhosts": [
-                "nfvi"
-            ]
+            "Purpose": "export"
         },
         {
             "Application": "zope",
