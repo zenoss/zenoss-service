@@ -98,6 +98,15 @@ svcdef_ImageID_maps     += $(jsonsrc_opentsdb_ImageID),$(desired_opentsdb_ImageI
 $(SRCROOT):
 	services
 
+#
+# The serviced binary referenced by SVCDEF_EXE is injected into the build
+# container by logic in pkg/makefile.
+#
+# If the JSON syntax (schema) for a service definition is modified, then those modifications
+# will not be compiled into new service definitions until a new version of the
+# serviced binary is used for this build.  To update the version of the serviced binary
+# used for this build, change the SERVICED_ARCHIVE variable in pkg/makefile.
+#
 SVCDEF_EXE = pkg/serviced
 $(SVCDEF_EXE):
 	cd $(shell dirname $@) && make $(shell basename $@)
@@ -160,6 +169,8 @@ $(svcdef_BUILD_TARGETS): short_product = $(patsubst zenoss-%,%,$(patsubst %-$(BU
 $(svcdef_BUILD_TARGETS): map_opt       = $(patsubst %,-map %,$(svcdef_ImageID_maps))
 $(svcdef_BUILD_TARGETS): src_dir       = $($(@F)_SRC_DIR)
 $(svcdef_BUILD_TARGETS): $$($$(@F)_SRC) | $(SVCDEF_EXE) $(OUTPUT) $$(@D)
+	@echo "Compiling service definitions with the following version of serviced:"
+	@$(SVCDEF_EXE) version
 	@compile_CMD="$(SVCDEF_EXE) template compile $(map_opt) $(src_dir) > $@" ;\
 	echo $${compile_CMD} ;\
 	eval $${compile_CMD} 2>/dev/null ;\
