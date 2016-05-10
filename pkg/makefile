@@ -91,7 +91,7 @@ clean_files:
 
 .PHONY: clean_dirs
 clean_dirs = $(PKGROOT) pkgroot templates
-clean_dirs: 
+clean_dirs:
 	for dir in $(clean_dirs) ;\
 	do \
 		if [ -d "$${dir}" ];then \
@@ -113,11 +113,19 @@ clean: clean_files clean_dirs
 .PHONY: mrclean
 mrclean: clean
 
-# Install built serviced binary from zenpip tgz
+# Install a prebuilt serviced binary from zenpip. If the schema/syntax for
+# service definitions changes, you must first rebuild a copy of serviced that
+# supports those changes, and then modify this makefile to reference that
+# specific binary.
+#
+# FYI - Prior to CC 1.1.4, the serviced artifacts were identified
+#       by git SHA, but starting with CC 1.1.4 and RM 5.1.3, the naming convention
+#       for the tgz artifacts was updated to use CC version and build number.
 ZENPIPPKGSURL = http://zenpip.zendev.org/packages
+SERVICED_ARCHIVE=serviced-1.2.0-0.0.2923.unstable.tgz
 serviced:
 	echo " extracting: $@"
-	curl -s $(ZENPIPPKGSURL)/serviced-9040d9b5109063291a855291942561defcb52f27.tgz | \
+	curl -s $(ZENPIPPKGSURL)/$(SERVICED_ARCHIVE) | \
 		tar -v -xz --transform 's|.*/||g' ./opt/serviced/bin/serviced
 
 # Make root dir for packaging
