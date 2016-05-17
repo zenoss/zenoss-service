@@ -57,8 +57,28 @@ case $VERSION in
         # No quoting FLAVORS below in order to split the string on spaces
         for FLAVOR in $FLAVORS; do
             FROM_STRING=$(repo_tag "$FLAVOR" "$FROM_MATURITY" "$FROM_RELEASEPHASE")
-            TO_STRING=$(repo_tag "$FLAVOR" "$TO_MATURITY" "$TO_RELEASEPHASE")
             retry 4 5s docker pull "$FROM_STRING"
+
+            if [[ "$TO_MATURITY" = "stable" ]]; then
+                # extract the versions file and get version info from there
+                docker run -it --rm -v $(pwd):/mnt/pwd $FROM_STRING rsync -a /var/zenoss-versions /mnt/pwd
+                export TO_RELEASEPHASE=$(awk /release-phase/'{print $2}' zenoss-versions) || exit 1
+                versionfromfile=$(awk /core-long/'{print $2}' zenoss-versions) || exit 1
+                export SHORT_VERSION=$(awk /core-short/'{print $2}' zenoss-versions) || exit 1
+                
+                # make sure the version that was passed in matches what was in the image.  If it doesn't, there is a problem in the image's versions file
+                if [[ "$VERSION" != "$versionfromfile" ]]; then
+                    echo "Versions don't match:  version from parameter = $VERSION, version in image = $versionfromfile"
+                    exit 1
+                fi 
+            fi
+
+            TO_STRING=$(repo_tag "$FLAVOR" "$TO_MATURITY" "$TO_RELEASEPHASE")
+            
+            # make sure there isn't already an image with this tag on docker hub
+            docker pull "$TO_STRING" &> /dev/null && echo "Image with tag $TO_STRING already exists on docker hub" && exit 1
+
+            # tag the image with the new tag and push
             docker tag -f "$FROM_STRING" "$TO_STRING"
             retry 10 30s docker push "$TO_STRING"
             if [[ "$TO_MATURITY" = "stable" ]]; then
