@@ -1,0 +1,5 @@
+{
+    "Description": "HDFS Cluster",
+    "Launch": "auto",
+    "Name": "HdfsCluster"
+}

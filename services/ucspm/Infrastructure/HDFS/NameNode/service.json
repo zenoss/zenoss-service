@@ -1,0 +1,325 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/run-hdfs-namenode",
+    "ConfigFiles": {
+        "/opt/hadoop/etc/hadoop/core-site.xml": {
+            "FileName": "/opt/hadoop/etc/hadoop/core-site.xml",
+            "Owner": "hdfs:hdfs",
+            "Permissions": "0775"
+        },
+        "/opt/hadoop/etc/hadoop/hdfs-site.xml": {
+            "FileName": "/opt/hadoop/etc/hadoop/hdfs-site.xml",
+            "Owner": "hdfs:hdfs",
+            "Permissions": "0775"
+        }
+    },
+    "Description": "HDFS nameNode",
+    "Endpoints": [
+        {
+            "Application": "hdfs-namenode",
+            "Name": "hdfs-namenode",
+            "PortNumber": 8020,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "hdfs-namenode-rest",
+            "Name": "hdfs-namenode-rest",
+            "PortNumber": 50070,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "VHostList": [
+                {
+                    "Enabled": false,
+                    "Name": "hdfs"
+                }
+            ]
+        },
+        {
+            "Application": "hdfs-datanode",
+            "Name": "hdfs-datanode",
+            "PortNumber": 50010,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Application": "hdfs-datanode-ipc",
+            "Name": "hdfs-datanode-ipc",
+            "PortNumber": 50020,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 10,
+            "Script": "test $(curl -s -o /dev/null -w '%{http_code}' localhost:50070) = 200"
+        }
+    },
+    "Hostname": "localhost",
+    "ImageID": "zenoss/hdfs:xx",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/hadoop/logs/hadoop.log",
+            "type": "hdfs-namenode"
+        }
+    ],
+    "MonitoringProfile": {
+        "GraphConfigs": [
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "CapacityTotalGB",
+                        "legend": "Total Capacity",
+                        "metric": "CapacityTotalGB",
+                        "name": "Total Capacity",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "CapacityUsedGB",
+                        "legend": "Used Capacity",
+                        "metric": "CapacityUsedGB",
+                        "name": "Used Capacity",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "DFS Space",
+                "footer": false,
+                "id": "FreeDfsSpace",
+                "name": "Total DFS Space",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "GB"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "BlocksTotal",
+                        "legend": "Allocated Blocks",
+                        "metric": "BlocksTotal",
+                        "name": "Total Blocks",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "PendingReplicationBlocks",
+                        "legend": "Pending Replication Blocks",
+                        "metric": "PendingReplicationBlocks",
+                        "name": "Pending Replication Blocks",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "CorruptBlocks",
+                        "legend": "Corrupt Blocks",
+                        "metric": "CorruptBlocks",
+                        "name": "Corrupt Blocks",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "PendingDeletionBlocks",
+                        "legend": "Pending Deletion Blocks",
+                        "metric": "PendingDeletionBlocks",
+                        "name": "Pending Deletion Blocks",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "BlockCapacity",
+                        "legend": "Block Capacity",
+                        "metric": "BlockCapacity",
+                        "name": "Block Capacity",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Information about Blocks",
+                "footer": false,
+                "id": "blockData",
+                "name": "DFS Blocks",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Bocks"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "RpcProcessingTimeNumOps",
+                        "legend": "RPC Calls",
+                        "metric": "RpcProcessingTimeNumOps",
+                        "name": "RPC Call Count",
+                        "rate": true,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Total number of RPC calls",
+                "footer": false,
+                "id": "RpcProcessingTimeNumOps",
+                "name": "RPC Call Count",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "RPC Calls"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "PutImageAvgTime",
+                        "legend": "Average fsimage upload",
+                        "metric": "PutImageAvgTime",
+                        "name": "PutImageAvgTime",
+                        "rate": true,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "GetImageAvgTime",
+                        "legend": "Average fsimage download",
+                        "metric": "GetImageAvgTime",
+                        "name": "GetImageAvgTime",
+                        "rate": true,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "GetEditAvgTime",
+                        "legend": "Average edits download",
+                        "metric": "GetEditAvgTime",
+                        "name": "GetEditAvgTime",
+                        "rate": true,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Secondaary Name Node Health",
+                "footer": false,
+                "id": "SecondaryNameNode",
+                "name": "Secondary Name Node Sync Times",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Milliseconds"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": true,
+                        "id": "TransactionsAvgTime",
+                        "legend": "Transaction average time",
+                        "metric": "TransactionsAvgTime",
+                        "name": "Transaction average time",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": true,
+                        "id": "BlockReportAvgTime",
+                        "legend": "Block reporting avg time",
+                        "metric": "BlockReportAvgTime",
+                        "name": "Block reporting avg time",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": true,
+                        "id": "CacheReportAvgTime",
+                        "legend": "Cache reporting average time",
+                        "metric": "CacheReportAvgTime",
+                        "name": "Cache reporting average time",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Average time of for various processing in milliseconds",
+                "footer": false,
+                "id": "ProcessingAvgTime",
+                "name": "Average Time for Journal transactions",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Milliseconds"
+            }
+        ]
+    },
+    "Name": "NameNode",
+    "Prereqs": [],
+    "Privileged": true,
+    "RAMCommitment": "1G",
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "ContainerPath": "/var/hdfs/name",
+            "Owner": "hdfs:hdfs",
+            "Permission": "0755",
+            "ResourcePath": "hdfs-name"
+        }
+    ]
+}

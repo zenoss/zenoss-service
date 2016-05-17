@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>file:///var/hdfs/name</value>
+    <description>Determines where on the local filesystem the DFS name node
+      should store the name table(fsimage).  If this is a comma-delimited list
+      of directories then the name table is replicated in all of the
+      directories, for redundancy. </description>
+  </property>
+
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>file:///var/hdfs/data</value>
+    <description>Determines where on the local filesystem an DFS data node
+      should store its blocks.  If this is a comma-delimited
+      list of directories, then data will be stored in all named
+      directories, typically on different devices.
+      Directories that do not exist are ignored.
+    </description>
+  </property>
+
+  <property>
+    <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
+    <value>false</value>
+    <description>
+      If true (the default), then the namenode requires that a connecting
+      datanode's address must be resolved to a hostname.  If necessary, a reverse
+      DNS lookup is performed.  All attempts to register a datanode from an
+      unresolvable address are rejected.
+
+      It is recommended that this setting be left on to prevent accidental
+      registration of datanodes listed by hostname in the excludes file during a
+      DNS outage.  Only set this to false in environments where there is no
+      infrastructure to support reverse DNS lookup.
+    </description>
+  </property>
+
+  <property>
+    <name>dfs.datanode.address</name>
+    <value>0.0.0.0:{{plus 50010 .InstanceID}}</value>
+    <description>
+      The datanode server address and port for data transfer.
+    </description>
+  </property>
+
+  <property>
+    <name>dfs.datanode.ipc.address</name>
+    <value>0.0.0.0:{{plus 50020 .InstanceID}}</value>
+    <description>
+      The datanode ipc server address and port.
+    </description>
+  </property>
+
+  <property>
+    <name>dfs.namenode.checkpoint.dir</name>
+    <value>file:///var/hdfs/secondary</value>
+    <description>Determines where on the local filesystem the DFS secondary
+      name node should store the temporary images to merge.
+      If this is a comma-delimited list of directories then the image is
+      replicated in all of the directories for redundancy.
+    </description>
+  </property>
+
+  <property>
+    <name>dfs.namenode.checkpoint.period</name>
+    <value>3600</value>
+    <description>The number of seconds between two periodic checkpoints.
+    </description>
+  </property>
+
+  <property>
+    <name>dfs.namenode.checkpoint.txns</name>
+    <value>1000000</value>
+    <description>The Secondary NameNode or CheckpointNode will create a checkpoint
+      of the namespace every 'dfs.namenode.checkpoint.txns' transactions, regardless
+      of whether 'dfs.namenode.checkpoint.period' has expired.
+    </description>
+  </property>
+
+  <property>
+    <name>dfs.namenode.checkpoint.check.period</name>
+    <value>60</value>
+    <description>The SecondaryNameNode and CheckpointNode will poll the NameNode
+      every 'dfs.namenode.checkpoint.check.period' seconds to query the number
+      of uncheckpointed transactions.
+    </description>
+  </property>
+
+</configuration>
