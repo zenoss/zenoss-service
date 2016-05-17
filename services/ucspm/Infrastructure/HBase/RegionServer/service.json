@@ -76,12 +76,7 @@
         }
     ],
     "Name": "RegionServer",
-    "Prereqs": [
-        {
-            "Name": "HBase Master up",
-            "Script": "curl -s -f http://127.0.0.1:61000/version/cluster &> /dev/null"
-        }
-    ],
+    "Prereqs": [],
     "Privileged": true,
     "RAMCommitment": "1G",
     "Tags": [
