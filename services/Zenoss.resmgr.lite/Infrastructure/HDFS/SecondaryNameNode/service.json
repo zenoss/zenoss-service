@@ -41,7 +41,7 @@
     "Instances": {
         "min": 1
     },
-    "Launch": "auto",
+    "Launch": "manual",
     "LogConfigs": [
         {
             "path": "/opt/hadoop/logs/hadoop.log",
