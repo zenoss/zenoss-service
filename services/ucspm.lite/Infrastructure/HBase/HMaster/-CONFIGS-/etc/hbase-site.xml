@@ -1,7 +1,7 @@
 <configuration>
   <property>
     <name>hbase.rootdir</name>
-    <value>file:///var/hbase</value>
+    <value>hdfs://localhost:8020/hbase</value>
   </property>
   <property>
     <name>hbase.cluster.distributed</name>

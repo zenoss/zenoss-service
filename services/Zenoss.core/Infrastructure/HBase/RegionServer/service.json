@@ -50,6 +50,13 @@
             "Protocol": "tcp",
             "Purpose": "import_all",
             "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        },
+        {
+            "Application": "hdfs-namenode",
+            "Name": "hdfs-namenode",
+            "PortNumber": 8020,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "HealthChecks": {
@@ -82,13 +89,5 @@
     "Tags": [
         "daemon"
     ],
-    "Volumes": [
-        {
-            "#####": "drwxr-xr-x  2 hbase hbase 4.0K Apr 15 12:57 /var/hbase",
-            "ContainerPath": "/var/hbase",
-            "Owner": "hbase:hbase",
-            "Permission": "0755",
-            "ResourcePath": "hbase-master"
-        }
-    ]
+    "Volumes": []
 }
