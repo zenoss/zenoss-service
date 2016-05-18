@@ -31,7 +31,8 @@
         }
     ],
     "Environment": [
-        "HADOOP_ROOT_LOG_LEVEL=INFO"
+        "HADOOP_ROOT_LOG_LEVEL=INFO",
+        "HADOOP_HEAPSIZE={{bytesToMB .RAMCommitment}}"
     ],
     "HealthChecks": {
         "answering": {
