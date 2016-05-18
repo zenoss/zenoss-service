@@ -50,6 +50,9 @@
             "Purpose": "import_all"
         }
     ],
+    "Environment": [
+        "HADOOP_ROOT_LOG_LEVEL=INFO"
+    ],
     "HealthChecks": {
         "answering": {
             "Interval": 10,

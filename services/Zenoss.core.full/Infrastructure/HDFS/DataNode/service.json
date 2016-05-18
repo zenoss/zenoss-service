@@ -39,6 +39,9 @@
             "Purpose": "export"
         }
     ],
+    "Environment": [
+        "HADOOP_ROOT_LOG_LEVEL=INFO"
+    ],
     "HealthChecks": {
         "answering": {
             "Interval": 10,
