@@ -42,6 +42,7 @@
     "Hostname": "localhost",
     "ImageID": "zenoss/hdfs:xx",
     "Instances": {
+        "max": 1,
         "min": 1
     },
     "Launch": "auto",
