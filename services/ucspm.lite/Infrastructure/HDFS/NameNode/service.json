@@ -38,14 +38,14 @@
         {
             "Application": "hdfs-datanode",
             "Name": "hdfs-datanode",
-            "PortNumber": 50010,
+            "PortNumber": 50100,
             "Protocol": "tcp",
             "Purpose": "import_all"
         },
         {
             "Application": "hdfs-datanode-ipc",
             "Name": "hdfs-datanode-ipc",
-            "PortNumber": 50020,
+            "PortNumber": 50200,
             "Protocol": "tcp",
             "Purpose": "import_all"
         }

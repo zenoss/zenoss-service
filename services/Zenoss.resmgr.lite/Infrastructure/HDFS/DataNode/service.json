@@ -25,7 +25,7 @@
         {
             "Application": "hdfs-datanode",
             "Name": "hdfs-datanode",
-            "PortNumber": 50010,
+            "PortNumber": 50100,
             "PortTemplate": "{{ plus 50100 .InstanceID }}",
             "Protocol": "tcp",
             "Purpose": "export"
@@ -33,7 +33,7 @@
         {
             "Application": "hdfs-datanode-ipc",
             "Name": "hdfs-datanode-ipc",
-            "PortNumber": 50020,
+            "PortNumber": 50200,
             "PortTemplate": "{{ plus 50200 .InstanceID }}",
             "Protocol": "tcp",
             "Purpose": "export"

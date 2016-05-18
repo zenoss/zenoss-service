@@ -55,7 +55,7 @@
 
   <property>
     <name>dfs.datanode.address</name>
-    <value>0.0.0.0:{{plus 50010 .InstanceID}}</value>
+    <value>0.0.0.0:{{plus 50100 .InstanceID}}</value>
     <description>
       The datanode server address and port for data transfer.
     </description>
@@ -63,7 +63,7 @@
 
   <property>
     <name>dfs.datanode.ipc.address</name>
-    <value>0.0.0.0:{{plus 50020 .InstanceID}}</value>
+    <value>0.0.0.0:{{plus 50200 .InstanceID}}</value>
     <description>
       The datanode ipc server address and port.
     </description>
