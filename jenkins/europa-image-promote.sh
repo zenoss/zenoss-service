@@ -75,17 +75,18 @@ case $VERSION in
                     echo "Versions don't match:  version from parameter = $VERSION, version in image = $versionfromfile"
                     exit 1
                 fi 
+            fi
 
-                # write the release phase to an output file.  If the file already exists, make sure the values match
-                if [ -e "output/releasephase" ]; then
-                    phaseFromFile=$(cat output/releasephase)
-                    if [[ "$TO_RELEASEPHASE" != "$phaseFromFile" ]]; then
-                        echo "Release phase of all images must match!  $TO_RELEASEPHASE != $phaseFromFile"
-                        exit 1
-                    fi
-                else
-                    echo $TO_RELEASEPHASE > output/releasephase
+            # write the release phase to an output file.  If the file already exists, make sure the values match
+            if [ -e "output/releasephase" ]; then
+                phaseFromFile=$(cat output/releasephase)
+                if [[ "$TO_RELEASEPHASE" != "$phaseFromFile" ]]; then # If this happens, something is really wrong
+                    echo "Release phase of all images must match!  $TO_RELEASEPHASE != $phaseFromFile"
+                    exit 1
                 fi
+            else
+                # write the output file
+                echo $TO_RELEASEPHASE > output/releasephase
             fi
 
             TO_STRING=$(repo_tag "$FLAVOR" "$TO_MATURITY" "$TO_RELEASEPHASE")
