@@ -54,6 +54,8 @@ retry() {
 
 case $VERSION in
     *)
+        rm -rf output
+        mkdir output
         # No quoting FLAVORS below in order to split the string on spaces
         for FLAVOR in $FLAVORS; do
             FROM_STRING=$(repo_tag "$FLAVOR" "$FROM_MATURITY" "$FROM_RELEASEPHASE")
@@ -62,15 +64,28 @@ case $VERSION in
             if [[ "$TO_MATURITY" = "stable" ]]; then
                 # extract the versions file and get version info from there
                 docker run -it --rm -v $(pwd):/mnt/pwd $FROM_STRING rsync -a /var/zenoss-versions /mnt/pwd
-                export TO_RELEASEPHASE=$(awk /release-phase/'{print $2}' zenoss-versions) || exit 1
+                TO_RELEASEPHASE=$(awk /release-phase/'{print $2}' zenoss-versions) || exit 1
                 versionfromfile=$(awk /core-long/'{print $2}' zenoss-versions) || exit 1
-                export SHORT_VERSION=$(awk /core-short/'{print $2}' zenoss-versions) || exit 1
+                SHORT_VERSION=$(awk /core-short/'{print $2}' zenoss-versions) || exit 1
+
+                echo "$FROM_STRING has release phase $TO_RELEASEPHASE"
                 
                 # make sure the version that was passed in matches what was in the image.  If it doesn't, there is a problem in the image's versions file
                 if [[ "$VERSION" != "$versionfromfile" ]]; then
                     echo "Versions don't match:  version from parameter = $VERSION, version in image = $versionfromfile"
                     exit 1
                 fi 
+
+                # write the release phase to an output file.  If the file already exists, make sure the values match
+                if [ -e "output/releasephase" ]; then
+                    phaseFromFile=$(cat output/releasephase)
+                    if [[ "$TO_RELEASEPHASE" != "$phaseFromFile" ]]; then
+                        echo "Release phase of all images must match!  $TO_RELEASEPHASE != $phaseFromFile"
+                        exit 1
+                    fi
+                else
+                    echo $TO_RELEASEPHASE > output/releasephase
+                fi
             fi
 
             TO_STRING=$(repo_tag "$FLAVOR" "$TO_MATURITY" "$TO_RELEASEPHASE")
