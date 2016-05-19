@@ -142,8 +142,8 @@
     ],
     "HealthChecks": {
         "answering": {
-            "Interval": 10.0,
-            "Script": "curl -o /dev/null -w '%{redirect_url}' -s http://localhost:9080/zport/dmd | grep -q acl_users"
+            "Interval": 15.0,
+            "Script": "curl -o /dev/null --retry 2 --max-time 3 -w '%{redirect_url}' -s http://localhost:9080/zport/dmd | grep -q acl_users"
         },
         "mariadb_answering": {
             "Interval": 10.0,
