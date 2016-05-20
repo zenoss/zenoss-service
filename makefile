@@ -1,10 +1,15 @@
 # VERSION is the full Zenoss version; e.g., 5.0.0
 # SHORT_VERSION is the two-digit Zenoss version; e.g., 5.0
+
+# !! If you are changing either of these values, be sure you have also changed them in
+#  platform-build/versions
 VERSION         ?= 5.1.3
 SHORT_VERSION   ?= 5.1
 
-hbase_VERSION    = v12
-opentsdb_VERSION = v19
+# !! If you are changing either of these values, be sure you have also changed them in
+#  platform-build/versions
+hbase_VERSION    = v12.1
+opentsdb_VERSION = v19.1
 
 DOCKER          ?= $(shell which docker)
 BUILD_NUMBER    ?= $(shell date +%Y%m%d%H%M%S)
