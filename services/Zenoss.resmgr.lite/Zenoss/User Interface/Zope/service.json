@@ -150,7 +150,7 @@
     "HealthChecks": {
         "answering": {
             "Interval": 15.0,
-            "Script": "curl -o /dev/null --retry 2 --max-time 3 -w '%{redirect_url}' -s http://localhost:9080/zport/dmd | grep -q acl_users"
+            "Script": "curl -o /dev/null --retry 3 --max-time 2 -w '%{redirect_url}' -s http://localhost:9080/zport/dmd | grep -q acl_users"
         },
         "catalogservice_answering": {
             "Interval": 10.0,
