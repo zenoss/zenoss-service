@@ -76,5 +76,5 @@ export HADOOP_SECURE_DN_PID_DIR=${HADOOP_PID_DIR}
 
 # A string representing this instance of hadoop. $USER by default.
 export HADOOP_IDENT_STRING=$USER
-export LIBJARS=/opt/hadoop/lib/hdfsMetrics-1.0-SNAPSHOT.jar
-export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/opt/hadoop/lib/hdfsMetrics-1.0-SNAPSHOT.jar
+export LIBJARS=/opt/hadoop/lib/hdfsMetrics-1.0.jar
+export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/opt/hadoop/lib/hdfsMetrics-1.0.jar
