@@ -22,13 +22,13 @@
             "Protocol": "tcp",
             "Purpose": "import"
         },
-	{
+        {
             "Application": "hdfs-namenode-rest",
-	    "Name": "hdfs-namenode-rest",
-	    "PortNumber": 50070,
-	    "Protocol": "tcp",
-	    "Purpose": "import"
-	},
+            "Name": "hdfs-namenode-rest",
+            "PortNumber": 50070,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
         {
             "Application": "hdfs-secondary-namenode",
             "Name": "hdfs-secondary-namenode",
