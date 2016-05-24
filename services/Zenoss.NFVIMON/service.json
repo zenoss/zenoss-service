@@ -1,10 +1,10 @@
 {
     "Title": "zproxy",
-    "Description": "Cisco NFVi Monitoring",
+    "Description": "Cisco NFVI Monitoring",
     "RAMCommitment": "1G",
     "CPUCommitment": 1,
     "Launch": "auto",
-    "Name": "Cisco NFVi Monitoring",
+    "Name": "Cisco NFVI Monitoring",
     "Version": "1.0.0",
     "Context": {
         "global.conf.zodb-db-type": "mysql",

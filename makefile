@@ -52,16 +52,16 @@ quay.io_USER          = zenossinc
 quay.io_core_REPO     = zenoss-core$(repo_name_suffix)
 quay.io_resmgr_REPO   = zenoss-resmgr$(repo_name_suffix)
 quay.io_ucspm_REPO    = zenoss-ucspm$(repo_name_suffix)
-quay.io_nfvi_REPO     = zenoss-nfvi$(repo_name_suffix)
+quay.io_nfvimon_REPO  = zenoss-nfvimon$(repo_name_suffix)
 quay.io_SUFFIX        = $(MILESTONE_SUFFIX)
 
-docker.io_REGPATH     =
-docker.io_USER        = zenoss
-docker.io_core_REPO   = core$(repo_name_suffix)
-docker.io_resmgr_REPO = resmgr$(repo_name_suffix)
-docker.io_ucspm_REPO  = ucspm$(repo_name_suffix)
-docker.io_nfvi_REPO   = nfvi$(repo_name_suffix)
-docker.io_SUFFIX      = $(MILESTONE_SUFFIX)
+docker.io_REGPATH      =
+docker.io_USER         = zenoss
+docker.io_core_REPO    = core$(repo_name_suffix)
+docker.io_resmgr_REPO  = resmgr$(repo_name_suffix)
+docker.io_ucspm_REPO   = ucspm$(repo_name_suffix)
+docker.io_nfvimon_REPO = nfvimon$(repo_name_suffix)
+docker.io_SUFFIX       = $(MILESTONE_SUFFIX)
 
 docker_HOST           = docker.io
 docker_PREFIX         = $($(docker_HOST)_REGPATH)$($(docker_HOST)_USER)/
@@ -143,7 +143,7 @@ $(SVCDEF_EXE):
 # service definitions for each product
 # to be managed by serviced.
 #-------------------------------------#
-svcdef_PRODUCTS = zenoss-core zenoss-resmgr zenoss-ucspm zenoss-nfvi
+svcdef_PRODUCTS = zenoss-core zenoss-resmgr zenoss-ucspm zenoss-nfvimon
 svcdef_SRC_DIR  = services
 
 zenoss-core-$(BUILD_TAG).json_SRC_DIR   := $(svcdef_SRC_DIR)/Zenoss.core
@@ -155,8 +155,8 @@ zenoss-resmgr-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-resmgr-$(BUILD_
 zenoss-ucspm-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/ucspm
 zenoss-ucspm-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-ucspm-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json' -print0)
 
-zenoss-nfvi-$(BUILD_TAG).json_SRC_DIR  := $(svcdef_SRC_DIR)/NFVi
-zenoss-nfvi-$(BUILD_TAG).json_SRC      := $(shell find $(zenoss-nfvi-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json' -print0)
+zenoss-nfvimon-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/Zenoss.nfvimon
+zenoss-nfvimon-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-nfvimon-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json' -print0)
 #-------------------------------------#
 
 # Rule to build service defintions for a list of products.
@@ -165,7 +165,7 @@ zenoss-nfvi-$(BUILD_TAG).json_SRC      := $(shell find $(zenoss-nfvi-$(BUILD_TAG
 # e.g., <dir>/templates/zenoss-core-5.0.0_140705.json
 #       <dir>/templates/zenoss-resmgr-5.0.0_140705.json
 #       <dir>/templates/zenoss-ucspm-5.0.0_140705.json
-#       <dir>/templates/zenoss-nfvi-5.0.0_140705.json
+#       <dir>/templates/zenoss-nfvimon-5.0.0_140705.json
 #
 svcdef_BUILD_DIR      = pkg/templates
 svcdef_BUILD_TARGETS := $(foreach product,$(svcdef_PRODUCTS),$(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json)
