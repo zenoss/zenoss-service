@@ -48,8 +48,8 @@
             "Purpose": "import"
         },
         {
-            "Name": "rabbitmq",
-            "Application": "rabbitmq",
+            "Name": "rabbitmq_ceilometer",
+            "Application": "{{(parent .).Name}}_rabbitmq_ceilometer",
             "PortNumber": 5672,
             "Protocol": "tcp",
             "Purpose": "import"
