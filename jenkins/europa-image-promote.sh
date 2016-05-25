@@ -63,7 +63,7 @@ case $VERSION in
 
             if [[ "$TO_MATURITY" = "stable" ]]; then
                 # extract the versions file and get version info from there
-                docker run -it --rm -v $(pwd):/mnt/pwd $FROM_STRING rsync -a /var/zenoss-versions /mnt/pwd
+                docker run --rm -v $(pwd):/mnt/pwd $FROM_STRING rsync -a /var/zenoss-versions /mnt/pwd
                 TO_RELEASEPHASE=$(awk /release-phase/'{print $2}' zenoss-versions) || exit 1
                 versionfromfile=$(awk /core-long/'{print $2}' zenoss-versions) || exit 1
                 SHORT_VERSION=$(awk /core-short/'{print $2}' zenoss-versions) || exit 1
