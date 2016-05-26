@@ -1,0 +1,128 @@
+{
+    "Description": "RabbitMQ server for Ceilometer events",
+    "CPUCommitment": 1,
+    "Command": "/usr/sbin/rabbitmq-server",
+    "ConfigFiles": {
+        "/etc/rabbitmq/rabbitmq-env.conf": {
+            "FileName": "/etc/rabbitmq/rabbitmq-env.conf",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        },
+        "/etc/rabbitmq/rabbitmq.config": {
+            "FileName": "/etc/rabbitmq/rabbitmq.config",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        }
+    },
+    "Endpoints": [
+        {
+            "Application": "{{(parent .).Name}}_rabbitmq_ceilometer_admin",
+            "Name": "rabbitmq admin",
+            "PortNumber": 15672,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "AddressConfig": {
+                "Port": 55672,
+                "Protocol": "tcp"
+            },
+            "Application": "{{(parent .).Name}}_rabbitmq_ceilometer",
+            "Name": "rabbitmq",
+            "PortNumber": 5672,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "{{(parent .).Name}}_rabbitmq_ceilometer_epmd",
+            "Name": "rabbitmq_epmd",
+            "PortNumber": 4369,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "{{(parent .).Name}}_rabbitmq_ceilometer_inet_dist",
+            "Name": "rabbitmq_inet_dist",
+            "PortNumber": 44001,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "{{(parent .).Name}}_rabbitmq_ceilometer_epmd",
+            "Name": "rabbitmq_epmds",
+            "PortNumber": 4369,
+            "PortTemplate": "{{plus .InstanceID 14369}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "rbtc{{.InstanceID}}:4369"
+        },
+        {
+            "Application": "{{(parent .).Name}}_rabbitmq_ceilometer_inet_dist",
+            "Name": "rabbitmq_inet_dists",
+            "PortNumber": 44001,
+            "PortTemplate": "{{plus .InstanceID 49001}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "rbtc{{.InstanceID}}:44001"
+        },
+        {
+            "Application": "{{(parent .).Name}}_rabbitmq_ceilometer",
+            "Name": "rabbitmqs",
+            "PortNumber": 5672,
+            "PortTemplate": "{{plus .InstanceID 35672}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "rbtc{{.InstanceID}}:5672"
+        }
+    ],
+    "HealthChecks": {
+        "alarms": {
+            "Interval": 15.0,
+            "Script": "rabbitmqctl -q status | grep -q '{alarms,\\[\\]}'"
+        }
+    },
+    "Hostname": "rbtc{{.InstanceID}}",
+    "ImageID": "",
+    "Instances": {
+        "max": 1,
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/log/rabbitmq/rabbit@localhost.log",
+            "type": "rabbitmq"
+        },
+        {
+            "path": "/var/log/rabbitmq/rabbit@localhost-sasl.log",
+            "type": "rabbitmq_sasl"
+        }
+    ],
+    "Name": "RabbitMQ-Ceilometer",
+    "Prereqs": [
+        {
+            "Name": "Cluster Leader Start",
+            "Script": "[ $(hostname) == 'rbtc0' ] || rabbitmqctl -n rabbit@rbtc0 status | grep nodedown || sleep 5"
+        }
+    ],
+    "Privileged": true,
+    "RAMCommitment": "256M",
+    "Services": [],
+    "Snapshot": {
+        "Pause": "PAUSE_CHECK_TIMEOUT=60 ${ZENHOME:-/opt/zenoss}/bin/quiesce-rabbitmq.sh pause",
+        "Resume": "${ZENHOME:-/opt/zenoss}/bin/quiesce-rabbitmq.sh resume"
+    },
+    "Tags": [
+        "daemon",
+        "collector"
+    ],
+    "Volumes": [
+        {
+            "#####": "drwxr-x--- 4 rabbitmq rabbitmq 4096 Feb 25 21:25 /var/lib/rabbitmq",
+            "ContainerPath": "/var/lib/rabbitmq",
+            "Owner": "rabbitmq:rabbitmq",
+            "Permission": "0750",
+            "ResourcePath": "rabbitmq_ceilometer/{{(parent .).Name}}/{{.InstanceID}}"
+        }
+    ]
+}
