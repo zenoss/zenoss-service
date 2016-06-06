@@ -219,8 +219,8 @@
             "Interval": 5.0
         },
         "answering": {
-            "Script": "curl -o /dev/null -w '%{redirect_url}' -s http://localhost:9080/zport/dmd | grep -q acl_users",
-            "Interval": 5.0
+            "Script": "curl -o /dev/null --retry 3 --max-time 2 -w '%{redirect_url}' -s http://localhost:9080/zport/dmd | grep -q acl_users",
+            "Interval": 15.0
         },
         "mariadb_answering": {
             "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering",
