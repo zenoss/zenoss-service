@@ -349,10 +349,6 @@
             "Script": "/opt/zenoss/bin/healthchecks/redis_answering",
             "Interval": 5.0
         },
-        "zproxy_answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/zproxy_answering",
-            "Interval": 10.0
-        },
         "running": {
             "Script": "pgrep -fu zenoss zenpython.py > /dev/null",
             "Interval": 5.0

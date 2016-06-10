@@ -257,10 +257,6 @@
             "Script": "/opt/zenoss/bin/healthchecks/rabbit_answering {{(getContext . \"global.conf.amqpuser\")}} {{(getContext . \"global.conf.amqppassword\")}}",
             "Interval": 10.0
         },
-        "zproxy_answering": {
-            "Script": "/opt/zenoss/bin/healthchecks/zproxy_answering",
-            "Interval": 10.0
-        },
         "zep_answering": {
             "Script": "/opt/zenoss/bin/healthchecks/zep_answering",
             "Interval": 10.0
