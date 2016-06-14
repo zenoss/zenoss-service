@@ -87,6 +87,117 @@
             "type": "hbase"
         }
     ],
+    "MonitoringProfile": {
+        "GraphConfigs": [
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "LogFatal",
+                        "legend": "Total number of fatal log events",
+                        "metric": "LogFatal",
+                        "name": "LogFatal",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "LogError",
+                        "legend": "Total number of error log events",
+                        "metric": "LogError",
+                        "name": "LogError",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "LogWarn",
+                        "legend": "Total number of warn log events",
+                        "metric": "LogWarn",
+                        "name": "LogWarn",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Log Stats",
+                "footer": false,
+                "id": "logStats",
+                "name": "Log Stats",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "events",
+                "miny": 0
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "numRegionServers",
+                        "legend": "Total number of live regions servers",
+                        "metric": "numRegionServers",
+                        "name": "numRegionServers",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "numDeadRegionServers",
+                        "legend": "Total number of dead regions servers",
+                        "metric": "numDeadRegionServers",
+                        "name": "numDeadRegionServers",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Region Servers",
+                "footer": false,
+                "id": "regionServers",
+                "name": "Region Servers",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "servers",
+                "miny": 0
+            }
+        ]
+    },
     "Name": "HMaster",
     "Prereqs": [
         {
