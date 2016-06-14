@@ -150,6 +150,7 @@
                 "description": "Queue Length",
                 "footer": false,
                 "id": "QueueLength",
+                "miny": 0,
                 "name": "Queue Length",
                 "range": {
                     "end": "0s-ago",
@@ -157,8 +158,7 @@
                 },
                 "returnset": "EXACT",
                 "type": "line",
-                "yAxisLabel": "Blocks of items",
-                "miny": 0
+                "yAxisLabel": "Blocks of items"
             },
             {
                 "datapoints": [
@@ -206,6 +206,7 @@
                 "description": "Slow Operations",
                 "footer": false,
                 "id": "slowOps",
+                "miny": 0,
                 "name": "Slow Operations",
                 "range": {
                     "end": "0s-ago",
@@ -213,8 +214,7 @@
                 },
                 "returnset": "EXACT",
                 "type": "line",
-                "yAxisLabel": "Operations",
-                "miny": 0
+                "yAxisLabel": "Operations"
             },
             {
                 "datapoints": [
@@ -252,6 +252,7 @@
                 "description": "Operation Counts",
                 "footer": false,
                 "id": "opcounts",
+                "miny": 0,
                 "name": "Operation Counts",
                 "range": {
                     "end": "0s-ago",
@@ -259,8 +260,7 @@
                 },
                 "returnset": "EXACT",
                 "type": "line",
-                "yAxisLabel": "Operations",
-                "miny": 0
+                "yAxisLabel": "Operations"
             }
         ]
     },

@@ -140,6 +140,7 @@
                 "description": "Log Stats",
                 "footer": false,
                 "id": "logStats",
+                "miny": 0,
                 "name": "Log Stats",
                 "range": {
                     "end": "0s-ago",
@@ -147,8 +148,7 @@
                 },
                 "returnset": "EXACT",
                 "type": "line",
-                "yAxisLabel": "events",
-                "miny": 0
+                "yAxisLabel": "events"
             },
             {
                 "datapoints": [
@@ -186,6 +186,7 @@
                 "description": "Region Servers",
                 "footer": false,
                 "id": "regionServers",
+                "miny": 0,
                 "name": "Region Servers",
                 "range": {
                     "end": "0s-ago",
@@ -193,8 +194,7 @@
                 },
                 "returnset": "EXACT",
                 "type": "line",
-                "yAxisLabel": "servers",
-                "miny": 0
+                "yAxisLabel": "servers"
             }
         ]
     },
