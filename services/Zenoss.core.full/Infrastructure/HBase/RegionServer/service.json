@@ -78,7 +78,7 @@
     "Launch": "auto",
     "LogConfigs": [
         {
-            "path": "/var/log/hbase/hbase-regionserver.log",
+            "path": "/opt/hbase/logs/hbase-regionserver.log",
             "type": "hbase"
         }
     ],
