@@ -166,6 +166,10 @@
             "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering",
             "Interval": 10.0
         },
+       "metric_consumer_answering": {
+            "Interval": 10.0,
+            "Script": "/opt/zenoss/bin/healthchecks/metrics_answering"
+        },
         "redis_answering": {
             "Script": "/opt/zenoss/bin/healthchecks/redis_answering",
             "Interval": 5.0
@@ -181,6 +185,10 @@
         "catalogservice_answering": {
             "Script": "/opt/zenoss/bin/healthchecks/catalogservice_answering",
             "Interval": 10.0
+        },
+        "central_query_answering": {
+            "Interval": 10.0,
+            "Script": "/opt/zenoss/bin/healthchecks/query_answering"
         },
         "rpc_listening": {
             "Comment": "TODO: exercise API, if possible",
