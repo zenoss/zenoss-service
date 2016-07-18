@@ -350,10 +350,6 @@
         ]
     },
     "HealthChecks": {
-       "central_query_answering": {
-            "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/query_answering"
-        },
         "zenhub_answering": {
             "Script": "/opt/zenoss/bin/healthchecks/zenhub_answering",
             "Interval": 10.0
