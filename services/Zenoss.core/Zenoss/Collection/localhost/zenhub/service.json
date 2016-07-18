@@ -99,10 +99,6 @@
         "hub"
     ],
     "HealthChecks": {
-        "central_query_answering": {
-            "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/query_answering"
-        },
         "running": {
             "Script": "pgrep -fu zenoss zenhub.py > /dev/null",
             "Interval": 5.0
@@ -114,10 +110,6 @@
         "mariadb_answering": {
             "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering",
             "Interval": 10.0
-        },
-        "metric_consumer_answering": {
-            "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/metrics_answering"
         },
         "redis_answering": {
             "Script": "/opt/zenoss/bin/healthchecks/redis_answering",
