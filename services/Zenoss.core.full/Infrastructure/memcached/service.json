@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "/bin/memcached -u nobody -v -m {{percentScale .RAMCommitment 0.9 | bytesToMB}} -R 4096",
+    "Command": "/bin/memcached -u nobody -v -m {{percentScale .RAMCommitment 0.9 | bytesToMB}}",
     "ConfigFiles": {
         "/etc/sysconfig/memcached": {
             "FileName": "/etc/sysconfig/memcached",
