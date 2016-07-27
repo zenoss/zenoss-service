@@ -3,7 +3,7 @@
 
 # !! If you are changing either of these values, be sure you have also changed them in
 #  platform-build/versions
-VERSION         ?= 5.1.5
+VERSION         ?= 5.1.6
 SHORT_VERSION   ?= 5.1
 
 # !! If you are changing either of these values, be sure you have also changed them in
