@@ -1,0 +1,76 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/start-spark.sh -s",
+    "ConfigFiles": {
+        "/opt/spark/conf/spark-defaults.conf": {
+            "FileName": "/opt/spark/conf/spark-defaults.conf",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        },
+        "/opt/spark/conf/spark-env.sh": {
+            "FileName": "/opt/spark/conf/spark-env.sh",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Master node for the Spark distributed processing cluster",
+    "Endpoints": [
+        {
+            "Application": "datapipeline-service",
+            "Name": "datapipeline-service",
+            "PortNumber": 4043,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "spark-master",
+            "Name": "spark-master",
+            "PortNumber": 7077,
+            "Protocol": "tcp",
+            "Purpose": "import",
+            "VirtualAddress": "spm{{.InstanceID}}:7077"
+        },
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 10.0,
+            "Script": "/usr/bin/generic-port-check.sh localhost 7077"
+        }
+    },
+    "HostPolicy": "PREFER_SEPARATE",
+    "Hostname": "dps{{.InstanceID}}",
+    "ImageID": "zenoss/spark:1.6.1",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/log/spark/spark-master.log",
+            "type": "spark"
+        }
+    ],
+    "Name": "Datapipeline Service",
+    "Privileged": true,
+    "RAMCommitment": "8G",
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####": "drwxr-xr-x 13 root root  4096 Mar 17 15:02 /var/kafka/datalog",
+            "ContainerPath": "/var/spark/data",
+            "Owner": "root:root",
+            "Permission": "0755",
+            "ResourcePath": "datapipeline-service-{{ plus 1 .InstanceID }}"
+        }
+    ]
+}

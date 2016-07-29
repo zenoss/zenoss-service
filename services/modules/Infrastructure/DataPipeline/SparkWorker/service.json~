@@ -1,0 +1,84 @@
+{
+    "CPUCommitment": 2,
+    "Command": "/usr/bin/start-spark.sh -w -s",
+    "ConfigFiles": {
+        "/opt/spark/conf/spark-defaults.conf": {
+            "FileName": "/opt/spark/conf/spark-defaults.conf",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        },
+        "/opt/spark/conf/spark-env.sh": {
+            "FileName": "/opt/spark/conf/spark-env.sh",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Worker node for the Spark distributed processing cluster",
+    "Endpoints": [
+        {
+            "Application": "spark-worker",
+            "Name": "spark-worker",
+            "PortNumber": 7077,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "spark-worker-ui",
+            "Name": "spark-master-ui",
+            "PortNumber": 8081,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        },
+        {
+            "Application": "spark-worker",
+            "Name": "spark-workers",
+            "PortNumber": 7078,
+            "PortTemplate": "{{plus .InstanceID 17078}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "spw{{.InstanceID}}:7078"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 10.0,
+            "Script": "/usr/bin/generic-port-check.sh localhost 7078"
+        }
+    },
+    "HostPolicy": "PREFER_SEPARATE",
+    "Hostname": "spw{{.InstanceID}}",
+    "ImageID": "zenoss/spark:1.6.1",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/log/spark/spark-worker.log",
+            "type": "spark"
+        }
+    ],
+    "Name": "Spark Worker",
+    "Privileged": true,
+    "RAMCommitment": "8G",
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####": "drwxr-xr-x 13 root root  4096 Mar 17 15:02 /var/kafka/datalog",
+            "ContainerPath": "/var/spark/data",
+            "Owner": "root:root",
+            "Permission": "0755",
+            "ResourcePath": "spark-worker-{{ plus 1 .InstanceID }}"
+        }
+    ]
+}
