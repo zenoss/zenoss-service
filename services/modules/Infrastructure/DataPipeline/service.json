@@ -1,0 +1,5 @@
+{
+    "Description": "Zenoss DataPipeline",
+    "Launch": "auto",
+    "Name": "DataPipeline"
+}
