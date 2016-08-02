@@ -1,5 +1,5 @@
 PORT="11211"
-USER="memcached"
+USER="nobody"
 MAXCONN="1024"
-CACHESIZE="{{.RAMCommitment}}"
-OPTIONS=""
+CACHESIZE="{{percentScale .RAMCommitment 0.9 | bytesToMB}}"
+OPTIONS="-v -R 4096"
