@@ -50,13 +50,6 @@
             "Protocol": "tcp",
             "Purpose": "import_all",
             "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
-        },
-        {
-            "Application": "hdfs-namenode",
-            "Name": "hdfs-namenode",
-            "PortNumber": 8020,
-            "Protocol": "tcp",
-            "Purpose": "import"
         }
     ],
     "HealthChecks": {
@@ -78,10 +71,192 @@
     "Launch": "auto",
     "LogConfigs": [
         {
-            "path": "/var/log/hbase/hbase-regionserver.log",
+            "path": "/opt/hbase/logs/hbase-regionserver.log",
             "type": "hbase"
         }
     ],
+    "MonitoringProfile": {
+        "GraphConfigs": [
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "numCallsInGeneralQueue",
+                        "legend": "Current depth of the User Requests",
+                        "metric": "numCallsInGeneralQueue",
+                        "name": "numCallsInGeneralQueue",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "numCallsInPriorityQueue",
+                        "legend": "Current depth of the Internal Housekeeping Requests queue",
+                        "metric": "numCallsInPriorityQueue",
+                        "name": "numCallsInPriorityQueue",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "flushQueueLength",
+                        "legend": "Current depth of the memstore flush queue",
+                        "metric": "flushQueueLength",
+                        "name": "flushQueueLength",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "compactionQueueLength",
+                        "legend": "Current depth of the compaction request queue",
+                        "metric": "compactionQueueLength",
+                        "name": "compactionQueueLength",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Queue Length",
+                "footer": false,
+                "id": "QueueLength",
+                "miny": 0,
+                "name": "Queue Length",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Blocks of items"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "slowAppendCount",
+                        "legend": "The number of slow append operations",
+                        "metric": "slowAppendCount",
+                        "name": "slowAppendCount",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "slowDeleteCount",
+                        "legend": "The number of slow delete operations",
+                        "metric": "slowDeleteCount",
+                        "name": "slowDeleteCount",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "slowGetCount",
+                        "legend": "The number of slow get operations",
+                        "metric": "slowGetCount",
+                        "name": "slowGetCount",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "slowIncrementCount",
+                        "legend": "The number of slow increment operations",
+                        "metric": "slowIncrementCount",
+                        "name": "slowIncrementCount",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Slow Operations",
+                "footer": false,
+                "id": "slowOps",
+                "miny": 0,
+                "name": "Slow Operations",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Operations"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "totalRequestCount",
+                        "legend": "The total number of requests received",
+                        "metric": "totalRequestCount",
+                        "name": "totalRequestCount",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "readRequestCount",
+                        "legend": "The total number of read requests received",
+                        "metric": "readRequestCount",
+                        "name": "readRequestCount",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "writeRequestCount",
+                        "legend": "The total number of write requests received",
+                        "metric": "writeRequestCount",
+                        "name": "writeRequestCount",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Operation Counts",
+                "footer": false,
+                "id": "opcounts",
+                "miny": 0,
+                "name": "Operation Counts",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Operations"
+            }
+        ]
+    },
     "Name": "RegionServer",
     "Prereqs": [],
     "Privileged": true,
@@ -89,5 +264,13 @@
     "Tags": [
         "daemon"
     ],
-    "Volumes": []
+    "Volumes": [
+        {
+            "#####": "drwxr-xr-x  2 hbase hbase 4.0K Apr 15 12:57 /var/hbase",
+            "ContainerPath": "/var/hbase",
+            "Owner": "hbase:hbase",
+            "Permission": "0755",
+            "ResourcePath": "hbase-master"
+        }
+    ]
 }

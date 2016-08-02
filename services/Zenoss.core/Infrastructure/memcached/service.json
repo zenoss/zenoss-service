@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "/bin/memcached -u nobody -v -m {{percentScale .RAMCommitment 0.9 | bytesToMB}}",
+    "Command": "${ZENHOME:-/opt/zenoss}/bin/zenmemcached",
     "ConfigFiles": {
         "/etc/sysconfig/memcached": {
             "FileName": "/etc/sysconfig/memcached",
