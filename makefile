@@ -1,11 +1,24 @@
+#
+# Starting in 5.2, the Jenkins builds for RM, core, etc expect the
+# variables VERSION, SHORT_VERSION, hbase_VERSION, hdfs_VERSION, and
+# opentsdb_VERSION to be defined by calling script defined in the
+# zenoss/product-assembly repo.
+#
+# FIXME: Revisit the idea of using default values for these 5 variables
+#        once we've resolved the build use-case for local developer builds.
+#        The problem with the default values is that they repeat information
+#        also recorded in the zenoss/product-assembly repo.
+#
+
 # VERSION is the full Zenoss version; e.g., 5.0.0
 # SHORT_VERSION is the two-digit Zenoss version; e.g., 5.0
 VERSION         ?= 5.1.1
 SHORT_VERSION   ?= 5.1
 
-hbase_VERSION    = v16
-hdfs_VERSION     = v4
-opentsdb_VERSION = v23
+# These three xyz_VERSION variables define the corresponding docker image versions
+hbase_VERSION    ?= v16
+hdfs_VERSION     ?= v4
+opentsdb_VERSION ?= v23
 
 DOCKER          ?= $(shell which docker)
 BUILD_NUMBER    ?= $(shell date +%Y%m%d%H%M%S)
@@ -178,7 +191,7 @@ $(svcdef_BUILD_TARGETS): $$($$(@F)_SRC) | $(SVCDEF_EXE) $(OUTPUT) $$(@D)
 	@$(SVCDEF_EXE) version
 	@compile_CMD="$(SVCDEF_EXE) template compile $(map_opt) $(src_dir) > $@" ;\
 	echo $${compile_CMD} ;\
-	eval $${compile_CMD} 2>/dev/null ;\
+	eval $${compile_CMD} ;\
 	rc=$$? ;\
 	if [ $${rc} -ne 0 ];then \
 		echo "Error: Unable to compile service definition." ;\
@@ -229,12 +242,22 @@ svcdefpkg-%: | $(svcdef_BUILD_DIR) $(OUTPUT)
 docker_buildimage:
 	$(DOCKER) build -t $(BUILD_IMAGE) hack/
 
-docker_svcdefpkg-%: docker_buildimage
+docker_svcdefpkg-%: docker_buildimage $(OUTPUT)
 	$(DOCKER) run -v $(PWD):/mnt/pwd \
 		-v $(OUTPUT):/mnt/pwd/output \
 		-w /mnt/pwd \
 		$(BUILD_IMAGE) \
-		bash -c '/mnt/pwd/pkg/add_user.sh $(UID) && su serviceduser -c "make BUILD_NUMBER=$(_BUILD_NUMBER) IMAGE_NUMBER=$(IMAGE_NUMBER) MILESTONE=$(MILESTONE) RELEASE_PHASE=$(RELEASE_PHASE) svcdefpkg-$*"'
+		bash -c '/mnt/pwd/pkg/add_user.sh $(UID) && su serviceduser -c "make \
+			VERSION=$(VERSION) \
+			SHORT_VERSION=$(SHORT_VERSION) \
+			hbase_VERSION=$(hbase_VERSION) \
+			hdfs_VERSION=$(hdfs_VERSION) \
+			opentsdb_VERSION=$(opentsdb_VERSION) \
+			BUILD_NUMBER=$(_BUILD_NUMBER) \
+			IMAGE_NUMBER=$(IMAGE_NUMBER) \
+			MILESTONE=$(MILESTONE) \
+			RELEASE_PHASE=$(RELEASE_PHASE) \
+			svcdefpkg-$*"'
 
 clean:
 	@for dir in $(MKDIRS) ;\
