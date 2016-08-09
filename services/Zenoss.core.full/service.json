@@ -33,6 +33,7 @@
         "global.conf.zep-user": "zenoss",
         "global.conf.zodb-admin-password": "",
         "global.conf.zodb-admin-user": "root",
+        "global.conf.zodb-cache-max-object-size": "1048576",
         "global.conf.zodb-cacheservers": "127.0.0.1:11211",
         "global.conf.zodb-cachesize": "1000",
         "global.conf.zodb-db": "zodb",
