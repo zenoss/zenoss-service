@@ -69,6 +69,16 @@
             "Filename": "/opt/zenoss/etc/zope.conf",
             "Owner": "zenoss:zenoss",
             "Permissions": "660"
+        },
+        "/opt/zenoss/etc/zodb_db_main.conf": {
+            "FileName": "/opt/zenoss/etc/zodb_db_main.conf",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
+        },
+        "/opt/zenoss/etc/zodb_db_session.conf": {
+            "FileName": "/opt/zenoss/etc/zodb_db_session.conf",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
         }
     },
     "Description": "Zope server",
