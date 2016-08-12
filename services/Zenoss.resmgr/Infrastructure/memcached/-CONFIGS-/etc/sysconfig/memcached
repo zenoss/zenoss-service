@@ -2,4 +2,5 @@ PORT="11211"
 USER="nobody"
 MAXCONN="1024"
 CACHESIZE="{{percentScale .RAMCommitment 0.9 | bytesToMB}}"
-OPTIONS="-v -R 4096 -I {{getContext . "global.conf.zodb-cache-max-object-size"}}"
+{{ $size := (getContext . "global.conf.zodb-cache-max-object-size") }}
+OPTIONS="-v -R 4096 -I {{if $size}} {{$size}} {{else}} 1048576 {{end}}"
