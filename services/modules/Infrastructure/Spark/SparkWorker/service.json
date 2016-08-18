@@ -13,7 +13,7 @@
             "Permissions": "0664"
         }
     },
-    "Description": "Worker node for the Spark distributed processing cluster",
+    "Description": "Spark Worker Node",
     "Endpoints": [
         {
             "Application": "spark-worker",
@@ -63,7 +63,7 @@
     },
     "HostPolicy": "PREFER_SEPARATE",
     "Hostname": "spw{{.InstanceID}}",
-    "ImageID": "zenoss/spark:1.6.1",
+    "ImageID": "zenoss/spark:1.0.0-dev",
     "Instances": {
         "min": 1
     },
