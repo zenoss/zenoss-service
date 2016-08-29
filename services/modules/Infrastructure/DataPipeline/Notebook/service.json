@@ -1,26 +1,47 @@
 {
     "CPUCommitment": 1,
-    "Command": "/opt/zenoss/bin/start-datapipeline-service.sh -s",
+    "Command": "/usr/bin/start-zeppelin.sh -s",
     "ConfigFiles": {
-        "/opt/zenoss/etc/datapipeline-service/PipelineFramework.properties": {
-            "FileName": "/opt/zenoss/etc/datapipeline-service/PipelineFramework.properties",
+        "/opt/zeppelin/conf/zeppelin-env.sh": {
+            "FileName": "/opt/zeppelin/conf/zeppelin-env.sh",
             "Owner": "zenoss:zenoss",
             "Permissions": "0664"
         },
-        "/opt/zenoss/etc/datapipeline-service/configuration.yaml": {
-            "FileName": "/opt/zenoss/etc/datapipeline-service/configuration.yaml",
+        "/opt/zeppelin/conf/zeppelin-site.xml": {
+            "FileName": "/opt/zeppelin/conf/zeppelin-site.xml",
             "Owner": "zenoss:zenoss",
             "Permissions": "0664"
         }
     },
-    "Description": "Lifecycle manager for datapipeline applications",
+    "Description": "Notebook framework for interactive analysis",
     "Endpoints": [
         {
-            "Application": "datapipeline-service",
-            "Name": "datapipeline-service",
-            "PortNumber": 8443,
+            "Application": "notebook",
+            "Name": "notebook",
+            "PortNumber": 8082,
             "Protocol": "tcp",
-            "Purpose": "export"
+            "Purpose": "export",
+	    "AddressConfig": {
+                "Port": 8082,
+                "Protocol": "tcp"
+            },
+            "VHostList": [
+                {
+                    "Enabled": true,
+                    "Name": "notebook"
+                }
+            ]
+        },
+	{
+            "Application": "notebook-ws",
+            "Name": "notebook-ws",
+            "PortNumber": 8083,
+            "Protocol": "tcp",
+            "Purpose": "export",
+	    "AddressConfig": {
+                "Port": 8083,
+                "Protocol": "tcp"
+            }
         },
         {
             "Application": "spark-master",
@@ -68,11 +89,11 @@
     "HealthChecks": {
         "answering": {
             "Interval": 10.0,
-            "Script": "/usr/bin/generic-port-check.sh dps{{.InstanceID}} 8443"
+            "Script": "/usr/bin/generic-port-check.sh znb{{.InstanceID}} 8082"
         }
     },
     "HostPolicy": "PREFER_SEPARATE",
-    "Hostname": "dps{{.InstanceID}}",
+    "Hostname": "znb{{.InstanceID}}",
     "ImageID": "zenoss/datapipeline:1.0.0-dev",
     "Instances": {
         "min": 1
@@ -80,37 +101,23 @@
     "Launch": "auto",
     "LogConfigs": [
         {
-            "path": "/opt/zenoss/log/datapipeline-service.log",
-            "type": "datapipeline"
+            "path": "/opt/zenoss/log/notebook.log",
+            "type": "notebook"
         }
     ],
-    "Name": "Datapipeline Service",
+    "Name": "Notebook",
     "Privileged": true,
-    "RAMCommitment": "8G",
+    "RAMCommitment": "2G",
     "Tags": [
         "daemon"
     ],
     "Volumes": [
         {
-            "#####": "drwxr-xr-x 13 zenoss zenoss  4096 Mar 17 15:02 /var/zenoss/datapipeline/etc/pipelines",
-            "ContainerPath": "/var/zenoss/datapipeline/etc/pipelines",
+            "#####": "drwxr-xr-x 13 zenoss zenoss  4096 Mar 17 15:02 /var/zenoss/datapipeline/etc/notebooks",
+            "ContainerPath": "/var/zenoss/datapipeline/etc/notebooks",
             "Owner": "zenoss:zenoss",
             "Permission": "0755",
-            "ResourcePath": "datapipeline/etc/pipelines"
-        },
-        {
-            "#####": "drwxrwxrwx 13 zenoss zenoss  4096 Mar 17 15:02 /var/zenoss/datapipeline/run/checkpoint",
-            "ContainerPath": "/var/zenoss/datapipeline/run/checkpoint",
-            "Owner": "zenoss:zenoss",
-            "Permission": "0777",
-            "ResourcePath": "datapipeline/run/checkpoint"
-        },
-        {
-            "#####": "drwxrwxrwx 13 zenoss zenoss  4096 Mar 17 15:02 /var/zenoss/datapipeline/run/spark-events",
-            "ContainerPath": "/var/zenoss/datapipeline/run/spark-events",
-            "Owner": "zenoss:zenoss",
-            "Permission": "0777",
-            "ResourcePath": "datapipeline/run/spark-events"
+            "ResourcePath": "datapipeline/etc/notebooks"
         }
     ]
 }
