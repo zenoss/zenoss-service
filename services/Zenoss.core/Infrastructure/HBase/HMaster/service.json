@@ -69,7 +69,7 @@
     "Launch": "auto",
     "LogConfigs": [
         {
-            "path": "/var/log/hbase/hbase-master.log",
+            "path": "/opt/hbase/logs/hbase-master.log",
             "type": "hbase"
         }
     ],
