@@ -243,7 +243,7 @@ docker_buildimage:
 	$(DOCKER) build -t $(BUILD_IMAGE) hack/
 
 docker_svcdefpkg-%: docker_buildimage $(OUTPUT)
-	$(DOCKER) run -v $(PWD):/mnt/pwd \
+	$(DOCKER) run --rm -v $(PWD):/mnt/pwd \
 		-v $(OUTPUT):/mnt/pwd/output \
 		-w /mnt/pwd \
 		$(BUILD_IMAGE) \
