@@ -51,7 +51,7 @@ def args():
                         default="./out")
     parser.add_argument("--collectorpath",
                         help="relative path of collector top-level"
-                             " (from model path). Defaults to"
+                             " (from model path). Defaults to "
                              "Zenoss/Collection/localhost",
                         default="Zenoss/Collection/localhost")
     parser.add_argument("collectors",
