@@ -1,0 +1,36 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/python3 -m http.server 8080",
+    "Description": "Redis server",
+    "Endpoints": [
+        {
+            "Application": "redis",
+            "Name": "redis",
+            "PortNumber": 6379,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5.0,
+            "Script": "echo OK"
+        }
+    },
+    "ImageID": "zenoss/ubuntu:wget",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/log/redis/redis.log",
+            "type": "redis"
+        }
+    ],
+    "Name": "redis",
+    "RAMCommitment": "1G",
+    "Tags": [
+        "daemon"
+    ]
+}

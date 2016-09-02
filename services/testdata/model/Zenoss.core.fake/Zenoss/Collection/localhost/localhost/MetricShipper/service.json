@@ -1,0 +1,155 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/python3 -m http.server 8080",
+    "ConfigFiles": {
+        "/opt/zenoss/etc/metricshipper/metricshipper.yaml": {
+            "FileName": "/opt/zenoss/etc/metricshipper/metricshipper.yaml",
+            "Permissions": "0644"
+        }
+    },
+    "Description": "Pushes metric data to a MetricConsumer",
+    "Endpoints": [
+        {
+            "Application": "{{(parent .).Name}}_redis",
+            "Name": "CollectorRedis",
+            "PortNumber": 6379,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "zproxy",
+            "Name": "zproxy",
+            "PortNumber": 8080,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        }
+    ],
+    "HealthChecks": {
+        "redis_answering": {
+            "Interval": 5.0,
+            "Script": "echo OK"
+        },
+        "running": {
+            "Interval": 5.0,
+            "Script": "echo OK"
+        },
+        "store_answering": {
+            "Interval": 10.0,
+            "Script": "echo OK"
+        }
+    },
+    "ImageID": "zenoss/ubuntu:wget",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/zenoss/log/metricshipper.log",
+            "type": "metricshipper"
+        }
+    ],
+    "MonitoringProfile": {
+        "GraphConfigs": [
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "txBytes",
+                        "legend": "tx",
+                        "metric": "ZEN_INF.org.zenoss.app.metricshipper.txBytes.count",
+                        "metricSource": "metricshipper",
+                        "name": "tx",
+                        "rate": true,
+                        "type": "line"
+                    }
+                ],
+                "description": "Websocket throughput.",
+                "footer": false,
+                "id": "websocketThroughput",
+                "name": "Websocket Throughput",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Throughput"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "outgoing",
+                        "legend": "outgoing",
+                        "metric": "ZEN_INF.org.zenoss.app.metricshipper.totalOutgoing.count",
+                        "metricSource": "metricshipper",
+                        "name": "outgoing",
+                        "rate": true,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "incoming",
+                        "legend": "incoming",
+                        "metric": "ZEN_INF.org.zenoss.app.metricshipper.totalIncoming.count",
+                        "metricSource": "metricshipper",
+                        "name": "incoming",
+                        "rate": true,
+                        "type": "line"
+                    }
+                ],
+                "description": "Number of datapoints received / transmitted per second.",
+                "footer": false,
+                "id": "dataPoints",
+                "name": "Data Points",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Data Points"
+            }
+        ],
+        "MetricConfigs": [
+            {
+                "Description": "Metric Shipper metrics",
+                "ID": "metricshipper",
+                "Metrics": [
+                    {
+                        "Counter": true,
+                        "Description": "rate of incoming metrics",
+                        "ID": "ZEN_INF.org.zenoss.app.metricshipper.totalIncoming.count",
+                        "Name": "incoming",
+                        "Unit": "metrics/second"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "rate of outgoing metrics",
+                        "ID": "ZEN_INF.org.zenoss.app.metricshipper.totalOutgoing.count",
+                        "Name": "outgoing",
+                        "Unit": "metrics/second"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "rate of outgoing bytes on websocket",
+                        "ID": "ZEN_INF.org.zenoss.app.metricshipper.txBytes.count",
+                        "Name": "txBytes",
+                        "Unit": "metrics/second"
+                    }
+                ],
+                "Name": "Metric Shipper metrics"
+            }
+        ]
+    },
+    "Name": "metric_shipper",
+    "RAMCommitment": "1G",
+    "Tags": [
+        "daemon",
+        "collector"
+    ]
+}

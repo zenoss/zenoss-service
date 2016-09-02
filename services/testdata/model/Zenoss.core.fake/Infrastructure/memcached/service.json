@@ -1,0 +1,38 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/python3 -m http.server 8080",
+    "ConfigFiles": {
+        "/etc/sysconfig/memcached": {
+            "FileName": "/etc/sysconfig/memcached",
+            "Owner": "root:root",
+            "Permissions": "0644"
+        }
+    },
+    "Description": "Free & open source, high-performance, distributed memory object caching system",
+    "Endpoints": [
+        {
+            "Application": "memcached",
+            "Name": "memcached",
+            "PortNumber": 11211,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5.0,
+            "Script": "echo OK"
+        }
+    },
+    "ImageID": "zenoss/ubuntu:wget",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "Name": "memcached",
+    "RAMCommitment": "512M",
+    "Services": [],
+    "Tags": [
+        "daemon"
+    ]
+}

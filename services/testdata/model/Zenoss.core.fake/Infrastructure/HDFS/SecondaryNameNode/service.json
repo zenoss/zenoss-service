@@ -1,0 +1,68 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/python3 -m http.server 8080",
+    "ConfigFiles": {
+        "/opt/hadoop/etc/hadoop/core-site.xml": {
+            "FileName": "/opt/hadoop/etc/hadoop/core-site.xml",
+            "Permissions": "0775"
+        },
+        "/opt/hadoop/etc/hadoop/hdfs-site.xml": {
+            "FileName": "/opt/hadoop/etc/hadoop/hdfs-site.xml",
+            "Permissions": "0775"
+        }
+    },
+    "Description": "HDFS Secondary NameNode",
+    "Endpoints": [
+        {
+            "Application": "hdfs-namenode",
+            "Name": "hdfs-namenode",
+            "PortNumber": 8020,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "hdfs-namenode-rest",
+            "Name": "hdfs-namenode-rest",
+            "PortNumber": 50070,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "hdfs-secondary-namenode",
+            "Name": "hdfs-secondary-namenode",
+            "PortNumber": 50090,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        }
+    ],
+    "Environment": [
+        "HADOOP_ROOT_LOG_LEVEL=INFO",
+        "HADOOP_HEAPSIZE={{bytesToMB .RAMCommitment}}"
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 10,
+            "Script": "echo OK"
+        }
+    },
+    "Hostname": "localhost",
+    "ImageID": "zenoss/ubuntu:wget",
+    "Instances": {
+        "max": 1,
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/hadoop/logs/hadoop.log",
+            "type": "hdfs-secondary-namenode"
+        }
+    ],
+    "Name": "Secondary NameNode",
+    "Prereqs": [],
+    "Privileged": true,
+    "RAMCommitment": "1G",
+    "Tags": [
+        "daemon"
+    ]
+}

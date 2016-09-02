@@ -1,0 +1,12 @@
+{
+    "Description": "Localhost application",
+    "Endpoints": [],
+    "Instances": {
+        "min": 0
+    },
+    "Launch": "auto",
+    "Name": "localhost2",
+    "Tags": [
+        "hub"
+    ]
+}
