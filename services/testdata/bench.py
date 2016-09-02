@@ -45,8 +45,8 @@ def args():
                         help="generate template for zendev")
 
     parser.add_argument("--model", help="model path. Defaults to "
-                                        "./model/Zenoss.core.test",
-                        default="./model/Zenoss.core.test")
+                                        "./model/Zenoss.core.fake",
+                        default="./model/Zenoss.core.fake")
     parser.add_argument("--out", help="output path. Defaults to ./out",
                         default="./out")
     parser.add_argument("--collectorpath",
