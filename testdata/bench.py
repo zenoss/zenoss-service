@@ -57,6 +57,8 @@ def args():
     parser.add_argument("collectors",
                         help="number of collector instances to create",
                         type=int, default=1)
+    parser.add_argument("-f", "--force", action="store_true",
+                        help="force overwrite of output dir if it exists")
 
     parser.add_argument("-v", "--verbose", action="store_true",
                         help="verbose logging")
@@ -75,6 +77,12 @@ def main(opts):
 
     modelname = os.path.basename(os.path.normpath(opts.model))
     outpath = os.path.join(opts.out, modelname)
+
+    if os.path.exists(outpath):
+        if opts.force:
+            distutils.dir_util.remove_tree(outpath)
+        else:
+            fail("output path %s exists. use -f to force overwrite" % outpath)
 
     log.debug("Copy %s to %s", opts.model, outpath)
     distutils.dir_util.copy_tree(opts.model, outpath)
