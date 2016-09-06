@@ -1,0 +1,70 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/python3 -m http.server 8080",
+    "ConfigFiles": {
+        "/opt/zenoss/etc/opentsdb/opentsdb.conf": {
+            "FileName": "/opt/zenoss/etc/opentsdb/opentsdb.conf",
+            "Owner": "root:root",
+            "Permissions": "0644"
+        }
+    },
+    "Description": "Reader for OpenTSDB server",
+    "Endpoints": [
+        {
+            "Application": "opentsdb-reader",
+            "Name": "opentsdb-reader",
+            "PortNumber": 4242,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "VHostList": [
+                {
+                    "Enabled": false,
+                    "Name": "opentsdb"
+                }
+            ]
+        },
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Application": "hbase-master-.*",
+            "Name": "hbase-master",
+            "Purpose": "import"
+        },
+        {
+            "Application": "hbase-regionserver",
+            "Name": "hbase-regionserver",
+            "PortNumber": 60200,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5.0,
+            "Script": "echo OK"
+        }
+    },
+    "ImageID": "zenoss/ubuntu:wget",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/zenoss/log/opentsdb.log",
+            "type": "opentsdb-reader"
+        }
+    ],
+    "Name": "opentsdb-reader",
+    "Prereqs": [],
+    "RAMCommitment": "1G",
+    "Services": [],
+    "Tags": [
+        "daemon"
+    ]
+}

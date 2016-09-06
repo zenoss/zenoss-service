@@ -1,0 +1,59 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/python3 -m http.server 8080",
+    "Description": "Performs distributed bash executions",
+    "Endpoints": [
+        {
+            "Application": "zproxy",
+            "Name": "zproxy",
+            "PortNumber": 8080,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "{{(parent (parent .)).Name}}_zenhubPB",
+            "Name": "zenhub",
+            "PortNumber": 8789,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "redis",
+            "Name": "redis",
+            "PortNumber": 6379,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "controlplane_consumer",
+            "Name": "controlplane_consumer",
+            "PortNumber": 8444,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        }
+    ],
+    "HealthChecks": {
+        "redis_answering": {
+            "Interval": 5.0,
+            "Script": "echo OK"
+        }
+    },
+    "ImageID": "zenoss/ubuntu:wget",
+    "Instances": {
+        "max": 1,
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/zenoss/log/zminion.log",
+            "type": "zminion"
+        }
+    ],
+    "Name": "zminion",
+    "RAMCommitment": "256M",
+    "Tags": [
+        "daemon",
+        "collector"
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "Description": "",
+    "Launch": "auto",
+    "Name": "Infrastructure",
+    "Tags": [
+        "zenoss-infrastructure"
+    ]
+}

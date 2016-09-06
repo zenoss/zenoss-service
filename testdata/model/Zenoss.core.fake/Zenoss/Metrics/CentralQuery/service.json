@@ -1,0 +1,287 @@
+{
+    "Actions": {
+        "debug": "bash -c 'curl -X POST http://localhost:58888/tasks/debugtoggle'"
+    },
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/python3 -m http.server 8080",
+    "ConfigFiles": {
+        "/opt/zenoss/etc/central-query/central-query_supervisor.conf": {
+            "FileName": "/opt/zenoss/etc/central-query/central-query_supervisor.conf",
+            "Permissions": "0644"
+        },
+        "/opt/zenoss/etc/central-query/configuration.yaml": {
+            "FileName": "/opt/zenoss/etc/central-query/configuration.yaml",
+            "Permissions": "0644"
+        }
+    },
+    "Description": "Zenoss Central Query Service and JavaScript Library",
+    "Endpoints": [
+        {
+            "Application": "central_query",
+            "Name": "central_query",
+            "PortNumber": 8888,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "zproxy",
+            "Name": "zproxy",
+            "PortNumber": 8080,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "opentsdb-reader",
+            "Name": "opentsdb-reader",
+            "PortNumber": 4242,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5.0,
+            "Script": "echo OK"
+        }
+    },
+    "ImageID": "zenoss/ubuntu:wget",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "filters": [
+                "zappdaemon"
+            ],
+            "path": "/opt/zenoss/log/central-query.log",
+            "type": "centralquery"
+        }
+    ],
+    "MonitoringProfile": {
+        "GraphConfigs": [
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "Queries",
+                        "legend": "Queries",
+                        "metric": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.count",
+                        "metricSource": "MetricResources.post",
+                        "name": "Queries",
+                        "rate": true,
+                        "type": "line"
+                    }
+                ],
+                "description": "Number of queries received per second.",
+                "footer": false,
+                "id": "queryRate",
+                "name": "Query Rate",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Query Rate"
+            }
+        ],
+        "MetricConfigs": [
+            {
+                "Description": "JVM File Descriptor Usage Statistics",
+                "ID": "jvm.fd_usage",
+                "Metrics": [
+                    {
+                        "ID": "jvm.fd_usage",
+                        "Name": "FD Usage Count"
+                    }
+                ],
+                "Name": "JVM File Descriptor Usage"
+            },
+            {
+                "Description": "JVM Thread Type Statistics",
+                "ID": "jvm.thread",
+                "Metrics": [
+                    {
+                        "ID": "jvm.thread_count",
+                        "Name": "JVM Thread Count"
+                    },
+                    {
+                        "ID": "jvm.daemon_thread_count",
+                        "Name": "JVM Daemon Thread Count"
+                    }
+                ],
+                "Name": "JVM Thread"
+            },
+            {
+                "Description": "JVM heap vs. non-heap memory usage",
+                "ID": "jvm.memory",
+                "Metrics": [
+                    {
+                        "ID": "jvm.memory.heap_usage",
+                        "Name": "JVM Heap Memory Usage"
+                    },
+                    {
+                        "ID": "jvm.memory.non_heap_usage",
+                        "Name": "JVM Non-Heap Memory Usage"
+                    }
+                ],
+                "Name": "JVM Memory"
+            },
+            {
+                "Description": "JVM Memory Pool Usage",
+                "ID": "jvm.memory.memory_pool_usages",
+                "Metrics": [
+                    {
+                        "ID": "jvm.memory.memory_pool_usages.Code_Cache",
+                        "Name": "Code Cache"
+                    },
+                    {
+                        "ID": "jvm.memory.memory_pool_usages.PS_Eden_Space",
+                        "Name": "Eden Space"
+                    },
+                    {
+                        "ID": "jvm.memory.memory_pool_usages.PS_Old_Gen",
+                        "Name": "Old Generation"
+                    },
+                    {
+                        "ID": "jvm.memory.memory_pool_usages.PS_Perm_Gen",
+                        "Name": "Permanent Generation"
+                    },
+                    {
+                        "ID": "jvm.memory.memory_pool_usages.PS_Survivor_Space",
+                        "Name": "Survivor Space"
+                    }
+                ],
+                "Name": "JVM Memory Pool"
+            },
+            {
+                "Description": "JVM Garbage Collection Statistics",
+                "ID": "jvm.gc",
+                "Metrics": [
+                    {
+                        "ID": "jvm.gc.PS_MarkSweep.runs",
+                        "Name": "JVM Garbage Collection MarkSweep Runs"
+                    },
+                    {
+                        "ID": "jvm.gc.PS_MarkSweep.time",
+                        "Name": "JVM Garbage Collection MarkSweep Time"
+                    },
+                    {
+                        "ID": "jvm.gc.PS_Scavenge.runs",
+                        "Name": "JVM Garbage Collection Scavenge Runs"
+                    },
+                    {
+                        "ID": "jvm.gc.PS_Scavenge.time",
+                        "Name": "JVM Garbage Collection Scavenge Time"
+                    }
+                ],
+                "Name": "JVM Garbage Collection"
+            },
+            {
+                "Description": "JVM Thread States",
+                "ID": "jvm.threads-states",
+                "Metrics": [
+                    {
+                        "ID": "jvm.thread-states.blocked",
+                        "Name": "JVM Threads in Blocked State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.new",
+                        "Name": "JVM Threads in New State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.runnable",
+                        "Name": "JVM Threads in Runnable State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.terminated",
+                        "Name": "JVM Threads in Terminated State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.timed_waiting",
+                        "Name": "JVM Threads in Timed Waiting State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.waiting",
+                        "Name": "JVM Threads in Waiting State"
+                    }
+                ],
+                "Name": "JVM Thread States"
+            },
+            {
+                "Description": "HTTP Post Statistics for the MetricsWebResource",
+                "ID": "MetricsResources.post",
+                "Metrics": [
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.count",
+                        "Name": "MetricResource Total Post"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.meanRate",
+                        "Name": "MetricResource Average Response Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.1MinuteRate",
+                        "Name": "MetricResource 1 Minute Moving Average Response Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.5MinuteRate",
+                        "Name": "MetricResource 5 Minute Moving Average Response Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.15MinuteRate",
+                        "Name": "MetricResource 15 Minute Moving Average Response Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.max",
+                        "Name": "MetricResource Content-Length Max"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.min",
+                        "Name": "MetricResource Content-Length Max"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.mean",
+                        "Name": "MetricResource Content-Length Mean"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.median",
+                        "Name": "MetricResource Content-Length Median"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.stdev",
+                        "Name": "MetricResource Content-Length Stdev"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.75Percentile",
+                        "Name": "MetricResource Content-Length Histogram 75%"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.95Percentile",
+                        "Name": "MetricResource Content-Length Histogram 95%"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.98Percentile",
+                        "Name": "MetricResource Content-Length Histogram 98%"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.99Percentile",
+                        "Name": "MetricResource Content-Length Histogram 99%"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.metricservice.api.metric.remote.MetricResources.query.999Percentile",
+                        "Name": "MetricResource Content-Length Histogram 99.9%"
+                    }
+                ],
+                "Name": "MetricResources Post Statistics"
+            }
+        ]
+    },
+    "Name": "central_query",
+    "RAMCommitment": "1G",
+    "Tags": [
+        "daemon"
+    ]
+}

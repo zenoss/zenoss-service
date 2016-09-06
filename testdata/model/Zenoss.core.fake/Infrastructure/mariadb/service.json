@@ -1,0 +1,41 @@
+{
+    "CPUCommitment": 2,
+    "Command": "/usr/bin/python3 -m http.server 8080",
+    "Commands": {},
+    "Description": "MariaDB database server",
+    "Endpoints": [
+        {
+            "Application": "zodb_mariadb",
+            "Name": "mariadb",
+            "PortNumber": 3306,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5.0,
+            "Script": "echo OK"
+        }
+    },
+    "ImageID": "zenoss/ubuntu:wget",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/log/mysqld.log",
+            "type": "mariadb"
+        }
+    ],
+    "Name": "mariadb",
+    "RAMCommitment": "1G",
+    "Snapshot": {
+        "Pause": "PAUSE_CHECK_TIMEOUT=60 LOCK_HOLD_DURATION=600 ${ZENHOME:-/opt/zenoss}/bin/quiesce-mariadb.sh pause",
+        "Resume": "${ZENHOME:-/opt/zenoss}/bin/quiesce-mariadb.sh resume"
+    },
+    "Tags": [
+        "daemon"
+    ]
+}

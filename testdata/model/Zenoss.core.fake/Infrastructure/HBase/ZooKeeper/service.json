@@ -1,0 +1,87 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/python3 -m http.server 8080",
+    "ConfigFiles": {
+        "/etc/zookeeper.cfg": {
+            "FileName": "/etc/zookeeper.cfg",
+            "Permissions": "0664"
+        },
+        "/var/lib/zookeeper/myid": {
+            "FileName": "/var/lib/zookeeper/myid",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services",
+    "Endpoints": [
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "PortTemplate": "{{ plus .InstanceID 2181}}",
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "zookeeper-quorum",
+            "Name": "zookeeper-quorum",
+            "PortNumber": 2888,
+            "PortTemplate": "{{ plus .InstanceID 2888}}",
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "zookeeper-leader",
+            "Name": "zookeeper-leader",
+            "PortNumber": 3888,
+            "PortTemplate": "{{ plus .InstanceID 3888}}",
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-clients",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Application": "zookeeper-quorum",
+            "Name": "zookeeper-quora",
+            "PortNumber": 2888,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Application": "zookeeper-leader",
+            "Name": "zookeeper-leaders",
+            "PortNumber": 3888,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5.0,
+            "Script": "echo OK"
+        }
+    },
+    "HostPolicy": "PREFER_SEPARATE",
+    "Hostname": "zk{{ plus 1 .InstanceID }}",
+    "ImageID": "zenoss/ubuntu:wget",
+    "Instances": {
+        "min": 3
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/log/zookeeper/zookeeper.log",
+            "type": "hbase"
+        }
+    ],
+    "Name": "ZooKeeper",
+    "Privileged": true,
+    "RAMCommitment": "1G",
+    "Tags": [
+        "daemon"
+    ]
+}
