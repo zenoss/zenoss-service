@@ -36,10 +36,11 @@ def validate(args):
     failed = []
     for fn in get_service_filenames(ROOT):
         with open(fn, 'r') as f:
-            data = f.read()
+            data = f.read().rstrip()
         try:
             j = json.loads(data)
-            if data != json.dumps(j, indent=4, sort_keys=True, separators=(',', ': ')):
+            j = json.dumps(j, indent=4, sort_keys=True, separators=(',', ': '))
+            if data != j.rstrip():
                 failed.append(fn)
         except ValueError:
             failed.append(fn)
