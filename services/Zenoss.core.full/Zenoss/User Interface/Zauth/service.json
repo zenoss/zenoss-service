@@ -68,7 +68,7 @@
     "HealthChecks": {
         "answering": {
             "Interval": 5.0,
-            "Script": "curl -o /dev/null -w '%{redirect_url}' -s http://localhost:9180/zport/dmd | grep -q acl_users"
+            "Script": "curl -s http://localhost:9180/zport/ruok | grep -q imok"
         },
         "mariadb_answering": {
             "Interval": 10.0,
