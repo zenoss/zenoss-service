@@ -23,7 +23,7 @@ export MASTER=spark://spm0:7077                		# Spark master url. eg. spark:/
 # export ZEPPELIN_INTP_MEM       		# zeppelin interpreter process jvm mem options. Default = ZEPPELIN_MEM
 # export ZEPPELIN_INTP_JAVA_OPTS 		# zeppelin interpreter process jvm options. Default = ZEPPELIN_JAVA_OPTS
 export ZEPPELIN_PORT=8082
-export ZEPPELIN_WEBSOCKET_PORT=8083
+#export ZEPPELIN_WEBSOCKET_PORT=8083
 export ZEPPELIN_LOG_DIR=/opt/zenoss/log/notebook  # Where log files are stored.  PWD by default.
 export ZEPPELIN_PID_DIR=/opt/zenoss/var       		# The pid files are stored. ${ZEPPELIN_HOME}/run by default.
 # export ZEPPELIN_WAR_TEMPDIR    		# The location of jetty temporary directory.
