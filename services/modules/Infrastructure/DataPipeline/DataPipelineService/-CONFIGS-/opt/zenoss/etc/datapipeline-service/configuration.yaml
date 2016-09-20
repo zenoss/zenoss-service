@@ -3,39 +3,53 @@ authEnabled: true
 
 logging:
     level: INFO
-    console:
-      threshold: INFO
-    file:
-      currentLogFilename: log/pipelineservice.log
-      archivedLogFilenamePattern: log/pipelineservice-%d.log.gz
-      archivedFileCount: 5
-      timeZone: UTC
     loggers:
-      org.zenoss.app.pipelineservice: DEBUG
-      org.zenoss.datapipeline: DEBUG
+      "org.zenoss.app.pipelineservice": DEBUG
+      "org.zenoss.datapipeline": DEBUG
+    #  "org.zenoss.databus": INFO
       
-
-http:
-  port: 8443
-  adminPort: 58443
-  connectorType: nonblocking
-  shutdownGracePeriod: 0s
-  ssl:
-      keyStore: etc/datapipeline-service/cert/ssl.pfx
+    appenders:
+      - type: console
+        threshold: ALL
+        
+      - type: file
+        currentLogFilename: ./log/pipelineservice.log
+        archivedLogFilenamePattern: ./log/pipelineservice-%d.log.gz
+        archivedFileCount: 5
+        timeZone: UTC
+        threshold: ALL
+        
+server:
+  applicationConnectors:
+    - type: http
+      port: 8443
+    - type: https
+      port: 8445
+      keyStorePath: etc/datapipeline-service/cert/ssl.pfx
       keyStorePassword: zapp_pass
       keyStoreType:     pkcs12
-  requestLog:
-    console:
-      enabled: false
+      validateCerts: false
+  adminConnectors:
+    - type: http
+      port: 58443
+    - type: https
+      port: 58445
+      keyStorePath: etc/datapipeline-service/cert/ssl.pfx
+      keyStorePassword: zapp_pass
+      keyStoreType:     pkcs12
+      validateCerts: false
 
-webSocketConfiguration:
-    maxTextMessageSize: 10485760
+
+
+#webSocketConfiguration:
+#    maxTextMessageSize: 10485760
 
 pipelineService:
     configFile: etc/datapipeline-service/PipelineFramework.properties
+    poolSize: 5
     # paths to (non-default) directories to search for various resources
     directoryList: 
-    - /opt/zenoss/etc/datapipeline/pipelines
-    - /var/zenoss/datapipeline/etc/pipelines
-    # - hdfs:///some/global/config
+      - /opt/zenoss/etc/datapipeline/pipelines
+      - /var/zenoss/datapipeline/etc/pipelines
+ # - hdfs:///some/global/config
  
