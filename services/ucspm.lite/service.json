@@ -96,7 +96,7 @@
     "HealthChecks": {
         "answering": {
             "Interval": 5.0,
-            "Script": "curl -f -s http://localhost:8080/ > /dev/null"
+            "Script": "/opt/zenoss/bin/healthchecks/zproxy_answering"
         },
         "ready": {
             "Interval": 30.0,
