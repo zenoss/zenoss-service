@@ -69,7 +69,7 @@
             "Name": "zope",
             "PortNumber": 9080,
             "Protocol": "tcp",
-            "Purpose": "import"
+            "Purpose": "import_all"
         },
         {
             "Application": "metric_consumer",
