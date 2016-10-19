@@ -1,5 +1,0 @@
-{
-    "Description": "Spark distributed processing cluster",
-    "Launch": "auto",
-    "Name": "Spark"
-}
