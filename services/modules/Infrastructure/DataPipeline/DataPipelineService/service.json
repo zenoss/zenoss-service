@@ -1,0 +1,116 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/opt/zenoss/bin/start-datapipeline-service.sh -s",
+    "ConfigFiles": {
+        "/opt/zenoss/etc/datapipeline-service/PipelineFramework.properties": {
+            "FileName": "/opt/zenoss/etc/datapipeline-service/PipelineFramework.properties",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
+        },
+        "/opt/zenoss/etc/datapipeline-service/configuration.yaml": {
+            "FileName": "/opt/zenoss/etc/datapipeline-service/configuration.yaml",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Lifecycle manager for datapipeline applications",
+    "Endpoints": [
+        {
+            "Application": "datapipeline-service",
+            "Name": "datapipeline-service",
+            "PortNumber": 8443,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "spark-master",
+            "Name": "spark-master",
+            "PortNumber": 7077,
+            "Protocol": "tcp",
+            "Purpose": "import",
+            "VirtualAddress": "spm{{.InstanceID}}:7077"
+        },
+        {
+            "Application": "spark-worker",
+            "Name": "spark-workers",
+            "PortNumber": 7078,
+            "PortTemplate": "{{plus .InstanceID 17078}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "spw{{.InstanceID}}:7078"
+        },
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        },
+        {
+            "Application": "kafka-broker",
+            "Name": "kafka-brokers",
+            "PortNumber": 9092,
+            "PortTemplate": "{{plus .InstanceID 19092}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "kfk{{.InstanceID}}:9092"
+        },
+        {
+            "Application": "schema-registry",
+            "Name": "schema-registry",
+            "PortNumber": 8081,
+            "Protocol": "tcp",
+            "Purpose": "import",
+            "VirtualAddress": "dsr0:8081"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 10.0,
+            "Script": "/usr/bin/generic-port-check.sh dps{{.InstanceID}} 8443"
+        }
+    },
+    "HostPolicy": "PREFER_SEPARATE",
+    "Hostname": "dps{{.InstanceID}}",
+    "ImageID": "zenoss/datapipeline:1.0.0-dev",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/zenoss/log/datapipeline-service.log",
+            "type": "datapipeline"
+        }
+    ],
+    "Name": "Datapipeline Service",
+    "Privileged": true,
+    "RAMCommitment": "8G",
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####": "drwxr-xr-x 13 zenoss zenoss  4096 Mar 17 15:02 /var/zenoss/datapipeline/etc/pipelines",
+            "ContainerPath": "/var/zenoss/datapipeline/etc/pipelines",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0755",
+            "ResourcePath": "datapipeline/etc/pipelines"
+        },
+        {
+            "#####": "drwxrwxrwx 13 zenoss zenoss  4096 Mar 17 15:02 /var/zenoss/datapipeline/run/checkpoint",
+            "ContainerPath": "/var/zenoss/datapipeline/run/checkpoint",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0777",
+            "ResourcePath": "datapipeline/run/checkpoint"
+        },
+        {
+            "#####": "drwxrwxrwx 13 zenoss zenoss  4096 Mar 17 15:02 /var/zenoss/datapipeline/run/spark-events",
+            "ContainerPath": "/var/zenoss/datapipeline/run/spark-events",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0777",
+            "ResourcePath": "datapipeline/run/spark-events"
+        }
+    ]
+}
