@@ -1,0 +1,8 @@
+{
+    "Description": "Processing components",
+    "Launch": "auto",
+    "Name": "Processing",
+    "Tags": [
+        "zenoss-processing"
+    ]
+}
