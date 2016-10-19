@@ -16,15 +16,15 @@
     "Description": "Notebook framework for interactive analysis",
     "Endpoints": [
         {
+            "AddressConfig": {
+                "Port": 8082,
+                "Protocol": "tcp"
+            },
             "Application": "notebook",
             "Name": "notebook",
             "PortNumber": 8082,
             "Protocol": "tcp",
             "Purpose": "export",
-	    "AddressConfig": {
-                "Port": 8082,
-                "Protocol": "tcp"
-            },
             "VHostList": [
                 {
                     "Enabled": true,
@@ -32,16 +32,16 @@
                 }
             ]
         },
-	{
+        {
+            "AddressConfig": {
+                "Port": 8083,
+                "Protocol": "tcp"
+            },
             "Application": "notebook-ws",
             "Name": "notebook-ws",
             "PortNumber": 8083,
             "Protocol": "tcp",
-            "Purpose": "export",
-	    "AddressConfig": {
-                "Port": 8083,
-                "Protocol": "tcp"
-            }
+            "Purpose": "export"
         },
         {
             "Application": "spark-master",
