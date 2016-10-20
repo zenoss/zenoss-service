@@ -1,0 +1,123 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/start-zeppelin.sh -s",
+    "ConfigFiles": {
+        "/opt/zeppelin/conf/zeppelin-env.sh": {
+            "FileName": "/opt/zeppelin/conf/zeppelin-env.sh",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
+        },
+        "/opt/zeppelin/conf/zeppelin-site.xml": {
+            "FileName": "/opt/zeppelin/conf/zeppelin-site.xml",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Notebook framework for interactive analysis",
+    "Endpoints": [
+        {
+            "AddressConfig": {
+                "Port": 8082,
+                "Protocol": "tcp"
+            },
+            "Application": "notebook",
+            "Name": "notebook",
+            "PortNumber": 8082,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "VHostList": [
+                {
+                    "Enabled": true,
+                    "Name": "notebook"
+                }
+            ]
+        },
+        {
+            "AddressConfig": {
+                "Port": 8083,
+                "Protocol": "tcp"
+            },
+            "Application": "notebook-ws",
+            "Name": "notebook-ws",
+            "PortNumber": 8083,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "spark-master",
+            "Name": "spark-master",
+            "PortNumber": 7077,
+            "Protocol": "tcp",
+            "Purpose": "import",
+            "VirtualAddress": "spm{{.InstanceID}}:7077"
+        },
+        {
+            "Application": "spark-worker",
+            "Name": "spark-workers",
+            "PortNumber": 7078,
+            "PortTemplate": "{{plus .InstanceID 17078}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "spw{{.InstanceID}}:7078"
+        },
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        },
+        {
+            "Application": "kafka-broker",
+            "Name": "kafka-brokers",
+            "PortNumber": 9092,
+            "PortTemplate": "{{plus .InstanceID 19092}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "kfk{{.InstanceID}}:9092"
+        },
+        {
+            "Application": "schema-registry",
+            "Name": "schema-registry",
+            "PortNumber": 8081,
+            "Protocol": "tcp",
+            "Purpose": "import",
+            "VirtualAddress": "dsr0:8081"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 10.0,
+            "Script": "/usr/bin/generic-port-check.sh znb{{.InstanceID}} 8082"
+        }
+    },
+    "HostPolicy": "PREFER_SEPARATE",
+    "Hostname": "znb{{.InstanceID}}",
+    "ImageID": "zenoss/datapipeline:1.0.0-dev",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/zenoss/log/notebook.log",
+            "type": "notebook"
+        }
+    ],
+    "Name": "Notebook",
+    "Privileged": true,
+    "RAMCommitment": "2G",
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####": "drwxr-xr-x 13 zenoss zenoss  4096 Mar 17 15:02 /var/zenoss/datapipeline/etc/notebooks",
+            "ContainerPath": "/var/zenoss/datapipeline/etc/notebooks",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0755",
+            "ResourcePath": "datapipeline/etc/notebooks"
+        }
+    ]
+}
