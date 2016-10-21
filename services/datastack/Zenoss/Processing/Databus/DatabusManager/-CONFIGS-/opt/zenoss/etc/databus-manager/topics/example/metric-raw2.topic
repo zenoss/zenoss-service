@@ -1,0 +1,31 @@
+name: metric-test2
+replication: 2
+partition: 3
+schemas:
+  ? KEY
+  :
+    inlineContent: "{\"type\": \"int\"}"
+    type: KEY
+  ? VALUE
+  :
+    type: VALUE 
+    fileName: metric-test2.schema
+configProps:
+  max.message.bytes: "60000"
+
+
+---
+
+name: metric-test3
+replication: 2
+partition: 3
+schemas:
+  VALUE :
+    type: VALUE
+    inlineContent: "{\"name\":\"value\",\"type\": \"int\"}"
+  KEY :
+    type: KEY
+    inlineContent:  "{\"type\": \"int\"}"
+configProps:
+  max.message.bytes: "6000"
+

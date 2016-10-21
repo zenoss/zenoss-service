@@ -1,0 +1,5 @@
+{
+    "Description": "Kafka message bus services",
+    "Launch": "auto",
+    "Name": "Kafka"
+}

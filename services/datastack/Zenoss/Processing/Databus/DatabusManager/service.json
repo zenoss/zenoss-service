@@ -1,0 +1,95 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/opt/zenoss/bin/databus-manager-start.sh -c /opt/zenoss/etc/databus-manager/databus-manager.properties -b {{ (child (parent .) \"KafkaBroker\").Instances }} -z {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}zk{{ plus 1 . }}:2181{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}} ",
+    "ConfigFiles": {
+        "/opt/zenoss/etc/databus-manager/databus-manager.properties": {
+            "FileName": "/opt/zenoss/etc/databus-manager/databus-manager.properties",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Databus management service",
+    "Endpoints": [
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        },
+        {
+            "Application": "schema-registry",
+            "Name": "schema-registry",
+            "PortNumber": 8081,
+	    "PortTemplate": "{{plus .InstanceID 18081}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+	    "VirtualAddress": "dsr{{.InstanceID}}:8081"
+        },
+        {
+            "Application": "kafka-broker",
+            "Name": "kafka-brokers",
+            "PortNumber": 9092,
+	    "PortTemplate": "{{plus .InstanceID 19092}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+	    "VirtualAddress": "kfk{{.InstanceID}}:9092"
+        }
+    ],
+    "HealthChecks": {
+        "kafka_answering": {
+            "Interval": 10.0,
+            "Script": "{{with $k := (child (parent .) \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
+        }
+    },
+    "HostPolicy": "PREFER_SEPARATE",
+    "Hostname": "dm{{.InstanceID}}",
+    "ImageID": "zenoss/databus:0.0.8-dev",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/zenoss/log/databus-manager.log",
+            "type": "databus-manager"
+        }
+    ],
+    "Name": "Databus Manager",
+    "Prereqs": [
+        {
+            "Name": "ZooKeeper up",
+            "Script": "{{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}/opt/zenoss/bin/healthchecks/generic_answering.sh zk{{plus 1 .}} 2181 {{if ne (plus 1 .) $zks}}&& {{end}}{{end}}{{end}}"
+        },
+        {
+            "Name": "Kafka up",
+            "Script": "{{with $k := (child (parent .) \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
+        },
+        {
+            "Name": "Registry up",
+            "Script": "/opt/zenoss/bin/healthchecks/databusregistry_answering"
+        }
+    ],
+    "Privileged": true,
+    "RAMCommitment": "256M",
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####": "drwxr-xr-x 13 root root  4096 Mar 17 15:02 /var/zenoss/databus/topics",
+            "ContainerPath": "/var/zenoss/databus/etc/topics",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0755",
+            "ResourcePath": "databus/etc/topics"
+        },
+        {
+            "#####": "drwxr-xr-x 13 root root  4096 Mar 17 15:02 /var/zenoss/databus/schemas",
+            "ContainerPath": "/var/zenoss/databus/etc/schemas",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0755",
+            "ResourcePath": "databus/etc/schemas"
+        }
+    ]
+}
