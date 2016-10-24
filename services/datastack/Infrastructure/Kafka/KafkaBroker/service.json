@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "/usr/bin/start-kafka.sh -b {{ .InstanceID }} -c /etc/kafka/kafka_broker.properties -z {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}zk{{ plus 1 . }}:2181{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}} -s",
+    "Command": "/usr/bin/start-kafka.sh -b {{ .InstanceID }} -c /etc/kafka/kafka_broker.properties -s",
     "ConfigFiles": {
         "/etc/kafka/kafka_broker.properties": {
             "FileName": "/etc/kafka/kafka_broker.properties",
@@ -43,9 +43,9 @@
     },
     "HostPolicy": "PREFER_SEPARATE",
     "Hostname": "kfk{{.InstanceID}}",
-    "ImageID": "zenoss/kafka:0.8.2.0",
+    "ImageID": "zenoss/kafka:0.9.0.1",
     "Instances": {
-        "min": 3
+        "min": 1
     },
     "Launch": "auto",
     "LogConfigs": [
