@@ -43,7 +43,7 @@
     },
     "HostPolicy": "PREFER_SEPARATE",
     "Hostname": "dsr{{.InstanceID}}",
-    "ImageID": "zenoss/kafka:0.9.0.1",
+    "ImageID": "zenoss/kafka:0.9.0.2",
     "Instances": {
         "min": 1
     },
