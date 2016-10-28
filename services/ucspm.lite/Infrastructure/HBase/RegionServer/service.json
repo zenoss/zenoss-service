@@ -255,6 +255,59 @@
                 "type": "line",
                 "yAxisLabel": "Operations"
             }
+        ],
+        "MetricConfigs": [
+            {
+                "Description": "RegionServer internal metrics",
+                "ID": "RegionServer",
+                "Metrics": [
+                    {
+                        "ID": "numCallsInGeneralQueue",
+                        "Name": "Current depth of the User Requests"
+                    },
+                    {
+                        "ID": "numCallsInPriorityQueue",
+                        "Name": "Current depth of the Internal Housekeeping Requests queue"
+                    },
+                    {
+                        "ID": "flushQueueLength",
+                        "Name": "Current depth of the memstore flush queue"
+                    },
+                    {
+                        "ID": "compactionQueueLength",
+                        "Name": "Current depth of the compaction request queue"
+                    },
+                    {
+                        "ID": "slowAppendCount",
+                        "Name": "The number of slow append operations"
+                    },
+                    {
+                        "ID": "slowDeleteCount",
+                        "Name": "The number of slow delete operations"
+                    },
+                    {
+                        "ID": "slowGetCount",
+                        "Name": "The number of slow get operations"
+                    },
+                    {
+                        "ID": "slowIncrementCount",
+                        "Name": "The number of slow increment operations"
+                    },
+                    {
+                        "ID": "totalRequestCount",
+                        "Name": "The total number of requests received"
+                    },
+                    {
+                        "ID": "readRequestCount",
+                        "Name": "The total number of read requests received"
+                    },
+                    {
+                        "ID": "writeRequestCount",
+                        "Name": "The total number of write requests received"
+                    }
+                ],
+                "Name": "RegionServer internal metrics"
+            }
         ]
     },
     "Name": "RegionServer",
