@@ -189,6 +189,35 @@
                 "type": "line",
                 "yAxisLabel": "servers"
             }
+        ],
+        "MetricConfigs": [
+            {
+                "Description": "HMaster internal metrics",
+                "ID": "HMaster",
+                "Metrics": [
+                    {
+                        "ID": "LogFatal",
+                        "Name": "Total number of fatal log events"
+                    },
+                    {
+                        "ID": "LogError",
+                        "Name": "Total number of error log events"
+                    },
+                    {
+                        "ID": "LogWarn",
+                        "Name": "Total number of warn log events"
+                    },
+                    {
+                        "ID": "numRegionServers",
+                        "Name": "Total number of live regions servers"
+                    },
+                    {
+                        "ID": "numDeadRegionServers",
+                        "Name": "Total number of dead regions servers"
+                    }
+                ],
+                "Name": "HMaster internal metrics"
+            }
         ]
     },
     "Name": "HMaster",
