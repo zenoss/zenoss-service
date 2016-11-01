@@ -85,7 +85,8 @@
                         "id": "numCallsInGeneralQueue",
                         "legend": "Current depth of the User Requests",
                         "metric": "numCallsInGeneralQueue",
-                        "name": "numCallsInGeneralQueue",
+                        "metricSource": "RegionServer",
+                        "name": "Current depth of the User Requests",
                         "rate": false,
                         "rateoptions": {
                             "counter": true,
@@ -100,7 +101,8 @@
                         "id": "numCallsInPriorityQueue",
                         "legend": "Current depth of the Internal Housekeeping Requests queue",
                         "metric": "numCallsInPriorityQueue",
-                        "name": "numCallsInPriorityQueue",
+                        "metricSource": "RegionServer",
+                        "name": "Current depth of the Internal Housekeeping Requests queue",
                         "rate": false,
                         "rateoptions": {
                             "counter": true,
@@ -115,7 +117,8 @@
                         "id": "flushQueueLength",
                         "legend": "Current depth of the memstore flush queue",
                         "metric": "flushQueueLength",
-                        "name": "flushQueueLength",
+                        "metricSource": "RegionServer",
+                        "name": "Current depth of the memstore flush queue",
                         "rate": false,
                         "rateoptions": {
                             "counter": true,
@@ -130,7 +133,8 @@
                         "id": "compactionQueueLength",
                         "legend": "Current depth of the compaction request queue",
                         "metric": "compactionQueueLength",
-                        "name": "compactionQueueLength",
+                        "metricSource": "RegionServer",
+                        "name": "Current depth of the compaction request queue",
                         "rate": false,
                         "rateoptions": {
                             "counter": true,
@@ -161,7 +165,8 @@
                         "id": "slowAppendCount",
                         "legend": "The number of slow append operations",
                         "metric": "slowAppendCount",
-                        "name": "slowAppendCount",
+                        "metricSource": "RegionServer",
+                        "name": "The number of slow append operations",
                         "rate": false,
                         "type": "line"
                     },
@@ -171,7 +176,8 @@
                         "id": "slowDeleteCount",
                         "legend": "The number of slow delete operations",
                         "metric": "slowDeleteCount",
-                        "name": "slowDeleteCount",
+                        "metricSource": "RegionServer",
+                        "name": "The number of slow delete operations",
                         "rate": false,
                         "type": "line"
                     },
@@ -181,7 +187,8 @@
                         "id": "slowGetCount",
                         "legend": "The number of slow get operations",
                         "metric": "slowGetCount",
-                        "name": "slowGetCount",
+                        "metricSource": "RegionServer",
+                        "name": "The number of slow get operations",
                         "rate": false,
                         "type": "line"
                     },
@@ -191,7 +198,8 @@
                         "id": "slowIncrementCount",
                         "legend": "The number of slow increment operations",
                         "metric": "slowIncrementCount",
-                        "name": "slowIncrementCount",
+                        "metricSource": "RegionServer",
+                        "name": "The number of slow increment operations",
                         "rate": false,
                         "type": "line"
                     }
@@ -217,7 +225,8 @@
                         "id": "totalRequestCount",
                         "legend": "The total number of requests received",
                         "metric": "totalRequestCount",
-                        "name": "totalRequestCount",
+                        "metricSource": "RegionServer",
+                        "name": "The total number of requests received",
                         "rate": false,
                         "type": "line"
                     },
@@ -227,7 +236,8 @@
                         "id": "readRequestCount",
                         "legend": "The total number of read requests received",
                         "metric": "readRequestCount",
-                        "name": "readRequestCount",
+                        "metricSource": "RegionServer",
+                        "name": "The total number of read requests received",
                         "rate": false,
                         "type": "line"
                     },
@@ -237,7 +247,8 @@
                         "id": "writeRequestCount",
                         "legend": "The total number of write requests received",
                         "metric": "writeRequestCount",
-                        "name": "writeRequestCount",
+                        "metricSource": "RegionServer",
+                        "name": "The total number of write requests received",
                         "rate": false,
                         "type": "line"
                     }
