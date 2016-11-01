@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "/opt/zenoss/bin/databus-otsdb-sink-start.sh ",
+    "Command": "/opt/zenoss/bin/databus-otsdb-sink-start.sh -b kfk0:9092 -r dsr0:8081",
     "ConfigFiles": {
         "/opt/zenoss/etc/databus-otsdb-sink/databus-otsdb-sink.properties": {
             "FileName": "/opt/zenoss/etc/databus-otsdb-sink/databus-otsdb-sink.properties",
