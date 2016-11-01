@@ -65,6 +65,23 @@
             "Protocol": "tcp",
             "Purpose": "import_all",
             "VirtualAddress": "spw{{.InstanceID}}:7078"
+        },
+	{
+            "Application": "kafka-broker",
+            "Name": "kafka-brokers",
+            "PortNumber": 9092,
+            "PortTemplate": "{{plus .InstanceID 19092}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "kfk{{.InstanceID}}:9092"
+        },
+        {
+            "Application": "schema-registry",
+            "Name": "schema-registry",
+            "PortNumber": 8081,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "dsr{{.InstanceID}}:8081"
         }
     ],
     "HealthChecks": {
