@@ -66,7 +66,7 @@
             "Purpose": "import_all",
             "VirtualAddress": "spw{{.InstanceID}}:7078"
         },
-	{
+        {
             "Application": "kafka-broker",
             "Name": "kafka-brokers",
             "PortNumber": 9092,

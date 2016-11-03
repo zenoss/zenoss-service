@@ -18,7 +18,7 @@
         {
             "Application": "datapipeline-service",
             "Name": "datapipeline-service",
-            "PortNumber": 8443,
+            "PortNumber": 8095,
             "Protocol": "tcp",
             "Purpose": "export"
         },
@@ -26,7 +26,7 @@
             "Application": "spark-master",
             "Name": "spark-master",
             "PortNumber": 7077,
-	    "PortTemplate": "{{plus .InstanceID 17077}}",
+            "PortTemplate": "{{plus .InstanceID 17077}}",
             "Protocol": "tcp",
             "Purpose": "import_all",
             "VirtualAddress": "spm{{.InstanceID}}:7077"
@@ -35,7 +35,7 @@
             "Application": "spark-worker",
             "Name": "spark-workers",
             "PortNumber": 7078,
-	    "PortTemplate": "{{plus .InstanceID 17078}}",
+            "PortTemplate": "{{plus .InstanceID 17078}}",
             "Protocol": "tcp",
             "Purpose": "import_all",
             "VirtualAddress": "spw{{.InstanceID}}:7078"
@@ -61,9 +61,17 @@
             "Application": "schema-registry",
             "Name": "schema-registry",
             "PortNumber": 8081,
+            "PortTemplate": "{{plus .InstanceID 18081}}",
             "Protocol": "tcp",
             "Purpose": "import_all",
             "VirtualAddress": "dsr{{.InstanceID}}:8081"
+        },
+        {
+            "Application": "zproxy",
+            "Name": "zproxy",
+            "PortNumber": 8080,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "HealthChecks": {

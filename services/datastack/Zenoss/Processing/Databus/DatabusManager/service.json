@@ -40,7 +40,7 @@
     "HealthChecks": {
         "kafka_answering": {
             "Interval": 10.0,
-            "Script":  "{{with $k := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
+            "Script": "{{with $k := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
         }
     },
     "HostPolicy": "PREFER_SEPARATE",

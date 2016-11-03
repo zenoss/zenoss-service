@@ -7,13 +7,13 @@
             "Owner": "zenoss:zenoss",
             "Permissions": "0664"
         },
-	"/opt/zenoss/etc/databus-otsdb-sink/worker-standalone.properties": {
-            "FileName": "/opt/zenoss/etc/databus-otsdb-sink/worker-standalone.properties.properties",
+        "/opt/zenoss/etc/databus-otsdb-sink/worker-distributed.properties": {
+            "FileName": "/opt/zenoss/etc/databus-otsdb-sink/worker-distributed.properties.properties",
             "Owner": "zenoss:zenoss",
             "Permissions": "0664"
         },
-        "/opt/zenoss/etc/databus-otsdb-sink/worker-distributed.properties": {
-            "FileName": "/opt/zenoss/etc/databus-otsdb-sink/worker-distributed.properties.properties",
+        "/opt/zenoss/etc/databus-otsdb-sink/worker-standalone.properties": {
+            "FileName": "/opt/zenoss/etc/databus-otsdb-sink/worker-standalone.properties.properties",
             "Owner": "zenoss:zenoss",
             "Permissions": "0664"
         }
@@ -46,18 +46,18 @@
             "Purpose": "import_all",
             "VirtualAddress": "kfk{{.InstanceID}}:9092"
         },
-	{
+        {
             "Application": "opentsdb-writer",
             "Name": "opentsdb-writer",
             "PortNumber": 4242,
             "Protocol": "tcp",
             "Purpose": "import"
-	}
+        }
     ],
     "HealthChecks": {
         "kafka_answering": {
             "Interval": 10.0,
-            "Script":  "{{with $k := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
+            "Script": "{{with $k := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
         }
     },
     "HostPolicy": "PREFER_SEPARATE",
@@ -89,7 +89,5 @@
     "Tags": [
         "daemon"
     ],
-    "Volumes": [
-       
-    ]
+    "Volumes": []
 }

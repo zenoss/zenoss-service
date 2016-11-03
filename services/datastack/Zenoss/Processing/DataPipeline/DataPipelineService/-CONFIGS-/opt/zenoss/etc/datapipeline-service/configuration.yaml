@@ -18,22 +18,25 @@ logging:
         archivedFileCount: 5
         timeZone: UTC
         threshold: ALL
-        
+
+proxyConfiguration:
+  hostname: 127.0.0.1
+  port: 8080
 server:
   applicationConnectors:
     - type: http
-      port: 8443
+      port: 8095
     - type: https
-      port: 8445
+      port: 8096
       keyStorePath: etc/datapipeline-service/cert/ssl.pfx
       keyStorePassword: zapp_pass
       keyStoreType:     pkcs12
       validateCerts: false
   adminConnectors:
     - type: http
-      port: 58443
+      port: 58095
     - type: https
-      port: 58445
+      port: 58096
       keyStorePath: etc/datapipeline-service/cert/ssl.pfx
       keyStorePassword: zapp_pass
       keyStoreType:     pkcs12
