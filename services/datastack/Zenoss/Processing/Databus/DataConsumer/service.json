@@ -76,8 +76,8 @@
             "type": "dataconsumer"
         }
     ],
-    "Privileged": true,
     "Name": "Data Consumer",
+    "Privileged": true,
     "RAMCommitment": "256M",
     "Tags": [
         "daemon"
