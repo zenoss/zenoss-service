@@ -1,0 +1,85 @@
+{
+    "CPUCommitment": 1,
+    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/ingest-api/supervisord.conf\"",
+    "ConfigFiles": {
+        "/opt/zenoss/etc/ingest-api/configuration.yaml": {
+            "FileName": "/opt/zenoss/etc/ingest-api/configuration.yaml",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0644"
+        },
+        "/opt/zenoss/etc/ingest-api/dataconsumer_supervisor.conf": {
+            "FileName": "/opt/zenoss/etc/ingest-api/dataconsumer_supervisor.conf",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0644"
+        }
+    },
+    "Description": "Accepts ad hoc metric data",
+    "Endpoints": [
+        {
+            "Application": "dataconsumer",
+            "Name": "dataconsumer",
+            "PortNumber": 8090,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        },
+        {
+            "Application": "kafka-broker",
+            "Name": "kafka-brokers",
+            "PortNumber": 9092,
+            "PortTemplate": "{{plus .InstanceID 19092}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "kfk{{.InstanceID}}:9092"
+        },
+        {
+            "Application": "schema-registry",
+            "Name": "schema-registry",
+            "PortNumber": 8081,
+            "PortTemplate": "{{plus .InstanceID 18081}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "dsr{{.InstanceID}}:8081"
+        },
+        {
+            "Application": "zproxy",
+            "Name": "zproxy",
+            "PortNumber": 8080,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        }
+    ],
+    "HealthChecks": {
+        "listening": {
+            "Interval": 10.0,
+            "Script": "nmap -oG - -Pn -sS -p 8443 127.0.0.1 | grep -q 8443/open"
+        }
+    },
+    "ImageID": "zenoss/databus:0.0.9.1-dev",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "filters": [
+                "zappdaemon"
+            ],
+            "path": "/opt/zenoss/log/dataconsumer.log",
+            "type": "dataconsumer"
+        }
+    ],
+    "Privileged": true,
+    "Name": "Data Consumer",
+    "RAMCommitment": "256M",
+    "Tags": [
+        "daemon"
+    ]
+}
