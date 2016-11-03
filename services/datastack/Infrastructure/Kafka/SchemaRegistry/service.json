@@ -1,0 +1,73 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/start-registry.sh -c /etc/kafka/schema-registry.properties -z {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}zk{{ plus 1 . }}:2181{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}} -s",
+    "ConfigFiles": {
+        "/etc/kafka/schema-registry.properties": {
+            "FileName": "/etc/kafka/schema-registry.properties",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Schema registry for the Databus",
+    "Endpoints": [
+        {
+            "Application": "schema-registry",
+            "Name": "schema-registry",
+            "PortNumber": 8081,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        },
+        {
+            "Application": "kafka-broker",
+            "Name": "kafka-brokers",
+            "PortNumber": 9092,
+            "PortTemplate": "{{plus .InstanceID 19092}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "kfk{{.InstanceID}}:9092"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 10.0,
+            "Script": "/usr/bin/generic_answering_check.sh localhost 8081"
+        }
+    },
+    "HostPolicy": "PREFER_SEPARATE",
+    "Hostname": "dsr{{.InstanceID}}",
+    "ImageID": "zenoss/kafka:0.10.0.1",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/log/kafka/registry.log",
+            "type": "schema-registry"
+        }
+    ],
+    "Name": "Schema Registry",
+    "Prereqs": [
+        {
+            "Name": "ZooKeeper up",
+            "Script": "{{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}/usr/bin/generic_answering_check.sh zk{{plus 1 .}} 2181 {{if ne (plus 1 .) $zks}}&& {{end}}{{end}}{{end}}"
+        },
+        {
+            "Name": "Kafka up",
+            "Script": "{{with $k := (child (parent .) \"KafkaBroker\").Instances }}{{ range (each $k) }}/usr/bin/generic_answering_check.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
+        }
+    ],
+    "Privileged": true,
+    "RAMCommitment": "256M",
+    "Tags": [
+        "daemon"
+    ]
+}

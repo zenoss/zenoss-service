@@ -1,0 +1,34 @@
+server:
+  applicationConnectors:
+  - type: http
+    port: 8090
+  adminConnectors:
+  - type: http
+    port: 58090
+
+metricPublish:
+  producerConfigFile: etc/ingest-api/ProducerDefaults.properties
+  brokers: kfk0:9092
+  topic: metric-raw-any
+  schemaRegistryUrl: http://dsr0:8081
+
+metricModel:
+  host: http://10.87.130.5:8060
+
+logging:
+  level: INFO
+  loggers:
+    org.zenoss.app.ingest.api.metrics.remote: DEBUG
+
+swagger:
+  resourcePackage: org.zenoss.app.ingest.api.metrics.remote
+  title: Ingest API
+  version: v1
+  description: Dynamic Metric Ingestion API
+  contact: info@zenoss.com
+  license: Apache 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0
+
+proxyConfiguration:
+  hostname: 127.0.0.1
+  port: 8080

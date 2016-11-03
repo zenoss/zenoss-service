@@ -1,0 +1,93 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/opt/zenoss/bin/databus-otsdb-sink-start.sh -b kfk0:9092 -r dsr0:8081",
+    "ConfigFiles": {
+        "/opt/zenoss/etc/databus-otsdb-sink/databus-otsdb-sink.properties": {
+            "FileName": "/opt/zenoss/etc/databus-otsdb-sink/databus-otsdb-sink.properties",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
+        },
+        "/opt/zenoss/etc/databus-otsdb-sink/worker-distributed.properties": {
+            "FileName": "/opt/zenoss/etc/databus-otsdb-sink/worker-distributed.properties.properties",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
+        },
+        "/opt/zenoss/etc/databus-otsdb-sink/worker-standalone.properties": {
+            "FileName": "/opt/zenoss/etc/databus-otsdb-sink/worker-standalone.properties.properties",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Databus to OTSDB data transfer service",
+    "Endpoints": [
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        },
+        {
+            "Application": "schema-registry",
+            "Name": "schema-registry",
+            "PortNumber": 8081,
+            "PortTemplate": "{{plus .InstanceID 18081}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "dsr{{.InstanceID}}:8081"
+        },
+        {
+            "Application": "kafka-broker",
+            "Name": "kafka-brokers",
+            "PortNumber": 9092,
+            "PortTemplate": "{{plus .InstanceID 19092}}",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "kfk{{.InstanceID}}:9092"
+        },
+        {
+            "Application": "opentsdb-writer",
+            "Name": "opentsdb-writer",
+            "PortNumber": 4242,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        }
+    ],
+    "HealthChecks": {
+        "kafka_answering": {
+            "Interval": 10.0,
+            "Script": "{{with $k := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
+        }
+    },
+    "HostPolicy": "PREFER_SEPARATE",
+    "Hostname": "dos{{.InstanceID}}",
+    "ImageID": "zenoss/databus:0.0.9.1-dev",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/zenoss/log/databus-otsdb-sink.log",
+            "type": "databus-otsdb-sink"
+        }
+    ],
+    "Name": "Databus OTSDB Sink",
+    "Prereqs": [
+        {
+            "Name": "Kafka up",
+            "Script": "{{with $k := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
+        },
+        {
+            "Name": "Registry up",
+            "Script": "{{with $k := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"SchemaRegistry\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/databusregistry_answering dsr{{.}} 8081 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
+        }
+    ],
+    "Privileged": true,
+    "RAMCommitment": "256M",
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": []
+}

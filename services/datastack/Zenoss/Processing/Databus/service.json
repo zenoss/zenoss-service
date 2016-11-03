@@ -1,0 +1,5 @@
+{
+    "Description": "Zenoss Databus",
+    "Launch": "auto",
+    "Name": "Databus"
+}

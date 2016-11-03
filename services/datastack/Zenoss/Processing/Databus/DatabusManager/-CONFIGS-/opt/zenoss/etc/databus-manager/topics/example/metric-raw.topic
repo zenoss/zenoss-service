@@ -1,0 +1,11 @@
+name: metric-test1
+replication: 2
+partition: 3
+schemas:
+  VALUE :
+    type: VALUE
+    inlineContent: "{\"name\":\"value\",\"type\": \"int\"}"
+
+
+ 
+
