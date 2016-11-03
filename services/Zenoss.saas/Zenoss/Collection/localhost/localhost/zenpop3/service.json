@@ -99,7 +99,7 @@
                     {
                         "aggregator": "avg",
                         "fill": false,
-                        "format": "%%d",
+                        "format": "%d",
                         "id": "eventCount",
                         "legend": "Event Count",
                         "metric": "eventCount",
@@ -126,7 +126,7 @@
                     {
                         "aggregator": "avg",
                         "fill": false,
-                        "format": "%%d",
+                        "format": "%d",
                         "id": "eventQueueLength",
                         "legend": "Event Queue Length",
                         "metric": "eventQueueLength",
@@ -153,7 +153,7 @@
                     {
                         "aggregator": "avg",
                         "fill": false,
-                        "format": "%%d",
+                        "format": "%d",
                         "id": "missedRuns",
                         "legend": "Missed Runs",
                         "metric": "missedRuns",
@@ -180,7 +180,7 @@
                     {
                         "aggregator": "avg",
                         "fill": false,
-                        "format": "%%d",
+                        "format": "%d",
                         "id": "queuedTasks",
                         "legend": "Queued Tasks",
                         "metric": "queuedTasks",
@@ -192,7 +192,7 @@
                     {
                         "aggregator": "avg",
                         "fill": false,
-                        "format": "%%d",
+                        "format": "%d",
                         "id": "runningTasks",
                         "legend": "Running Tasks",
                         "metric": "runningTasks",
@@ -204,7 +204,7 @@
                     {
                         "aggregator": "avg",
                         "fill": false,
-                        "format": "%%d",
+                        "format": "%d",
                         "id": "taskCount",
                         "legend": "Task Count",
                         "metric": "taskCount",
