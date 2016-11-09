@@ -77,7 +77,7 @@
     "HealthChecks": {
         "answering": {
             "Interval": 10.0,
-            "Script": "/usr/bin/generic-port-check.sh dps{{.InstanceID}} 8443"
+            "Script": "/usr/bin/generic-port-check.sh dps{{.InstanceID}} 8095"
         }
     },
     "HostPolicy": "PREFER_SEPARATE",

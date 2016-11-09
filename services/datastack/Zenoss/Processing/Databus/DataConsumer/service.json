@@ -59,7 +59,7 @@
     "HealthChecks": {
         "listening": {
             "Interval": 10.0,
-            "Script": "nmap -oG - -Pn -sS -p 8443 127.0.0.1 | grep -q 8443/open"
+            "Script": "nmap -oG - -Pn -sS -p 8090 127.0.0.1 | grep -q 8090/open"
         }
     },
     "ImageID": "zenoss/databus:0.0.9.1-dev",
