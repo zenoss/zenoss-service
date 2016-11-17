@@ -13,7 +13,7 @@ metricPublish:
   schemaRegistryUrl: http://dsr0:8081
 
 metricModel:
-  host: http://10.87.130.5:8060
+  host: http://localhost:8060
 
 logging:
   level: INFO
