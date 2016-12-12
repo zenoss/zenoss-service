@@ -1,14 +1,14 @@
 {
     "CPUCommitment": 1,
-    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/ingest-api/supervisord.conf\"",
+    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/dataconsumer-api/supervisord.conf\"",
     "ConfigFiles": {
-        "/opt/zenoss/etc/ingest-api/configuration.yaml": {
-            "FileName": "/opt/zenoss/etc/ingest-api/configuration.yaml",
+        "/opt/zenoss/etc/dataconsumer-api/configuration.yaml": {
+            "FileName": "/opt/zenoss/etc/dataconsumer-api/configuration.yaml",
             "Owner": "zenoss:zenoss",
             "Permissions": "0644"
         },
-        "/opt/zenoss/etc/ingest-api/dataconsumer_supervisor.conf": {
-            "FileName": "/opt/zenoss/etc/ingest-api/dataconsumer_supervisor.conf",
+        "/opt/zenoss/etc/dataconsumer-api/dataconsumer_supervisor.conf": {
+            "FileName": "/opt/zenoss/etc/dataconsumer-api/dataconsumer_supervisor.conf",
             "Owner": "zenoss:zenoss",
             "Permissions": "0644"
         }

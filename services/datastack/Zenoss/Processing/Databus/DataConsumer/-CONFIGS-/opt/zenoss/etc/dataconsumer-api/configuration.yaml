@@ -7,7 +7,7 @@ server:
     port: 58090
 
 metricPublish:
-  producerConfigFile: etc/ingest-api/ProducerDefaults.properties
+  producerConfigFile: etc/dataconsumer-api/ProducerDefaults.properties
   brokers: kfk0:9092
   topic: metric-raw-any
   schemaRegistryUrl: http://dsr0:8081
@@ -18,10 +18,10 @@ metricModel:
 logging:
   level: INFO
   loggers:
-    org.zenoss.app.ingest.api.metrics.remote: DEBUG
+    org.zenoss.app.dataconsumer.api.metrics.remote: DEBUG
 
 swagger:
-  resourcePackage: org.zenoss.app.ingest.api.metrics.remote
+  resourcePackage: org.zenoss.app.dataconsumer.api.metrics.remote
   title: Ingest API
   version: v1
   description: Dynamic Metric Ingestion API
