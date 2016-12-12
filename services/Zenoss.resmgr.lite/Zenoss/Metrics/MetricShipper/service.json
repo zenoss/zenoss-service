@@ -37,6 +37,10 @@
         "store_answering": {
             "Interval": 10.0,
             "Script": "/opt/zenoss/bin/healthchecks/MetricShipper/store_answering"
+        },
+        "websocket_opened": {
+            "Interval": 10.0,
+            "Script": "/opt/zenoss/bin/healthchecks/MetricShipper/websocket_opened"
         }
     },
     "ImageID": "zenoss/zenoss5x",
