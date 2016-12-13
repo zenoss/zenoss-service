@@ -26,21 +26,21 @@ server:
   applicationConnectors:
     - type: http
       port: 8095
-    - type: https
-      port: 8096
-      keyStorePath: etc/datapipeline-service/cert/ssl.pfx
-      keyStorePassword: zapp_pass
-      keyStoreType:     pkcs12
-      validateCerts: false
+    # - type: https
+    #   port: 8096
+    #   keyStorePath: etc/datapipeline-service/cert/ssl.pfx
+    #   keyStorePassword: zapp_pass
+    #   keyStoreType:     pkcs12
+    #   validateCerts: false
   adminConnectors:
     - type: http
       port: 58095
-    - type: https
-      port: 58096
-      keyStorePath: etc/datapipeline-service/cert/ssl.pfx
-      keyStorePassword: zapp_pass
-      keyStoreType:     pkcs12
-      validateCerts: false
+    # - type: https
+    #   port: 58096
+    #   keyStorePath: etc/datapipeline-service/cert/ssl.pfx
+    #   keyStorePassword: zapp_pass
+    #   keyStoreType:     pkcs12
+    #   validateCerts: false
 
 
 
