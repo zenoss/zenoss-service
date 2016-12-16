@@ -94,7 +94,7 @@
     },
     "HostPolicy": "PREFER_SEPARATE",
     "Hostname": "znb{{.InstanceID}}",
-    "ImageID": "zenoss/datapipeline:1.0.1-dev",
+    "ImageID": "zenoss/datapipeline:1.0.1",
     "Instances": {
         "min": 1
     },
