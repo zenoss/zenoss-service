@@ -92,7 +92,7 @@
     },
     "HostPolicy": "PREFER_SEPARATE",
     "Hostname": "spm{{.InstanceID}}",
-    "ImageID": "zenoss/spark:1.0.0-dev",
+    "ImageID": "zenoss/spark:1.0.0",
     "Instances": {
         "min": 1
     },
