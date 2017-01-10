@@ -1,0 +1,36 @@
+server:
+  applicationConnectors:
+  - type: http
+    port: 8060
+  adminConnectors:
+  - type: http
+    port: 58060
+
+logging:
+  level: INFO
+  loggers:
+    org.zenoss.app.metricmodelapi.publish.remote: DEBUG
+    org.zenoss.app.metricmodelapi.query.remote: DEBUG
+    org.zenoss.app.metricmodelapi.managers: DEBUG    
+
+swagger:
+  resourcePackage: org.zenoss.app.metricmodelapi.query.remote,org.zenoss.app.metricmodelapi.publish.remote
+  title: Metric Model API
+  version: v1
+  description: Metric Model API
+  contact: info@zenoss.com
+  license: Apache 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0
+
+api:
+  maxRequestItems: 25
+  maxPublishItems: 25
+
+solr:
+  zookeeperHost: 10.87.128.63:2181
+  registrationCommitMs: 10
+  metadataCommitMs: 10
+
+proxyConfiguration:
+  hostname: 127.0.0.1
+  port: 8080
