@@ -45,7 +45,7 @@
     },
     "HostPolicy": "PREFER_SEPARATE",
     "Hostname": "dm{{.InstanceID}}",
-    "ImageID": "zenoss/databus:0.1.0",
+    "ImageID": "zenoss/databus:0.1.1-dev",
     "Instances": {
         "min": 1
     },

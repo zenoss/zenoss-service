@@ -73,10 +73,10 @@
                 "zappdaemon"
             ],
             "path": "/opt/zenoss/log/metriccatalog.log",
-            "type": "dataconsumer"
+            "type": "metriccatalog"
         }
     ],
-    "Name": "Data Consumer",
+    "Name": "Metric Catalog",
     "Privileged": true,
     "RAMCommitment": "256M",
     "Tags": [

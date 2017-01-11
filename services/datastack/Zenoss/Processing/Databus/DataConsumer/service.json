@@ -48,6 +48,13 @@
             "Purpose": "import_all",
             "VirtualAddress": "dsr{{.InstanceID}}:8081"
         },
+        { 
+			"Application": "MetricCatalog",
+            "Name": "MetricCatalog",
+            "PortNumber": 8060,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
         {
             "Application": "zproxy",
             "Name": "zproxy",
@@ -62,7 +69,7 @@
             "Script": "nmap -oG - -Pn -sS -p 8090 127.0.0.1 | grep -q 8090/open"
         }
     },
-    "ImageID": "zenoss/databus:0.1.0",
+    "ImageID": "zenoss/databus:0.1.1-dev",
     "Instances": {
         "min": 1
     },
