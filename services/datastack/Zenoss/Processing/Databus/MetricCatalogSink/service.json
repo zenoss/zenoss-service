@@ -1,24 +1,24 @@
 {
     "CPUCommitment": 1,
-    "Command": "/opt/zenoss/bin/databus-otsdb-sink-start.sh -b kfk0:9092 -r dsr0:8081",
+    "Command": "/opt/zenoss/bin/databus-metric-catalog-sink-start.sh -b kfk0:9092 -r dsr0:8081",
     "ConfigFiles": {
-        "/opt/zenoss/etc/databus-otsdb-sink/databus-otsdb-sink.properties": {
-            "FileName": "/opt/zenoss/etc/databus-otsdb-sink/databus-otsdb-sink.properties",
+        "/opt/zenoss/etc/databus-metric-catalog-sink/databus-metric-catalog-sink.properties": {
+            "FileName": "/opt/zenoss/etc/databus-metric-catalog-sink/databus-metric-catalog-sink.properties",
             "Owner": "zenoss:zenoss",
             "Permissions": "0664"
         },
-        "/opt/zenoss/etc/databus-otsdb-sink/worker-distributed.properties": {
-            "FileName": "/opt/zenoss/etc/databus-otsdb-sink/worker-distributed.properties.properties",
+        "/opt/zenoss/etc/databus-metric-catalog-sink/worker-distributed.properties": {
+            "FileName": "/opt/zenoss/etc/databus-metric-catalog-sink/worker-distributed.properties.properties",
             "Owner": "zenoss:zenoss",
             "Permissions": "0664"
         },
-        "/opt/zenoss/etc/databus-otsdb-sink/worker-standalone.properties": {
-            "FileName": "/opt/zenoss/etc/databus-otsdb-sink/worker-standalone.properties.properties",
+        "/opt/zenoss/etc/databus-metric-catalog-sink/worker-standalone.properties": {
+            "FileName": "/opt/zenoss/etc/databus-metric-catalog-sink/worker-standalone.properties.properties",
             "Owner": "zenoss:zenoss",
             "Permissions": "0664"
         }
     },
-    "Description": "Databus to OTSDB data transfer service",
+    "Description": "Databus to Metric Catalog data transfer service",
     "Endpoints": [
         {
             "Application": "zookeeper-client",
@@ -47,9 +47,9 @@
             "VirtualAddress": "kfk{{.InstanceID}}:9092"
         },
         {
-            "Application": "opentsdb-writer",
-            "Name": "opentsdb-writer",
-            "PortNumber": 4242,
+            "Application": "metric-catalog",
+            "Name": "metric-catalog",
+            "PortNumber": 8060,
             "Protocol": "tcp",
             "Purpose": "import"
         }
@@ -61,7 +61,7 @@
         }
     },
     "HostPolicy": "PREFER_SEPARATE",
-    "Hostname": "dos{{.InstanceID}}",
+    "Hostname": "mcs{{.InstanceID}}",
     "ImageID": "zenoss/databus:0.1.1-dev",
     "Instances": {
         "min": 1
@@ -69,11 +69,11 @@
     "Launch": "auto",
     "LogConfigs": [
         {
-            "path": "/opt/zenoss/log/databus-otsdb-sink.log",
-            "type": "databus-otsdb-sink"
+            "path": "/opt/zenoss/log/databus-metric-catalog-sink.log",
+            "type": "databus-metric-catalog-sink"
         }
     ],
-    "Name": "Databus OTSDB Sink",
+    "Name": "Databus Metric Catalog Sink",
     "Prereqs": [
         {
             "Name": "Kafka up",
