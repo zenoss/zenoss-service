@@ -1,24 +1,24 @@
 {
     "CPUCommitment": 1,
-    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/dataconsumer-api/supervisord.conf\"",
+    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/metric-model-api/supervisord.conf\"",
     "ConfigFiles": {
-        "/opt/zenoss/etc/dataconsumer-api/configuration.yaml": {
-            "FileName": "/opt/zenoss/etc/dataconsumer-api/configuration.yaml",
+        "/opt/zenoss/etc/metric-model-api/configuration.yaml": {
+            "FileName": "/opt/zenoss/etc/metric-model-api/configuration.yaml",
             "Owner": "zenoss:zenoss",
             "Permissions": "0644"
         },
-        "/opt/zenoss/etc/dataconsumer-api/dataconsumer_supervisor.conf": {
-            "FileName": "/opt/zenoss/etc/dataconsumer-api/dataconsumer_supervisor.conf",
+        "/opt/zenoss/etc/metric-model-api/metric-model-api_supervisor.conf": {
+            "FileName": "/opt/zenoss/etc/metric-model-api/metric-model-api_supervisor.conf",
             "Owner": "zenoss:zenoss",
             "Permissions": "0644"
         }
     },
-    "Description": "Accepts ad hoc metric data",
+    "Description": "Resource for metric definitions and instances",
     "Endpoints": [
         {
-            "Application": "dataconsumer",
-            "Name": "dataconsumer",
-            "PortNumber": 8090,
+            "Application": "MetricCatalog",
+            "Name": "MetricCatalog",
+            "PortNumber": 8060,
             "Protocol": "tcp",
             "Purpose": "export"
         },
@@ -49,13 +49,6 @@
             "VirtualAddress": "dsr{{.InstanceID}}:8081"
         },
         {
-            "Application": "MetricCatalog",
-            "Name": "MetricCatalog",
-            "PortNumber": 8060,
-            "Protocol": "tcp",
-            "Purpose": "import"
-        },
-        {
             "Application": "zproxy",
             "Name": "zproxy",
             "PortNumber": 8080,
@@ -66,7 +59,7 @@
     "HealthChecks": {
         "listening": {
             "Interval": 10.0,
-            "Script": "nmap -oG - -Pn -sS -p 8090 127.0.0.1 | grep -q 8090/open"
+            "Script": "nmap -oG - -Pn -sS -p 8060 127.0.0.1 | grep -q 8060/open"
         }
     },
     "ImageID": "zenoss/databus:0.1.1-dev",
@@ -79,11 +72,11 @@
             "filters": [
                 "zappdaemon"
             ],
-            "path": "/opt/zenoss/log/dataconsumer.log",
-            "type": "dataconsumer"
+            "path": "/opt/zenoss/log/metriccatalog.log",
+            "type": "metriccatalog"
         }
     ],
-    "Name": "Data Consumer",
+    "Name": "Metric Catalog",
     "Privileged": true,
     "RAMCommitment": "256M",
     "Tags": [
