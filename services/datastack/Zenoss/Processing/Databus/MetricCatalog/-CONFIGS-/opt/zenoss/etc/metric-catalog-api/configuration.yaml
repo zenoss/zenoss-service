@@ -9,15 +9,15 @@ server:
 logging:
   level: INFO
   loggers:
-    org.zenoss.app.metricmodelapi.publish.remote: DEBUG
-    org.zenoss.app.metricmodelapi.query.remote: DEBUG
-    org.zenoss.app.metricmodelapi.managers: DEBUG    
+    org.zenoss.app.metriccatalogapi.publish.remote: DEBUG
+    org.zenoss.app.metriccatalogapi.query.remote: DEBUG
+    org.zenoss.app.metriccatalogapi.managers: DEBUG    
 
 swagger:
-  resourcePackage: org.zenoss.app.metricmodelapi.query.remote,org.zenoss.app.metricmodelapi.publish.remote
-  title: Metric Model API
+  resourcePackage: org.zenoss.app.metriccatalogapi.query.remote,org.zenoss.app.metriccatalogapi.publish.remote
+  title: Metric Catalog API
   version: v1
-  description: Metric Model API
+  description: Metric Catalog API
   contact: info@zenoss.com
   license: Apache 2.0
   licenseUrl: https://www.apache.org/licenses/LICENSE-2.0
