@@ -116,6 +116,7 @@
     ],
     "Name": "Zenoss",
     "RAMCommitment": "256M",
+    "StartLevel": 2,
     "Tags": [
         "daemon"
     ],

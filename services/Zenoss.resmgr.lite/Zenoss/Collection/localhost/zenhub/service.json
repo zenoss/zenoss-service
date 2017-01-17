@@ -206,6 +206,7 @@
     ],
     "RAMCommitment": "256M",
     "Services": [],
+    "StartLevel": 2,
     "Tags": [
         "daemon",
         "hub"

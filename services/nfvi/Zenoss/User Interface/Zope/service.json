@@ -216,6 +216,7 @@
     ],
     "RAMCommitment": "1G",
     "Services": [],
+    "StartLevel": 3,
     "Tags": [
         "daemon"
     ],
