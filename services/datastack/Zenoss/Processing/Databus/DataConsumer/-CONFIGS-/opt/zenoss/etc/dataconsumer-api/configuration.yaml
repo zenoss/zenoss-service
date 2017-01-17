@@ -12,7 +12,7 @@ metricPublish:
   topic: metric-raw-any
   schemaRegistryUrl: http://dsr0:8081
 
-metricModel:
+metricCatalog:
   host: http://localhost:8060
 
 logging:
