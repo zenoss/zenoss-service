@@ -31,6 +31,13 @@
             "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
         },
         {
+            "Application": "solr",
+            "Name": "solr",
+            "PortNumber": 8983,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Application": "kafka-broker",
             "Name": "kafka-brokers",
             "PortNumber": 9092,
