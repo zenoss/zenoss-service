@@ -16,15 +16,15 @@
     "Description": "Accepts ad hoc metric data",
     "Endpoints": [
         {
+            "AddressConfig": {
+                "Port": 8090,
+                "Protocol": "tcp"
+            },
             "Application": "dataconsumer",
             "Name": "dataconsumer",
             "PortNumber": 8090,
             "Protocol": "tcp",
-            "Purpose": "export",
-            "AddressConfig": {
-                "Port": 8090,
-                "Protocol": "tcp"
-            }
+            "Purpose": "export"
         },
         {
             "Application": "zookeeper-client",
