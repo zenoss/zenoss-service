@@ -1,0 +1,67 @@
+{
+    "CPUCommitment": 2,
+    "Command": "setuser solr /opt/solr/bin/solr -f -cloud -s /opt/solr/server/solr -Dsolr.data.dir=/var/solr/data -z {{with $zks := (child (child (parent .) \"HBase\") \"ZooKeeper\").Instances }}{{range (each $zks)}}127.0.0.1:{{plus 2181 .}}{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}}/solr",
+    "ConfigFiles": {
+        "/opt/solr/server/solr/solr.xml": {
+            "FileName": "/opt/solr/server/solr/solr.xml",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Solr Cloud",
+    "Endpoints": [
+        {
+            "Application": "solr",
+            "Name": "solr",
+            "PortNumber": 8983,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "Vhosts": [
+                "solr"
+            ]
+        },
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 10.0,
+            "Script": "curl -sI http://localhost:8983/solr/admin/cores | grep -q 200"
+        },
+        "zookeeper": {
+            "Interval": 10.0,
+            "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 2181 | grep -q Zookeeper"
+        }
+    },
+    "ImageID": "zenoss/solr:0.0.1",
+    "Instances": {
+        "Default": 1,
+        "Min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [],
+    "Name": "Solr",
+    "Prereqs": [
+        {
+            "Name": "Zookeeper",
+            "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 2181 | grep -q Zookeeper"
+        }
+    ],
+    "RAMCommitment": "1G",
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "ContainerPath": "/var/solr/data",
+            "Owner": "solr:solr",
+            "Permission": "0750",
+            "ResourcePath": "solr-{{.InstanceID}}"
+        }
+    ]
+}
