@@ -20,7 +20,11 @@
             "Name": "dataconsumer",
             "PortNumber": 8090,
             "Protocol": "tcp",
-            "Purpose": "export"
+            "Purpose": "export",
+            "AddressConfig": {
+                "Port": 8090,
+                "Protocol": "tcp"
+            }
         },
         {
             "Application": "zookeeper-client",
