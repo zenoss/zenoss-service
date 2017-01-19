@@ -1,14 +1,14 @@
 {
     "CPUCommitment": 1,
-    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/metric-model-api/supervisord.conf\"",
+    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/metric-catalog-api/supervisord.conf\"",
     "ConfigFiles": {
-        "/opt/zenoss/etc/metric-model-api/configuration.yaml": {
-            "FileName": "/opt/zenoss/etc/metric-model-api/configuration.yaml",
+        "/opt/zenoss/etc/metric-catalog-api/configuration.yaml": {
+            "FileName": "/opt/zenoss/etc/metric-catalog-api/configuration.yaml",
             "Owner": "zenoss:zenoss",
             "Permissions": "0644"
         },
-        "/opt/zenoss/etc/metric-model-api/metric-model-api_supervisor.conf": {
-            "FileName": "/opt/zenoss/etc/metric-model-api/metric-model-api_supervisor.conf",
+        "/opt/zenoss/etc/metric-catalog-api/metric-catalog-api_supervisor.conf": {
+            "FileName": "/opt/zenoss/etc/metric-catalog-api/metric-catalog-api_supervisor.conf",
             "Owner": "zenoss:zenoss",
             "Permissions": "0644"
         }
@@ -29,6 +29,13 @@
             "Protocol": "tcp",
             "Purpose": "import_all",
             "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        },
+        {
+            "Application": "solr",
+            "Name": "solr",
+            "PortNumber": 8983,
+            "Protocol": "tcp",
+            "Purpose": "import"
         },
         {
             "Application": "kafka-broker",
