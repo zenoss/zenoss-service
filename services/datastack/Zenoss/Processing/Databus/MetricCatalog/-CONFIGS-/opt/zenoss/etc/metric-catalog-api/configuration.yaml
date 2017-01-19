@@ -27,7 +27,7 @@ api:
   maxPublishItems: 25
 
 solr:
-  zookeeperHost: 10.87.128.63:2181
+  zookeeperHost: localhost:2181/solr
   registrationCommitMs: 10
   metadataCommitMs: 10
 
