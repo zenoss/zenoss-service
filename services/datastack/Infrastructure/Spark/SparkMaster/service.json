@@ -82,6 +82,13 @@
             "Protocol": "tcp",
             "Purpose": "import_all",
             "VirtualAddress": "dsr{{.InstanceID}}:8081"
+        },
+        {
+            "Application": "MetricCatalog",
+            "Name": "MetricCatalog",
+            "PortNumber": 8060,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "HealthChecks": {
