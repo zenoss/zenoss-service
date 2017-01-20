@@ -16,6 +16,10 @@
     "Description": "Resource for metric definitions and instances",
     "Endpoints": [
         {
+            "AddressConfig": {
+                "Port": 8060,
+                "Protocol": "tcp"
+            },
             "Application": "MetricCatalog",
             "Name": "MetricCatalog",
             "PortNumber": 8060,
