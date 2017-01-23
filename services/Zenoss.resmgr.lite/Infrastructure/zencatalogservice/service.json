@@ -15,7 +15,7 @@
         }
     },
     "Description": "Creates and maintains a full-text index of the event server database",
-    "EmergencyShutdown": 2,
+    "EmergencyShutdownLevel": 2,
     "Endpoints": [
         {
             "Application": "zodb_zencatalogservice",

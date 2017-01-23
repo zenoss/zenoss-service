@@ -3,7 +3,7 @@
     "Command": "/usr/bin/mysqld_safe",
     "Commands": {},
     "Description": "MariaDB model database server",
-    "EmergencyShutdown": 1,
+    "EmergencyShutdownLevel": 1,
     "Endpoints": [
         {
             "Application": "zodb_mariadb",

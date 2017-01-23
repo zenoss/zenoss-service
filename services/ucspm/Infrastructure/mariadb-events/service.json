@@ -2,7 +2,7 @@
     "CPUCommitment": 4,
     "Command": "/usr/bin/mysqld_safe",
     "Description": "MariaDB events database server",
-    "EmergencyShutdown": 1,
+    "EmergencyShutdownLevel": 1,
     "Endpoints": [
         {
             "Application": "zep_mariadb",

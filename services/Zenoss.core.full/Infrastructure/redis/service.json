@@ -2,7 +2,7 @@
     "CPUCommitment": 1,
     "Command": "/usr/bin/redis-server /etc/redis.conf",
     "Description": "Redis server",
-    "EmergencyShutdown": 2,
+    "EmergencyShutdownLevel": 2,
     "Endpoints": [
         {
             "Application": "redis",
