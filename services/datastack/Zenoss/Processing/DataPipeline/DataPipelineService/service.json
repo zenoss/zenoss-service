@@ -67,6 +67,13 @@
             "VirtualAddress": "dsr{{.InstanceID}}:8081"
         },
         {
+            "Application": "MetricCatalog",
+            "Name": "MetricCatalog",
+            "PortNumber": 8060,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Application": "zproxy",
             "Name": "zproxy",
             "PortNumber": 8080,
