@@ -14,6 +14,7 @@
         }
     },
     "Description": "RabbitMQ server",
+    "EmergencyShutdown": 2,
     "Endpoints": [
         {
             "Application": "rabbitmq_admin",
@@ -122,6 +123,7 @@
         "Pause": "PAUSE_CHECK_TIMEOUT=60 ${ZENHOME:-/opt/zenoss}/bin/quiesce-rabbitmq.sh pause",
         "Resume": "${ZENHOME:-/opt/zenoss}/bin/quiesce-rabbitmq.sh resume"
     },
+    "StartLevel": 1,
     "Tags": [
         "daemon"
     ],

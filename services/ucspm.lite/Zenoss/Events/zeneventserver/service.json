@@ -30,6 +30,7 @@
         }
     },
     "Description": "Stores and retrieves events from its database",
+    "EmergencyShutdown": 2,
     "Endpoints": [
         {
             "Application": "zep_mariadb",
@@ -132,6 +133,7 @@
         }
     ],
     "RAMCommitment": "256M",
+    "StartLevel": 2,
     "Tags": [
         "daemon"
     ],

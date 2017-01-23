@@ -283,6 +283,7 @@
     },
     "Name": "central_query",
     "RAMCommitment": "1G",
+    "StartLevel": 3,
     "Tags": [
         "daemon"
     ]

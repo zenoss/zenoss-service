@@ -392,6 +392,7 @@
     },
     "Name": "metric_consumer",
     "RAMCommitment": "1G",
+    "StartLevel": 3,
     "Tags": [
         "daemon"
     ]
