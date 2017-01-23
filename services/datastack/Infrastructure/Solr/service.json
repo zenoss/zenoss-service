@@ -6,6 +6,11 @@
             "FileName": "/opt/solr/server/solr/solr.xml",
             "Owner": "root:root",
             "Permissions": "0664"
+        },
+        "/opt/solr/zenoss/etc/solr.in.sh": {
+            "Filename": "/opt/solr/zenoss/etc/solr.in.sh",
+            "Owner": "root:root",
+            "Permissions": "0664"
         }
     },
     "Description": "Solr Cloud",
@@ -38,7 +43,7 @@
             "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 2181 | grep -q Zookeeper"
         }
     },
-    "ImageID": "zenoss/solr:0.0.1",
+    "ImageID": "zenoss/solr:0.0.2",
     "Instances": {
         "Default": 1,
         "Min": 1
