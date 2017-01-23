@@ -14,7 +14,7 @@
         }
     },
     "Description": "Region Server for HBase",
-    "EmergencyShutdown": 1,
+    "EmergencyShutdownLevel": 1,
     "Endpoints": [
         {
             "Application": "hbase-master-.*",

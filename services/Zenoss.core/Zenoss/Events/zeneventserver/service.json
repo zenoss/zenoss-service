@@ -30,7 +30,7 @@
         }
     },
     "Description": "Stores and retrieves events from its database",
-    "EmergencyShutdown": 2,
+    "EmergencyShutdownLevel": 2,
     "Endpoints": [
         {
             "Application": "zodb_.*",
