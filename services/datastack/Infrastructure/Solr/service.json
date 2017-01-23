@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 2,
-    "Command": "setuser solr /opt/solr/bin/solr -f -cloud -s /opt/solr/server/solr -Dsolr.data.dir=/var/solr/data -z {{with $zks := (child (child (parent .) \"HBase\") \"ZooKeeper\").Instances }}{{range (each $zks)}}127.0.0.1:{{plus 2181 .}}{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}}/solr",
+    "Command": "setuser solr /opt/solr/zenoss/bin/start-solr -cloud",
     "ConfigFiles": {
         "/opt/solr/server/solr/solr.xml": {
             "FileName": "/opt/solr/server/solr/solr.xml",
