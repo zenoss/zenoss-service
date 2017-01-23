@@ -58,6 +58,12 @@
     ],
     "Volumes": [
         {
+            "ContainerPath": "/opt/solr/server/logs",
+            "Owner": "solr:solr",
+            "Permission": "0750",
+            "ResourcePath": "solr-logs-{{.InstanceID}}"
+        },
+        {
             "ContainerPath": "/var/solr/data",
             "Owner": "solr:solr",
             "Permission": "0750",

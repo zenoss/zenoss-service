@@ -20,8 +20,8 @@
                 "Port": 8060,
                 "Protocol": "tcp"
             },
-            "Application": "MetricCatalog",
-            "Name": "MetricCatalog",
+            "Application": "metric-catalog",
+            "Name": "metric-catalog",
             "PortNumber": 8060,
             "Protocol": "tcp",
             "Purpose": "export"
@@ -83,7 +83,7 @@
             "filters": [
                 "zappdaemon"
             ],
-            "path": "/opt/zenoss/log/metriccatalog.log",
+            "path": "/opt/zenoss/log/metric-catalog-api.log",
             "type": "metriccatalog"
         }
     ],
