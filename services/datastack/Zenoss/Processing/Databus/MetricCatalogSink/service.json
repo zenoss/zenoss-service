@@ -50,8 +50,10 @@
             "Application": "metric-catalog",
             "Name": "metric-catalog",
             "PortNumber": 8060,
+            "PortTemplate": "{{plus .InstanceID 18060}}",
             "Protocol": "tcp",
-            "Purpose": "import"
+            "Purpose": "import_all",
+            "VirtualAddress": "mc{{.InstanceID}}:8060"
         }
     ],
     "HealthChecks": {

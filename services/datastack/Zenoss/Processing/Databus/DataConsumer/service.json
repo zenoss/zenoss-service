@@ -53,8 +53,8 @@
             "VirtualAddress": "dsr{{.InstanceID}}:8081"
         },
         {
-            "Application": "MetricCatalog",
-            "Name": "MetricCatalog",
+            "Application": "metric-catalog",
+            "Name": "metric-catalog",
             "PortNumber": 8060,
             "Protocol": "tcp",
             "Purpose": "import"
