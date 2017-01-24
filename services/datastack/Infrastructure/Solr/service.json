@@ -1,9 +1,14 @@
 {
     "CPUCommitment": 2,
-    "Command": "setuser solr /opt/solr/bin/solr -f -cloud -s /opt/solr/server/solr -Dsolr.data.dir=/var/solr/data -z {{with $zks := (child (child (parent .) \"HBase\") \"ZooKeeper\").Instances }}{{range (each $zks)}}127.0.0.1:{{plus 2181 .}}{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}}/solr",
+    "Command": "setuser solr /opt/solr/zenoss/bin/start-solr -cloud",
     "ConfigFiles": {
         "/opt/solr/server/solr/solr.xml": {
             "FileName": "/opt/solr/server/solr/solr.xml",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        },
+        "/opt/solr/zenoss/etc/solr.in.sh": {
+            "Filename": "/opt/solr/zenoss/etc/solr.in.sh",
             "Owner": "root:root",
             "Permissions": "0664"
         }
@@ -38,7 +43,7 @@
             "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 2181 | grep -q Zookeeper"
         }
     },
-    "ImageID": "zenoss/solr:0.0.1",
+    "ImageID": "zenoss/solr:0.0.2",
     "Instances": {
         "Default": 1,
         "Min": 1
