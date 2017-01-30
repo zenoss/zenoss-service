@@ -122,7 +122,7 @@ mrclean: clean
 #       by git SHA, but starting with CC 1.1.4 and RM 5.1.3, the naming convention
 #       for the tgz artifacts was updated to use CC version and build number.
 ZENPIPPKGSURL = http://zenpip.zendev.org/packages
-SERVICED_ARCHIVE=serviced-1.2.0-0.0.3017.unstable.tgz
+SERVICED_ARCHIVE=serviced-1.3.0-0.0.76.unstable.tgz
 serviced:
 	echo " extracting: $@"
 	curl -s $(ZENPIPPKGSURL)/$(SERVICED_ARCHIVE) | \
