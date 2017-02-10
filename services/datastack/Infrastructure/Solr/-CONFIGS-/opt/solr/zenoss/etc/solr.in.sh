@@ -1,3 +1,4 @@
 # This file is injected by ControlCenter with container-specific parameters
-ZK_HOST={{with $zks := (child (child (parent .) "HBase") "ZooKeeper").Instances }}{{range (each $zks)}}127.0.0.1:{{plus 2181 .}}{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}}/solr
+ZK_HOST=172.31.16.14:5181/solr,172.31.17.9:5181/solr,172.31.27.159:5181/solr
+ZK_QUORUM=172.31.16.14:5181,172.31.17.9:5181,172.31.27.159:5181
 

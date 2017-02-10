@@ -1,0 +1,60 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/bin/sh -c \"/opt/opentsdb/start-opentsdb.sh 172.31.16.14:5181,172.31.17.9:5181,172.31.27.159:5181\"",
+    "ConfigFiles": {
+        "/opt/zenoss/etc/opentsdb/opentsdb.conf": {
+            "FileName": "/opt/zenoss/etc/opentsdb/opentsdb.conf",
+            "Owner": "root:root",
+            "Permissions": "0644"
+        }
+    },
+    "Description": "OpenTSDB server",
+    "Endpoints": [
+        {
+            "Application": "opentsdb-reader",
+            "Name": "opentsdb-reader",
+            "PortNumber": 4242,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "VHostList": [
+                {
+                    "Enabled": false,
+                    "Name": "opentsdb"
+                }
+            ]
+        },
+        {
+            "Application": "opentsdb-writer",
+            "Name": "opentsdb-writer",
+            "PortNumber": 4242,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5.0,
+            "Script": "wget --timeout=3 --tries=1 -q -O - http://localhost:4242/api/stats"
+        }
+    },
+    "ImageID": "zenoss/opentsdb:xx",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/zenoss/log/opentsdb.log",
+            "type": "opentsdb-reader"
+        }
+    ],
+    "Name": "opentsdb-reader",
+    "Prereqs": [
+    ],
+    "RAMCommitment": "256M",
+    "Services": [],
+    "StartLevel": 2,
+    "Tags": [
+        "daemon"
+    ]
+}
