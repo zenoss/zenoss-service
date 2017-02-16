@@ -124,6 +124,7 @@
     ],
     "Name": "UCS-PM-DEV",
     "RAMCommitment": "256M",
+    "StartLevel": 2,
     "Tags": [
         "daemon"
     ],

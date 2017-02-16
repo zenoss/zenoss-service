@@ -2,6 +2,7 @@
     "CPUCommitment": 1,
     "Command": "/usr/bin/redis-server /etc/redis.conf",
     "Description": "Redis server",
+    "EmergencyShutdown": 2,
     "Endpoints": [
         {
             "Application": "redis",
@@ -77,6 +78,7 @@
     },
     "Name": "redis",
     "RAMCommitment": "1G",
+    "StartLevel": 1,
     "Tags": [
         "daemon"
     ],

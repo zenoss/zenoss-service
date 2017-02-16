@@ -30,6 +30,7 @@
         }
     },
     "Description": "Stores and retrieves events from its database",
+    "EmergencyShutdown": 2,
     "Endpoints": [
         {
             "Application": "zodb_.*",
@@ -133,6 +134,7 @@
         }
     ],
     "RAMCommitment": "1G",
+    "StartLevel": 2,
     "Tags": [
         "daemon"
     ],
