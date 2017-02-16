@@ -14,7 +14,7 @@
         }
     },
     "Description": "Centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services",
-    "EmergencyShutdown": 3,
+    "EmergencyShutdownLevel": 3,
     "Endpoints": [
         {
             "Application": "zookeeper-client",

@@ -14,7 +14,7 @@
         }
     },
     "Description": "RabbitMQ server",
-    "EmergencyShutdown": 2,
+    "EmergencyShutdownLevel": 2,
     "Endpoints": [
         {
             "Application": "rabbitmq_admin",
