@@ -14,6 +14,7 @@
         }
     },
     "Description": "Centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services",
+    "EmergencyShutdownLevel": 3,
     "Endpoints": [
         {
             "Application": "zookeeper-client",
@@ -83,6 +84,7 @@
     "Name": "ZooKeeper",
     "Privileged": true,
     "RAMCommitment": "1G",
+    "StartLevel": 1,
     "Tags": [
         "daemon"
     ],

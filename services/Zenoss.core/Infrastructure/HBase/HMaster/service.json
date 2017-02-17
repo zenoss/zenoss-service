@@ -234,6 +234,7 @@
     ],
     "Privileged": true,
     "RAMCommitment": "1G",
+    "StartLevel": 1,
     "Tags": [
         "daemon"
     ],

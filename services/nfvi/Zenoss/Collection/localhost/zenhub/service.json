@@ -213,6 +213,7 @@
     ],
     "RAMCommitment": "1G",
     "Services": [],
+    "StartLevel": 2,
     "Tags": [
         "daemon",
         "hub"
