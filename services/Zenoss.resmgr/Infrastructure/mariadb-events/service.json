@@ -2,6 +2,7 @@
     "CPUCommitment": 4,
     "Command": "/usr/bin/mysqld_safe",
     "Description": "MariaDB events database server",
+    "EmergencyShutdownLevel": 1,
     "Endpoints": [
         {
             "Application": "zep_mariadb",
@@ -36,6 +37,7 @@
         "Pause": "PAUSE_CHECK_TIMEOUT=60 LOCK_HOLD_DURATION=600 ${ZENHOME:-/opt/zenoss}/bin/quiesce-mariadb.sh pause",
         "Resume": "${ZENHOME:-/opt/zenoss}/bin/quiesce-mariadb.sh resume"
     },
+    "StartLevel": 1,
     "Tags": [
         "daemon"
     ],

@@ -113,6 +113,7 @@
         }
     ],
     "RAMCommitment": "1G",
+    "StartLevel": 2,
     "Tags": [
         "daemon"
     ],
