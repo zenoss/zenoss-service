@@ -73,7 +73,7 @@
             "Script": "nmap -oG - -Pn -sS -p 8060 127.0.0.1 | grep -q 8060/open"
         }
     },
-    "ImageID": "zenoss/databus:0.1.1-dev",
+    "ImageID": "zenoss/databus:0.1.1",
     "Instances": {
         "min": 1
     },

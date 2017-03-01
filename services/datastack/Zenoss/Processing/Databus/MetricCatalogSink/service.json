@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "/opt/zenoss/bin/databus-metric-catalog-sink-start.sh -b kfk0:9092 -r dsr0:8081",
+    "Command": "/opt/zenoss/bin/databus-metric-catalog-sink-start.sh ",
     "ConfigFiles": {
         "/opt/zenoss/etc/databus-metric-catalog-sink/databus-metric-catalog-sink.properties": {
             "FileName": "/opt/zenoss/etc/databus-metric-catalog-sink/databus-metric-catalog-sink.properties",
@@ -8,12 +8,12 @@
             "Permissions": "0664"
         },
         "/opt/zenoss/etc/databus-metric-catalog-sink/worker-distributed.properties": {
-            "FileName": "/opt/zenoss/etc/databus-metric-catalog-sink/worker-distributed.properties.properties",
+            "FileName": "/opt/zenoss/etc/databus-metric-catalog-sink/worker-distributed.properties",
             "Owner": "zenoss:zenoss",
             "Permissions": "0664"
         },
         "/opt/zenoss/etc/databus-metric-catalog-sink/worker-standalone.properties": {
-            "FileName": "/opt/zenoss/etc/databus-metric-catalog-sink/worker-standalone.properties.properties",
+            "FileName": "/opt/zenoss/etc/databus-metric-catalog-sink/worker-standalone.properties",
             "Owner": "zenoss:zenoss",
             "Permissions": "0664"
         }
@@ -57,14 +57,10 @@
         }
     ],
     "HealthChecks": {
-        "kafka_answering": {
-            "Interval": 10.0,
-            "Script": "{{with $k := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
-        }
     },
     "HostPolicy": "PREFER_SEPARATE",
     "Hostname": "mcs{{.InstanceID}}",
-    "ImageID": "zenoss/databus:0.1.1-dev",
+    "ImageID": "zenoss/databus:0.1.1",
     "Instances": {
         "min": 1
     },
@@ -77,14 +73,6 @@
     ],
     "Name": "Databus Metric Catalog Sink",
     "Prereqs": [
-        {
-            "Name": "Kafka up",
-            "Script": "{{with $k := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
-        },
-        {
-            "Name": "Registry up",
-            "Script": "{{with $k := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"SchemaRegistry\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/databusregistry_answering dsr{{.}} 8081 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
-        }
     ],
     "Privileged": true,
     "RAMCommitment": "256M",

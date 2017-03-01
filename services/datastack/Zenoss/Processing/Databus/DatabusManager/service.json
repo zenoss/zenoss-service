@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "/opt/zenoss/bin/databus-manager-start.sh -c /opt/zenoss/etc/databus-manager/databus-manager.properties -b {{ (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"KafkaBroker\").Instances }} -s",
+    "Command": "/opt/zenoss/bin/databus-manager-start.sh -c /opt/zenoss/etc/databus-manager/databus-manager.properties -b 3 -s",
     "ConfigFiles": {
         "/opt/zenoss/etc/databus-manager/databus-manager.properties": {
             "FileName": "/opt/zenoss/etc/databus-manager/databus-manager.properties",
@@ -38,14 +38,10 @@
         }
     ],
     "HealthChecks": {
-        "kafka_answering": {
-            "Interval": 10.0,
-            "Script": "{{with $k := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
-        }
     },
     "HostPolicy": "PREFER_SEPARATE",
     "Hostname": "dm{{.InstanceID}}",
-    "ImageID": "zenoss/databus:0.1.1-dev",
+    "ImageID": "zenoss/databus:0.1.1",
     "Instances": {
         "min": 1
     },
@@ -58,18 +54,6 @@
     ],
     "Name": "Databus Manager",
     "Prereqs": [
-        {
-            "Name": "ZooKeeper up",
-            "Script": "{{with $zks := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}/opt/zenoss/bin/healthchecks/generic_answering.sh zk{{plus 1 .}} 2181 {{if ne (plus 1 .) $zks}}&& {{end}}{{end}}{{end}}"
-        },
-        {
-            "Name": "Kafka up",
-            "Script": "{{with $k := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"KafkaBroker\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/generic_answering.sh kfk{{.}} 9092 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
-        },
-        {
-            "Name": "Registry up",
-            "Script": "{{with $k := (child (child (child  (parent (parent (parent (parent .)))) \"Infrastructure\") \"Kafka\") \"SchemaRegistry\").Instances }}{{ range (each $k) }}/opt/zenoss/bin/healthchecks/databusregistry_answering dsr{{.}} 8081 {{if ne (plus 1 .) $k}}&& {{end}}{{end}}{{end}}"
-        }
     ],
     "Privileged": true,
     "RAMCommitment": "256M",

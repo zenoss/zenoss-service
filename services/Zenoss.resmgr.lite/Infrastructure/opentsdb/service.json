@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "/bin/sh -c \"{{ if eq .InstanceID 0 }} export CREATE_TABLES=1;{{ end }} /opt/opentsdb/start-opentsdb.sh {{with $zks := (child (child (parent .) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}localhost:{{plus 2181 .}}{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}}\"",
+    "Command": "/bin/sh -c \"/opt/opentsdb/start-opentsdb.sh 172.31.16.14:5181,172.31.17.9:5181,172.31.27.159:5181\"",
     "ConfigFiles": {
         "/opt/zenoss/etc/opentsdb/opentsdb.conf": {
             "FileName": "/opt/zenoss/etc/opentsdb/opentsdb.conf",
@@ -29,25 +29,6 @@
             "PortNumber": 4242,
             "Protocol": "tcp",
             "Purpose": "export"
-        },
-        {
-            "Application": "zookeeper-client",
-            "Name": "zookeeper-client",
-            "PortNumber": 2181,
-            "Protocol": "tcp",
-            "Purpose": "import_all"
-        },
-        {
-            "Application": "hbase-master-.*",
-            "Name": "hbase-master",
-            "Purpose": "import"
-        },
-        {
-            "Application": "hbase-regionserver",
-            "Name": "hbase-regionserver",
-            "PortNumber": 60200,
-            "Protocol": "tcp",
-            "Purpose": "import_all"
         }
     ],
     "HealthChecks": {
@@ -69,10 +50,6 @@
     ],
     "Name": "opentsdb-reader",
     "Prereqs": [
-        {
-            "Name": "HBase Regionservers up",
-            "Script": "{{with $rss := (child (child (parent .) \"HBase\") \"RegionServer\").Instances }}wget -q -O- http://localhost:61000/status/cluster | grep '{{$rss}} live servers'{{end}}"
-        }
     ],
     "RAMCommitment": "256M",
     "Services": [],

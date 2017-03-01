@@ -89,7 +89,7 @@
     },
     "HostPolicy": "PREFER_SEPARATE",
     "Hostname": "dps{{.InstanceID}}",
-    "ImageID": "zenoss/datapipeline:1.0.2",
+    "ImageID": "zenoss/datapipeline:1.0.3-dev",
     "Instances": {
         "min": 1
     },

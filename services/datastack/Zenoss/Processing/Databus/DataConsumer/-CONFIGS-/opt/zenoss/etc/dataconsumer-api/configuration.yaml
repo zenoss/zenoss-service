@@ -8,9 +8,9 @@ server:
 
 metricPublish:
   producerConfigFile: etc/dataconsumer-api/ProducerDefaults.properties
-  brokers: kfk0:9092
+  brokers: 172.31.43.108:9092,172.31.43.216:9092,172.31.45.107:9092
   topic: metric-raw-any
-  schemaRegistryUrl: http://dsr0:8081
+  schemaRegistryUrl: http://172.31.43.108:8081,http://172.31.43.216:8081,http://172.31.45.107:8081
 
 metricCatalog:
   host: http://localhost:8060
