@@ -277,6 +277,28 @@
                 ],
                 "Name": "zenpop3 internal metrics"
             }
+        ],
+        "ThresholdConfigs": [
+            {
+                "DataPoints": [
+                    "missedRuns"
+                ],
+                "Description": "High number of missed runs",
+                "EventTags": {
+                    "EventClass": "/App/Zenoss",
+                    "Explanation": "This service is missing runs",
+                    "Resolution": "Add more collectors",
+                    "Severity": 3
+                },
+                "ID": "missedRuns.high",
+                "MetricSource": "zenpop3",
+                "Name": "Missed Runs High",
+                "Threshold": {
+                    "Max": "5",
+                    "Min": ""
+                },
+                "Type": "MinMax"
+            }
         ]
     },
     "Name": "zenpop3",
