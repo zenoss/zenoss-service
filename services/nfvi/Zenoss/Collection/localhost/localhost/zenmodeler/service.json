@@ -94,89 +94,7 @@
         }
     ],
     "MonitoringProfile": {
-        "GraphConfigs": [
-            {
-                "datapoints": [
-                    {
-                        "aggregator": "avg",
-                        "fill": false,
-                        "format": "%d",
-                        "id": "devices",
-                        "legend": "Devices",
-                        "metric": "devices",
-                        "metricSource": "zenmodeler",
-                        "name": "Devices",
-                        "rate": false,
-                        "type": "line"
-                    }
-                ],
-                "description": "Number of devices.",
-                "footer": false,
-                "id": "devices",
-                "name": "Devices",
-                "range": {
-                    "end": "0s-ago",
-                    "start": "1h-ago"
-                },
-                "returnset": "EXACT",
-                "type": "line",
-                "yAxisLabel": "Devices"
-            },
-            {
-                "datapoints": [
-                    {
-                        "aggregator": "avg",
-                        "fill": false,
-                        "format": "%d",
-                        "id": "eventQueueLength",
-                        "legend": "Event Queue Length",
-                        "metric": "eventQueueLength",
-                        "metricSource": "zenmodeler",
-                        "name": "Event Queue Length",
-                        "rate": false,
-                        "type": "line"
-                    }
-                ],
-                "description": "The number of events pending to be flushed from a daemon's memory queue.",
-                "footer": false,
-                "id": "eventQueueLength",
-                "name": "Event Queue Length",
-                "range": {
-                    "end": "0s-ago",
-                    "start": "1h-ago"
-                },
-                "returnset": "EXACT",
-                "type": "line",
-                "yAxisLabel": "Event Queue Length"
-            },
-            {
-                "datapoints": [
-                    {
-                        "aggregator": "avg",
-                        "fill": false,
-                        "format": "%d",
-                        "id": "timedOut",
-                        "legend": "Timed Out",
-                        "metric": "timedOut",
-                        "metricSource": "zenmodeler",
-                        "name": "Timed Out",
-                        "rate": false,
-                        "type": "line"
-                    }
-                ],
-                "description": "Number of devices that have timed out during modeling.",
-                "footer": false,
-                "id": "timedOut",
-                "name": "Timed Out",
-                "range": {
-                    "end": "0s-ago",
-                    "start": "1h-ago"
-                },
-                "returnset": "EXACT",
-                "type": "line",
-                "yAxisLabel": "Timed Out"
-            }
-        ],
+        "GraphConfigs": [],
         "MetricConfigs": [
             {
                 "Description": "zenmodeler internal metrics",
@@ -190,20 +108,6 @@
                         "Unit": "Time"
                     },
                     {
-                        "Counter": false,
-                        "Description": "Number of devices.",
-                        "ID": "devices",
-                        "Name": "Devices",
-                        "Unit": "Devices"
-                    },
-                    {
-                        "Counter": false,
-                        "Description": "The number of events pending to be flushed from a daemon's memory queue.",
-                        "ID": "eventQueueLength",
-                        "Name": "Event Queue Length",
-                        "Unit": "Events"
-                    },
-                    {
                         "Counter": true,
                         "Description": "Number of devices since daemon startup.",
                         "ID": "modeledDevices",
@@ -215,13 +119,6 @@
                         "Description": "Number of devices currently modeled.",
                         "ID": "modeledDevicesCount",
                         "Name": "Modeled Devices Count",
-                        "Unit": "Devices"
-                    },
-                    {
-                        "Counter": false,
-                        "Description": "Number of devices that have timed out during modeling.",
-                        "ID": "timedOut",
-                        "Name": "Timed Out",
                         "Unit": "Devices"
                     }
                 ],
