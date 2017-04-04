@@ -1,0 +1,85 @@
+{
+    "CPUCommitment": 2,
+    "Command": "setuser zenoss /opt/solr/zenoss/bin/start-solr -cloud",
+    "ConfigFiles": {
+        "/opt/solr/server/solr/solr.xml": {
+            "FileName": "/opt/solr/server/solr/solr.xml",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        },
+        "/opt/solr/zenoss/etc/solr.in.sh": {
+            "Filename": "/opt/solr/zenoss/etc/solr.in.sh",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Solr Cloud",
+    "EmergencyShutdownLevel": 1,
+    "Endpoints": [
+        {
+            "Application": "solr",
+            "Name": "solr",
+            "PortNumber": 8983,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "Vhosts": [
+                "solr"
+            ]
+        },
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 10.0,
+            "Script": "curl -sI http://localhost:8983/solr/admin/cores | grep -q 200"
+        },
+        "zookeeper": {
+            "Interval": 10.0,
+            "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 2181 | grep -q Zookeeper"
+        }
+    },
+    "ImageID": "zenoss/zenoss5x",
+    "Instances": {
+        "Default": 1,
+        "Min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+	{
+            "path": "/var/solr/logs/solr.log",
+            "type": "solr"
+	}
+    ],
+    "Name": "Solr",
+    "Prereqs": [
+        {
+            "Name": "Zookeeper",
+            "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 2181 | grep -q Zookeeper"
+        }
+    ],
+    "RAMCommitment": "1G",
+    "StartLevel": 1,
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "ContainerPath": "/opt/solr/server/logs",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0750",
+            "ResourcePath": "solr-logs-{{.InstanceID}}"
+        },
+        {
+            "ContainerPath": "/var/solr/data",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0750",
+            "ResourcePath": "solr-{{.InstanceID}}"
+        }
+    ]
+}
