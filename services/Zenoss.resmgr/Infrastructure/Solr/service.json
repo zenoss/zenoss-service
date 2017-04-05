@@ -51,10 +51,10 @@
     },
     "Launch": "auto",
     "LogConfigs": [
-	{
+        {
             "path": "/var/solr/logs/solr.log",
             "type": "solr"
-	}
+        }
     ],
     "Name": "Solr",
     "Prereqs": [
