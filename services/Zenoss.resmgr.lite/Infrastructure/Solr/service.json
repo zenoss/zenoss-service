@@ -25,28 +25,18 @@
             "Vhosts": [
                 "solr"
             ]
-        },
-        {
-            "Application": "zookeeper-client",
-            "Name": "zookeeper-client",
-            "PortNumber": 2181,
-            "Protocol": "tcp",
-            "Purpose": "import_all"
         }
     ],
     "HealthChecks": {
         "answering": {
             "Interval": 10.0,
             "Script": "curl -sI http://localhost:8983/solr/admin/cores | grep -q 200"
-        },
-        "zookeeper": {
-            "Interval": 10.0,
-            "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 2181 | grep -q Zookeeper"
         }
     },
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
         "Default": 1,
+        "Max": 1,
         "Min": 1
     },
     "Launch": "auto",
@@ -57,12 +47,7 @@
         }
     ],
     "Name": "Solr",
-    "Prereqs": [
-        {
-            "Name": "Zookeeper",
-            "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 2181 | grep -q Zookeeper"
-        }
-    ],
+    "Prereqs": [],
     "RAMCommitment": "1G",
     "StartLevel": 1,
     "Tags": [
