@@ -1,0 +1,70 @@
+{
+    "CPUCommitment": 2,
+    "Command": "setuser zenoss /opt/solr/zenoss/bin/start-solr -cloud -Dbootstrap_confdir=/opt/solr/server/solr/configsets/zenoss_model/conf -Dcollection.configName=zenoss_model",
+    "ConfigFiles": {
+        "/opt/solr/server/solr/solr.xml": {
+            "FileName": "/opt/solr/server/solr/solr.xml",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        },
+        "/opt/solr/zenoss/etc/solr.in.sh": {
+            "Filename": "/opt/solr/zenoss/etc/solr.in.sh",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Solr Cloud",
+    "EmergencyShutdownLevel": 1,
+    "Endpoints": [
+        {
+            "Application": "solr",
+            "Name": "solr",
+            "PortNumber": 8983,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "Vhosts": [
+                "solr"
+            ]
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 10.0,
+            "Script": "curl -sI http://localhost:8983/solr/admin/cores | grep -q 200"
+        }
+    },
+    "ImageID": "zenoss/zenoss5x",
+    "Instances": {
+        "Default": 1,
+        "Max": 1,
+        "Min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/var/solr/logs/solr.log",
+            "type": "solr"
+        }
+    ],
+    "Name": "Solr",
+    "Prereqs": [],
+    "RAMCommitment": "1G",
+    "StartLevel": 1,
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "ContainerPath": "/opt/solr/server/logs",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0750",
+            "ResourcePath": "solr-logs-{{.InstanceID}}"
+        },
+        {
+            "ContainerPath": "/var/solr/data",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0750",
+            "ResourcePath": "solr-{{.InstanceID}}"
+        }
+    ]
+}
