@@ -141,6 +141,13 @@
             "PortNumber": 8444,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Application": "solr",
+            "Name": "solr",
+            "PortNumber": 8983,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "HealthChecks": {
