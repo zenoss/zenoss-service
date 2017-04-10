@@ -77,11 +77,11 @@
     "HealthChecks": {
         "admin": {
             "Interval": 10.0,
-            "Script": "curl -s -u {{(getContext . \"global.conf.amqpuser\")}}:{{(getContext . \"global.conf.amqppassword\")}} http://localhost:15672/api/vhosts | grep -q /zenoss"
+            "Script": "curl -A 'RabbitMQ admin healthcheck' -s -u {{(getContext . \"global.conf.amqpuser\")}}:{{(getContext . \"global.conf.amqppassword\")}} http://localhost:15672/api/vhosts | grep -q /zenoss"
         },
         "publishing": {
             "Interval": 10.0,
-            "Script": "curl -s -u {{(getContext . \"global.conf.amqpuser\")}}:{{(getContext . \"global.conf.amqppassword\")}} http://localhost:15672/api/aliveness-test/%2Fzenoss | grep -q '{\"status\":\"ok\"}'"
+            "Script": "curl -A 'RabbitMQ publishing healthcheck' -s -u {{(getContext . \"global.conf.amqpuser\")}}:{{(getContext . \"global.conf.amqppassword\")}} http://localhost:15672/api/aliveness-test/%2Fzenoss | grep -q '{\"status\":\"ok\"}'"
         },
         "user": {
             "Interval": 15.0,

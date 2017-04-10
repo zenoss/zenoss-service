@@ -46,7 +46,7 @@
     "HealthChecks": {
         "answering": {
             "Interval": 10,
-            "Script": "test $(curl -s -o /dev/null -w '%{http_code}' localhost:50075) = 200"
+            "Script": "test $(curl -A 'HDFS DataNode answering healthcheck' -s -o /dev/null -w '%{http_code}' localhost:50075) = 200"
         }
     },
     "Hostname": "dn{{.InstanceID}}",

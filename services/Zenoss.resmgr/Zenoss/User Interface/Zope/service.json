@@ -160,7 +160,7 @@
     "HealthChecks": {
         "answering": {
             "Interval": 15.0,
-            "Script": "curl --retry 3 --max-time 2 -s http://localhost:9080/zport/ruok | grep -q imok"
+            "Script": "curl -A 'Zope answering healthcheck' --retry 3 --max-time 2 -s http://localhost:9080/zport/ruok | grep -q imok"
         },
         "catalogservice_answering": {
             "Interval": 10.0,

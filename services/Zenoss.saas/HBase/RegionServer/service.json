@@ -59,7 +59,7 @@
         },
         "cluster_member": {
             "Interval": 10.0,
-            "Script": "curl http://localhost:61000/status/cluster | grep -q 'localhost:{{ plus 60200 .InstanceID }}'"
+            "Script": "curl -A 'RegionServer cluster_member healthcheck' http://localhost:61000/status/cluster | grep -q 'localhost:{{ plus 60200 .InstanceID }}'"
         }
     },
     "HostPolicy": "PREFER_SEPARATE",

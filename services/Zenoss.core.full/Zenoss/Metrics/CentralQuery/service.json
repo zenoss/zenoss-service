@@ -43,7 +43,7 @@
     "HealthChecks": {
         "answering": {
             "Interval": 5.0,
-            "Script": "curl --fail --max-time 4  http://localhost:58888/healthcheck"
+            "Script": "curl -A 'central_query answering healthcheck' --fail --max-time 4  http://localhost:58888/healthcheck"
         }
     },
     "ImageID": "zenoss/zenoss5x",

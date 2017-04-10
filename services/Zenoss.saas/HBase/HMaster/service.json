@@ -61,11 +61,11 @@
     "HealthChecks": {
         "cluster_healthy": {
             "Interval": 10.0,
-            "Script": "curl -f -s http://127.0.0.1:61000/status/cluster | grep -q '0 dead'"
+            "Script": "curl -A 'HMaster cluster_healthy healthcheck' -f -s http://127.0.0.1:61000/status/cluster | grep -q '0 dead'"
         },
         "rest_answering": {
             "Interval": 10.0,
-            "Script": "curl -o /dev/null -f -s http://127.0.0.1:61000/status/cluster"
+            "Script": "curl -A 'HMaster rest_answering healthcheck' -o /dev/null -f -s http://127.0.0.1:61000/status/cluster"
         }
     },
     "Hostname": "localhost",

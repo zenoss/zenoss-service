@@ -33,7 +33,7 @@
     "HealthChecks": {
         "accepting_requests": {
             "Interval": 10.0,
-            "Script": "curl -s http://localhost:8085/zencatalogservice/api/1.0/catalog/acceptingRequests | grep -q True"
+            "Script": "curl -A 'zencatalogservice accepting_requests healthcheck' -s http://localhost:8085/zencatalogservice/api/1.0/catalog/acceptingRequests | grep -q True"
         },
         "rabbit_answering": {
             "Interval": 10.0,
