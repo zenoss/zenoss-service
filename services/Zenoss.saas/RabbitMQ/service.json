@@ -26,10 +26,6 @@
             ]
         },
         {
-            "AddressConfig": {
-                "Port": 5672,
-                "Protocol": "tcp"
-            },
             "Application": "rabbitmq",
             "Name": "rabbitmq",
             "PortNumber": 5672,
