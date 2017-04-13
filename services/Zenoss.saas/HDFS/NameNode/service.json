@@ -57,7 +57,7 @@
     "HealthChecks": {
         "answering": {
             "Interval": 10,
-            "Script": "test $(curl -s -o /dev/null -w '%{http_code}' localhost:50070) = 200"
+            "Script": "test $(curl -A 'NameNode answering healthcheck' -s -o /dev/null -w '%{http_code}' localhost:50070) = 200"
         }
     },
     "Hostname": "localhost",

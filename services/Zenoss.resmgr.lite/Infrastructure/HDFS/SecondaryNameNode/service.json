@@ -44,7 +44,7 @@
     "HealthChecks": {
         "answering": {
             "Interval": 10,
-            "Script": "test $(curl -s -o /dev/null -w '%{http_code}' localhost:50090) = 200"
+            "Script": "test $(curl -A 'Secondary NameNode answering healthcheck' -s -o /dev/null -w '%{http_code}' localhost:50090) = 200"
         }
     },
     "Hostname": "localhost",

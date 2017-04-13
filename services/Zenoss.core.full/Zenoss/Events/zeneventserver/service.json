@@ -81,7 +81,7 @@
     "HealthChecks": {
         "answering": {
             "Interval": 5.0,
-            "Script": "curl -f -s http://localhost:8084/zeneventserver/api/1.0/heartbeats/"
+            "Script": "curl -A 'zeneventserver answering healthcheck' -f -s http://localhost:8084/zeneventserver/api/1.0/heartbeats/"
         },
         "mariadb_answering": {
             "Interval": 10.0,

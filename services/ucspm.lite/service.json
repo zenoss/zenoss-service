@@ -100,7 +100,7 @@
         },
         "ready": {
             "Interval": 30.0,
-            "Script": "curl --output /dev/null --silent --write-out \"%{http_code}\" http://localhost:8080/robots.txt | grep 200 >/dev/null"
+            "Script": "curl -A 'UCS-PM-DEV ready healthcheck' --output /dev/null --silent --write-out \"%{http_code}\" http://localhost:8080/robots.txt | grep 200 >/dev/null"
         },
         "running": {
             "Interval": 5.0,

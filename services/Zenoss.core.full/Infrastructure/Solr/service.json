@@ -30,7 +30,7 @@
     "HealthChecks": {
         "answering": {
             "Interval": 10.0,
-            "Script": "curl -sI http://localhost:8983/solr/admin/cores | grep -q 200"
+            "Script": "curl -A 'Solr answering healthcheck' -sI http://localhost:8983/solr/admin/cores | grep -q 200"
         }
     },
     "ImageID": "zenoss/zenoss5x",

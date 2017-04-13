@@ -84,7 +84,7 @@
         },
         "rabbit_admin_answering": {
             "Interval": 10.0,
-            "Script": "curl -s -u {{(getContext . \"global.conf.amqpuser\")}}:{{(getContext . \"global.conf.amqppassword\")}} http://localhost:15672/api/vhosts | grep -q name"
+            "Script": "curl -A 'zenjobs rabbit_admin_answering healthcheck' -s -u {{(getContext . \"global.conf.amqpuser\")}}:{{(getContext . \"global.conf.amqppassword\")}} http://localhost:15672/api/vhosts | grep -q name"
         },
         "rabbit_answering": {
             "Interval": 10.0,

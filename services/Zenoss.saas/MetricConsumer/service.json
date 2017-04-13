@@ -47,7 +47,7 @@
         },
         "stats_listening": {
             "Interval": 5.0,
-            "Script": "curl -s http://localhost:58443/metrics | grep -q org.zenoss.app.consumer.metric.impl.MetricsQueue"
+            "Script": "curl -A 'metric_consumer stats_listening healthcheck' -s http://localhost:58443/metrics | grep -q org.zenoss.app.consumer.metric.impl.MetricsQueue"
         }
     },
     "ImageID": "zenoss/zenoss5x",
