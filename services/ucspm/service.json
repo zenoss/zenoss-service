@@ -72,6 +72,13 @@
             "Purpose": "import_all"
         },
         {
+            "Application": "zenreports",
+            "Name": "zenreports",
+            "PortNumber": 9290,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
             "Application": "metric_consumer",
             "Name": "metric_consumer",
             "PortNumber": 8443,
