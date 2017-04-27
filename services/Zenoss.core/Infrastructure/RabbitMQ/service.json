@@ -1,7 +1,12 @@
 {
     "CPUCommitment": 1,
-    "Command": "/usr/sbin/rabbitmq-server",
+    "Command": "/bin/supervisord -n -c /etc/rabbitmq/rabbit_supervisor.conf",
     "ConfigFiles": {
+        "/etc/rabbitmq/rabbit_supervisor.conf": {
+            "FileName": "/etc/rabbitmq/rabbit_supervisor.conf",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        },
         "/etc/rabbitmq/rabbitmq-env.conf": {
             "FileName": "/etc/rabbitmq/rabbitmq-env.conf",
             "Owner": "root:root",
