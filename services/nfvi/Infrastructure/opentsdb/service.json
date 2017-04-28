@@ -6,7 +6,7 @@
     },
     "Launch": "auto",
     "Name": "opentsdb",
-    "StartLevel": 2,
+    "StartLevel": 3,
     "Tags": [
         "opentsdb"
     ]

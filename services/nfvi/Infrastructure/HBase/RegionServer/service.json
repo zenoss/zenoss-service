@@ -326,7 +326,7 @@
     "Prereqs": [],
     "Privileged": true,
     "RAMCommitment": "1G",
-    "StartLevel": 1,
+    "StartLevel": 2,
     "Tags": [
         "daemon"
     ],
