@@ -59,10 +59,7 @@
             ],
             "PortNumber": 8080,
             "Protocol": "tcp",
-            "Purpose": "export",
-            "Vhosts": [
-                "ucspm"
-            ]
+            "Purpose": "export"
         },
         {
             "Application": "zope",
