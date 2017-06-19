@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# http://jenkins.zendev.org/view/Promotions/job/europa-image-promote/configure
+# http://jenkins.zenoss.eng/view/Promotions/job/europa-image-promote/configure
 #
 
 set -e
