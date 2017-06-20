@@ -59,7 +59,10 @@
             ],
             "PortNumber": 8080,
             "Protocol": "tcp",
-            "Purpose": "export"
+            "Purpose": "export",
+            "Vhosts": [
+                "zendebug"
+            ]
         },
         {
             "Application": "zope",
@@ -72,6 +75,13 @@
             "Application": "zenreports",
             "Name": "zenreports",
             "PortNumber": 9290,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Application": "zendebug",
+            "Name": "zendebug",
+            "PortNumber": 9310,
             "Protocol": "tcp",
             "Purpose": "import_all"
         },
