@@ -88,10 +88,6 @@
         }
     ],
     "HealthChecks": {
-        "catalogservice_answering": {
-            "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/catalogservice_answering"
-        },
         "central_query_answering": {
             "Interval": 10.0,
             "Script": "/opt/zenoss/bin/healthchecks/query_answering"
@@ -217,10 +213,6 @@
         {
             "Name": "MariaDB connectivity",
             "Script": "su - zenoss -c '/opt/zenoss/bin/python /opt/zenoss/Products/ZenUtils/ZenDB.py --usedb zodb --execsql=\";\"'"
-        },
-        {
-            "Name": "zencatalogservice response",
-            "Script": "curl -s http://localhost:8085/zencatalogservice/api/1.0/catalog/acceptingRequests | grep -q True"
         }
     ],
     "RAMCommitment": "1G",

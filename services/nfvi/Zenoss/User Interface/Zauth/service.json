@@ -68,10 +68,6 @@
             "Interval": 5.0,
             "Script": "curl -A 'zauth answering healthcheck' -s -XPOST http://localhost:9180/authorization/login | grep -q 'Missing Authentication Credentials'"
         },
-        "catalogservice_answering": {
-            "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/catalogservice_answering"
-        },
         "mariadb_answering": {
             "Interval": 10.0,
             "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering"
