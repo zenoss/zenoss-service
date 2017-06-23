@@ -120,7 +120,7 @@
     },
     "Name": "redis",
     "RAMCommitment": "1G",
-    "StartLevel": 2,
+    "StartLevel": 0,
     "Tags": [
         "daemon",
         "collector"
