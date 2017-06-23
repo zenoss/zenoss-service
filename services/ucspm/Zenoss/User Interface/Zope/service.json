@@ -162,10 +162,6 @@
             "Interval": 15.0,
             "Script": "curl -A 'Zope answering healthcheck' --retry 3 --max-time 2 -s http://localhost:9080/zport/ruok | grep -q imok"
         },
-        "catalogservice_answering": {
-            "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/catalogservice_answering"
-        },
         "mariadb_answering": {
             "Interval": 10.0,
             "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering"
