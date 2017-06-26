@@ -2,6 +2,11 @@
     "CPUCommitment": 2,
     "Command": "setuser zenoss /opt/solr/zenoss/bin/start-solr -cloud -Dbootstrap_confdir=/opt/solr/server/solr/configsets/zenoss_model/conf -Dcollection.configName=zenoss_model",
     "ConfigFiles": {
+        "/opt/solr/server/solr/configsets/zenoss_model/conf/solrconfig.xml": {
+            "Filename": "/opt/solr/server/solr/configsets/zenoss_model/conf/solrconfig.xml",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        },
         "/opt/solr/server/solr/solr.xml": {
             "FileName": "/opt/solr/server/solr/solr.xml",
             "Owner": "root:root",
