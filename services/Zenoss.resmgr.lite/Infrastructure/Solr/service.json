@@ -11,6 +11,11 @@
             "Filename": "/opt/solr/zenoss/etc/solr.in.sh",
             "Owner": "root:root",
             "Permissions": "0664"
+        },
+        "/opt/solr/server/solr/configsets/zenoss_model/conf/solrconfig.xml": {
+            "Filename": "/opt/solr/server/solr/configsets/zenoss_model/conf/solrconfig.xml",
+            "Owner": "root:root",
+            "Permissions": "0664"
         }
     },
     "Description": "Solr Cloud",
