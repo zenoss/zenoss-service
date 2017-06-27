@@ -59,7 +59,8 @@
             "Purpose": "export",
             "Vhosts": [
                 "zenoss5",
-                "zendebug"
+                "zendebug",
+                "zenapi"
             ]
         },
         {
@@ -80,6 +81,13 @@
             "Application": "zendebug",
             "Name": "zendebug",
             "PortNumber": 9310,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Application": "zenapi",
+            "Name": "zenapi",
+            "PortNumber": 9320,
             "Protocol": "tcp",
             "Purpose": "import_all"
         },
