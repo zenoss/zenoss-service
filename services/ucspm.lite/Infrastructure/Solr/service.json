@@ -35,7 +35,15 @@
     "HealthChecks": {
         "answering": {
             "Interval": 10.0,
-            "Script": "curl -A 'Solr answering healthcheck' -sI http://localhost:8983/solr/admin/cores | grep -q 200"
+            "Script": "curl -A 'Solr answering healthcheck' -s http://localhost:8983/solr/zenoss_model/admin/ping?wt=json | grep -q '\"status\":\"OK\"'"
+        },
+        "embedded_zk_answering": {
+            "Interval": 10.0,
+            "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 9983 | grep -q Zookeeper"
+        },
+        "zk_connected": {
+            "Interval": 10.0,
+            "Script": "curl -A 'Solr zk_connected healthcheck' -s http://localhost:8983/solr/zenoss_model/admin/ping?wt=json | grep -q '\"zkConnected\":true'"
         }
     },
     "ImageID": "zenoss/zenoss5x",

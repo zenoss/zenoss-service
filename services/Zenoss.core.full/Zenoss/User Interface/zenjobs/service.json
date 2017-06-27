@@ -101,6 +101,10 @@
             "Interval": 5.0,
             "Script": "pgrep -fu zenoss zenjobs.py > /dev/null"
         },
+        "solr_answering": {
+            "Interval": 10.0,
+            "Script": "curl -A 'Solr answering healthcheck' -s http://localhost:8983/solr/zenoss_model/admin/ping?wt=json | grep -q '\"status\":\"OK\"'"
+        },
         "stable_workers": {
             "Interval": 5.0,
             "Script": "/opt/zenoss/bin/healthchecks/zenjobs/stable_workers"

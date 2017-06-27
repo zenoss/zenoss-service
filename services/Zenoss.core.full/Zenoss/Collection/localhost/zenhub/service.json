@@ -121,6 +121,10 @@
             "Interval": 5.0,
             "Script": "pgrep -fu zenoss zenhub.py > /dev/null"
         },
+        "solr_answering": {
+            "Interval": 10.0,
+            "Script": "curl -A 'Solr answering healthcheck' -s http://localhost:8983/solr/zenoss_model/admin/ping?wt=json | grep -q '\"status\":\"OK\"'"
+        },
         "stable_workers": {
             "Interval": 5.0,
             "Script": "/opt/zenoss/bin/healthchecks/zenhub/stable_workers"
@@ -150,6 +154,10 @@
         {
             "Name": "MariaDB connectivity",
             "Script": "su - zenoss -c '/opt/zenoss/bin/python /opt/zenoss/Products/ZenUtils/ZenDB.py --usedb zodb --execsql=\";\"'"
+        },
+        {
+            "Name": "Solr answering",
+            "Script": "curl -A 'Solr answering prereq' -s http://localhost:8983/solr/zenoss_model/admin/ping?wt=json | grep -q '\"status\":\"OK\"'"
         }
     ],
     "RAMCommitment": "1G",

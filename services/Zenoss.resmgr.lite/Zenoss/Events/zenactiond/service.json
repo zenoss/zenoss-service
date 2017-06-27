@@ -57,6 +57,13 @@
             "PortNumber": 8444,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Application": "solr",
+            "Name": "solr",
+            "PortNumber": 8983,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "HealthChecks": {
@@ -75,6 +82,10 @@
         "running": {
             "Interval": 5.0,
             "Script": "pgrep -fu zenoss zenactiond.py > /dev/null"
+        },
+        "solr_answering": {
+            "Interval": 10.0,
+            "Script": "curl -A 'Solr answering healthcheck' -s http://localhost:8983/solr/zenoss_model/admin/ping?wt=json | grep -q '\"status\":\"OK\"'"
         }
     },
     "ImageID": "zenoss/zenoss5x",
