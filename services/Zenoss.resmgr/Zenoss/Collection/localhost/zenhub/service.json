@@ -145,6 +145,7 @@
             "filters": [
                 "supervisord"
             ],
+            "isAudit": true,
             "path": "/opt/zenoss/log/audit.log",
             "type": "zenossaudit"
         }
