@@ -57,10 +57,19 @@
             "PortNumber": 8080,
             "Protocol": "tcp",
             "Purpose": "export",
-            "Vhosts": [
-                "zenoss5",
-                "zendebug",
-                "zenapi"
+            "VHostList": [
+                {
+                    "Enabled": true,
+                    "Name": "zenoss5"
+                },
+                {
+                    "Enabled": false,
+                    "Name": "zendebug"
+                },
+                {
+                    "Enabled": true,
+                    "Name": "zenapi"
+                }
             ]
         },
         {
