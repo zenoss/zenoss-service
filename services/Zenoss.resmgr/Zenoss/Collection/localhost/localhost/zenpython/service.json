@@ -119,6 +119,11 @@
                         "metricSource": "zenpython",
                         "name": "Data Points",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576000
+                        },
                         "type": "line"
                     }
                 ],
@@ -173,6 +178,11 @@
                         "metricSource": "zenpython",
                         "name": "Event Count",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576000
+                        },
                         "type": "line"
                     }
                 ],
@@ -227,6 +237,11 @@
                         "metricSource": "zenpython",
                         "name": "Missed Runs",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576000
+                        },
                         "type": "line"
                     }
                 ],
@@ -304,6 +319,7 @@
                         "Description": "Number of datapoints collected.",
                         "ID": "dataPoints",
                         "Name": "Datapoints",
+                        "ResetValue": 1048576000,
                         "Unit": "Points"
                     },
                     {
@@ -318,6 +334,7 @@
                         "Description": "Total number of events.",
                         "ID": "eventCount",
                         "Name": "Event Count",
+                        "ResetValue": 1048576,
                         "Unit": "Events"
                     },
                     {
@@ -332,6 +349,7 @@
                         "Description": "Number of missed runs of tasks running on daemon.",
                         "ID": "missedRuns",
                         "Name": "Missed Runs",
+                        "ResetValue": 1048576,
                         "Unit": "Runs"
                     },
                     {
