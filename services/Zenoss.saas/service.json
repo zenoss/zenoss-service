@@ -120,7 +120,7 @@
         "daemon"
     ],
     "Title": "zproxy",
-    "Version": "5.2.7",
+    "Version": "5.3.0",
     "Volumes": [
         {
             "#####": "drwxrwxr-x  3 zenoss zenoss 4.0K Jul 24 01:54 zproxy",
