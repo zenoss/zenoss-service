@@ -1,9 +1,36 @@
 {
     "CPUCommitment": 1,
-    "Command": "/usr/bin/redis-server /etc/redis.conf",
+    "Command": "{{ if ne .InstanceID 0 }} /bin/sed -i 's/# slaveof <masterip> <masterport>/slaveof rd1 6379/' /etc/redis.conf & {{ end }} /usr/bin/redis-server /etc/redis.conf",
     "Description": "Redis server",
     "EmergencyShutdownLevel": 2,
     "Endpoints": [
+        {
+          "Name": "CollectorRedises",
+          "Purpose": "import_all",
+          "Protocol": "tcp",
+          "PortNumber": 16379,
+          "PortTemplate": "",
+          "VirtualAddress": "rd{{ plus 1 .InstanceID }}:6379",
+          "Application": "localhost_redis",
+          "ApplicationTemplate": "{{(parent .).Name}}_redis",
+          "AddressConfig": {
+            "Port": 0,
+            "Protocol": ""
+          },
+          "VHosts": null,
+          "VHostList": null,
+          "AddressAssignment": {
+            "ID": "",
+            "AssignmentType": "",
+            "HostID": "",
+            "PoolID": "",
+            "IPAddr": "",
+            "Port": 0,
+            "ServiceID": "",
+            "EndpointName": ""
+          },
+          "PortList": null
+        },
         {
             "Application": "zproxy",
             "Name": "zproxy",
@@ -27,7 +54,6 @@
     },
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
-        "max": 1,
         "min": 1
     },
     "Launch": "auto",
@@ -125,6 +151,9 @@
         "daemon",
         "collector"
     ],
+    "HostPolicy": "REQUIRE_SEPARATE",
+    "Privileged": true,
+    "ChangeOptions": ["restartAllOnInstanceChanged"],
     "Volumes": [
         {
             "#####": "drwxr-xr-x 2 zenoss zenoss 4096 Feb 6 19:11 /var/lib/redis",
