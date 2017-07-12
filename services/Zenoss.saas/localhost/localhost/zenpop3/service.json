@@ -40,7 +40,7 @@
             "Name": "CollectorRedis",
             "PortNumber": 6379,
             "Protocol": "tcp",
-            "Purpose": "import"
+            "Purpose": "import_all"
         },
         {
             "AddressConfig": {
