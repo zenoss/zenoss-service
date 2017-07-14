@@ -1,4 +1,5 @@
 {
+    "Hostname": "rd{{ plus 1 .InstanceID }}",
     "CPUCommitment": 1,
     "Command": "{{ if ne .InstanceID 0 }} /bin/sed -i 's/# slaveof <masterip> <masterport>/slaveof rd1 6379/' /etc/redis.conf & {{ end }} /usr/bin/redis-server /etc/redis.conf",
     "Description": "Redis server",

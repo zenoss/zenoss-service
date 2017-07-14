@@ -42,7 +42,8 @@
             "Name": "CollectorRedis",
             "PortNumber": 6379,
             "Protocol": "tcp",
-            "Purpose": "import_all"
+            "Purpose": "import_all",
+						"VirtualAddress": "rd1:6379"
         },
         {
             "Application": "controlplane_consumer",
