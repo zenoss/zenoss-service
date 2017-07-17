@@ -5,7 +5,7 @@
 # Where KEY is the key of the list containing metrics. This must match whatever
 # is specified on the publishing side (i.e., in the collector daemon).
 #
-#redisurl: redis://localhost:6379/0/metrics2
+#redisurl: redis://rd1:6379/0/metrics2
 
 # WebSocket URL of consumer to publish to.
 #
