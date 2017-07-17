@@ -1,4 +1,5 @@
 {
+    "Privileged": true,
     "CPUCommitment": 1,
     "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/metricshipper/supervisord.conf\"",
     "ConfigFiles": {
@@ -11,11 +12,12 @@
     "Description": "Pushes metric data to a MetricConsumer",
     "Endpoints": [
         {
-            "Application": "redis",
-            "Name": "redis",
+            "Application": "CollectorRedis",
+            "Name": "localhost_redis",
             "PortNumber": 6379,
             "Protocol": "tcp",
-            "Purpose": "import"
+            "Purpose": "import_all",
+            "VirtualAddress": "rd1:6379"
         },
         {
             "Application": "zproxy",
