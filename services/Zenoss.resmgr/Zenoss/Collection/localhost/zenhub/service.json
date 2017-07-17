@@ -1,4 +1,5 @@
 {
+    "Privileged": true,
     "Actions": {
         "debug": "su - zenoss -c '${ZENHOME:-/opt/zenoss}/bin/{{.Name}} debug'",
         "stats": "su - zenoss -c '${ZENHOME:-/opt/zenoss}/bin/{{.Name}} stats'"
@@ -33,11 +34,12 @@
             "Purpose": "import"
         },
         {
-            "Application": "redis",
-            "Name": "redis",
+            "Application": "CollectorRedis",
+            "Name": "localhost_redis",
             "PortNumber": 6379,
             "Protocol": "tcp",
-            "Purpose": "import"
+            "Purpose": "import_all",
+            "VirtualAddress": "rd1:6379"
         },
         {
             "Application": "rabbitmq.*",
