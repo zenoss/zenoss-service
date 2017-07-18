@@ -41,7 +41,7 @@
             "PortNumber": 6379,
             "Protocol": "tcp",
             "Purpose": "import_all",
-            "VirtualAddress: "rd1:6379"
+            "VirtualAddress": "rd1:6379"
         },
         {
             "AddressConfig": {

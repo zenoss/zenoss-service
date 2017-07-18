@@ -1,5 +1,4 @@
 {
-    "Privileged": true,
     "Actions": {
         "debug": "su - zenoss -c '${ZENHOME:-/opt/zenoss}/bin/{{.Name}} debug'",
         "stats": "su - zenoss -c '${ZENHOME:-/opt/zenoss}/bin/{{.Name}} stats'"
@@ -207,6 +206,7 @@
             "Script": "curl -A 'Solr answering prereq' -s http://localhost:8983/solr/zenoss_model/admin/ping?wt=json | grep -q '\"status\":\"OK\"'"
         }
     ],
+    "Privileged": true,
     "RAMCommitment": "256M",
     "Services": [],
     "StartLevel": 2,

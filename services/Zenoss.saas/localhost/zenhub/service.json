@@ -1,5 +1,4 @@
 {
-    "Privileged": true,
     "Actions": {
         "debug": "su - zenoss -c '${ZENHOME:-/opt/zenoss}/bin/{{.Name}} debug'",
         "stats": "su - zenoss -c '${ZENHOME:-/opt/zenoss}/bin/{{.Name}} stats'"
@@ -210,6 +209,7 @@
             "Script": "su - zenoss -c '/opt/zenoss/bin/python /opt/zenoss/Products/ZenUtils/ZenDB.py --usedb zodb --execsql=\";\"'"
         }
     ],
+    "Privileged": true,
     "RAMCommitment": "1G",
     "Services": [],
     "Tags": [

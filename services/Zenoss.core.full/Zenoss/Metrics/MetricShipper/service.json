@@ -1,5 +1,4 @@
 {
-    "Privileged": true,
     "CPUCommitment": 1,
     "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/metricshipper/supervisord.conf\"",
     "ConfigFiles": {
@@ -154,6 +153,7 @@
         ]
     },
     "Name": "metric_shipper",
+    "Privileged": true,
     "RAMCommitment": "256M",
     "Tags": [
         "daemon"
