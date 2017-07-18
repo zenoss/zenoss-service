@@ -13,24 +13,7 @@
           "PortTemplate": "",
           "VirtualAddress": "rd{{ plus 1 .InstanceID }}:6379",
           "Application": "localhost_redis",
-          "ApplicationTemplate": "{{(parent .).Name}}_redis",
-          "AddressConfig": {
-            "Port": 0,
-            "Protocol": ""
-          },
-          "VHosts": null,
-          "VHostList": null,
-          "AddressAssignment": {
-            "ID": "",
-            "AssignmentType": "",
-            "HostID": "",
-            "PoolID": "",
-            "IPAddr": "",
-            "Port": 0,
-            "ServiceID": "",
-            "EndpointName": ""
-          },
-          "PortList": null
+          "ApplicationTemplate": "{{(parent .).Name}}_redis"
         },
         {
             "Application": "zproxy",
