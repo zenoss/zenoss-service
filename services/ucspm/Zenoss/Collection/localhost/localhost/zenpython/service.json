@@ -35,8 +35,7 @@
             "Name": "CollectorRedis",
             "PortNumber": 6379,
             "Protocol": "tcp",
-            "Purpose": "import_all",
-            "VirtualAddress": "rd1:6379"
+            "Purpose": "import_all"
         },
         {
             "Application": "zproxy",
