@@ -26,12 +26,11 @@
             "Purpose": "import"
         },
         {
-            "Application": "CollectorRedis",
-            "Name": "localhost_redis",
+            "Application": "redis",
+            "Name": "redis",
             "PortNumber": 6379,
             "Protocol": "tcp",
-            "Purpose": "import_all",
-            "VirtualAddress": "rd1:6379"
+            "Purpose": "import"
         },
         {
             "Application": "rabbitmq.*",
