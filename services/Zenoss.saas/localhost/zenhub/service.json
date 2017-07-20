@@ -208,7 +208,6 @@
             "Script": "su - zenoss -c '/opt/zenoss/bin/python /opt/zenoss/Products/ZenUtils/ZenDB.py --usedb zodb --execsql=\";\"'"
         }
     ],
-    "Privileged": true,
     "RAMCommitment": "1G",
     "Services": [],
     "Tags": [

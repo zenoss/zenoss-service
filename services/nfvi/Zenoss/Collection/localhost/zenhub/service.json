@@ -212,7 +212,6 @@
             "Script": "curl -A 'Solr answering prereq' -s http://localhost:8983/solr/zenoss_model/admin/ping?wt=json | grep -q '\"status\":\"OK\"'"
         }
     ],
-    "Privileged": true,
     "RAMCommitment": "1G",
     "Services": [],
     "StartLevel": 2,

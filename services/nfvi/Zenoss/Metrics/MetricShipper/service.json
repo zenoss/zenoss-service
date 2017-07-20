@@ -149,7 +149,6 @@
         ]
     },
     "Name": "metric_shipper",
-    "Privileged": true,
     "RAMCommitment": "256M",
     "Tags": [
         "daemon"
