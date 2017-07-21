@@ -42,7 +42,7 @@
             "Name": "CollectorRedis",
             "PortNumber": 6379,
             "Protocol": "tcp",
-            "Purpose": "import"
+            "Purpose": "import_all"
         },
         {
             "Application": "controlplane_consumer",
@@ -352,7 +352,7 @@
         ]
     },
     "Name": "zencommand",
-    "RAMCommitment": "256M",
+    "RAMCommitment": "1G",
     "Services": [],
     "Tags": [
         "daemon",

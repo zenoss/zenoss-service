@@ -1,8 +1,22 @@
 {
     "CPUCommitment": 1,
-    "Command": "/usr/bin/redis-server /etc/redis.conf",
+    "ChangeOptions": [
+        "restartAllOnInstanceZeroDown"
+    ],
+    "Command": "{{ if ne .InstanceID 0 }} /bin/sed -i 's/# slaveof <masterip> <masterport>/slaveof rd1 6379/' /etc/redis.conf & {{ end }} /usr/bin/redis-server /etc/redis.conf",
     "Description": "Redis server",
+    "EmergencyShutdownLevel": 2,
     "Endpoints": [
+        {
+            "Application": "localhost_redis",
+            "ApplicationTemplate": "{{(parent .).Name}}_redis",
+            "Name": "CollectorRedises",
+            "PortNumber": 16379,
+            "PortTemplate": "",
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "rd{{ plus 1 .InstanceID }}:6379"
+        },
         {
             "Application": "zproxy",
             "Name": "zproxy",
@@ -24,9 +38,9 @@
             "Script": "/opt/zenoss/bin/healthchecks/collectorredis/metrics"
         }
     },
+    "HostPolicy": "REQUIRE_SEPARATE",
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
-        "max": 1,
         "min": 1
     },
     "Launch": "auto",
@@ -118,6 +132,7 @@
         ]
     },
     "Name": "redis",
+    "Privileged": true,
     "RAMCommitment": "1G",
     "Tags": [
         "daemon",
