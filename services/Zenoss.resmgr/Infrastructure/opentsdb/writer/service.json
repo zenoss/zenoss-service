@@ -2,6 +2,11 @@
     "CPUCommitment": 1,
     "Command": "/bin/sh -c \"{{ if eq .InstanceID 0 }} export CREATE_TABLES=1;{{ end }} /opt/opentsdb/start-opentsdb.sh {{with $zks := (child (child (parent (parent .)) \"HBase\") \"ZooKeeper\").Instances }}{{ range (each $zks) }}localhost:{{plus 2181 .}}{{if ne (plus 1 .) $zks}},{{end}}{{end}}{{end}}\"",
     "ConfigFiles": {
+        "/opt/opentsdb/src/logback.xml": {
+            "FileName": "/opt/opentsdb/src/logback.xml",
+            "Owner": "root:root",
+            "Permissions": "0644"
+        },
         "/opt/zenoss/etc/opentsdb/opentsdb.conf": {
             "FileName": "/opt/zenoss/etc/opentsdb/opentsdb.conf",
             "Owner": "root:root",
