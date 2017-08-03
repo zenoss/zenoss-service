@@ -101,11 +101,17 @@
     "Launch": "auto",
     "LogConfigs": [
         {
-            "path": "/var/log/rabbitmq/rabbit@rbt{{.InstanceID}}.log",
+            "filters": [
+                "rabbitmq"
+            ],
+            "path": "/var/log/rabbitmq/rabbit@rbt[0-9]*.log",
             "type": "rabbitmq"
         },
         {
-            "path": "/var/log/rabbitmq/rabbit@rbt{{.InstanceID}}-sasl.log",
+            "filters": [
+                "rabbitmq"
+            ],
+            "path": "/var/log/rabbitmq/rabbit@rbt[0-9]*-sasl.log",
             "type": "rabbitmq_sasl"
         }
     ],
