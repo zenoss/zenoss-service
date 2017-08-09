@@ -97,11 +97,11 @@
     "Launch": "auto",
     "LogConfigs": [
         {
-            "path": "/var/log/rabbitmq/rabbit@localhost.log",
+            "path": "/var/log/rabbitmq/rabbit@rbt[0-9]*.log",
             "type": "rabbitmq"
         },
         {
-            "path": "/var/log/rabbitmq/rabbit@localhost-sasl.log",
+            "path": "/var/log/rabbitmq/rabbit@rbt[0-9]*-sasl.log",
             "type": "rabbitmq_sasl"
         }
     ],
