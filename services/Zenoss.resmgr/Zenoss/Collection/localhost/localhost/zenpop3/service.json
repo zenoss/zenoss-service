@@ -79,7 +79,7 @@
                 }
             ],
             "filters": [
-                "zenpop3daemon"
+                "pythondaemon"
             ],
             "path": "/opt/zenoss/log/zenpop3.log",
             "type": "zenpop3"

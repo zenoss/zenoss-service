@@ -138,6 +138,9 @@
     "Launch": "auto",
     "LogConfigs": [
         {
+            "filters": [
+                "pythondaemon"
+            ],
             "path": "/opt/zenoss/log/zenhub.log",
             "type": "zenhub"
         },

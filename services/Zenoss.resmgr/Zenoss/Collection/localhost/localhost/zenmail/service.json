@@ -83,7 +83,7 @@
                 }
             ],
             "filters": [
-                "zenmaildaemon"
+                "pythondaemon"
             ],
             "path": "/opt/zenoss/log/zenmail.log",
             "type": "zenmail"
