@@ -52,14 +52,46 @@
             "PortNumber": 8080,
             "Protocol": "tcp",
             "Purpose": "export",
-            "Vhosts": [
-                "zenoss5"
+            "VHostList": [
+                {
+                    "Enabled": true,
+                    "Name": "zenoss5"
+                },
+                {
+                    "Enabled": false,
+                    "Name": "zendebug"
+                },
+                {
+                    "Enabled": true,
+                    "Name": "zenapi"
+                }
             ]
         },
         {
             "Application": "zope",
             "Name": "zope",
             "PortNumber": 9080,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Application": "zenreports",
+            "Name": "zenreports",
+            "PortNumber": 9290,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Application": "zendebug",
+            "Name": "zendebug",
+            "PortNumber": 9310,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Application": "zenapi",
+            "Name": "zenapi",
+            "PortNumber": 9320,
             "Protocol": "tcp",
             "Purpose": "import_all"
         },
@@ -121,7 +153,7 @@
         "daemon"
     ],
     "Title": "zproxy",
-    "Version": "5.2.6",
+    "Version": "5.3.0",
     "Volumes": [
         {
             "#####": "drwxrwxr-x  3 zenoss zenoss 4.0K Jul 24 01:54 zproxy",
