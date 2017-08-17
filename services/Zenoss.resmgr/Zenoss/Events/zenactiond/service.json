@@ -99,6 +99,9 @@
     "Launch": "auto",
     "LogConfigs": [
         {
+            "filters": [
+                "pythondaemon"
+            ],
             "path": "/opt/zenoss/log/zenactiond.log",
             "type": "zenactiond"
         },
