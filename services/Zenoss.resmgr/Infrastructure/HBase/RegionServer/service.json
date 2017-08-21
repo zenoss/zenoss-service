@@ -73,7 +73,10 @@
     "LogConfigs": [
         {
             "path": "/opt/hbase/logs/hbase-regionserver.log",
-            "type": "hbase"
+            "type": "hbase",
+            "filters": [
+                 "hbasedaemon"
+            ]
         }
     ],
     "MonitoringProfile": {

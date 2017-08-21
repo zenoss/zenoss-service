@@ -77,7 +77,10 @@
     "LogConfigs": [
         {
             "path": "/opt/hbase/logs/hbase-master.log",
-            "type": "hbase"
+            "type": "hbase",
+            "filters": [
+                 "hbasedaemon"
+            ]
         }
     ],
     "MonitoringProfile": {
