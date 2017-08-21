@@ -46,6 +46,15 @@
     "Launch": "auto",
     "LogConfigs": [
         {
+            "LogTags": [
+                {
+                    "Name": "monitor",
+                    "Value": "{{(parent .).Name}}"
+                }
+            ],
+            "filters": [
+                "glog"
+            ],
             "path": "/opt/zenoss/log/zminion.log",
             "type": "zminion"
         }
