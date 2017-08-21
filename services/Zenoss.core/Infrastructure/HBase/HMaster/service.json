@@ -76,11 +76,11 @@
     "Launch": "auto",
     "LogConfigs": [
         {
-            "path": "/opt/hbase/logs/hbase-master.log",
-            "type": "hbase",
             "filters": [
                 "hbasedaemon"
-            ]
+            ],
+            "path": "/opt/hbase/logs/hbase-master.log",
+            "type": "hbase"
         }
     ],
     "MonitoringProfile": {

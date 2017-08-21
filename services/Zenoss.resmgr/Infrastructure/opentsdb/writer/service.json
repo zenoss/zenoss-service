@@ -55,11 +55,11 @@
     "Launch": "auto",
     "LogConfigs": [
         {
-            "path": "/var/log/opentsdb/opentsdb.log",
-            "type": "opentsdb-writer",
             "filters": [
                 "hbasedaemon"
-            ]
+            ],
+            "path": "/var/log/opentsdb/opentsdb.log",
+            "type": "opentsdb-writer"
         }
     ],
     "Name": "opentsdb-writer",

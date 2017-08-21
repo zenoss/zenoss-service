@@ -72,11 +72,11 @@
     "Launch": "auto",
     "LogConfigs": [
         {
-            "path": "/opt/hbase/logs/hbase-regionserver.log",
-            "type": "hbase",
             "filters": [
-                 "hbasedaemon"
-            ]
+                "hbasedaemon"
+            ],
+            "path": "/opt/hbase/logs/hbase-regionserver.log",
+            "type": "hbase"
         }
     ],
     "MonitoringProfile": {
