@@ -68,8 +68,11 @@
     "Launch": "auto",
     "LogConfigs": [
         {
-            "path": "/opt/zenoss/log/opentsdb.log",
-            "type": "opentsdb-reader"
+            "path": "/var/log/opentsdb/opentsdb.log",
+            "type": "opentsdb-reader",
+            "filters": [
+                "hbasedaemon"
+            ]
         }
     ],
     "Name": "opentsdb-reader",

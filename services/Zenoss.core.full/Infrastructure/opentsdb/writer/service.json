@@ -55,8 +55,11 @@
     "Launch": "auto",
     "LogConfigs": [
         {
-            "path": "/opt/zenoss/log/opentsdb.log",
-            "type": "opentsdb-writer"
+            "path": "/var/log/opentsdb/opentsdb.log",
+            "type": "opentsdb-writer",
+            "filters": [
+                "hbasedaemon"
+            ]
         }
     ],
     "Name": "opentsdb-writer",
