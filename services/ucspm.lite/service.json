@@ -84,7 +84,7 @@
             "Name": "zauth",
             "PortNumber": 9180,
             "Protocol": "tcp",
-            "Purpose": "import_all"
+            "Purpose": "import"
         },
         {
             "Application": "central_query",
