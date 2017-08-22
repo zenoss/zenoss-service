@@ -213,6 +213,69 @@
             "isAudit": true,
             "path": "/opt/zenoss/log/audit.log",
             "type": "zenossaudit"
+        },
+        {
+            "Filters": [
+                "pythondaemon"
+            ],
+            "IsAudit": false,
+            "LogTags": null,
+            "Path": "/opt/zenoss/log/toolbox/zodbscan.log",
+            "Type": "toolbox_zodbscan_logs"
+        },
+        {
+            "Filters": [
+                "pythondaemon"
+            ],
+            "IsAudit": false,
+            "LogTags": null,
+            "Path": "/opt/zenoss/log/toolbox/zennetworkclean.log",
+            "Type": "toolbox_zennetworkclean_logs"
+        },
+        {
+            "Filters": [
+                "pythondaemon"
+            ],
+            "IsAudit": false,
+            "LogTags": null,
+            "Path": "/opt/zenoss/log/toolbox/zenindextool.log",
+            "Type": "toolbox_zenindextool_logs"
+        },
+        {
+            "Filters": [
+                "pythondaemon"
+            ],
+            "IsAudit": false,
+            "LogTags": null,
+            "Path": "/opt/zenoss/log/toolbox/zencheckdbstats.log",
+            "Type": "toolbox_zencheckdbstats_logs"
+        },
+        {
+            "Filters": [
+                "pythondaemon"
+            ],
+            "IsAudit": false,
+            "LogTags": null,
+            "Path": "/opt/zenoss/log/toolbox/zencatalogscan.log",
+            "Type": "toolbox_zencatalogscan_logs"
+        },
+        {
+            "Filters": [
+                "pythondaemon"
+            ],
+            "IsAudit": false,
+            "LogTags": null,
+            "Path": "/opt/zenoss/log/toolbox/findposkeyerror.log",
+            "Type": "toolbox_findposkeyerror_logs"
+        },
+        {
+            "Filters": [
+                "pythondaemon"
+            ],
+            "IsAudit": false,
+            "LogTags": null,
+            "Path": "/opt/zenoss/log/toolbox/zenrelationscan.log",
+            "Type": "toolbox_zenrelationscan_logs"
         }
     ],
     "Name": "Zope",

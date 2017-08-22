@@ -76,6 +76,9 @@
     "Launch": "auto",
     "LogConfigs": [
         {
+            "filters": [
+                "hbasedaemon"
+            ],
             "path": "/opt/hbase/logs/hbase-master.log",
             "type": "hbase"
         }
