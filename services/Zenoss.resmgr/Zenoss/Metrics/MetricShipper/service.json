@@ -50,6 +50,9 @@
     "Launch": "auto",
     "LogConfigs": [
         {
+            "filters": [
+                "glog"
+            ],
             "path": "/opt/zenoss/log/metricshipper.log",
             "type": "metricshipper"
         }
