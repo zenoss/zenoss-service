@@ -119,7 +119,10 @@
             "type": "zeneventserver"
         },
         {
-            "path": "/opt/zenoss/log/zeneventserver-stdio*.log",
+            "filters": [
+                "zeneventserver-stdio"
+            ],
+            "path": "/opt/zenoss/log/zeneventserver-stdio.[0-9]*_[0-9]*_[0-9]*.log",
             "type": "zeneventserver_stdio"
         }
     ],
