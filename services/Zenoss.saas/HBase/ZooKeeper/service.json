@@ -76,6 +76,9 @@
     "Launch": "auto",
     "LogConfigs": [
         {
+            "filters": [
+                "zookeeper"
+            ],
             "path": "/var/log/zookeeper/zookeeper.log",
             "type": "hbase"
         }
