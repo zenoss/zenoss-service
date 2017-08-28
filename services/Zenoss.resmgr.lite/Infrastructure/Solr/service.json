@@ -64,6 +64,9 @@
     "LogConfigs": [
         {
             "path": "/var/solr/logs/solr.log",
+            "filters": [
+                "solr"
+            ],
             "type": "solr"
         }
     ],
