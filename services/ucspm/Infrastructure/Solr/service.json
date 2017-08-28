@@ -63,10 +63,10 @@
     "Launch": "auto",
     "LogConfigs": [
         {
-            "path": "/var/solr/logs/solr.log",
             "filters": [
                 "solr"
             ],
+            "path": "/var/solr/logs/solr.log",
             "type": "solr"
         }
     ],
