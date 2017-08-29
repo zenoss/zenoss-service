@@ -1,5 +1,0 @@
-{
-    "Description": "HBase Cluster",
-    "Launch": "auto",
-    "Name": "HBaseCluster"
-}
