@@ -47,6 +47,9 @@
     "Launch": "auto",
     "LogConfigs": [
         {
+            "filters": [
+                "redis"
+            ],
             "path": "/var/log/redis/redis.log",
             "type": "redis"
         }
