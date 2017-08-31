@@ -27,6 +27,9 @@
     "Launch": "auto",
     "LogConfigs": [
         {
+            "filters": [
+                "mariadb"
+            ],
             "path": "/var/log/mysqld.log",
             "type": "mariadb"
         }
