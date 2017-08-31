@@ -105,10 +105,16 @@
     "Launch": "auto",
     "LogConfigs": [
         {
+            "filters": [
+                "nginx_access"
+            ],
             "path": "/opt/zenoss/zproxy/logs/access.log",
             "type": "zproxy"
         },
         {
+            "filters": [
+                "nginx_error"
+            ],
             "path": "/opt/zenoss/zproxy/logs/error.log",
             "type": "zproxy"
         }
