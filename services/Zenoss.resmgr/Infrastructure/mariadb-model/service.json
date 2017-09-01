@@ -1,7 +1,14 @@
 {
     "CPUCommitment": 4,
-    "Command": "/usr/bin/mysqld_safe",
+    "Command": "/bin/supervisord -n -c /etc/mariadb/mariadb_supervisor.conf",
     "Commands": {},
+    "ConfigFiles": {
+        "/etc/mariadb/mariadb_supervisor.conf": {
+            "FileName": "/etc/mariadb/mariadb_supervisor.conf",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        }
+    },
     "Description": "MariaDB model database server",
     "EmergencyShutdownLevel": 1,
     "Endpoints": [
