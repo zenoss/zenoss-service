@@ -227,41 +227,41 @@
                         "aggregator": "zimsum",
                         "fill": true,
                         "id": "totalRequestCount",
-                        "legend": "The total number of requests received",
+                        "legend": "Total request rate",
                         "metric": "totalRequestCount",
                         "metricSource": "RegionServer",
-                        "name": "The total number of requests received",
-                        "rate": false,
+                        "name": "Total request rate",
+                        "rate": true,
                         "type": "line"
                     },
                     {
                         "aggregator": "zimsum",
                         "fill": true,
                         "id": "readRequestCount",
-                        "legend": "The total number of read requests received",
+                        "legend": "Read request rate",
                         "metric": "readRequestCount",
                         "metricSource": "RegionServer",
-                        "name": "The total number of read requests received",
-                        "rate": false,
+                        "name": "Read request rate",
+                        "rate": true,
                         "type": "line"
                     },
                     {
                         "aggregator": "zimsum",
                         "fill": true,
                         "id": "writeRequestCount",
-                        "legend": "The total number of write requests received",
+                        "legend": "Write request rate",
                         "metric": "writeRequestCount",
                         "metricSource": "RegionServer",
-                        "name": "The total number of write requests received",
-                        "rate": false,
+                        "name": "Write request rate",
+                        "rate": true,
                         "type": "line"
                     }
                 ],
-                "description": "Operation Counts",
+                "description": "Operations",
                 "footer": false,
                 "id": "opcounts",
                 "miny": 0,
-                "name": "Operation Counts",
+                "name": "Operations",
                 "range": {
                     "end": "0s-ago",
                     "starts": "10s-ago"
@@ -310,15 +310,15 @@
                     },
                     {
                         "ID": "totalRequestCount",
-                        "Name": "The total number of requests received"
+                        "Name": "Total request rate"
                     },
                     {
                         "ID": "readRequestCount",
-                        "Name": "The total number of read requests received"
+                        "Name": "Read request rate"
                     },
                     {
                         "ID": "writeRequestCount",
-                        "Name": "The total number of write requests received"
+                        "Name": "Write request rate"
                     }
                 ],
                 "Name": "RegionServer internal metrics"
