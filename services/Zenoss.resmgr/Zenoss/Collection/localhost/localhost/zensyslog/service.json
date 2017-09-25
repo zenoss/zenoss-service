@@ -121,6 +121,9 @@
                         "metricSource": "zensyslog",
                         "name": "Data Points",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
@@ -187,6 +190,9 @@
                         "metricSource": "zensyslog",
                         "name": "Event Count",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
@@ -241,6 +247,9 @@
                         "metricSource": "zensyslog",
                         "name": "Missed Runs",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
