@@ -120,9 +120,7 @@
                         "name": "Data Points",
                         "rate": true,
                         "rateOptions": {
-                            "counter": true,
-                            "counterMax": null,
-                            "resetThreshold": 1048576000
+                            "counter": true
                         },
                         "type": "line"
                     }
@@ -179,9 +177,7 @@
                         "name": "Event Count",
                         "rate": true,
                         "rateOptions": {
-                            "counter": true,
-                            "counterMax": null,
-                            "resetThreshold": 1048576000
+                            "counter": true
                         },
                         "type": "line"
                     }
@@ -238,9 +234,7 @@
                         "name": "Missed Runs",
                         "rate": true,
                         "rateOptions": {
-                            "counter": true,
-                            "counterMax": null,
-                            "resetThreshold": 1048576000
+                            "counter": true
                         },
                         "type": "line"
                     }
@@ -319,7 +313,6 @@
                         "Description": "Number of datapoints collected.",
                         "ID": "dataPoints",
                         "Name": "Datapoints",
-                        "ResetValue": 1048576000,
                         "Unit": "Points"
                     },
                     {
@@ -334,7 +327,6 @@
                         "Description": "Total number of events.",
                         "ID": "eventCount",
                         "Name": "Event Count",
-                        "ResetValue": 1048576000,
                         "Unit": "Events"
                     },
                     {
@@ -349,7 +341,7 @@
                         "Description": "Number of missed runs of tasks running on daemon.",
                         "ID": "missedRuns",
                         "Name": "Missed Runs",
-                        "ResetValue": 1048576000,
+
                         "Unit": "Runs"
                     },
                     {
