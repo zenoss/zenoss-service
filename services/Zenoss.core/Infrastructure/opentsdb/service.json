@@ -55,6 +55,9 @@
             "Purpose": "import_all"
         }
     ],
+    "Environment": [
+        "TSDB_JAVA_MEM_MB=-Xmx{{bytesToMB .RAMCommitment}}m"
+    ],
     "HealthChecks": {
         "answering": {
             "Interval": 30.0,
