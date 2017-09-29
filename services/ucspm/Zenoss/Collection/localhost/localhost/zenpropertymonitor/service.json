@@ -107,6 +107,9 @@
                         "metricSource": "zenpropertymonitor",
                         "name": "Data Points",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
@@ -159,6 +162,9 @@
                         "metricSource": "zenpropertymonitor",
                         "name": "Event Count",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
@@ -211,6 +217,9 @@
                         "metricSource": "zenpropertymonitor",
                         "name": "Missed Runs",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
