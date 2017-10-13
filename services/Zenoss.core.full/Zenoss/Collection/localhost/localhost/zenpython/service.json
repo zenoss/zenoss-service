@@ -109,6 +109,9 @@
                         "metricSource": "zenpython",
                         "name": "Data Points",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
@@ -163,6 +166,9 @@
                         "metricSource": "zenpython",
                         "name": "Event Count",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
@@ -217,6 +223,9 @@
                         "metricSource": "zenpython",
                         "name": "Missed Runs",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
