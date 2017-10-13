@@ -107,6 +107,9 @@
                         "metricSource": "zenpop3",
                         "name": "Event Count",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
@@ -161,6 +164,9 @@
                         "metricSource": "zenpop3",
                         "name": "Missed Runs",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
