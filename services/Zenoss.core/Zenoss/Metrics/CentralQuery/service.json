@@ -38,6 +38,13 @@
             "PortNumber": 4242,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Application": "opentsdb-writer",
+            "Name": "opentsdb-writer",
+            "PortNumber": 4243,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "HealthChecks": {
