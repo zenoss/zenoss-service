@@ -111,6 +111,9 @@
                         "metricSource": "zenmail",
                         "name": "Event Count",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
@@ -165,6 +168,9 @@
                         "metricSource": "zenmail",
                         "name": "Missed Runs",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
