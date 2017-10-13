@@ -108,6 +108,9 @@
                         "metricSource": "zenjmx",
                         "name": "Data Points",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
@@ -162,6 +165,9 @@
                         "metricSource": "zenjmx",
                         "name": "Event Count",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
@@ -216,6 +222,9 @@
                         "metricSource": "zenjmx",
                         "name": "Missed Runs",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
