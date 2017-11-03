@@ -108,6 +108,9 @@
                         "metricSource": "zencommand",
                         "name": "Data Points",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
@@ -162,6 +165,9 @@
                         "metricSource": "zencommand",
                         "name": "Event Count",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
@@ -218,6 +224,9 @@
                         "metricSource": "zencommand",
                         "name": "Missed Runs",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
