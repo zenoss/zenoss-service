@@ -63,6 +63,10 @@
                 },
                 {
                     "Enabled": false,
+                    "Name": "zenoss"
+                },
+                {
+                    "Enabled": false,
                     "Name": "zendebug"
                 },
                 {

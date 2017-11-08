@@ -51,8 +51,15 @@
             "PortNumber": 8080,
             "Protocol": "tcp",
             "Purpose": "export",
-            "Vhosts": [
-                "zenoss5"
+            "VHostList": [
+                {
+                    "Enabled": true,
+                    "Name": "zenoss5"
+                },
+                {
+                    "Enabled": false,
+                    "Name": "zenoss"
+                }
             ]
         },
         {
