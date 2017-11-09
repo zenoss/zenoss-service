@@ -102,6 +102,7 @@
     "Hostname": "rbt{{.InstanceID}}",
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
+        "max": 1,
         "min": 1
     },
     "Launch": "auto",
