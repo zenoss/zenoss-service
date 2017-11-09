@@ -46,6 +46,7 @@
         "global.conf.zodb-password": "zenoss",
         "global.conf.zodb-port": "3306",
         "global.conf.zodb-user": "zenoss",
+        "global.conf.centralquery-ratecutoff": -1,
         "tsd.storage.enable_compaction": "False"
     },
     "Description": "Zenoss Core",
