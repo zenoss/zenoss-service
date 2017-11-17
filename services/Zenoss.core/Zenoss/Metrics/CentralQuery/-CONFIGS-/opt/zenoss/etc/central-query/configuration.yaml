@@ -13,7 +13,7 @@ metrics:
   connectionTimeoutMs: 20000
   sendRateOptions: false
   ignoreRateOption: true
-  rateOptionCutoffTs: {{(getContext . "global.conf.centralquery-ratecutoff")}}
+  rateOptionCutoffTs: {{(getContext . "centralquery.ratecutoff")}}
   # parameters to configure connection pool for querying OpenTsdb:
   # Total connections allowed per pool
   maxTotalPoolConnections: 100

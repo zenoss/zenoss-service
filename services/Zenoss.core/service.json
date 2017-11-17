@@ -16,6 +16,7 @@
     "Context": {
         "ZenPack.Default.RAMCommitment": "256M",
         "ZenPack.Default.WorkerArgs": "",
+        "centralquery.ratecutoff": -1,
         "global.conf.amqpadminport": "55672",
         "global.conf.amqpadminusessl": "0",
         "global.conf.amqphost": "127.0.0.1",
@@ -46,7 +47,6 @@
         "global.conf.zodb-password": "zenoss",
         "global.conf.zodb-port": "3306",
         "global.conf.zodb-user": "zenoss",
-        "global.conf.centralquery-ratecutoff": -1,
         "tsd.storage.enable_compaction": "False"
     },
     "Description": "Zenoss Core",
