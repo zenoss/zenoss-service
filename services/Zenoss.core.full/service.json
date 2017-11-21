@@ -16,6 +16,7 @@
     "Context": {
         "ZenPack.Default.RAMCommitment": "1G",
         "ZenPack.Default.WorkerArgs": "",
+        "centralquery.ratecutoff": -1,
         "global.conf.amqpadminport": "55672",
         "global.conf.amqpadminusessl": "0",
         "global.conf.amqphost": "127.0.0.1",
