@@ -153,7 +153,7 @@
                 "ID": "zenhub",
                 "Metrics": [
                     {
-                        "Counter": true,
+                        "Counter": false,
                         "Description": "Number of invalidations since daemon startup.",
                         "ID": "invalidations",
                         "Name": "Invalidations"
