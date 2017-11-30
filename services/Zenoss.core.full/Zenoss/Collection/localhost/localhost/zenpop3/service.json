@@ -106,10 +106,7 @@
                         "metric": "eventCount",
                         "metricSource": "zenpop3",
                         "name": "Event Count",
-                        "rate": true,
-                        "rateOptions": {
-                            "counter": true
-                        },
+                        "rate": false,
                         "type": "line"
                     }
                 ],
@@ -163,10 +160,7 @@
                         "metric": "missedRuns",
                         "metricSource": "zenpop3",
                         "name": "Missed Runs",
-                        "rate": true,
-                        "rateOptions": {
-                            "counter": true
-                        },
+                        "rate": false,
                         "type": "line"
                     }
                 ],
@@ -240,7 +234,7 @@
                 "ID": "zenpop3",
                 "Metrics": [
                     {
-                        "Counter": true,
+                        "Counter": false,
                         "Description": "Total number of events.",
                         "ID": "eventCount",
                         "Name": "Event Count",
@@ -254,7 +248,7 @@
                         "Unit": "Events"
                     },
                     {
-                        "Counter": true,
+                        "Counter": false,
                         "Description": "Number of missed runs of tasks running on daemon.",
                         "ID": "missedRuns",
                         "Name": "Missed Runs",
