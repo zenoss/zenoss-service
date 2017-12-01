@@ -107,10 +107,7 @@
                         "metric": "dataPoints",
                         "metricSource": "zencommand",
                         "name": "Data Points",
-                        "rate": true,
-                        "rateOptions": {
-                            "counter": true
-                        },
+                        "rate": false,
                         "type": "line"
                     }
                 ],
@@ -164,10 +161,7 @@
                         "metric": "eventCount",
                         "metricSource": "zencommand",
                         "name": "Event Count",
-                        "rate": true,
-                        "rateOptions": {
-                            "counter": true
-                        },
+                        "rate": false,
                         "type": "line"
                     }
                 ],
@@ -223,10 +217,7 @@
                         "metric": "missedRuns",
                         "metricSource": "zencommand",
                         "name": "Missed Runs",
-                        "rate": true,
-                        "rateOptions": {
-                            "counter": true
-                        },
+                        "rate": false,
                         "type": "line"
                     }
                 ],
@@ -300,7 +291,7 @@
                 "ID": "zencommand",
                 "Metrics": [
                     {
-                        "Counter": true,
+                        "Counter": false,
                         "Description": "Number of datapoints collected.",
                         "ID": "dataPoints",
                         "Name": "Datapoints",
@@ -314,7 +305,7 @@
                         "Unit": "Count"
                     },
                     {
-                        "Counter": true,
+                        "Counter": false,
                         "Description": "Total number of events.",
                         "ID": "eventCount",
                         "Name": "Event Count",
@@ -328,7 +319,7 @@
                         "Unit": "Events"
                     },
                     {
-                        "Counter": true,
+                        "Counter": false,
                         "Description": "Number of missed runs of tasks running on daemon.",
                         "ID": "missedRuns",
                         "Name": "Missed Runs",

@@ -16,6 +16,7 @@
     "Context": {
         "ZenPack.Default.RAMCommitment": "256M",
         "ZenPack.Default.WorkerArgs": "--workers {{.Instances}} --workerid $CONTROLPLANE_INSTANCE_ID",
+        "centralquery.ratecutoff": -1,
         "global.conf.amqpadminport": "55672",
         "global.conf.amqpadminusessl": "0",
         "global.conf.amqphost": "127.0.0.1",
@@ -56,8 +57,15 @@
             "PortNumber": 8080,
             "Protocol": "tcp",
             "Purpose": "export",
-            "Vhosts": [
-                "zenoss5"
+            "VHostList": [
+                {
+                    "Enabled": true,
+                    "Name": "zenoss5"
+                },
+                {
+                    "Enabled": false,
+                    "Name": "zenoss"
+                }
             ]
         },
         {

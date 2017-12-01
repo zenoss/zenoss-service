@@ -110,10 +110,7 @@
                         "metric": "eventCount",
                         "metricSource": "zenmail",
                         "name": "Event Count",
-                        "rate": true,
-                        "rateOptions": {
-                            "counter": true
-                        },
+                        "rate": false,
                         "type": "line"
                     }
                 ],
@@ -167,10 +164,7 @@
                         "metric": "missedRuns",
                         "metricSource": "zenmail",
                         "name": "Missed Runs",
-                        "rate": true,
-                        "rateOptions": {
-                            "counter": true
-                        },
+                        "rate": false,
                         "type": "line"
                     }
                 ],
@@ -244,7 +238,7 @@
                 "ID": "zenmail",
                 "Metrics": [
                     {
-                        "Counter": true,
+                        "Counter": false,
                         "Description": "Total number of events.",
                         "ID": "eventCount",
                         "Name": "Event Count",
@@ -258,7 +252,7 @@
                         "Unit": "Events"
                     },
                     {
-                        "Counter": true,
+                        "Counter": false,
                         "Description": "Number of missed runs of tasks running on daemon.",
                         "ID": "missedRuns",
                         "Name": "Missed Runs",
