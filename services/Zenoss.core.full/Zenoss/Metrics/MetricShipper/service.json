@@ -70,6 +70,9 @@
                         "metricSource": "metricshipper",
                         "name": "tx",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
@@ -96,6 +99,9 @@
                         "metricSource": "metricshipper",
                         "name": "outgoing",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     },
                     {
@@ -107,6 +113,9 @@
                         "metricSource": "metricshipper",
                         "name": "incoming",
                         "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
                         "type": "line"
                     }
                 ],
