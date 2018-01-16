@@ -1,0 +1,218 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/run-hdfs-datanode",
+    "ConfigFiles": {
+        "/opt/hadoop/etc/hadoop/core-site.xml": {
+            "FileName": "/opt/hadoop/etc/hadoop/core-site.xml",
+            "Owner": "hdfs:hdfs",
+            "Permissions": "0775"
+        },
+        "/opt/hadoop/etc/hadoop/hdfs-site.xml": {
+            "FileName": "/opt/hadoop/etc/hadoop/hdfs-site.xml",
+            "Owner": "hdfs:hdfs",
+            "Permissions": "0775"
+        }
+    },
+    "Description": "HDFS dataNode",
+    "Endpoints": [
+        {
+            "Application": "hdfs-namenode",
+            "Name": "hdfs-namenode",
+            "PortNumber": 8020,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "hdfs-datanode",
+            "Name": "hdfs-datanode",
+            "PortNumber": 50100,
+            "PortTemplate": "{{ plus 50100 .InstanceID }}",
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "hdfs-datanode-ipc",
+            "Name": "hdfs-datanode-ipc",
+            "PortNumber": 50200,
+            "PortTemplate": "{{ plus 50200 .InstanceID }}",
+            "Protocol": "tcp",
+            "Purpose": "export"
+        }
+    ],
+    "Environment": [
+        "HADOOP_ROOT_LOG_LEVEL=INFO",
+        "HADOOP_HEAPSIZE={{bytesToMB .RAMCommitment}}"
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 10,
+            "Script": "test $(curl -A 'DataNode answering healthcheck' -s -o /dev/null -w '%{http_code}' localhost:50075) = 200"
+        }
+    },
+    "Hostname": "dn{{.InstanceID}}",
+    "ImageID": "zenoss/hdfs:xx",
+    "Instances": {
+        "min": 3
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/hadoop/logs/hadoop.log",
+            "type": "hdfs-datanode"
+        }
+    ],
+    "MonitoringProfile": {
+        "GraphConfigs": [
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "ReadBlockOpAvgTime",
+                        "legend": "Average Block Read Rate Time",
+                        "metric": "ReadBlockOpAvgTime",
+                        "name": "ReadBlockOpAvgTime",
+                        "rate": true,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "HeartbeatsAvgTime",
+                        "legend": "Average Heart Rate Time",
+                        "metric": "HeartbeatsAvgTime",
+                        "name": "HeartbeatsAvgTime",
+                        "rate": true,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "BlockReportsAvgTime",
+                        "legend": "Block Report Average Time",
+                        "metric": "BlockReportsAvgTime",
+                        "name": "BlockReportsAvgTime",
+                        "rate": true,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Block Stats",
+                "footer": false,
+                "id": "TimeStats",
+                "name": "Node Performance",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Milliseconds"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "BlocksWritten",
+                        "legend": "Blocks Written",
+                        "metric": "BlocksWritten",
+                        "name": "BlocksWritten",
+                        "rate": true,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "BlocksRead",
+                        "legend": "Blocks Read",
+                        "metric": "BlocksRead",
+                        "name": "BlocksRead",
+                        "rate": true,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "BlocksReplicated",
+                        "legend": "Blocks Replicated",
+                        "metric": "BlocksReplicated",
+                        "name": "BlocksReplicated",
+                        "rate": true,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "BlocksRemoved",
+                        "legend": "Blocks Removed",
+                        "metric": "BlocksRemoved",
+                        "name": "BlocksRemoved",
+                        "rate": true,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Block Stats",
+                "footer": false,
+                "id": "BlockStats",
+                "name": "Block Stats",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Blocks"
+            }
+        ]
+    },
+    "Name": "DataNode",
+    "Prereqs": [],
+    "Privileged": true,
+    "RAMCommitment": "1G",
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "ContainerPath": "/var/hdfs/data",
+            "Owner": "hdfs:hdfs",
+            "Permission": "0755",
+            "ResourcePath": "hdfs-data-{{.InstanceID}}"
+        }
+    ]
+}

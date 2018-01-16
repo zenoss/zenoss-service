@@ -1,0 +1,8 @@
+{
+    "Description": "",
+    "Launch": "auto",
+    "Name": "Collection",
+    "Tags": [
+        "zenoss-collection"
+    ]
+}

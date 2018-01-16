@@ -1,0 +1,13 @@
+{
+    "Description": "OpenTSDB server",
+    "Endpoints": [],
+    "Instances": {
+        "min": 0
+    },
+    "Launch": "auto",
+    "Name": "opentsdb",
+    "StartLevel": 3,
+    "Tags": [
+        "opentsdb"
+    ]
+}
