@@ -1,0 +1,39 @@
+{
+    "CPUCommitment": 1,
+    "Command": "${ZENHOME:-/opt/zenoss}/bin/zenmemcached",
+    "ConfigFiles": {
+        "/etc/sysconfig/memcached": {
+            "FileName": "/etc/sysconfig/memcached",
+            "Owner": "root:root",
+            "Permissions": "0644"
+        }
+    },
+    "Description": "Dedicated memcached instance for zope sessions",
+    "Endpoints": [
+        {
+            "Application": "memcached-session",
+            "Name": "memcached-session",
+            "PortNumber": 11211,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5.0,
+            "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 11211 | grep -q uptime"
+        }
+    },
+    "ImageID": "zenoss/zenoss5x",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "Name": "memcached-session",
+    "RAMCommitment": "1G",
+    "Services": [],
+    "StartLevel": 1,
+    "Tags": [
+        "daemon"
+    ]
+}
