@@ -1,0 +1,94 @@
+{
+    "CPUCommitment": 2,
+    "Command": "/bin/supervisord -n -c /opt/solr/zenoss/etc/supervisor.conf",
+    "ConfigFiles": {
+        "/opt/solr/server/solr/configsets/zenoss_model/conf/solrconfig.xml": {
+            "Filename": "/opt/solr/server/solr/configsets/zenoss_model/conf/solrconfig.xml",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        },
+        "/opt/solr/server/solr/solr.xml": {
+            "FileName": "/opt/solr/server/solr/solr.xml",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        },
+        "/opt/solr/zenoss/etc/solr.in.sh": {
+            "Filename": "/opt/solr/zenoss/etc/solr.in.sh",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        },
+        "/opt/solr/zenoss/etc/supervisor.conf": {
+            "Filename": "/opt/solr/zenoss/etc/supervisor.conf",
+            "Owner": "root:root",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Solr Cloud",
+    "EmergencyShutdownLevel": 1,
+    "Endpoints": [
+        {
+            "Application": "zodb_solr",
+            "Name": "solr",
+            "PortNumber": 8983,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "VHostList": [
+                {
+                    "Enabled": false,
+                    "Name": "solr"
+                }
+            ]
+        }
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 10.0,
+            "Script": "curl -A 'Solr answering healthcheck' -s http://localhost:8983/solr/zenoss_model/admin/ping?wt=json | grep -q '\"status\":\"OK\"'"
+        },
+        "embedded_zk_answering": {
+            "Interval": 10.0,
+            "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 9983 | grep -q Zookeeper"
+        },
+        "zk_connected": {
+            "Interval": 10.0,
+            "Script": "curl -A 'Solr zk_connected healthcheck' -s http://localhost:8983/solr/zenoss_model/admin/ping?wt=json | grep -q '\"zkConnected\":true'"
+        }
+    },
+    "ImageID": "zenoss/zenoss5x",
+    "Instances": {
+        "Default": 1,
+        "Max": 1,
+        "Min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "filters": [
+                "solr"
+            ],
+            "path": "/var/solr/logs/solr.log",
+            "type": "solr"
+        }
+    ],
+    "Name": "Solr",
+    "Prereqs": [],
+    "RAMCommitment": "1G",
+    "StartLevel": 1,
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "ContainerPath": "/opt/solr/server/logs",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0750",
+            "ResourcePath": "solr-logs-{{.InstanceID}}"
+        },
+        {
+            "ContainerPath": "/var/solr/data",
+            "Owner": "zenoss:zenoss",
+            "Permission": "0750",
+            "ResourcePath": "solr-{{.InstanceID}}"
+        }
+    ]
+}

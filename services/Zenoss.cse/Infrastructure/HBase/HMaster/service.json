@@ -1,0 +1,253 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/usr/bin/run-hbase-master.sh /etc/hbase-site.xml",
+    "ConfigFiles": {
+        "/etc/hbase-env.sh": {
+            "FileName": "/etc/hbase-env.sh",
+            "Owner": "hbase:hbase",
+            "Permissions": "0775"
+        },
+        "/etc/hbase-site.xml": {
+            "FileName": "/etc/hbase-site.xml",
+            "Owner": "hbase:hbase",
+            "Permissions": "0664"
+        }
+    },
+    "Description": "Master Server for HBase",
+    "Endpoints": [
+        {
+            "Application": "hbase-master-1",
+            "Name": "hbase-master-1",
+            "PortNumber": 60000,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "hbase-master-rest",
+            "Name": "hbase-master-rest",
+            "PortNumber": 61000,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "hbase-masterinfo-1",
+            "Name": "hbase-masterinfo-1",
+            "PortNumber": 60010,
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "VHostList": [
+                {
+                    "Enabled": false,
+                    "Name": "hbase"
+                }
+            ]
+        },
+        {
+            "Application": "hbase-regionserver",
+            "Name": "hbase-regionserver",
+            "PortNumber": 60200,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
+        },
+        {
+            "Application": "zookeeper-client",
+            "Name": "zookeeper-client",
+            "PortNumber": 2181,
+            "Protocol": "tcp",
+            "Purpose": "import_all",
+            "VirtualAddress": "zk{{ plus 1 .InstanceID }}:2181"
+        }
+    ],
+    "HealthChecks": {
+        "cluster_healthy": {
+            "Interval": 10.0,
+            "Script": "curl -A 'HMaster cluster_healthy healthcheck' -f -s http://127.0.0.1:61000/status/cluster | grep -q '0 dead'"
+        },
+        "rest_answering": {
+            "Interval": 10.0,
+            "Script": "curl -A 'HMaster rest_answering healthcheck' -o /dev/null -f -s http://127.0.0.1:61000/status/cluster"
+        }
+    },
+    "Hostname": "localhost",
+    "ImageID": "zenoss/hbase:xx",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "filters": [
+                "hbasedaemon"
+            ],
+            "path": "/opt/hbase/logs/hbase-master.log",
+            "type": "hbase"
+        }
+    ],
+    "MonitoringProfile": {
+        "GraphConfigs": [
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "LogFatal",
+                        "legend": "Total number of fatal log events",
+                        "metric": "LogFatal",
+                        "metricSource": "Hmaster",
+                        "name": "Total number of fatal log events",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "LogError",
+                        "legend": "Total number of error log events",
+                        "metric": "LogError",
+                        "metricSource": "Hmaster",
+                        "name": "Total number of error log events",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": false,
+                        "id": "LogWarn",
+                        "legend": "Total number of warn log events",
+                        "metric": "LogWarn",
+                        "metricSource": "Hmaster",
+                        "name": "Total number of warn log events",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Log Stats",
+                "footer": false,
+                "id": "logStats",
+                "miny": 0,
+                "name": "Log Stats",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "events"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "numRegionServers",
+                        "legend": "Total number of live regions servers",
+                        "metric": "numRegionServers",
+                        "metricSource": "Hmaster",
+                        "name": "Total number of live regions servers",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "zimsum",
+                        "fill": true,
+                        "id": "numDeadRegionServers",
+                        "legend": "Total number of dead regions servers",
+                        "metric": "numDeadRegionServers",
+                        "metricSource": "Hmaster",
+                        "name": "Total number of dead regions servers",
+                        "rate": false,
+                        "rateoptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Region Servers",
+                "footer": false,
+                "id": "regionServers",
+                "miny": 0,
+                "name": "Region Servers",
+                "range": {
+                    "end": "0s-ago",
+                    "starts": "10s-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "servers"
+            }
+        ],
+        "MetricConfigs": [
+            {
+                "Description": "HMaster internal metrics",
+                "ID": "HMaster",
+                "Metrics": [
+                    {
+                        "ID": "LogFatal",
+                        "Name": "Total number of fatal log events"
+                    },
+                    {
+                        "ID": "LogError",
+                        "Name": "Total number of error log events"
+                    },
+                    {
+                        "ID": "LogWarn",
+                        "Name": "Total number of warn log events"
+                    },
+                    {
+                        "ID": "numRegionServers",
+                        "Name": "Total number of live regions servers"
+                    },
+                    {
+                        "ID": "numDeadRegionServers",
+                        "Name": "Total number of dead regions servers"
+                    }
+                ],
+                "Name": "HMaster internal metrics"
+            }
+        ]
+    },
+    "Name": "HMaster",
+    "Prereqs": [
+        {
+            "Name": "All ZooKeepers up",
+            "Script": "{{with $zks := (child (parent .) \"ZooKeeper\").Instances }}{{ range (each $zks) }}{ echo ruok; sleep 2; } | nc zk{{plus 1 .}} 2181 | grep imok {{if ne (plus 1 .) $zks}}&& {{end}}{{end}}{{end}}"
+        }
+    ],
+    "Privileged": true,
+    "RAMCommitment": "1G",
+    "StartLevel": 1,
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####": "drwxr-xr-x  2 hbase hbase 4.0K Apr 15 12:57 /var/hbase",
+            "ContainerPath": "/var/hbase",
+            "Owner": "hbase:hbase",
+            "Permission": "0755",
+            "ResourcePath": "hbase-master"
+        }
+    ]
+}
