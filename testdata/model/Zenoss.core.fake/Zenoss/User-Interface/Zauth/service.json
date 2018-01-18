@@ -78,11 +78,11 @@
         },
         "memcached_answering": {
             "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/memcached_answering"
+            "Script": "echo OK"
         },
         "memcached_session_answering": {
             "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/memcached_session_answering"
+            "Script": "echo OK"
         },
         "rabbit_answering": {
             "Interval": 10.0,
