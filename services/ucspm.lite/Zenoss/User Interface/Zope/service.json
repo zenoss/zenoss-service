@@ -103,6 +103,13 @@
             "Purpose": "import"
         },
         {
+            "Application": "memcached-session",
+            "Name": "memcached-session",
+            "PortNumber": 11212,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Application": "redis",
             "Name": "redis",
             "PortNumber": 6379,
@@ -165,6 +172,14 @@
         "mariadb_answering": {
             "Interval": 10.0,
             "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering"
+        },
+        "memcached_answering": {
+            "Interval": 10.0,
+            "Script": "/opt/zenoss/bin/healthchecks/memcached_answering"
+        },
+        "memcached_session_answering": {
+            "Interval": 10.0,
+            "Script": "/opt/zenoss/bin/healthchecks/memcached_session_answering"
         },
         "rabbit_answering": {
             "Interval": 10.0,
