@@ -197,7 +197,7 @@
     },
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
-        "default": 6,
+        "default": 2,
         "min": 2
     },
     "Launch": "auto",
