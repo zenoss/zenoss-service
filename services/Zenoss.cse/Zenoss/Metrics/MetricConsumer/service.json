@@ -33,6 +33,13 @@
             "Purpose": "import"
         },
         {
+            "Application": "zing-connector",
+            "Name": "zing-connector",
+            "PortNumber": 9237,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Application": "opentsdb-writer",
             "Name": "opentsdb-writer",
             "PortNumber": 4242,
