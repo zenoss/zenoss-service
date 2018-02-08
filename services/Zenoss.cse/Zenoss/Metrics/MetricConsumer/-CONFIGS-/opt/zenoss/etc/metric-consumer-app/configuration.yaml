@@ -27,6 +27,10 @@ metricService:
     maxIdleTime: 10000
     maxConnectionBackOff: 5000
     minConnectionBackOff: 100
+    zingConfiguration:
+        enabled: true
+        threadPoolSize: 1
+        endpoint: "http://localhost:9237/api/metrics/ingest"
     openTsdbClientPool:
       maxKeepAliveTime: 300000
       minTestTime:       60000
