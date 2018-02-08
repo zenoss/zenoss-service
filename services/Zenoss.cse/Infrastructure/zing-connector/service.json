@@ -1,0 +1,43 @@
+{
+    "Command": "/bin/zing-connector server --config /etc/zing-connector.yml",
+    "ConfigFiles": {
+        "/etc/zing-connector.yml": {
+            "Filename": "/etc/zing-connector.yml",
+            "Owner": "root:root",
+            "Permissions": "664"
+        },
+        "/etc/zing-gcp-credentials.json": {
+            "Filename": "/etc/zing-gcp-credentials.json",
+            "Owner": "root:root",
+            "Permissions": "664"
+        }
+    },
+    "Description": "Zing Connector Service",
+    "Endpoints": [
+        {
+            "Application": "zing-connector",
+            "Name": "zing-connector",
+            "PortNumber": 9237,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        }
+    ],
+    "Environment": [
+        "GOOGLE_APPLICATION_CREDENTIALS=/etc/zing-gcp-credentials.json"
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5.0,
+            "Script": "test \"$(curl localhost:9237/_admin/ping)\" = \"PONG\""
+        }
+    },
+    "ImageId": "registry.zing.zenoss.eng/zenoss/zing-connector:975aea02",
+    "Instances": {
+        "Min": 1
+    },
+    "Launch": "auto",
+    "Name": "zing-connector",
+    "Tags": [
+        "daemon"
+    ]
+}
