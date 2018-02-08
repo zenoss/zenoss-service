@@ -31,7 +31,7 @@
             "Script": "test \"$(curl localhost:9237/_admin/ping)\" = \"PONG\""
         }
     },
-    "ImageId": "registry.zing.zenoss.eng/zenoss/zing-connector:975aea02",
+    "ImageId": "gcr.io/zing-registry-188222/zing-connector:975aea02",
     "Instances": {
         "Min": 1
     },
