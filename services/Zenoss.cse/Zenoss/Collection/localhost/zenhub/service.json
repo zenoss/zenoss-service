@@ -73,6 +73,13 @@
             "Purpose": "import"
         },
         {
+            "Application": "zing-connector",
+            "Name": "zing-connector",
+            "PortNumber": 9237,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Application": "zproxy",
             "Name": "zproxy",
             "PortNumber": 8080,

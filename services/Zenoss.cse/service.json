@@ -44,6 +44,7 @@
         "global.conf.zep-port": "3306",
         "global.conf.zep-uri": "http://127.0.0.1:8084",
         "global.conf.zep-user": "zenoss",
+        "global.conf.zing-connector-url": "http://localhost:9237",
         "global.conf.zodb-admin-password": "",
         "global.conf.zodb-admin-user": "root",
         "global.conf.zodb-cache-max-object-size": "1048576",

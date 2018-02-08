@@ -30,7 +30,7 @@ metricService:
     zingConfiguration:
         enabled: true
         threadPoolSize: 1
-        endpoint: "http://localhost:9237/api/metrics/ingest"
+        endpoint: "{{(getContext . "global.conf.zing-connector-url")}}/api/metrics/ingest"
     openTsdbClientPool:
       maxKeepAliveTime: 300000
       minTestTime:       60000
