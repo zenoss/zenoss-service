@@ -12,7 +12,7 @@ pubsub:
   project: CHANGE_ME
   tenant: CHANGE_ME
   source: CHANGE_ME
-  host-port: ""
   metric-topic: metric-raw-rm
   model-topic: model-raw-rm
-
+  # use-emulator: false
+  # host-port: <emulator-ip:emulator-port>

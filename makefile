@@ -19,6 +19,7 @@ SHORT_VERSION   ?= 5.1
 hbase_VERSION    ?= v16
 hdfs_VERSION     ?= v4
 opentsdb_VERSION ?= v23
+zing_connector_VERSION ?= latest
 
 DOCKER          ?= $(shell which docker)
 BUILD_NUMBER    ?= $(shell date +%Y%m%d%H%M%S)
@@ -101,6 +102,10 @@ svcdef_ImageID_maps  += $(jsonsrc_hdfs_ImageID),$(desired_hdfs_ImageID)
 jsonsrc_opentsdb_ImageID = zenoss/opentsdb:xx
 desired_opentsdb_ImageID = $(docker_PREFIX)opentsdb:$(opentsdb_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_opentsdb_ImageID),$(desired_opentsdb_ImageID)
+#
+jsonsrc_zing_connector_ImageID = gcr-repo/zing-connector:xx
+desired_zing_connector_ImageID = gcr.io/zing-registry-188222/zing-connector:$(zing_connector_VERSION)
+svcdef_ImageID_maps     += $(jsonsrc_zing_connector_ImageID),$(desired_zing_connector_ImageID)
 
 .PHONY: default docker_buildimage docker_svcdefpkg-% docker_svcdef-%
 
