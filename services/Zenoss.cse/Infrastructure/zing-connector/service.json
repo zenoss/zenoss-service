@@ -31,7 +31,7 @@
             "Script": "test \"$(curl localhost:9237/_admin/ping)\" = \"PONG\""
         }
     },
-    "ImageId": "gcr.io/zing-registry-188222/zing-connector:975aea02",
+    "ImageId": "gcr-repo/zing-connector:xx",
     "Instances": {
         "Min": 1
     },
