@@ -81,7 +81,7 @@ docker_PREFIX         = $($(docker_HOST)_REGPATH)$($(docker_HOST)_USER)/
 # into: ImageID: "zenoss/core_5.1:5.1.1_78_unstable"
 
 jsonsrc_zenoss_ImageID = zenoss/zenoss5x
-desired_zenoss_ImageID = $(docker_PREFIX)$($(docker_HOST)_$(short_product)_REPO)$($(docker_HOST)_SUFFIX):$(IMAGE_TAG)
+desired_zenoss_ImageID = gcr.io/zing-registry-188222/$($(docker_HOST)_$(short_product)_REPO)$($(docker_HOST)_SUFFIX):$(IMAGE_TAG)
 svcdef_ImageID_maps   += $(jsonsrc_zenoss_ImageID),$(desired_zenoss_ImageID)
 
 #
@@ -212,29 +212,6 @@ svcdef-%: target  = $(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json
 svcdef-%: | $(svcdef_BUILD_DIR)
 	$(MAKE) $(target)
 
-svcdefpkg-%: product = $(patsubst %,zenoss-%,$(patsubst zenoss-%,%,$*))
-svcdefpkg-%: | $(svcdef_BUILD_DIR) $(OUTPUT)
-	cd pkg && make clean
-	# Generate service definitions for this tag
-	$(MAKE) $(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json
-	# Package the template
-	cd pkg && make \
-		VERSION=$(VERSION) \
-		BUILD_NUMBER=$(BUILD_NUMBER) \
-		RELEASE_PHASE=$(_RELEASE_PHASE) \
-		NAME=$(product) \
-		TEMPLATE_FILE=../$(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json \
-		deb
-	cp pkg/$(product)-*.deb $(OUTPUT)
-	cd pkg && make \
-		VERSION=$(VERSION) \
-		BUILD_NUMBER=$(BUILD_NUMBER) \
-		RELEASE_PHASE=$(_RELEASE_PHASE) \
-		NAME=$(product) \
-		TEMPLATE_FILE=../$(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json \
-		rpm
-	cp pkg/$(product)-*.rpm $(OUTPUT)
-
 ######################
 # Dockerized targets #
 #####################
@@ -242,7 +219,7 @@ svcdefpkg-%: | $(svcdef_BUILD_DIR) $(OUTPUT)
 docker_buildimage:
 	$(DOCKER) build -t $(BUILD_IMAGE) hack/
 
-docker_svcdefpkg-%: docker_buildimage $(OUTPUT)
+docker_svcdef-%: docker_buildimage $(OUTPUT)
 	$(DOCKER) run --rm -v $(PWD):/mnt/pwd \
 		-v $(OUTPUT):/mnt/pwd/output \
 		-w /mnt/pwd \
@@ -257,7 +234,7 @@ docker_svcdefpkg-%: docker_buildimage $(OUTPUT)
 			IMAGE_NUMBER=$(IMAGE_NUMBER) \
 			MILESTONE=$(MILESTONE) \
 			RELEASE_PHASE=$(RELEASE_PHASE) \
-			svcdefpkg-$*"'
+			svcdef-$*"'
 
 clean:
 	@for dir in $(MKDIRS) ;\
