@@ -2,12 +2,6 @@ log:
   level: info
 http:
   port: 9237
-model-ingest: 
-  path: /api/model/ingest
-  enabled: true
-metric-ingest:
-  path: /api/metrics/ingest
-  enabled: true
 pubsub:
   project: CHANGE_ME
   tenant: CHANGE_ME
