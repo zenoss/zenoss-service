@@ -99,6 +99,13 @@
             "Purpose": "import"
         },
         {
+            "Application": "memcached-session",
+            "Name": "memcached-session",
+            "PortNumber": 11212,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Application": "redis",
             "Name": "redis",
             "PortNumber": 6379,
@@ -158,6 +165,10 @@
         },
         "redis_answering": {
             "Interval": 5.0,
+            "Script": "echo OK"
+        },
+        "memcached_session_answering": {
+            "Interval": 10.0,
             "Script": "echo OK"
         },
         "running": {
