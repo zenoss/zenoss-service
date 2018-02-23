@@ -3,9 +3,9 @@ log:
 http:
   port: 9237
 pubsub:
-  project: CHANGE_ME
-  tenant: CHANGE_ME
-  source: CHANGE_ME
+  project: {{getContext . "cse.project"}}
+  tenant: {{getContext . "cse.tenant"}}
+  source: {{getContext . "cse.source"}}
   metric-topic: metric-raw-rm
   model-topic: model-raw-rm
   # use-emulator: false
