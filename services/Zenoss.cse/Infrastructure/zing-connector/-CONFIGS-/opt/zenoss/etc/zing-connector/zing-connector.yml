@@ -1,12 +1,25 @@
+#
+# zing-connector configuration file
+#
 log:
   level: info
 http:
   port: 9237
+admin:
+  port: 9000
+tracing:
+  enabled: false
 pubsub:
+  #
+  # project, tenant and source should be set by editing variables on the Zenoss.cse service definition
+  #
   project: {{getContext . "cse.project"}}
   tenant: {{getContext . "cse.tenant"}}
   source: {{getContext . "cse.source"}}
   metric-topic: metric-raw-rm
   model-topic: model-raw-rm
-  # use-emulator: false
-  # host-port: <emulator-ip:emulator-port>
+  #
+  # Set use-emulator=true AND emulator-host-port to send data to the GCP pubsub emulator
+  #
+  #use-emulator: true
+  #emulator-host-port: <emulator-ip:emulator-port>

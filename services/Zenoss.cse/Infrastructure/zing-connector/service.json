@@ -1,8 +1,8 @@
 {
-    "Command": "/bin/zing-connector server --config /etc/zing-connector.yml",
+    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/zing-connector/supervisord.conf\"",
     "ConfigFiles": {
         "/etc/zing-connector.yml": {
-            "Filename": "/etc/zing-connector.yml",
+            "Filename": "/opt/zenoss/etc/zing-connector/zing-connector.yml",
             "Owner": "root:root",
             "Permissions": "664"
         },
@@ -20,6 +20,13 @@
             "PortNumber": 9237,
             "Protocol": "tcp",
             "Purpose": "export"
+        },
+        {
+            "Application": "zing-connector-admin",
+            "Name": "zing-connector-admin",
+            "PortNumber": 9000,
+            "Protocol": "tcp",
+            "Purpose": "export"
         }
     ],
     "Environment": [
@@ -28,14 +35,23 @@
     "HealthChecks": {
         "answering": {
             "Interval": 5.0,
-            "Script": "test \"$(curl localhost:9237/_admin/ping)\" = \"PONG\""
+            "Script": "test \"$(curl localhost:9000/ping)\" = \"PONG\""
         }
     },
-    "ImageId": "gcr-repo/zing-connector:xx",
+    "ImageId": "zenoss/zing-connector:dev",
     "Instances": {
         "Min": 1
     },
     "Launch": "auto",
+    "LogConfigs": [
+        {
+            "filters": [
+                "glog"
+            ],
+            "path": "/opt/zenoss/log/zing-connector.log",
+            "type": "zing-connector"
+        }
+    ],
     "Name": "zing-connector",
     "Tags": [
         "daemon"
