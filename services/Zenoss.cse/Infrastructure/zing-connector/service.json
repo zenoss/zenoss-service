@@ -52,6 +52,572 @@
             "type": "zing-connector"
         }
     ],
+    "MonitoringProfile": {
+        "GraphConfigs": [
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "min",
+                        "legend": "min",
+                        "metric": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.min",
+                        "metricSource": "datamap-incoming",
+                        "name": "min",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "max",
+                        "legend": "max",
+                        "metric": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.max",
+                        "metricSource": "datamap-incoming",
+                        "name": "max",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "mean",
+                        "legend": "mean",
+                        "metric": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.mean",
+                        "metricSource": "datamap-incoming",
+                        "name": "mean",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Milliseconds to process datamap PUT requests.",
+                "footer": false,
+                "id": "model-request",
+                "name": "Datamap PUT Time (ms)",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Datamap PUT Time (ms)"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "published",
+                        "legend": "published",
+                        "metric": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.success.count",
+                        "metricSource": "datamap-outgoing",
+                        "name": "published",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "failed",
+                        "legend": "failed",
+                        "metric": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.errors.count",
+                        "metricSource": "datamap-outgoing",
+                        "name": "failed",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Number of datamaps published.",
+                "footer": false,
+                "id": "datamaps",
+                "name": "Datamaps Published",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Datamaps Published"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "min",
+                        "legend": "min",
+                        "metric": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.min",
+                        "metricSource": "metric-incoming",
+                        "name": "min",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "max",
+                        "legend": "max",
+                        "metric": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.max",
+                        "metricSource": "metric-incoming",
+                        "name": "max",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "mean",
+                        "legend": "mean",
+                        "metric": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.mean",
+                        "metricSource": "metric-incoming",
+                        "name": "mean",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Milliseconds to process metric PUT requests.",
+                "footer": false,
+                "id": "metric-request",
+                "name": "Metric PUT Time (ms)",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Metric PUT Time (ms)"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "published",
+                        "legend": "published",
+                        "metric": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.success.count",
+                        "metricSource": "metric-outgoing",
+                        "name": "published",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "failed",
+                        "legend": "failed",
+                        "metric": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.errors.count",
+                        "metricSource": "metric-outgoing",
+                        "name": "failed",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Number of metrics published.",
+                "footer": false,
+                "id": "metrics",
+                "name": "Metrics Published",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Metrics Published"
+            }
+        ],
+        "MetricConfigs": [
+            {
+                "Description": "Statistics for PUT requests to send datamaps",
+                "ID": "datamap-incoming",
+                "Metrics": [
+                    {
+                        "Counter": false,
+                        "Description": "min time for PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.min",
+                        "Name": "min",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "max time for PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.max",
+                        "Name": "max",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "avg time for PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.mean",
+                        "Name": "mean",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "stddev of time for PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.stddev",
+                        "Name": "stddev",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "median time for PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.median",
+                        "Name": "median",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "75th percentile time for PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.p75",
+                        "Name": "p75",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "95th percentile time for PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.p95",
+                        "Name": "p95",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "98th percentile time for PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.p98",
+                        "Name": "p98",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "99th percentile time for PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.p99",
+                        "Name": "p99",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "99.9th percentile time for PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.p999",
+                        "Name": "p99.9",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "number of PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.count",
+                        "Name": "count",
+                        "Unit": "requests"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "mean rate of PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.meanRate",
+                        "Name": "meanRate",
+                        "Unit": "req/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "1 minute rate of PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.1MinuteRate",
+                        "Name": "1MinuteRate",
+                        "Unit": "req/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "5 minute rate of PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.5MinuteRate",
+                        "Name": "5MinuteRate",
+                        "Unit": "req/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "15 minute rate of PUT requests to send 1 or more datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishModels.time.15MinuteRate",
+                        "Name": "15MinuteRate",
+                        "Unit": "req/sec"
+                    }
+                ],
+                "Name": "Zing-Connector datamap PUT requests"
+            },
+            {
+                "Description": "Statistics for outgoing datamaps",
+                "ID": "datamap-outgoing",
+                "Metrics": [
+                    {
+                        "Counter": true,
+                        "Description": "number of successful outgoing datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.success.count",
+                        "Name": "published",
+                        "Unit": "datamaps"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "mean rate of successful outgoing datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.success.meanRate",
+                        "Name": "meanRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "1 minute rate of successful outgoing datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.success.1MinuteRate",
+                        "Name": "1MinuteRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "5 minute rate of successful outgoing datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.success.5MinuteRate",
+                        "Name": "5MinuteRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "15 minute rate of successful outgoing datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.success.15MinuteRate",
+                        "Name": "15MinuteRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "number of unsuccessful outgoing datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.errors.count",
+                        "Name": "failed",
+                        "Unit": "datamaps"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "mean rate of unsuccessful outgoing datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.errors.meanRate",
+                        "Name": "meanRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "1 minute rate of unsuccessful outgoing datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.errors.1MinuteRate",
+                        "Name": "1MinuteRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "5 minute rate of unsuccessful outgoing datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.errors.5MinuteRate",
+                        "Name": "5MinuteRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "15 minute rate of unsuccessful outgoing datamaps",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.errors.15MinuteRate",
+                        "Name": "15MinuteRate",
+                        "Unit": "datamaps/sec"
+                    }
+                ],
+                "Name": "Zing-Connector outgoing datamaps"
+            },
+            {
+                "Description": "Statistics for PUT requests to send metrics",
+                "ID": "metric-incoming",
+                "Metrics": [
+                    {
+                        "Counter": false,
+                        "Description": "min time for PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.min",
+                        "Name": "min",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "max time for PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.max",
+                        "Name": "max",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "avg time for PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.mean",
+                        "Name": "mean",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "stddev of time for PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.stddev",
+                        "Name": "stddev",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "median time for PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.median",
+                        "Name": "median",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "75th percentile time for PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.p75",
+                        "Name": "p75",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "95th percentile time for PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.p95",
+                        "Name": "p95",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "98th percentile time for PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.p98",
+                        "Name": "p98",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "99th percentile time for PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.p99",
+                        "Name": "p99",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "99.9th percentile time for PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.p999",
+                        "Name": "p99.9",
+                        "Unit": "milliseconds"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "number of PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.count",
+                        "Name": "count",
+                        "Unit": "requests"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "mean rate of PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.meanRate",
+                        "Name": "meanRate",
+                        "Unit": "req/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "1 minute rate of PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.1MinuteRate",
+                        "Name": "1MinuteRate",
+                        "Unit": "req/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "5 minute rate of PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.5MinuteRate",
+                        "Name": "5MinuteRate",
+                        "Unit": "req/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "15 minute rate of PUT requests to send 1 or more metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.15MinuteRate",
+                        "Name": "15MinuteRate",
+                        "Unit": "req/sec"
+                    }
+                ],
+                "Name": "Zing-Connector metric PUT requests"
+            },
+            {
+                "Description": "Statistics for outgoing metrics",
+                "ID": "metric-outgoing",
+                "Metrics": [
+                    {
+                        "Counter": true,
+                        "Description": "number of successful outgoing metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.success.count",
+                        "Name": "published",
+                        "Unit": "datamaps"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "mean rate of successful outgoing metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.success.meanRate",
+                        "Name": "meanRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "1 minute rate of successful outgoing metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.success.1MinuteRate",
+                        "Name": "1MinuteRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "5 minute rate of successful outgoing metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.success.5MinuteRate",
+                        "Name": "5MinuteRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "15 minute rate of successful outgoing metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.success.15MinuteRate",
+                        "Name": "15MinuteRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "number of unsuccessful outgoing metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.errors.count",
+                        "Name": "failed",
+                        "Unit": "datamaps"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "mean rate of unsuccessful outgoing metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.errors.meanRate",
+                        "Name": "meanRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "1 minute rate of unsuccessful outgoing metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.errors.1MinuteRate",
+                        "Name": "1MinuteRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "5 minute rate of unsuccessful outgoing metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.errors.5MinuteRate",
+                        "Name": "5MinuteRate",
+                        "Unit": "datamaps/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "15 minute rate of unsuccessful outgoing metrics",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.errors.15MinuteRate",
+                        "Name": "15MinuteRate",
+                        "Unit": "datamaps/sec"
+                    }
+                ],
+                "Name": "Zing-Connector outgoing metrics"
+            }
+        ]
+    },
     "Name": "zing-connector",
     "Tags": [
         "daemon"

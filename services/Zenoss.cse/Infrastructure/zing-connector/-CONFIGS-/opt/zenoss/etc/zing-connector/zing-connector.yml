@@ -9,6 +9,11 @@ admin:
   port: 9000
 tracing:
   enabled: false
+stats:
+  #
+  # The interval in seconds to report internal performance stats to ControlCenter
+  #
+  interval: 30
 pubsub:
   #
   # project, tenant and source should be set by editing variables on the Zenoss.cse service definition
