@@ -150,6 +150,35 @@
                     {
                         "aggregator": "avg",
                         "fill": false,
+                        "id": "bytes",
+                        "legend": "bytes",
+                        "metric": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.bytes.count",
+                        "metricSource": "datamap-outgoing",
+                        "name": "bytes",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Bytes of datamaps published.",
+                "footer": false,
+                "id": "datamapBytes",
+                "name": "Bytes of Datamaps Published",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Bytes of Datamaps Published"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
                         "id": "min",
                         "legend": "min",
                         "metric": "ZEN_INF.org.zenoss.api.zing-connector.func.PublishMetrics.time.min",
@@ -235,6 +264,35 @@
                 "returnset": "EXACT",
                 "type": "line",
                 "yAxisLabel": "Metrics Published"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "bytes",
+                        "legend": "bytes",
+                        "metric": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.bytes.count",
+                        "metricSource": "metrics-outgoing",
+                        "name": "bytes",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Bytes of metrics published.",
+                "footer": false,
+                "id": "metricBytes",
+                "name": "Bytes of Metrics Published",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Bytes of Metrics Published"
             }
         ],
         "MetricConfigs": [
@@ -354,6 +412,41 @@
                 "Description": "Statistics for outgoing datamaps",
                 "ID": "datamap-outgoing",
                 "Metrics": [
+                    {
+                        "Counter": true,
+                        "Description": "number of datamap bytes sent",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.bytes.count",
+                        "Name": "bytes",
+                        "Unit": "bytes"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "mean rate of datamap bytes",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.bytes.meanRate",
+                        "Name": "bytesMeanRate",
+                        "Unit": "bytes/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "1 minute rate of datamap bytes",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.bytes.1MinuteRate",
+                        "Name": "bytes1MinuteRate",
+                        "Unit": "bytes/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "5 minute rate of datamap bytes",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.bytes.5MinuteRate",
+                        "Name": "bytes5MinuteRate",
+                        "Unit": "bytes/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "15 minute rate of datamap bytes",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.model.publish.bytes.15MinuteRate",
+                        "Name": "bytes15MinuteRate",
+                        "Unit": "bytes/sec"
+                    },
                     {
                         "Counter": true,
                         "Description": "number of successful outgoing datamaps",
@@ -543,6 +636,41 @@
                 "Description": "Statistics for outgoing metrics",
                 "ID": "metric-outgoing",
                 "Metrics": [
+                    {
+                        "Counter": true,
+                        "Description": "number of metric bytes sent",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.bytes.count",
+                        "Name": "bytes",
+                        "Unit": "bytes"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "mean rate of metric bytes",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.bytes.meanRate",
+                        "Name": "bytesMeanRate",
+                        "Unit": "bytes/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "1 minute rate of metric bytes",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.bytes.1MinuteRate",
+                        "Name": "bytes1MinuteRate",
+                        "Unit": "bytes/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "5 minute rate of metric bytes",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.bytes.5MinuteRate",
+                        "Name": "bytes5MinuteRate",
+                        "Unit": "bytes/sec"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "15 minute rate of metric bytes",
+                        "ID": "ZEN_INF.org.zenoss.api.zing-connector.metrics.publish.bytes.15MinuteRate",
+                        "Name": "bytes15MinuteRate",
+                        "Unit": "bytes/sec"
+                    },
                     {
                         "Counter": true,
                         "Description": "number of successful outgoing metrics",
