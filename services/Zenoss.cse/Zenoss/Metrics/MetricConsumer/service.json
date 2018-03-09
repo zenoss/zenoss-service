@@ -40,6 +40,13 @@
             "Purpose": "import"
         },
         {
+            "Application": "zing-connector-admin",
+            "Name": "zing-connector-admin",
+            "PortNumber": 9000,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Application": "opentsdb-writer",
             "Name": "opentsdb-writer",
             "PortNumber": 4242,
@@ -55,6 +62,10 @@
         "stats_listening": {
             "Interval": 5.0,
             "Script": "curl -A 'metric_consumer stats_listening healthcheck' -s http://localhost:58443/metrics | grep -q org.zenoss.app.consumer.metric.impl.MetricsQueue"
+        },
+        "zing-connector-answering": {
+            "Interval": 10.0,
+            "Script": "test \"$(curl localhost:9000/ping)\" = \"PONG\""
         }
     },
     "ImageID": "zenoss/zenoss5x",
