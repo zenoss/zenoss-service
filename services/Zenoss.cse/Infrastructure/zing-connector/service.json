@@ -38,7 +38,7 @@
             "Script": "test \"$(curl localhost:9000/ping)\" = \"PONG\""
         }
     },
-    "ImageId": "zenoss/zing-connector:dev",
+    "ImageId": "gcr-repo/zing-connector:xx",
     "Instances": {
         "Min": 1
     },
