@@ -30,7 +30,7 @@
         "global.conf.amqpvhost": "/zenoss",
         "global.conf.auth0-client-secret": "",
         "global.conf.auth0-clientid": "cTxVLXKTNloQv1GN9CSRAds5C4PpTkac",
-        "global.conf.auth0-connection": "acme",
+        "global.conf.auth0-connection": "zenoss-com",
         "global.conf.auth0-tenant": "https://zenoss-dev.auth0.com/",
         "global.conf.cse-vhost": "testcse",
         "global.conf.cse-virtualroot": "/cse",
