@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "/opt/opentsdb/start-opentsdb.sh" ,
+    "Command": "/opt/opentsdb/start-opentsdb.sh",
     "ConfigFiles": {
         "/opt/opentsdb/src/logback.xml": {
             "FileName": "/opt/opentsdb/src/logback.xml",
