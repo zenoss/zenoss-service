@@ -108,7 +108,7 @@ jsonsrc_zing_connector_ImageID = gcr-repo/zing-connector:xx
 desired_zing_connector_ImageID = gcr.io/zing-registry-188222/zing-connector:$(zing_connector_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_zing_connector_ImageID),$(desired_zing_connector_ImageID)
 #
-jsonsrc_otsdb_bigtable_ImageID = gcr-repo/opentsdb-bigtable:xx
+jsonsrc_otsdb_bigtable_ImageID = zenoss/opentsdb-bigtable:xx
 desired_otsdb_bigtable_ImageID = gcr.io/zing-registry-188222/otsdb-bigtable:$(otsdb_bigtable_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_otsdb_bigtable_ImageID),$(desired_otsdb_bigtable_ImageID)
 
