@@ -1,0 +1,61 @@
+{
+    "CPUCommitment": 1,
+    "Command": "/opt/opentsdb/start-opentsdb.sh",
+    "ConfigFiles": {
+        "/opt/opentsdb/src/logback.xml": {
+            "FileName": "/opt/opentsdb/src/logback.xml",
+            "Owner": "root:root",
+            "Permissions": "0644"
+        },
+        "/opt/hbase/conf/hbase-stie.xml": {
+            "FileName": "/opt/hbase/conf/hbase-stie.xml",
+            "Owner": "root:root",
+            "Permissions": "0644"
+        },
+        "/opt/zenoss/etc/opentsdb/opentsdb.conf": {
+            "FileName": "/opt/zenoss/etc/opentsdb/opentsdb.conf",
+            "Owner": "root:root",
+            "Permissions": "0644"
+        }
+    },
+    "Description": "Writer for OpenTSDB server",
+    "Endpoints": [
+        {
+            "Application": "opentsdb-writer",
+            "Name": "opentsdb-writer",
+            "PortNumber": 4242,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        }
+    ],
+    "Environment": [
+        "TSDB_JAVA_MEM_MB=-Xmx{{bytesToMB .RAMCommitment}}m"
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5.0,
+            "Script": "wget --timeout=3 --tries=1 -q -O - http://localhost:4242/api/stats"
+        }
+    },
+    "ImageID": "zenoss/opentsdb-bigtable:xx",
+    "Instances": {
+        "min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "filters": [
+                "hbasedaemon"
+            ],
+            "path": "/var/log/opentsdb/opentsdb.log",
+            "type": "opentsdb-writer"
+        }
+    ],
+    "Name": "opentsdb-writer",
+    "RAMCommitment": "1G",
+    "Services": [],
+    "StartLevel": 3,
+    "Tags": [
+        "daemon"
+    ]
+}
