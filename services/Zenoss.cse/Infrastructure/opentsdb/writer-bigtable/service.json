@@ -2,13 +2,13 @@
     "CPUCommitment": 1,
     "Command": "/opt/zenoss/start-opentsdb.sh",
     "ConfigFiles": {
-        "/opt/opentsdb/src/logback.xml": {
-            "FileName": "/opt/opentsdb/src/logback.xml",
+        "/opt/hbase/conf/hbase-stie.xml": {
+            "FileName": "/opt/hbase/conf/hbase-stie.xml",
             "Owner": "root:root",
             "Permissions": "0644"
         },
-        "/opt/hbase/conf/hbase-stie.xml": {
-            "FileName": "/opt/hbase/conf/hbase-stie.xml",
+        "/opt/opentsdb/src/logback.xml": {
+            "FileName": "/opt/opentsdb/src/logback.xml",
             "Owner": "root:root",
             "Permissions": "0644"
         },
