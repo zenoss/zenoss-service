@@ -2,8 +2,8 @@
     "CPUCommitment": 1,
     "Command": "/opt/zenoss/start-opentsdb.sh",
     "ConfigFiles": {
-        "/opt/hbase/conf/hbase-stie.xml": {
-            "FileName": "/opt/hbase/conf/hbase-stie.xml",
+        "/opt/hbase/conf/hbase-site.xml": {
+            "FileName": "/opt/hbase/conf/hbase-site.xml",
             "Owner": "root:root",
             "Permissions": "0644"
         },
