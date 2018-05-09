@@ -21,7 +21,7 @@ pubsub:
   project: {{getContext . "cse.project"}}
   tenant: {{getContext . "cse.tenant"}}
   source: {{getContext . "cse.source"}}
-  metric-topic: metric-raw-rm
+  metric-topic: metric-in
   model-topic: model-raw-rm
   #
   # Set use-emulator=true AND emulator-host-port to send data to the GCP pubsub emulator
