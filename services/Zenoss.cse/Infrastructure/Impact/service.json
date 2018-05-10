@@ -1,0 +1,1231 @@
+{
+    "CPUCommitment": 4,
+    "Command": "su - zenossimpact -c 'zenoss_impact run'",
+    "ConfigFiles": {
+        "/opt/zenoss_impact/etc/jetty-logging.xml": {
+            "Filename": "/opt/zenoss_impact/etc/jetty-logging.xml",
+            "Owner": "zenossimpact:zenoss",
+            "Permissions": "664"
+        },
+        "/opt/zenoss_impact/etc/jetty.ini": {
+            "Filename": "/opt/zenoss_impact/etc/jetty.ini",
+            "Owner": "zenossimpact:zenoss",
+            "Permissions": "664"
+        },
+        "/opt/zenoss_impact/etc/jetty.xml": {
+            "Filename": "/opt/zenoss_impact/etc/jetty.xml",
+            "Owner": "zenossimpact:zenoss",
+            "Permissions": "664"
+        },
+        "/opt/zenoss_impact/etc/logback.xml": {
+            "Filename": "/opt/zenoss_impact/etc/logback.xml",
+            "Owner": "zenossimpact:zenoss",
+            "Permissions": "664"
+        },
+        "/opt/zenoss_impact/etc/neo4j.properties": {
+            "Filename": "/opt/zenoss_impact/etc/neo4j.properties",
+            "Owner": "zenossimpact:zenoss",
+            "Permissions": "664"
+        },
+        "/opt/zenoss_impact/etc/zenoss-dsa-amqpconf.properties": {
+            "Filename": "/opt/zenoss_impact/etc/zenoss-dsa-amqpconf.properties",
+            "Owner": "zenossimpact:zenoss",
+            "Permissions": "664"
+        },
+        "/opt/zenoss_impact/etc/zenoss-dsa.env": {
+            "Filename": "/opt/zenoss_impact/etc/zenoss-dsa.env",
+            "Owner": "zenossimpact:zenoss",
+            "Permissions": "664"
+        },
+        "/opt/zenoss_impact/etc/zenoss-dsa.properties": {
+            "Filename": "/opt/zenoss_impact/etc/zenoss-dsa.properties",
+            "Owner": "zenossimpact:zenoss",
+            "Permissions": "664"
+        }
+    },
+    "Description": "Provides service-oriented alerting and root-cause analysis.",
+    "EmergencyShutdownLevel": 1,
+    "Endpoints": [
+        {
+            "Application": "redis",
+            "Name": "redis",
+            "PortNumber": 6379,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "zodb_impact",
+            "Name": "impact",
+            "PortNumber": 8083,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        },
+        {
+            "Application": "rabbitmq.*",
+            "Name": "rabbitmq",
+            "Purpose": "import"
+        },
+        {
+            "Application": "zproxy",
+            "Name": "zproxy",
+            "PortNumber": 8080,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "neo4j_admin",
+            "Name": "neo4j admin",
+            "PortNumber": 7474,
+            "Protocol": "tcp",
+            "Purpose": "export"
+        }
+    ],
+    "HealthChecks": {
+        "rabbit_answering": {
+            "Interval": 10.0,
+            "Script": "/opt/zenoss_impact/bin/healthchecks/rabbit_answering {{(getContext . \"global.conf.amqpuser\")}} {{(getContext . \"global.conf.amqppassword\")}}"
+        },
+        "running": {
+            "Interval": 5.0,
+            "Script": "pgrep -fu zenossimpact java.*zenoss_impact >/dev/null"
+        },
+        "webservice-status": {
+            "Interval": 5.0,
+            "Script": "/opt/zenoss_impact/bin/healthchecks/impact-health-status"
+        }
+    },
+    "ImageId": "zendev/impact-devimg",
+    "Instances": {
+        "Max": 1,
+        "Min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "path": "/opt/zenoss_impact/log/zenoss_impact.log",
+            "type": "impact"
+        },
+        {
+            "path": "/opt/zenoss_impact/log/zenoss_impact-stdio*.log",
+            "type": "impact_stdio"
+        }
+    ],
+    "MonitoringProfile": {
+        "GraphConfigs": [
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "commits",
+                        "legend": "Commit Rate",
+                        "metric": "impact.Commits.count",
+                        "metricSource": "GraphService.commit",
+                        "name": "commits",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "1mcommits",
+                        "legend": "1m Commit Rate",
+                        "metric": "impact.Commits.1MinuteRate",
+                        "metricSource": "GraphService.commit",
+                        "name": "1mcommits",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "5mcommits",
+                        "legend": "5m Commit Rate",
+                        "metric": "impact.Commits.5MinuteRate",
+                        "metricSource": "GraphService.commit",
+                        "name": "5mcommits",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "15mcommits",
+                        "legend": "15m Commit Rate",
+                        "metric": "impact.Commits.15MinuteRate",
+                        "metricSource": "GraphService.commit",
+                        "name": "15mcommits",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Impact Commit Rate",
+                "footer": false,
+                "id": "commitRate",
+                "name": "Impact Commit Rate",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Commit Rate"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "updatesMin",
+                        "legend": "Min time",
+                        "metric": "impact.ProcessGraphUpdate.min",
+                        "metricSource": "GraphChangeProcessor.update",
+                        "name": "updatesMin",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "updatesMean",
+                        "legend": "Mean time",
+                        "metric": "impact.ProcessGraphUpdate.mean",
+                        "metricSource": "GraphChangeProcessor.update",
+                        "name": "updatesMean",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "updatesMax",
+                        "legend": "Max time",
+                        "metric": "impact.ProcessGraphUpdate.max",
+                        "metricSource": "GraphChangeProcessor.update",
+                        "name": "updatesMax",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Impact Model Update Timing",
+                "footer": false,
+                "id": "modelUpdate",
+                "name": "Impact Model Update",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Seconds"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "statePropMin",
+                        "legend": "Min time",
+                        "metric": "impact.StatePropagation.min",
+                        "metricSource": "StatePropagation",
+                        "name": "statePropMin",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "statePropMean",
+                        "legend": "Mean time",
+                        "metric": "impact.StatePropagation.mean",
+                        "metricSource": "StatePropagation",
+                        "name": "statePropMean",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "statePropMax",
+                        "legend": "Max time",
+                        "metric": "impact.StatePropagation.max",
+                        "metricSource": "StatePropagation",
+                        "name": "statePropMax",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Impact State Propagation Timing",
+                "footer": false,
+                "id": "statePropagation",
+                "name": "Impact State Propagation",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Milliseconds"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "graphCalls",
+                        "legend": "Graph API Call Rate",
+                        "metric": "impact.GraphAPI.Calls.count",
+                        "metricSource": "GraphAPI.calls",
+                        "name": "graphCalls",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "1mgraphCalls",
+                        "legend": "1m Graph API Call Rate",
+                        "metric": "impact.GraphAPI.Calls.1MinuteRate",
+                        "metricSource": "GraphAPI.calls",
+                        "name": "1mgraphCalls",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "5mgraphCalls",
+                        "legend": "5m Graph API Call Rate",
+                        "metric": "impact.GraphAPI.Calls.5MinuteRate",
+                        "metricSource": "GraphAPI.calls",
+                        "name": "5mgraphCalls",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "15mgraphCalls",
+                        "legend": "15m Graph API Call Rate",
+                        "metric": "impact.GraphAPI.Calls.15MinuteRate",
+                        "metricSource": "GraphAPI.calls",
+                        "name": "15mgraphCalls",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Impact Graph API Call Rate",
+                "footer": false,
+                "id": "graphAPIRate",
+                "name": "Impact Graph API Call Rate",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Graph API Call Rate"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "modelIOCalls",
+                        "legend": "ModelIO API Call Rate",
+                        "metric": "impact.ModelIOAPI.Calls.count",
+                        "metricSource": "ModelIOAPI.calls",
+                        "name": "modelIOCalls",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "1mmodelIOCalls",
+                        "legend": "1m ModelIO API Call Rate",
+                        "metric": "impact.ModelIOAPI.Calls.1MinuteRate",
+                        "metricSource": "ModelIOAPI.calls",
+                        "name": "1mmodelIOCalls",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "5mmodelIOCalls",
+                        "legend": "5m ModelIO API Call Rate",
+                        "metric": "impact.ModelIOAPI.Calls.5MinuteRate",
+                        "metricSource": "ModelIOAPI.calls",
+                        "name": "5mmodelIOCalls",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "15mmodelIOCalls",
+                        "legend": "15m ModelIO API Call Rate",
+                        "metric": "impact.ModelIOAPI.Calls.15MinuteRate",
+                        "metricSource": "ModelIOAPI.calls",
+                        "name": "15mmodelIOCalls",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Impact Model I/O API Call Rate",
+                "footer": false,
+                "id": "modelIOAPIRate",
+                "name": "Impact Model I/O API Call Rate",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "ModelIO API Call Rate"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "nodes",
+                        "legend": "Nodes",
+                        "metric": "impact.Neo4j.Primitive.NumberOfNodeIdsInUse.value",
+                        "metricSource": "Neo4j.Primitive",
+                        "name": "nodes",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "rels",
+                        "legend": "Relationships",
+                        "metric": "impact.Neo4j.Primitive.NumberOfRelationshipIdsInUse.value",
+                        "metricSource": "Neo4j.Primitive",
+                        "name": "rels",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "props",
+                        "legend": "Properties",
+                        "metric": "impact.Neo4j.Primitive.NumberOfPropertyIdsInUse.value",
+                        "metricSource": "Neo4j.Primitive",
+                        "name": "props",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "reltypes",
+                        "legend": "Relationship Types",
+                        "metric": "impact.Neo4j.Primitive.NumberOfRelationshipTypeIdsInUse.value",
+                        "metricSource": "Neo4j.Primitive",
+                        "name": "reltypes",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Impact Graph Object Counts",
+                "footer": false,
+                "id": "neoObjects",
+                "name": "Impact Graph Objects",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Ids In Use"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "nodes",
+                        "legend": "Node size",
+                        "metric": "impact.Neo4j.Store.NodeStoreSize.value",
+                        "metricSource": "Neo4j.Store",
+                        "name": "nodes",
+                        "rate": false,
+                        "type": "area"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "arrays",
+                        "legend": "Array size",
+                        "metric": "impact.Neo4j.Store.ArrayStoreSize.value",
+                        "metricSource": "Neo4j.Store",
+                        "name": "arrays",
+                        "rate": false,
+                        "type": "area"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "props",
+                        "legend": "Property size",
+                        "metric": "impact.Neo4j.Store.PropertyStoreSize.value",
+                        "metricSource": "Neo4j.Store",
+                        "name": "props",
+                        "rate": false,
+                        "type": "area"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "rels",
+                        "legend": "Relationship size",
+                        "metric": "impact.Neo4j.Store.RelationshipStoreSize.value",
+                        "metricSource": "Neo4j.Store",
+                        "name": "rels",
+                        "rate": false,
+                        "type": "area"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "strings",
+                        "legend": "String size",
+                        "metric": "impact.Neo4j.Store.StringStoreSize.value",
+                        "metricSource": "Neo4j.Store",
+                        "name": "strings",
+                        "rate": false,
+                        "type": "area"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "logical",
+                        "legend": "Logical Log size",
+                        "metric": "impact.Neo4j.Store.LogicalLogSize.value",
+                        "metricSource": "Neo4j.Store",
+                        "name": "logical",
+                        "rate": false,
+                        "type": "area"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "total",
+                        "legend": "Total size",
+                        "metric": "impact.Neo4j.Store.TotalStoreSize.value",
+                        "metricSource": "Neo4j.Store",
+                        "name": "total",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Impact Graph Database Size",
+                "footer": false,
+                "id": "neoSize",
+                "name": "Impact Graph Database Size",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "area",
+                "yAxisLabel": "Bytes"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "committed",
+                        "legend": "Committed",
+                        "metric": "impact.Neo4j.Transactions.NumberOfCommittedTransactions.value",
+                        "metricSource": "Neo4j.Transactions",
+                        "name": "committed",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "opened",
+                        "legend": "Opened",
+                        "metric": "impact.Neo4j.Transactions.NumberOfOpenedTransactions.value",
+                        "metricSource": "Neo4j.Transactions",
+                        "name": "opened",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "rolledback",
+                        "legend": "Rolled Back",
+                        "metric": "impact.Neo4j.Transactions.NumberOfRolledBackTransactions.value",
+                        "metricSource": "Neo4j.Transactions",
+                        "name": "rolledback",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true,
+                            "counterMax": null,
+                            "resetThreshold": 1048576
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "open",
+                        "legend": "Open",
+                        "metric": "impact.Neo4j.Transactions.NumberOfOpenTransactions.value",
+                        "metricSource": "Neo4j.Transactions",
+                        "name": "open",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "peak",
+                        "legend": "Peak",
+                        "metric": "impact.Neo4j.Transactions.PeakNumberOfConcurrentTransactions.value",
+                        "metricSource": "Neo4j.Transactions",
+                        "name": "peak",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Impact Graph Transaction Counts",
+                "footer": false,
+                "id": "neoTransactions",
+                "name": "Impact Graph Transactions",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Transaction Rate"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": true,
+                        "id": "length",
+                        "legend": "Queue Length",
+                        "metric": "impact.stateQueueLength.value",
+                        "metricSource": "impact.stateQueueLength",
+                        "name": "length",
+                        "rate": false
+                    }
+                ],
+                "description": "State Change Queue Length",
+                "footer": false,
+                "id": "stateQueueLength",
+                "name": "State Change Queue Length",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Queue Length"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "countProcessed",
+                        "legend": "Processed Count",
+                        "metric": "impact.eventsProcessed.count",
+                        "metricSource": "impact.eventsProcessed",
+                        "name": "count",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "1mProcessed",
+                        "legend": "1m Event Processe Rate",
+                        "metric": "impact.eventsProcessed.1MinuteRate",
+                        "metricSource": "impact.eventsProcessed",
+                        "name": "1mcommits",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "5mProcessed",
+                        "legend": "5m Event Processe Rate",
+                        "metric": "impact.eventsProcessed.5MinuteRate",
+                        "metricSource": "impact.eventsProcessed",
+                        "name": "5mcommits",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "15mProcessed",
+                        "legend": "15m CEvent Processe Rate",
+                        "metric": "impact.eventsProcessed.15MinuteRate",
+                        "metricSource": "impact.eventsProcessed",
+                        "name": "15mcommits",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Count of Events Processed",
+                "footer": false,
+                "id": "eventsProcessed",
+                "name": "Count of Events Processed",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Processed Events"
+            }
+        ],
+        "MetricConfigs": [
+            {
+                "Description": "JVM File Descriptor Usage Statistics",
+                "ID": "jvm.fd_usage",
+                "Metrics": [
+                    {
+                        "ID": "jvm.fd_usage",
+                        "Name": "FD Usage Count"
+                    }
+                ],
+                "Name": "JVM File Descriptor Usage"
+            },
+            {
+                "Description": "JVM heap vs. non-heap memory usage",
+                "ID": "jvm.memory",
+                "Metrics": [
+                    {
+                        "ID": "jvm.memory.heap_usage",
+                        "Name": "JVM Heap Memory Usage"
+                    },
+                    {
+                        "ID": "jvm.memory.non_heap_usage",
+                        "Name": "JVM Non-Heap Memory Usage"
+                    }
+                ],
+                "Name": "JVM Memory"
+            },
+            {
+                "Description": "JVM Garbage Collection Statistics",
+                "ID": "jvm.gc",
+                "Metrics": [
+                    {
+                        "ID": "jvm.gc.PS_MarkSweep.runs",
+                        "Name": "JVM Garbage Collection MarkSweep Runs"
+                    },
+                    {
+                        "ID": "jvm.gc.PS_MarkSweep.time",
+                        "Name": "JVM Garbage Collection MarkSweep Time"
+                    },
+                    {
+                        "ID": "jvm.gc.PS_Scavenge.runs",
+                        "Name": "JVM Garbage Collection Scavenge Runs"
+                    },
+                    {
+                        "ID": "jvm.gc.PS_Scavenge.time",
+                        "Name": "JVM Garbage Collection Scavenge Time"
+                    }
+                ],
+                "Name": "JVM Garbage Collection"
+            },
+            {
+                "Description": "JVM Thread States",
+                "ID": "jvm.thread-states",
+                "Metrics": [
+                    {
+                        "ID": "jvm.thread-states.blocked",
+                        "Name": "JVM Threads in Blocked State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.new",
+                        "Name": "JVM Threads in New State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.runnable",
+                        "Name": "JVM Threads in Runnable State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.terminated",
+                        "Name": "JVM Threads in Terminated State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.timed_waiting",
+                        "Name": "JVM Threads in Timed Waiting State"
+                    },
+                    {
+                        "ID": "jvm.thread-states.waiting",
+                        "Name": "JVM Threads in Waiting State"
+                    }
+                ],
+                "Name": "JVM Thread States"
+            },
+            {
+                "Description": "Statistics for the GraphChangeProcessor",
+                "ID": "GraphChangeProcessor.update",
+                "Metrics": [
+                    {
+                        "ID": "impact.ProcessGraphUpdate.count",
+                        "Name": "Graph Update Count"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.min",
+                        "Name": "Graph Update Minimum Time"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.mean",
+                        "Name": "Graph Update Mean Time"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.max",
+                        "Name": "Graph Update Maximum Time"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.stddev",
+                        "Name": "Graph Update Standard Deviation"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.meanRate",
+                        "Name": "Graph Update Mean Rate"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.1MinuteRate",
+                        "Name": "Graph Update 1 Minute Rate"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.5MinuteRate",
+                        "Name": "Graph Update 5 Minute Rate"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.15MinuteRate",
+                        "Name": "Graph Update 15 MinuteRate"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.p50",
+                        "Name": "Graph Update 50th Percentile"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.p75",
+                        "Name": "Graph Update 75th Percentile"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.p95",
+                        "Name": "Graph Update 95th Percentile"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.p98",
+                        "Name": "Graph Update 98th Percentile"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.p99",
+                        "Name": "Graph Update 99th Percentile"
+                    },
+                    {
+                        "ID": "impact.ProcessGraphUpdate.p999",
+                        "Name": "Graph Update 99.9th Percentile"
+                    }
+                ],
+                "Name": "Graph Update Statistics"
+            },
+            {
+                "Description": "Graph Service Commit Rates",
+                "ID": "GraphService.commit",
+                "Metrics": [
+                    {
+                        "ID": "impact.Commits.count",
+                        "Name": "Graph Service Total Commits Count"
+                    },
+                    {
+                        "ID": "impact.Commits.meanRate",
+                        "Name": "Graph Service Total Commits Mean Rate"
+                    },
+                    {
+                        "ID": "impact.Commits.1MinuteRate",
+                        "Name": "Graph Service Total Commits 1 Minute Rate"
+                    },
+                    {
+                        "ID": "impact.Commits.5MinuteRate",
+                        "Name": "Graph Service Total Commits 5 Minute Rate"
+                    },
+                    {
+                        "ID": "impact.Commits.15MinuteRate",
+                        "Name": "Graph Service Total Commits 15 MinuteRate"
+                    }
+                ],
+                "Name": "Graph Service Commit Metrics"
+            },
+            {
+                "Description": "State Propagation Statistics",
+                "ID": "StatePropagation",
+                "Metrics": [
+                    {
+                        "ID": "impact.StatePropagation.count",
+                        "Name": "State Propagation Count"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.min",
+                        "Name": "State Propagation Minimum Time"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.mean",
+                        "Name": "State Propagation Mean Time"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.max",
+                        "Name": "State Propagation Maximum Time"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.stddev",
+                        "Name": "State Propagation Standard Deviation"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.meanRate",
+                        "Name": "State Propagation Mean Rate"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.1MinuteRate",
+                        "Name": "State Propagation 1 Minute Rate"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.5MinuteRate",
+                        "Name": "State Propagation 5 Minute Rate"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.15MinuteRate",
+                        "Name": "State Propagation 15 MinuteRate"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.p50",
+                        "Name": "State Propagation 50th Percentile"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.p75",
+                        "Name": "State Propagation 75th Percentile"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.p95",
+                        "Name": "State Propagation 95th Percentile"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.p98",
+                        "Name": "State Propagation 98th Percentile"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.p99",
+                        "Name": "State Propagation 99th Percentile"
+                    },
+                    {
+                        "ID": "impact.StatePropagation.p999",
+                        "Name": "State Propagation 99.9th Percentile"
+                    }
+                ],
+                "Name": "State Propagation Statistics"
+            },
+            {
+                "Description": "Graph API Call Rates",
+                "ID": "GraphAPI.call",
+                "Metrics": [
+                    {
+                        "ID": "impact.GraphAPI.Calls.count",
+                        "Name": "Graph API Total Call Count"
+                    },
+                    {
+                        "ID": "impact.GraphAPI.Calls.meanRate",
+                        "Name": "Graph API Total Call Mean Rate"
+                    },
+                    {
+                        "ID": "impact.GraphAPI.Calls.1MinuteRate",
+                        "Name": "Graph API Total Call 1 Minute Rate"
+                    },
+                    {
+                        "ID": "impact.GraphAPI.Calls.5MinuteRate",
+                        "Name": "Graph API Total Call 5 Minute Rate"
+                    },
+                    {
+                        "ID": "impact.GraphAPI.Calls.15MinuteRate",
+                        "Name": "Graph API Total Call 15 MinuteRate"
+                    }
+                ],
+                "Name": "Graph API Metrics"
+            },
+            {
+                "Description": "ModelIO API Call Rates",
+                "ID": "ModelIOAPI.call",
+                "Metrics": [
+                    {
+                        "ID": "impact.ModelIOAPI.Calls.count",
+                        "Name": "ModelIO API Total Call Count"
+                    },
+                    {
+                        "ID": "impact.ModelIOAPI.Calls.meanRate",
+                        "Name": "ModelIO API Total Call Mean Rate"
+                    },
+                    {
+                        "ID": "impact.ModelIOAPI.Calls.1MinuteRate",
+                        "Name": "ModelIO API Total Call 1 Minute Rate"
+                    },
+                    {
+                        "ID": "impact.ModelIOAPI.Calls.5MinuteRate",
+                        "Name": "ModelIO API Total Call 5 Minute Rate"
+                    },
+                    {
+                        "ID": "impact.ModelIOAPI.Calls.15MinuteRate",
+                        "Name": "ModelIO API Total Call 15 MinuteRate"
+                    }
+                ],
+                "Name": "ModelIO API Metrics"
+            },
+            {
+                "Description": "Impact structural changes",
+                "ID": "ImpactChanges",
+                "Metrics": [
+                    {
+                        "ID": "impact.ImpactChanges.value",
+                        "Name": "Impact Change Count"
+                    }
+                ],
+                "Name": "Impact Change Count"
+            },
+            {
+                "Description": "Impact state changes",
+                "ID": "StateChanges",
+                "Metrics": [
+                    {
+                        "ID": "impact.StateChanges.value",
+                        "Name": "State Change Count"
+                    }
+                ],
+                "Name": "State Change Count"
+            },
+            {
+                "Description": "Objects consumed in the Neo4j database",
+                "ID": "Neo4j.Primitive",
+                "Metrics": [
+                    {
+                        "ID": "impact.Neo4j.Primitive.NumberOfNodeIdsInUse",
+                        "Name": "Nodes In Use"
+                    },
+                    {
+                        "ID": "impact.Neo4j.Primitive.NumberOfRelationshipIdsInUse",
+                        "Name": "Relationships In Use"
+                    },
+                    {
+                        "ID": "impact.Neo4j.Primitive.NumberOfPropertyIdsInUse",
+                        "Name": "Properties In Use"
+                    },
+                    {
+                        "ID": "impact.Neo4j.Primitive.NumberOfRelationshipTypeIdsInUse",
+                        "Name": "RelationshipTypes In Use"
+                    }
+                ],
+                "Name": "Neo4j Primitive Counts"
+            },
+            {
+                "Description": "Size of the Neo4j database",
+                "ID": "Neo4j.Store",
+                "Metrics": [
+                    {
+                        "ID": "impact.Neo4j.Store.ArrayStoreSize",
+                        "Name": "Array Store Size"
+                    },
+                    {
+                        "ID": "impact.Neo4j.Store.LogicalLogSize",
+                        "Name": "Logical Log Size"
+                    },
+                    {
+                        "ID": "impact.Neo4j.Store.NodeStoreSize",
+                        "Name": "Node Store Size"
+                    },
+                    {
+                        "ID": "impact.Neo4j.Store.PropertyStoreSize",
+                        "Name": "Property Store Size"
+                    },
+                    {
+                        "ID": "impact.Neo4j.Store.RelationshipStoreSize",
+                        "Name": "Relationship Store Size"
+                    },
+                    {
+                        "ID": "impact.Neo4j.Store.StringStoreSize",
+                        "Name": "String Store Size"
+                    },
+                    {
+                        "ID": "impact.Neo4j.Store.TotalStoreSize",
+                        "Name": "Total Store Size"
+                    }
+                ],
+                "Name": "Neo4j Store Size"
+            },
+            {
+                "Description": "Transactions on the Neo4j database",
+                "ID": "Neo4j.Transactions",
+                "Metrics": [
+                    {
+                        "ID": "impact.Neo4j.Transactions.NumberOfCommittedTransactions",
+                        "Name": "Committed Transactions"
+                    },
+                    {
+                        "ID": "impact.Neo4j.Transactions.NumberOfOpenedTransactions",
+                        "Name": "Opened Transactions"
+                    },
+                    {
+                        "ID": "impact.Neo4j.Transactions.NumberOfOpenTransactions",
+                        "Name": "Open Transactions"
+                    },
+                    {
+                        "ID": "impact.Neo4j.Transactions.NumberOfRolledBackTransactions",
+                        "Name": "Rolled Back Transactions"
+                    },
+                    {
+                        "ID": "impact.Neo4j.Transactions.PeakNumberOfConcurrentTransactions",
+                        "Name": "Peak Concurrent Transactions"
+                    }
+                ],
+                "Name": "Neo4j Transactions Counts"
+            },
+            {
+                "Description": "Nodes cached by the Neo4j database",
+                "ID": "Neo4j.NodeCache",
+                "Metrics": [
+                    {
+                        "ID": "impact.Neo4j.NodeCache.CacheSize",
+                        "Name": "Cache Size"
+                    },
+                    {
+                        "ID": "impact.Neo4j.NodeCache.HitCount",
+                        "Name": "Hit Count"
+                    },
+                    {
+                        "ID": "impact.Neo4j.NodeCache.MissCount",
+                        "Name": "Miss Count"
+                    }
+                ],
+                "Name": "Neo4j Node Cache Stats"
+            },
+            {
+                "Description": "Relationships cached by the Neo4j database",
+                "ID": "Neo4j.RelationshipCache",
+                "Metrics": [
+                    {
+                        "ID": "impact.Neo4j.RelationshipCache.CacheSize",
+                        "Name": "Cache Size"
+                    },
+                    {
+                        "ID": "impact.Neo4j.RelationshipCache.HitCount",
+                        "Name": "Hit Count"
+                    },
+                    {
+                        "ID": "impact.Neo4j.RelationshipCache.MissCount",
+                        "Name": "Miss Count"
+                    }
+                ],
+                "Name": "Neo4j Relationship Cache Stats"
+            },
+            {
+                "Description": "Length of State Events to Process Queue",
+                "ID": "impact.stateQueueLength",
+                "Metrics": [
+                    {
+                        "ID": "impact.stateQueueLength.value",
+                        "Name": "Queue Length"
+                    }
+                ],
+                "Name": "State Queue Length"
+            },
+            {
+                "Description": "Length of State Events to Process Queue",
+                "ID": "impact.processedEvents",
+                "Metrics": [
+                    {
+                        "ID": "impact.eventsProcessed.count",
+                        "Name": "Processed Events Count"
+                    },
+                    {
+                        "ID": "impact.eventsProcessed.meanRate",
+                        "Name": "GProcessed Events Count Mean Rate"
+                    },
+                    {
+                        "ID": "impact.eventsProcessed.1MinuteRate",
+                        "Name": "Processed Events Count 1 Minute Rate"
+                    },
+                    {
+                        "ID": "impact.eventsProcessed.5MinuteRate",
+                        "Name": "Processed Events Count 5 Minute Rate"
+                    },
+                    {
+                        "ID": "impact.eventsProcessed.15MinuteRate",
+                        "Name": "Processed Events Count 15 MinuteRate"
+                    }
+                ],
+                "Name": "State Queue Length"
+            }
+        ]
+    },
+    "Name": "Impact",
+    "RAMCommitment": "8G",
+    "Snapshot": {
+        "Pause": "PAUSE_CHECK_TIMEOUT=600000 ${IMPACT_HOME:-/opt/zenoss_impact}/bin/quiesce.sh pause",
+        "Resume": "${IMPACT_HOME:-/opt/zenoss_impact}/bin/quiesce.sh resume"
+    },
+    "StartLevel": 1,
+    "Tags": [
+        "daemon"
+    ],
+    "Volumes": [
+        {
+            "#####": "drwxrwxr-x 3 zenossimpact zenoss 4096 Mar  3 11:20 /opt/zenoss_impact/var",
+            "ContainerPath": "/opt/zenoss_impact/var",
+            "Owner": "zenossimpact:zenoss",
+            "Permission": "0775",
+            "ResourcePath": "impact"
+        },
+        {
+            "#####": "drwxrwxr-x 3 zenossimpact zenoss 4096 Mar  3 11:20 /opt/zenoss_impact/lib/ext/adapters",
+            "ContainerPath": "/opt/zenoss_impact/lib/ext/adapters",
+            "Owner": "zenossimpact:zenoss",
+            "Permission": "0775",
+            "ResourcePath": "var-zenpacks/impact/lib/ext/adapters"
+        }
+    ]
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+##############################################################################
+# 
+# Copyright (C) Zenoss, Inc. 2011, all rights reserved.
+# 
+# This content is made available according to terms specified in
+# License.zenoss under the directory where your Zenoss product is installed.
+# 
+##############################################################################
+-->
+
+
+<configuration scan="true">
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
+
+    <if condition='isNull("ZENOSS_DAEMON")'>
+        <then>
+            <appender name="APPENDER" class="ch.qos.logback.core.ConsoleAppender">
+                <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+                <encoder>
+                    <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+                </encoder>
+            </appender>
+        </then>
+        <else>
+            <appender name="APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${IMPACT_HOME:-.}/log/zenoss_impact.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+                    <!-- daily rollover -->
+                    <fileNamePattern>${IMPACT_HOME:-.}/log/zenoss_impact.log.%i</fileNamePattern>
+                    <!-- keep up to 3 logs by default -->
+                    <minIndex>1</minIndex>
+                    <maxIndex>3</maxIndex>
+                </rollingPolicy>
+                <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                    <maxFileSize>10MB</maxFileSize>
+                </triggeringPolicy>
+                <encoder>
+                    <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+                </encoder>
+            </appender>
+        </else>
+    </if>
+
+    <contextName>zenimpactserver</contextName>
+    <jmxConfigurator />
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="ch.qos.logback" level="WARN"/>
+    <logger name="com.zenoss" level="${ZENOSS_LOG_LEVEL:-INFO}" />
+    <logger name="org.zenoss" level="${ZENOSS_LOG_LEVEL:-INFO}" />
+    <logger name="org.neo4j" level="WARN" />
+    <logger name="org.jboss.netty.channel.DefaultChannelPipeline" level="ERROR" />
+
+    <root level="INFO">
+        <appender-ref ref="APPENDER"/>
+    </root>
+
+</configuration>
+
