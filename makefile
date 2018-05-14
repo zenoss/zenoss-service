@@ -241,6 +241,9 @@ docker_svcdef-%: docker_buildimage $(OUTPUT)
 			hbase_VERSION=$(hbase_VERSION) \
 			hdfs_VERSION=$(hdfs_VERSION) \
 			opentsdb_VERSION=$(opentsdb_VERSION) \
+			impact_VERSION=$(impact_VERSION) \
+			otsdb_bigtable_VERSION=$(otsdb_bigtable_VERSION) \
+			zing_connector_VERSION=$(zing_connector_VERSION) \
 			BUILD_NUMBER=$(_BUILD_NUMBER) \
 			IMAGE_NUMBER=$(IMAGE_NUMBER) \
 			MILESTONE=$(MILESTONE) \
