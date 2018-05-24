@@ -159,6 +159,10 @@
             "Interval": 10.0,
             "Script": "echo OK"
         },
+        "memcached_session_answering": {
+            "Interval": 10.0,
+            "Script": "echo OK"
+        },
         "rabbit_answering": {
             "Interval": 10.0,
             "Script": "echo OK"

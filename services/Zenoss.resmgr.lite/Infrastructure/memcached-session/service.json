@@ -30,7 +30,7 @@
     },
     "Launch": "auto",
     "Name": "memcached-session",
-    "RAMCommitment": "512M",
+    "RAMCommitment": "1G",
     "Services": [],
     "StartLevel": 1,
     "Tags": [

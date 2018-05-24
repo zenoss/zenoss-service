@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "${ZENHOME:-/opt/zenoss}/bin/zenmemcached",
+    "Command": "/usr/bin/python3 -m http.server 8080",
     "ConfigFiles": {
         "/etc/sysconfig/memcached": {
             "FileName": "/etc/sysconfig/memcached",
@@ -21,10 +21,10 @@
     "HealthChecks": {
         "answering": {
             "Interval": 5.0,
-            "Script": "{ echo stats; sleep 1; } | nc 127.0.0.1 11211 | grep -q uptime"
+            "Script": "echo OK"
         }
     },
-    "ImageID": "zenoss/zenoss5x",
+    "ImageID": "zenoss/ubuntu:wget",
     "Instances": {
         "min": 1
     },
@@ -32,7 +32,6 @@
     "Name": "memcached-session",
     "RAMCommitment": "512M",
     "Services": [],
-    "StartLevel": 1,
     "Tags": [
         "daemon"
     ]

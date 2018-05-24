@@ -49,6 +49,10 @@
         "answering": {
             "Interval": 5.0,
             "Script": "wget --timeout=3 --tries=1 -q -O - http://localhost:4242/api/stats"
+        },
+        "hbase_answering": {
+            "Interval": 10.0,
+            "Script": "curl -A 'HMaster rest_answering healthcheck' -o /dev/null -f -s http://localhost:61000/status/cluster"
         }
     },
     "ImageID": "zenoss/opentsdb:xx",
