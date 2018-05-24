@@ -171,6 +171,10 @@
             "Interval": 5.0,
             "Script": "echo OK"
         },
+        "memcached_session_answering": {
+            "Interval": 10.0,
+            "Script": "echo OK"
+        },
         "running": {
             "Interval": 5.0,
             "Script": "echo OK"
