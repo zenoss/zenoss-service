@@ -33,6 +33,7 @@
         "global.conf.amqpusessl": "0",
         "global.conf.amqpvhost": "/zenoss",
         "global.conf.auth0-audience": "https://dev.zing.ninja",
+        "global.conf.auth0-emailkey": "https://dev.zing.ninja/email",
         "global.conf.auth0-tenant": "https://zenoss-dev.auth0.com/",
         "global.conf.auth0-tenantkey": "https://dev.zing.ninja/tenant",
         "global.conf.auth0-whitelist": "alphacorp",
