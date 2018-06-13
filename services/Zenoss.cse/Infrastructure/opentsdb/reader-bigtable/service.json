@@ -29,7 +29,7 @@
             "VHostList": [
                 {
                     "Enabled": false,
-                    "Name": "opentsdb"
+                    "Name": "opentsdb-bigtable"
                 }
             ]
         }
