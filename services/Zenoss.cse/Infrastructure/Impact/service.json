@@ -99,7 +99,7 @@
         "Max": 1,
         "Min": 1
     },
-    "Launch": "manual",
+    "Launch": "auto",
     "LogConfigs": [
         {
             "path": "/opt/zenoss_impact/log/zenoss_impact.log",
