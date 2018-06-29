@@ -66,6 +66,20 @@
             "Purpose": "import"
         },
         {
+            "Application": "zing-connector",
+            "Name": "zing-connector",
+            "PortNumber": 9237,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "zing-connector-admin",
+            "Name": "zing-connector-admin",
+            "PortNumber": 9000,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Application": "zproxy",
             "Name": "zproxy",
             "PortNumber": 8080,
@@ -101,6 +115,10 @@
         "stable_workers": {
             "Interval": 5.0,
             "Script": "/opt/zenoss/bin/healthchecks/zenjobs/stable_workers"
+        },
+        "zing-connector-answering": {
+            "Interval": 10.0,
+            "Script": "test \"$(curl localhost:9000/ping)\" = \"PONG\""
         }
     },
     "ImageID": "zenoss/zenoss5x",
