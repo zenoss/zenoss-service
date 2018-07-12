@@ -20,6 +20,7 @@ hbase_VERSION    ?= v16
 hdfs_VERSION     ?= v4
 opentsdb_VERSION ?= v23
 zing_connector_VERSION ?= latest
+zing_api_proxy_VERSION ?= latest
 otsdb_bigtable_VERSION ?= v1
 impact_VERSION ?= 5.3.2.0.0
 
@@ -108,6 +109,10 @@ svcdef_ImageID_maps     += $(jsonsrc_opentsdb_ImageID),$(desired_opentsdb_ImageI
 jsonsrc_zing_connector_ImageID = gcr-repo/zing-connector:xx
 desired_zing_connector_ImageID = gcr.io/zing-registry-188222/zing-connector:$(zing_connector_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_zing_connector_ImageID),$(desired_zing_connector_ImageID)
+#
+jsonsrc_zing_api_proxy_ImageID = gcr-repo/api-key-proxy:xx
+desired_zing_api_proxy_ImageID = gcr.io/zing-registry-188222/api-key-proxy:$(zing_api_proxy_VERSION)
+svcdef_ImageID_maps     += $(jsonsrc_zing_api_proxy_ImageID),$(desired_zing_api_proxy_ImageID)
 #
 jsonsrc_otsdb_bigtable_ImageID = zenoss/opentsdb-bigtable:xx
 desired_otsdb_bigtable_ImageID = gcr.io/zing-registry-188222/otsdb-bigtable:$(otsdb_bigtable_VERSION)

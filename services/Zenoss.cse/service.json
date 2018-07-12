@@ -77,14 +77,7 @@
         {
             "Application": "zproxy",
             "Name": "zproxy",
-            "PortList": [
-                {
-                    "Enabled": true,
-                    "PortAddr": ":9443",
-                    "Protocol": "https",
-                    "UseTLS": true
-                }
-            ],
+            "PortList": [],
             "PortNumber": 8080,
             "Protocol": "tcp",
             "Purpose": "export",
