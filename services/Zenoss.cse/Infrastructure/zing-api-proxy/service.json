@@ -1,11 +1,6 @@
 {
     "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/api-key-proxy/supervisord.conf\"",
     "ConfigFiles": {
-        "/etc/api-key-proxy.yml": {
-            "Filename": "/opt/zenoss/etc/api-key-proxy/api-key-proxy.yml",
-            "Owner": "root:root",
-            "Permissions": "664"
-        },
         "/etc/zing-gcp-credentials.json": {
             "Filename": "/etc/zing-gcp-credentials.json",
             "Owner": "root:root",
@@ -77,12 +72,15 @@
      }
     ],
     "Environment": [
-        "GOOGLE_APPLICATION_CREDENTIALS=/etc/zing-gcp-credentials.json"
+        "GOOGLE_APPLICATION_CREDENTIALS=/etc/zing-gcp-credentials.json",
+        "KEYPROXY_PROXY_LISTENER_PORT=9090",
+        "KEYPROXY_ZPROXY_LOCATION=http://localhost:8080",
+        "KEYPROXY_JSON_SERVER=http://{{}}/accessToken"
     ],
     "HealthChecks": {
         "answering": {
             "Interval": 5.0,
-            "Script": "test \"$(curl localhost:9191/ping)\" = \"PONG\""
+            "Script":  "curl -A 'zing-api-proxy_answering Healthcheck' -f -s http://localhost:9090/zport/ruok \u003e /dev/null"
         }
     },
     "ImageId": "gcr-repo/api-key-proxy:xx",
