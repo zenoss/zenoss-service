@@ -1,104 +1,104 @@
 {
-  "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/api-key-proxy/supervisord.conf\"",
-  "ConfigFiles": {
-    "/etc/zing-gcp-credentials.json": {
-      "Filename": "/etc/zing-gcp-credentials.json",
-      "Owner": "root:root",
-      "Permissions": "664"
-    }
-  },
-  "Description": "Zing API Proxy Service",
-  "Endpoints": [
-    {
-      "Name": "zing-api-proxy",
-      "Purpose": "export",
-      "Protocol": "tcp",
-      "PortNumber": 9090,
-      "PortTemplate": "",
-      "VirtualAddress": "",
-      "Application": "zing-api-proxy",
-      "ApplicationTemplate": "zing-api-proxy",
-      "AddressConfig": {
-        "Port": 0,
-        "Protocol": ""
-      },
-      "VHosts": null,
-      "VHostList": [],
-      "AddressAssignment": {
-        "ID": "",
-        "AssignmentType": "",
-        "HostID": "",
-        "PoolID": "",
-        "IPAddr": "",
-        "Port": 0,
-        "ServiceID": "",
-        "EndpointName": ""
-      },
-      "PortList": [
-        {
-          "PortAddr": ":9443",
-          "Enabled": true,
-          "UseTLS": true,
-          "Protocol": "https"
+    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/api-key-proxy/supervisord.conf\"",
+    "ConfigFiles": {
+        "/etc/zing-gcp-credentials.json": {
+            "Filename": "/etc/zing-gcp-credentials.json",
+            "Owner": "root:root",
+            "Permissions": "664"
         }
-      ]
     },
-    {
-      "Name": "zproxy",
-      "Purpose": "import",
-      "Protocol": "tcp",
-      "PortNumber": 8080,
-      "PortTemplate": "",
-      "VirtualAddress": "",
-      "Application": "zproxy",
-      "ApplicationTemplate": "zproxy",
-      "AddressConfig": {
-        "Port": 0,
-        "Protocol": ""
-      },
-      "VHosts": null,
-      "VHostList": null,
-      "AddressAssignment": {
-        "ID": "",
-        "AssignmentType": "",
-        "HostID": "",
-        "PoolID": "",
-        "IPAddr": "",
-        "Port": 0,
-        "ServiceID": "",
-        "EndpointName": ""
-      },
-      "PortList": null
-    }
-  ],
-  "Environment": [
-    "GOOGLE_APPLICATION_CREDENTIALS=/etc/zing-gcp-credentials.json",
-    "KEYPROXY_PROXY_LISTENER_PORT=9090",
-    "KEYPROXY_ZPROXY_LOCATION=http://localhost:8080",
-    "KEYPROXY_JSON_SERVER=http://{{}}/accessToken"
-  ],
-  "HealthChecks": {
-    "answering": {
-      "Interval": 5,
-      "Script": "curl -A 'zing-api-proxy_answering Healthcheck' -f -s http://localhost:9090/zport/ruok \\u003e /dev/null"
-    }
-  },
-  "ImageId": "gcr-repo/api-key-proxy:xx",
-  "Instances": {
-    "Min": 1
-  },
-  "Launch": "auto",
-  "LogConfigs": [
-    {
-      "filters": [
-        "glog"
-      ],
-      "path": "/opt/zenoss/log/api-key-proxy.log",
-      "type": "api-key-proxy"
-    }
-  ],
-  "Name": "zing-api-proxy",
-  "Tags": [
-    "daemon"
-  ]
+    "Description": "Zing API Proxy Service",
+    "Endpoints": [
+        {
+            "AddressAssignment": {
+                "AssignmentType": "",
+                "EndpointName": "",
+                "HostID": "",
+                "ID": "",
+                "IPAddr": "",
+                "PoolID": "",
+                "Port": 0,
+                "ServiceID": ""
+            },
+            "AddressConfig": {
+                "Port": 0,
+                "Protocol": ""
+            },
+            "Application": "zing-api-proxy",
+            "ApplicationTemplate": "zing-api-proxy",
+            "Name": "zing-api-proxy",
+            "PortList": [
+                {
+                    "Enabled": true,
+                    "PortAddr": ":9443",
+                    "Protocol": "https",
+                    "UseTLS": true
+                }
+            ],
+            "PortNumber": 9090,
+            "PortTemplate": "",
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "VHostList": [],
+            "VHosts": null,
+            "VirtualAddress": ""
+        },
+        {
+            "AddressAssignment": {
+                "AssignmentType": "",
+                "EndpointName": "",
+                "HostID": "",
+                "ID": "",
+                "IPAddr": "",
+                "PoolID": "",
+                "Port": 0,
+                "ServiceID": ""
+            },
+            "AddressConfig": {
+                "Port": 0,
+                "Protocol": ""
+            },
+            "Application": "zproxy",
+            "ApplicationTemplate": "zproxy",
+            "Name": "zproxy",
+            "PortList": null,
+            "PortNumber": 8080,
+            "PortTemplate": "",
+            "Protocol": "tcp",
+            "Purpose": "import",
+            "VHostList": null,
+            "VHosts": null,
+            "VirtualAddress": ""
+        }
+    ],
+    "Environment": [
+        "GOOGLE_APPLICATION_CREDENTIALS=/etc/zing-gcp-credentials.json",
+        "KEYPROXY_PROXY_LISTENER_PORT=9090",
+        "KEYPROXY_ZPROXY_LOCATION=http://localhost:8080",
+        "KEYPROXY_JSON_SERVER=http://{{}}/accessToken"
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5,
+            "Script": "curl -A 'zing-api-proxy_answering Healthcheck' -f -s http://localhost:9090/zport/ruok \\u003e /dev/null"
+        }
+    },
+    "ImageId": "gcr-repo/api-key-proxy:xx",
+    "Instances": {
+        "Min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "filters": [
+                "glog"
+            ],
+            "path": "/opt/zenoss/log/api-key-proxy.log",
+            "type": "api-key-proxy"
+        }
+    ],
+    "Name": "zing-api-proxy",
+    "Tags": [
+        "daemon"
+    ]
 }
