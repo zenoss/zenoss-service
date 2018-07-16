@@ -1,12 +1,6 @@
 {
     "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/api-key-proxy/supervisord.conf\"",
-    "ConfigFiles": {
-        "/etc/zing-gcp-credentials.json": {
-            "Filename": "/etc/zing-gcp-credentials.json",
-            "Owner": "root:root",
-            "Permissions": "664"
-        }
-    },
+    "ConfigFiles": {},
     "Description": "Zing API Proxy Service",
     "Endpoints": [
         {
@@ -72,10 +66,7 @@
         }
     ],
     "Environment": [
-        "GOOGLE_APPLICATION_CREDENTIALS=/etc/zing-gcp-credentials.json",
-        "KEYPROXY_PROXY_LISTENER_PORT=9090",
-        "KEYPROXY_ZPROXY_LOCATION=http://localhost:8080",
-        "KEYPROXY_JSON_SERVER=http://{{}}/accessToken"
+        "KEYPROXY_JSON_SERVER=http://{{(getContext . \"cse.api-key-server-ip\")}}:9090/accessToken"
     ],
     "HealthChecks": {
         "answering": {
