@@ -114,7 +114,7 @@ desired_otsdb_bigtable_ImageID = gcr.io/zing-registry-188222/otsdb-bigtable:$(ot
 svcdef_ImageID_maps     += $(jsonsrc_otsdb_bigtable_ImageID),$(desired_otsdb_bigtable_ImageID)
 #
 jsonsrc_impact_ImageID = zendev/impact-devimg
-desired_impact_ImageID = zenoss/impact_5.3:$(impact_VERSION)
+desired_impact_ImageID = gcr.io/zing-registry-188222/impact_5.3:$(impact_VERSION)
 svcdef_ImageID_maps += $(jsonsrc_impact_ImageID),$(desired_impact_ImageID)
 
 
