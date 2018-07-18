@@ -17,6 +17,7 @@
         "ZenPack.Default.RAMCommitment": "1G",
         "ZenPack.Default.WorkerArgs": "--workers {{.Instances}} --workerid $CONTROLPLANE_INSTANCE_ID",
         "centralquery.ratecutoff": -1,
+        "cse.api-key-server-ip": "",
         "cse.fqn": "",
         "cse.project": "",
         "cse.source": "",
@@ -75,14 +76,7 @@
         {
             "Application": "zproxy",
             "Name": "zproxy",
-            "PortList": [
-                {
-                    "Enabled": true,
-                    "PortAddr": ":9443",
-                    "Protocol": "https",
-                    "UseTLS": true
-                }
-            ],
+            "PortList": [],
             "PortNumber": 8080,
             "Protocol": "tcp",
             "Purpose": "export",
