@@ -41,8 +41,6 @@
         "global.conf.cse-virtualroot": "/cz",
         "global.conf.cse-zing-host": "zing.soy",
         "global.conf.cse-zing-port": "443",
-        "global.conf.impact-cse": "True",
-        "global.conf.impact-zsd": "False",
         "global.conf.maxOutstandingMetrics": "1000000",
         "global.conf.solr-search-limit": "10000",
         "global.conf.zauth-password": "MY_PASSWORD",
