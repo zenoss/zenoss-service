@@ -73,7 +73,7 @@
             "Interval": 5,
             "Script": "curl -A 'zing-api-proxy_answering Healthcheck' -f -s http://localhost:9090/zport/ruok > /dev/null"
         },
-        "api-server answering": {
+        "api_key_server_answering": {
             "Interval": 5,
             "Script": "curl -A 'api-key-server_answering Healthcheck' -f -s http://{{(getContext . \"cse.api-key-server-ip\")}}:9090/ > /dev/null"
         }
