@@ -1,0 +1,99 @@
+{
+    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/api-key-proxy/supervisord.conf\"",
+    "ConfigFiles": {},
+    "Description": "Zing API Proxy Service",
+    "Endpoints": [
+        {
+            "AddressAssignment": {
+                "AssignmentType": "",
+                "EndpointName": "",
+                "HostID": "",
+                "ID": "",
+                "IPAddr": "",
+                "PoolID": "",
+                "Port": 0,
+                "ServiceID": ""
+            },
+            "AddressConfig": {
+                "Port": 0,
+                "Protocol": ""
+            },
+            "Application": "zing-api-proxy",
+            "ApplicationTemplate": "zing-api-proxy",
+            "Name": "zing-api-proxy",
+            "PortList": [
+                {
+                    "Enabled": true,
+                    "PortAddr": ":9443",
+                    "Protocol": "https",
+                    "UseTLS": true
+                }
+            ],
+            "PortNumber": 9090,
+            "PortTemplate": "",
+            "Protocol": "tcp",
+            "Purpose": "export",
+            "VHostList": [],
+            "VHosts": null,
+            "VirtualAddress": ""
+        },
+        {
+            "AddressAssignment": {
+                "AssignmentType": "",
+                "EndpointName": "",
+                "HostID": "",
+                "ID": "",
+                "IPAddr": "",
+                "PoolID": "",
+                "Port": 0,
+                "ServiceID": ""
+            },
+            "AddressConfig": {
+                "Port": 0,
+                "Protocol": ""
+            },
+            "Application": "zproxy",
+            "ApplicationTemplate": "zproxy",
+            "Name": "zproxy",
+            "PortList": null,
+            "PortNumber": 8080,
+            "PortTemplate": "",
+            "Protocol": "tcp",
+            "Purpose": "import",
+            "VHostList": null,
+            "VHosts": null,
+            "VirtualAddress": ""
+        }
+    ],
+    "Environment": [
+        "KEYPROXY_JSON_SERVER=http://{{(getContext . \"cse.api-key-server-ip\")}}:9090/accessToken"
+    ],
+    "HealthChecks": {
+        "answering": {
+            "Interval": 5,
+            "Script": "curl -A 'zing-api-proxy_answering Healthcheck' -f -s http://localhost:9090/zport/ruok > /dev/null"
+        },
+        "api_key_server_answering": {
+            "Interval": 5,
+            "Script": "curl -A 'api-key-server_answering Healthcheck' -f -s http://{{(getContext . \"cse.api-key-server-ip\")}}:9090/ > /dev/null"
+        }
+    },
+    "ImageId": "gcr-repo/api-key-proxy:xx",
+    "Instances": {
+        "Min": 1
+    },
+    "Launch": "auto",
+    "LogConfigs": [
+        {
+            "filters": [
+                "glog"
+            ],
+            "path": "/opt/zenoss/log/api-key-proxy.log",
+            "type": "api-key-proxy"
+        }
+    ],
+    "Name": "zing-api-proxy",
+    "Tags": [
+        "daemon"
+    ]
+}

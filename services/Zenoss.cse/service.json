@@ -17,6 +17,7 @@
         "ZenPack.Default.RAMCommitment": "1G",
         "ZenPack.Default.WorkerArgs": "--workers {{.Instances}} --workerid $CONTROLPLANE_INSTANCE_ID",
         "centralquery.ratecutoff": -1,
+        "cse.api-key-server-ip": "",
         "cse.fqn": "",
         "cse.project": "",
         "cse.source": "",
@@ -42,8 +43,11 @@
         "global.conf.cse-zing-host": "zing.soy",
         "global.conf.cse-zing-port": "443",
         "global.conf.maxOutstandingMetrics": "1000000",
+        "global.conf.solr-search-limit": "10000",
         "global.conf.zauth-password": "MY_PASSWORD",
         "global.conf.zauth-username": "zenoss_system",
+        "global.conf.zcml-disable-impact-zsd": "Feature",
+        "global.conf.zcml-enable-impact-cse": "Feature",
         "global.conf.zep-admin-password": "",
         "global.conf.zep-admin-user": "root",
         "global.conf.zep-db": "zenoss_zep",
@@ -72,14 +76,7 @@
         {
             "Application": "zproxy",
             "Name": "zproxy",
-            "PortList": [
-                {
-                    "Enabled": true,
-                    "PortAddr": ":9443",
-                    "Protocol": "https",
-                    "UseTLS": true
-                }
-            ],
+            "PortList": [],
             "PortNumber": 8080,
             "Protocol": "tcp",
             "Purpose": "export",
