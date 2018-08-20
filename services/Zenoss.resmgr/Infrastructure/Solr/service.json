@@ -21,6 +21,11 @@
             "Filename": "/opt/solr/zenoss/etc/supervisor.conf",
             "Owner": "root:root",
             "Permissions": "0664"
+        },
+        "/var/solr/log4j.properties": {
+            "Filename": "/var/solr/log4j.properties",
+            "Owner": "root:root",
+            "Permissions": "0664"
         }
     },
     "Description": "Solr Cloud",
