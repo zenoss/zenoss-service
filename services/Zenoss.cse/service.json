@@ -46,7 +46,6 @@
         "global.conf.solr-search-limit": "10000",
         "global.conf.zauth-password": "MY_PASSWORD",
         "global.conf.zauth-username": "zenoss_system",
-        "global.conf.zcml-disable-impact-zsd": "Feature",
         "global.conf.zcml-enable-impact-cse": "Feature",
         "global.conf.zep-admin-password": "",
         "global.conf.zep-admin-user": "root",
