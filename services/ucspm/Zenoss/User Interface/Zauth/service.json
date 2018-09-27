@@ -75,6 +75,14 @@
             "Interval": 5.0,
             "Script": "curl -A 'zauth answering healthcheck' -s http://localhost:9180/zport/ruok | grep -q imok"
         },
+        "deadlock_check": {
+            "Interval": 30.0,
+            "KillCountLimit": 3,
+            "KillExitCodes": [
+                28
+            ],
+            "Script": "curl -A 'zauth deadlock healthcheck' --max-time 30 -s http://localhost:9180/zport/ruok"
+        },
         "mariadb_answering": {
             "Interval": 10.0,
             "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering"
