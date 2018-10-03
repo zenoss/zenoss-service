@@ -16,7 +16,7 @@
             "Filename": "/opt/zenoss/etc/zenhubworker.conf",
             "Owner": "zenoss:zenoss",
             "Permissions": "0664"
-      }
+        }
     },
     "Description": "Executes service requests on ZenHub's behalf",
     "Endpoints": [
@@ -124,8 +124,8 @@
     },
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
-        "Min": 1,
-        "Default": 2
+        "Default": 2,
+        "Min": 1
     },
     "Launch": "auto",
     "LogConfigs": [
@@ -166,4 +166,4 @@
             "ResourcePath": "var-zenpacks"
         }
     ]
- }
+}

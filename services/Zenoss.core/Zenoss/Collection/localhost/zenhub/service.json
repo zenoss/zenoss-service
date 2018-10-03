@@ -121,8 +121,8 @@
     },
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
-        "Min": 1,
-        "Max": 1
+        "Max": 1,
+        "Min": 1
     },
     "Launch": "auto",
     "LogConfigs": [
