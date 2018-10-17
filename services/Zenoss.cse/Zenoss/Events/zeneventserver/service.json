@@ -140,6 +140,293 @@
             "type": "zenossaudit"
         }
     ],
+    "MonitoringProfile": {
+        "GraphConfigs": [
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "bytes",
+                        "legend": "bytes",
+                        "metric": "zeneventserver.zing.bytesSent.count",
+                        "metricSource": "events-to-pubsub",
+                        "name": "bytes",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Bytes published to Pub/Sub",
+                "footer": false,
+                "id": "eventsBytes",
+                "name": "Bytes published to Pub/Sub",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Bytes Published"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "published",
+                        "legend": "published",
+                        "metric": "zeneventserver.zing.sentEvents.count",
+                        "metricSource": "events-to-pubsub",
+                        "name": "published",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "failed",
+                        "legend": "failed",
+                        "metric": "zeneventserver.zing.failedEvents.count",
+                        "metricSource": "events-to-pubsub",
+                        "name": "failed",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "invalid",
+                        "legend": "invalid",
+                        "metric": "zeneventserver.zing.invalidEvents.count",
+                        "metricSource": "events-to-pubsub",
+                        "name": "invalid",
+                        "rate": true,
+                        "rateOptions": {
+                            "counter": true
+                        },
+                        "type": "line"
+                    }
+                ],
+                "description": "Number of events published to Pub/Sub.",
+                "footer": false,
+                "id": "eventsPublished",
+                "name": "Events Published to Pub/Sub",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Events Published"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "min",
+                        "legend": "min",
+                        "metric": "zeneventserver.zing.processEvent.min",
+                        "metricSource": "events-to-pubsub",
+                        "name": "min",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "max",
+                        "legend": "max",
+                        "metric": "zeneventserver.zing.processEvent.max",
+                        "metricSource": "events-to-pubsub",
+                        "name": "max",
+                        "rate": false,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "mean",
+                        "legend": "mean",
+                        "metric": "zeneventserver.zing.processEvent.mean",
+                        "metricSource": "events-to-pubsub",
+                        "name": "mean",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Seconds to Forward events to Pub/Sub.",
+                "footer": false,
+                "id": "processEventSeconds",
+                "name": "Events to Pub/Sub Time (seconds)",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Events to Pub/Sub Time (s)"
+            }
+        ],
+        "MetricConfigs": [
+            {
+                "Description": "Statistics for outgoing events to Pub/Sub",
+                "ID": "events-to-pubsub",
+                "Metrics": [
+                    {
+                        "Counter": true,
+                        "Description": "number of event bytes sent",
+                        "ID": "zeneventserver.zing.bytesSent.count",
+                        "Name": "bytes",
+                        "Unit": "bytes"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "number of events failed when publishing to Pub/Sub",
+                        "ID": "zeneventserver.zing.failedEvents.count",
+                        "Name": "failedEvents",
+                        "Unit": "events"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "number invalid events that were not sent to Pub/Sub",
+                        "ID": "zeneventserver.zing.invalidEvents.count",
+                        "Name": "invalidEvents",
+                        "Unit": "events"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "number events dropped for not meeting minimum severity criteria",
+                        "ID": "zeneventserver.zing.irrelevantSeverityEvents.count",
+                        "Name": "irrelevantSeverityEvents",
+                        "Unit": "events"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "number events successfully sent to Pub/Sub",
+                        "ID": "zeneventserver.zing.sentEvents.count",
+                        "Name": "sentEvents",
+                        "Unit": "events"
+                    },
+                    {
+                        "Counter": true,
+                        "Description": "number of calls to processEvent",
+                        "ID": "zeneventserver.zing.processEvent.count",
+                        "Name": "count",
+                        "Unit": "events"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "max time in processEvent",
+                        "ID": "zeneventserver.zing.processEvent.max",
+                        "Name": "max",
+                        "Unit": "seconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "mean time in processEvent",
+                        "ID": "zeneventserver.zing.processEvent.mean",
+                        "Name": "mean",
+                        "Unit": "seconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "min time in processEvent",
+                        "ID": "zeneventserver.zing.processEvent.min",
+                        "Name": "mean",
+                        "Unit": "seconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "50th percentile time in processEvent",
+                        "ID": "zeneventserver.zing.processEvent.p50",
+                        "Name": "p50",
+                        "Unit": "seconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "75th percentile time in processEvent",
+                        "ID": "zeneventserver.zing.processEvent.p75",
+                        "Name": "p75",
+                        "Unit": "seconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "95th percentile time in processEvent",
+                        "ID": "zeneventserver.zing.processEvent.p95",
+                        "Name": "p95",
+                        "Unit": "seconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "98th percentile time in processEvent",
+                        "ID": "zeneventserver.zing.processEvent.p98",
+                        "Name": "p98",
+                        "Unit": "seconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "99th percentile time in processEvent",
+                        "ID": "zeneventserver.zing.processEvent.p99",
+                        "Name": "p99",
+                        "Unit": "seconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "99.9th percentile time in processEvent",
+                        "ID": "zeneventserver.zing.processEvent.p999",
+                        "Name": "p99.9",
+                        "Unit": "seconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "stddev time in processEvent",
+                        "ID": "zeneventserver.zing.processEvent.stddev",
+                        "Name": "stddev",
+                        "Unit": "seconds"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "15 minute processEvent rate",
+                        "ID": "zeneventserver.zing.processEvent.m15_rate",
+                        "Name": "15MinuteRate",
+                        "Unit": "evt/sec"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "1 minute processEvent rate",
+                        "ID": "zeneventserver.zing.processEvent.m1_rate",
+                        "Name": "1MinuteRate",
+                        "Unit": "evt/sec"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "5 minute processEvent rate",
+                        "ID": "zeneventserver.zing.processEvent.m5_rate",
+                        "Name": "5MinuteRate",
+                        "Unit": "evt/sec"
+                    },
+                    {
+                        "Counter": false,
+                        "Description": "mean processEvent rate",
+                        "ID": "zeneventserver.zing.processEvent.mean_rate",
+                        "Name": "meanRate",
+                        "Unit": "evt/sec"
+                    }
+                ],
+                "Name": "Events to Pub/Sub"
+            }
+        ]
+    },
     "Name": "zeneventserver",
     "Prereqs": [
         {
