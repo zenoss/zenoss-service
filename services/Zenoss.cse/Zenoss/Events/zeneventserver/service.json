@@ -162,14 +162,14 @@
                 "description": "Bytes published to Pub/Sub",
                 "footer": false,
                 "id": "eventsBytes",
-                "name": "Bytes of Events Published",
+                "name": "Bytes published to Pub/Sub",
                 "range": {
                     "end": "0s-ago",
                     "start": "1h-ago"
                 },
                 "returnset": "EXACT",
                 "type": "line",
-                "yAxisLabel": "Bytes of Events Published"
+                "yAxisLabel": "Bytes Published"
             },
             {
                 "datapoints": [
