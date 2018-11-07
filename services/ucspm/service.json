@@ -25,6 +25,7 @@
         "global.conf.amqpuser": "zenoss",
         "global.conf.amqpusessl": "0",
         "global.conf.amqpvhost": "/zenoss",
+        "global.conf.solr-search-limit": "10000",
         "global.conf.zauth-password": "MY_PASSWORD",
         "global.conf.zauth-username": "zenoss_system",
         "global.conf.zep-admin-password": "",
