@@ -210,6 +210,7 @@
             "Script": "/opt/zenoss/bin/healthchecks/zep_answering"
         }
     },
+    "HostPolicy": "PREFER_SEPARATE",
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
         "min": 1
