@@ -122,6 +122,7 @@
             "Script": "/opt/zenoss/bin/healthchecks/zep_answering"
         }
     },
+    "HostPolicy": "PREFER_SEPARATE",
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
         "Default": 2,
