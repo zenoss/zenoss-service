@@ -118,21 +118,15 @@
             "Interval": 10.0,
             "Script": "curl -A 'Solr answering healthcheck' -s http://localhost:8983/solr/zenoss_model/admin/ping?wt=json | grep -q '\"status\":\"OK\"'"
         },
-        "stable_workers": {
-            "Interval": 5.0,
-            "Script": "/opt/zenoss/bin/healthchecks/zenhub/stable_workers"
-        },
-        "workers_running": {
-            "Interval": 5.0,
-            "Script": "pgrep -fu zenoss zenhubworker.py > /dev/null"
-        },
         "zep_answering": {
             "Interval": 10.0,
             "Script": "/opt/zenoss/bin/healthchecks/zep_answering"
         }
     },
+    "HostPolicy": "PREFER_SEPARATE",
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
+        "max": 1,
         "min": 1
     },
     "Launch": "auto",
@@ -153,7 +147,7 @@
             "Script": "curl -A 'Solr answering prereq' -s http://localhost:8983/solr/zenoss_model/admin/ping?wt=json | grep -q '\"status\":\"OK\"'"
         }
     ],
-    "RAMCommitment": "1G",
+    "RAMCommitment": "2G",
     "Services": [],
     "StartLevel": 2,
     "Tags": [
