@@ -254,6 +254,7 @@ docker_svcdef-%: docker_buildimage $(OUTPUT)
 			IMAGE_NUMBER=$(IMAGE_NUMBER) \
 			MILESTONE=$(MILESTONE) \
 			RELEASE_PHASE=$(RELEASE_PHASE) \
+			zing_api_proxy_VERSION=$(zing_api_proxy_VERSION) \
 			svcdef-$*"'
 
 clean:
