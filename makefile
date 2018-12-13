@@ -13,7 +13,7 @@
 # VERSION is the full Zenoss version; e.g., 5.0.0
 # SHORT_VERSION is the two-digit Zenoss version; e.g., 5.0
 # Note: these values are set in the build jobs, so the defaults =? aren't going to be used.
-VERSION         ?= 7.0.6
+VERSION         ?= 7.0.7
 SHORT_VERSION   ?= 7.0
 
 # These three xyz_VERSION variables define the corresponding docker image versions
@@ -254,6 +254,7 @@ docker_svcdef-%: docker_buildimage $(OUTPUT)
 			IMAGE_NUMBER=$(IMAGE_NUMBER) \
 			MILESTONE=$(MILESTONE) \
 			RELEASE_PHASE=$(RELEASE_PHASE) \
+			zing_api_proxy_VERSION=$(zing_api_proxy_VERSION) \
 			svcdef-$*"'
 
 clean:

@@ -30,7 +30,7 @@
     },
     "Launch": "auto",
     "Name": "memcached",
-    "RAMCommitment": "1G",
+    "RAMCommitment": "3G",
     "Services": [],
     "StartLevel": 1,
     "Tags": [
