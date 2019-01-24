@@ -89,6 +89,7 @@
             "Script": "/opt/zenoss/bin/healthchecks/zeneventd/stable_workers"
         }
     },
+    "HostPolicy": "PREFER_SEPARATE",
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
         "min": 1
