@@ -9,6 +9,9 @@
             "Permissions": "0664"
         }
     },
+    "Context": {
+        "max_connections": "1000"
+    },
     "Description": "MariaDB model database server",
     "EmergencyShutdownLevel": 1,
     "Endpoints": [
