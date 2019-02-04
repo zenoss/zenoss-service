@@ -1,5 +1,5 @@
 # Zenoss Services
-A repository for Zenoss Application Service Defintions
+A repository for Zenoss Application Service Definitions
 
 ## Making changes to service defintions
 
