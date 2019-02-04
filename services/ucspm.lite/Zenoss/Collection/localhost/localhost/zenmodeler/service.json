@@ -21,6 +21,11 @@
             "Permissions": "0664"
         }
     },
+    "Context": {
+        "cycletime": "1440",
+        "parallel": "10",
+        "startat": "0 0 * * *"
+    },
     "Description": "Configuration collection and configuration daemon, used for high-performance, automated model population",
     "Endpoints": [
         {
