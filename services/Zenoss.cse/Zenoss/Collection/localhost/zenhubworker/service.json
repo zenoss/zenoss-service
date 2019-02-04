@@ -18,6 +18,9 @@
             "Permissions": "0664"
         }
     },
+    "Context": {
+       "call-limit": "200"
+    },
     "Description": "Executes service requests on ZenHub's behalf",
     "Endpoints": [
         {

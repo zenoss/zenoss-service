@@ -8,6 +8,9 @@
             "Permissions": "0664"
         }
     },
+    "Context": {
+       "max_connections": "1000"
+    },
     "Description": "MariaDB events database server",
     "EmergencyShutdownLevel": 1,
     "Endpoints": [
