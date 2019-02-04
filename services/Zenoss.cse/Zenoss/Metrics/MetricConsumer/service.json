@@ -115,6 +115,32 @@
                     {
                         "aggregator": "avg",
                         "fill": false,
+                        "id": "queued-zing",
+                        "legend": "queued - zing",
+                        "metric": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalInFlight.count",
+                        "metricSource": "ZingQueue.inFlight",
+                        "name": "queued",
+                        "rate": false,
+                        "type": "line"
+                    }
+                ],
+                "description": "Zing Queued Metric Count",
+                "footer": false,
+                "id": "zingQueuedMetrics",
+                "name": "Zing Queued Metrics",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Queued Metrics"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
                         "id": "outgoing",
                         "legend": "outgoing",
                         "metric": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.count",
@@ -133,6 +159,17 @@
                         "name": "incoming",
                         "rate": true,
                         "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "lost",
+                        "legend": "lost",
+                        "metric": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalLost.count",
+                        "metricSource": "MetricsQueue.totalLost",
+                        "name": "lost",
+                        "rate": true,
+                        "type": "line"
                     }
                 ],
                 "description": "Number of datapoints received / transmitted per second.",
@@ -146,6 +183,54 @@
                 "returnset": "EXACT",
                 "type": "line",
                 "yAxisLabel": "Data Points"
+            },
+            {
+                "datapoints": [
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "outgoing-zing",
+                        "legend": "outgoing - zing",
+                        "metric": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalOutgoing.count",
+                        "metricSource": "ZingQueue.totalOutgoing",
+                        "name": "outgoing",
+                        "rate": true,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "incoming-zing",
+                        "legend": "incoming - zing",
+                        "metric": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalIncoming.count",
+                        "metricSource": "ZingQueue.totalIncoming",
+                        "name": "incoming",
+                        "rate": true,
+                        "type": "line"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "fill": false,
+                        "id": "lost-zing",
+                        "legend": "lost - zing",
+                        "metric": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalLost.count",
+                        "metricSource": "ZingQueue.totalLost",
+                        "name": "lost",
+                        "rate": true,
+                        "type": "line"
+                    }
+                ],
+                "description": "Number of datapoints received / transmitted per second.",
+                "footer": false,
+                "id": "zingDataPoints",
+                "name": "Zing Data Points",
+                "range": {
+                    "end": "0s-ago",
+                    "start": "1h-ago"
+                },
+                "returnset": "EXACT",
+                "type": "line",
+                "yAxisLabel": "Data Points - Zing"
             }
         ],
         "MetricConfigs": [
@@ -299,31 +384,139 @@
                 "Name": "Total Incoming Metrics"
             },
             {
-                "Description": "Total Incoming Metric Statistics",
+                "Description": "Total Outgoing Metric Statistics",
                 "ID": "MetricsQueue.totalOutgoing",
                 "Metrics": [
                     {
                         "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.count",
-                        "Name": "MetricsQueue Total Incoming Count"
+                        "Name": "MetricsQueue Total Outgoing Count"
                     },
                     {
                         "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.meanRate",
-                        "Name": "MetricsQueue Total Incoming Mean Rate"
+                        "Name": "MetricsQueue Total Outgoing Mean Rate"
                     },
                     {
                         "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.1MinuteRate",
-                        "Name": "MetricsQueue Total Incoming 1 Minute Rate"
+                        "Name": "MetricsQueue Total Outgoing 1 Minute Rate"
                     },
                     {
                         "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.5MinuteRate",
-                        "Name": "MetricsQueue Total Incoming 5 Minute Rate"
+                        "Name": "MetricsQueue Total Outgoing 5 Minute Rate"
                     },
                     {
                         "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalOutgoing.15MinuteRate",
-                        "Name": "MetricsQueue Total Incoming 15 MinuteRate"
+                        "Name": "MetricsQueue Total Outgoing 15 MinuteRate"
                     }
                 ],
-                "Name": "Total Incoming Metrics"
+                "Name": "Total Outgoing Metrics"
+            },
+            {
+                "Description": "Total Lost Metric Statistics",
+                "ID": "MetricsQueue.totalLost",
+                "Metrics": [
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalLost.count",
+                        "Name": "MetricsQueue Total Lost Count"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalLost.meanRate",
+                        "Name": "MetricsQueue Total Lost Mean Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalLost.1MinuteRate",
+                        "Name": "MetricsQueue Total Lost 1 Minute Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalLost.5MinuteRate",
+                        "Name": "MetricsQueue Total Lost 5 Minute Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalLost.15MinuteRate",
+                        "Name": "MetricsQueue Total Lost 15 MinuteRate"
+                    }
+                ],
+                "Name": "Total Lost Metrics"
+            },
+            {
+                "Description": "Total Lost Zing Metric Statistics",
+                "ID": "ZingQueue.totalLost",
+                "Metrics": [
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalLost.count",
+                        "Name": "MetricsQueue Total Lost Count"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalLost.meanRate",
+                        "Name": "MetricsQueue Total Lost Mean Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalLost.1MinuteRate",
+                        "Name": "MetricsQueue Total Lost 1 Minute Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalLost.5MinuteRate",
+                        "Name": "MetricsQueue Total Lost 5 Minute Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalLost.15MinuteRate",
+                        "Name": "MetricsQueue Total Lost 15 MinuteRate"
+                    }
+                ],
+                "Name": "Total Lost Zing Metrics"
+            },
+            {
+                "Description": "Total Incoming Zing Metric Statistics",
+                "ID": "ZingQueue.totalIncoming",
+                "Metrics": [
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalIncoming.count",
+                        "Name": "ZingQueue Total Incoming Count"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalIncoming.meanRate",
+                        "Name": "ZingQueue Total Incoming Mean Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalIncoming.1MinuteRate",
+                        "Name": "ZingQueue Total Incoming 1 Minute Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalIncoming.5MinuteRate",
+                        "Name": "ZingQueue Total Incoming 5 Minute Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalIncoming.15MinuteRate",
+                        "Name": "ZingQueue Total Incoming 15 MinuteRate"
+                    }
+                ],
+                "Name": "Total Incoming Zing Metrics"
+            },
+            {
+                "Description": "Total Outgoing Zing Metric Statistics",
+                "ID": "ZingQueue.totalOutgoing",
+                "Metrics": [
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalOutgoing.count",
+                        "Name": "MetricsQueue Total Outgoing Count"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalOutgoing.meanRate",
+                        "Name": "MetricsQueue Total Outgoing Mean Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalOutgoing.1MinuteRate",
+                        "Name": "MetricsQueue Total Outgoing 1 Minute Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalOutgoing.5MinuteRate",
+                        "Name": "MetricsQueue Total Outgoing 5 Minute Rate"
+                    },
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalOutgoing.15MinuteRate",
+                        "Name": "ZingQueue Total Outgoing 15 MinuteRate"
+                    }
+                ],
+                "Name": "Total Outgoing Zing Metrics"
             },
             {
                 "Description": "Total Errors",
@@ -342,7 +535,18 @@
                 "Metrics": [
                     {
                         "ID": "ZEN_INF.org.zenoss.app.consumer.metric.impl.MetricsQueue.totalInFlight.count",
-                        "Name": "MetricsQueue Queued Metric couint"
+                        "Name": "MetricsQueue Queued Metric count"
+                    }
+                ],
+                "Name": "Queued Metrics"
+            },
+            {
+                "Description": "Zing Queued Metric Count",
+                "ID": "ZingQueue.inFlight",
+                "Metrics": [
+                    {
+                        "ID": "ZEN_INF.org.zenoss.app.consumer.metric.zing.ZingQueue.totalInFlight.count",
+                        "Name": "ZingQueue Queued Metric count"
                     }
                 ],
                 "Name": "Queued Metrics"

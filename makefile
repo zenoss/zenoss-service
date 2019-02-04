@@ -12,14 +12,16 @@
 
 # VERSION is the full Zenoss version; e.g., 5.0.0
 # SHORT_VERSION is the two-digit Zenoss version; e.g., 5.0
-VERSION         ?= 5.1.1
-SHORT_VERSION   ?= 5.1
+# Note: these values are set in the build jobs, so the defaults =? aren't going to be used.
+VERSION         ?= 7.0.9-dev
+SHORT_VERSION   ?= 7.0
 
 # These three xyz_VERSION variables define the corresponding docker image versions
 hbase_VERSION    ?= v16
 hdfs_VERSION     ?= v4
 opentsdb_VERSION ?= v23
 zing_connector_VERSION ?= latest
+zing_api_proxy_VERSION ?= latest
 otsdb_bigtable_VERSION ?= v1
 impact_VERSION ?= 5.3.2.0.0
 
@@ -109,12 +111,16 @@ jsonsrc_zing_connector_ImageID = gcr-repo/zing-connector:xx
 desired_zing_connector_ImageID = gcr.io/zing-registry-188222/zing-connector:$(zing_connector_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_zing_connector_ImageID),$(desired_zing_connector_ImageID)
 #
+jsonsrc_zing_api_proxy_ImageID = gcr-repo/api-key-proxy:xx
+desired_zing_api_proxy_ImageID = gcr.io/zing-registry-188222/api-key-proxy:$(zing_api_proxy_VERSION)
+svcdef_ImageID_maps     += $(jsonsrc_zing_api_proxy_ImageID),$(desired_zing_api_proxy_ImageID)
+#
 jsonsrc_otsdb_bigtable_ImageID = zenoss/opentsdb-bigtable:xx
 desired_otsdb_bigtable_ImageID = gcr.io/zing-registry-188222/otsdb-bigtable:$(otsdb_bigtable_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_otsdb_bigtable_ImageID),$(desired_otsdb_bigtable_ImageID)
 #
 jsonsrc_impact_ImageID = zendev/impact-devimg
-desired_impact_ImageID = zenoss/impact_5.3:$(impact_VERSION)
+desired_impact_ImageID = gcr.io/zing-registry-188222/impact_5.3:$(impact_VERSION)
 svcdef_ImageID_maps += $(jsonsrc_impact_ImageID),$(desired_impact_ImageID)
 
 
@@ -248,6 +254,7 @@ docker_svcdef-%: docker_buildimage $(OUTPUT)
 			IMAGE_NUMBER=$(IMAGE_NUMBER) \
 			MILESTONE=$(MILESTONE) \
 			RELEASE_PHASE=$(RELEASE_PHASE) \
+			zing_api_proxy_VERSION=$(zing_api_proxy_VERSION) \
 			svcdef-$*"'
 
 clean:

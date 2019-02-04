@@ -93,6 +93,20 @@
             "Purpose": "export"
         },
         {
+            "Application": "zing-connector",
+            "Name": "zing-connector",
+            "PortNumber": 9237,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "zing-connector-admin",
+            "Name": "zing-connector-admin",
+            "PortNumber": 9000,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
             "Application": "controlplane_consumer",
             "Name": "controlplane_consumer",
             "PortNumber": 8444,
@@ -104,6 +118,14 @@
         "answering": {
             "Interval": 15.0,
             "Script": "curl -A 'zenapi answering healthcheck' --retry 3 --max-time 2 -s http://localhost:9320/zport/ruok | grep -q imok"
+        },
+        "deadlock_check": {
+            "Interval": 30.0,
+            "KillCountLimit": 3,
+            "KillExitCodes": [
+                28
+            ],
+            "Script": "curl -A 'zenapi deadlock healthcheck' --max-time 30 -s http://localhost:9320/zport/ruok"
         },
         "mariadb_answering": {
             "Interval": 10.0,
@@ -136,6 +158,10 @@
         "zep_answering": {
             "Interval": 10.0,
             "Script": "/opt/zenoss/bin/healthchecks/zep_answering"
+        },
+        "zing-connector-answering": {
+            "Interval": 10.0,
+            "Script": "test \"$(curl localhost:9000/ping)\" = \"PONG\""
         }
     },
     "ImageID": "zenoss/zenoss5x",
