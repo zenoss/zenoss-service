@@ -221,6 +221,7 @@
             "Script": "test \"$(curl localhost:9000/ping)\" = \"PONG\""
         }
     },
+    "HostPolicy": "PREFER_SEPARATE",
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
         "default": 6,
