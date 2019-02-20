@@ -2,9 +2,6 @@
     "CPUCommitment": 2,
     "Command": "/usr/bin/mysqld_safe",
     "Commands": {},
-    "Context": {
-        "max_connections": "1000"
-    },
     "Description": "MariaDB database server",
     "EmergencyShutdownLevel": 1,
     "Endpoints": [

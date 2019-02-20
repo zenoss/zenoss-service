@@ -52,7 +52,6 @@
         "global.conf.zodb-password": "zenoss",
         "global.conf.zodb-port": "3306",
         "global.conf.zodb-user": "zenoss",
-        "global.conf.zope-session-secret": "supersecret",
         "tsd.storage.enable_compaction": "False"
     },
     "Description": "Zenoss Resource Manager",
