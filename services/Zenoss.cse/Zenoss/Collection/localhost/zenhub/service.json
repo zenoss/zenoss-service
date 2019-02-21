@@ -19,8 +19,8 @@
         }
     },
     "Context": {
-       "invalidationworkers": "2",
-       "invalidationlimit": "200"
+        "invalidationlimit": "200",
+        "invalidationworkers": "2"
     },
     "Description": "Zenoss ZenHub",
     "Endpoints": [
