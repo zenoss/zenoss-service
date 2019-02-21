@@ -16,10 +16,6 @@
             "Permissions": "0664"
         }
     },
-    "Context": {
-        "invalidationlimit": "200",
-        "invalidationworkers": "2"
-    },
     "Description": "Zenoss ZenHub",
     "Endpoints": [
         {
