@@ -10,11 +10,7 @@
         }
     },
     "Context": {
-<<<<<<< 7f0e8cc7699a6e7418c5bd9c8d525bf6e47fbfd4
         "max_connections": "1000"
-=======
-       "max_connections": "1000"
->>>>>>> ZING-2265: change some service defintions to use variables
     },
     "Description": "MariaDB model database server",
     "EmergencyShutdownLevel": 1,
