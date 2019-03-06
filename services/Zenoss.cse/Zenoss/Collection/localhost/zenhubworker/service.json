@@ -81,6 +81,20 @@
             "PortNumber": 8080,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Application": "zing-connector",
+            "Name": "zing-connector",
+            "PortNumber": 9237,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "zing-connector-admin",
+            "Name": "zing-connector-admin",
+            "PortNumber": 9000,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "HealthChecks": {
