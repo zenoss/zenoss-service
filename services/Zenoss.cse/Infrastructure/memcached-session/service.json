@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "${ZENHOME:-/opt/zenoss}/bin/zenmemcached",
+    "Command": "/bin/supervisord -n -c /etc/memcached/memcached_supervisor.conf",
     "ConfigFiles": {
         "/etc/memcached/memcached_supervisor.conf": {
             "Filename": "/etc/memcached/memcached_supervisor.conf",
