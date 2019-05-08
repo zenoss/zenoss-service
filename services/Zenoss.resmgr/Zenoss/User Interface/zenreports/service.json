@@ -111,7 +111,7 @@
             "KillExitCodes": [
                 28
             ],
-            "Script": "curl -A 'zenreports deadlock healthcheck' --max-time 30 -s http://localhost:9290/zport/ruok"
+            "Script": "curl -A 'zenreports deadlock healthcheck' --max-time 15 -s http://localhost:9290/zport/ruok"
         },
         "mariadb_answering": {
             "Interval": 10.0,
