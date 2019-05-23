@@ -1203,6 +1203,8 @@
         ]
     },
     "Name": "Impact",
+    "OomKillDisable": true,
+    "OomScoreAdj": 0,
     "RAMCommitment": "8G",
     "Snapshot": {
         "Pause": "PAUSE_CHECK_TIMEOUT=600000 ${IMPACT_HOME:-/opt/zenoss_impact}/bin/quiesce.sh pause",

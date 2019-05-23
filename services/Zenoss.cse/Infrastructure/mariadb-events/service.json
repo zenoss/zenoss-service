@@ -44,6 +44,8 @@
         }
     ],
     "Name": "mariadb-events",
+    "OomKillDisable": true,
+    "OomScoreAdj": 0,
     "PIDFile": "exec echo /var/lib/mysql/$(hostname).pid",
     "RAMCommitment": "2G",
     "Snapshot": {
