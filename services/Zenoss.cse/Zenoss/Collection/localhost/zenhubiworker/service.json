@@ -121,7 +121,7 @@
         },
         "running": {
             "Interval": 5.0,
-            "Script": "pgrep -fu zenoss zenhubiworker.py > /dev/null"
+            "Script": "pgrep -fu zenoss invalidations/worker.py > /dev/null"
         },
         "solr_answering": {
             "Interval": 10.0,
