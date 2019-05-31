@@ -13,7 +13,7 @@
 # VERSION is the full Zenoss version; e.g., 5.0.0
 # SHORT_VERSION is the two-digit Zenoss version; e.g., 5.0
 # Note: these values are set in the build jobs, so the defaults =? aren't going to be used.
-VERSION         ?= 7.0.11
+VERSION         ?= 7.0.12
 SHORT_VERSION   ?= 7.0
 
 # These three xyz_VERSION variables define the corresponding docker image versions
@@ -23,7 +23,7 @@ opentsdb_VERSION ?= v23
 zing_connector_VERSION ?= latest
 zing_api_proxy_VERSION ?= latest
 otsdb_bigtable_VERSION ?= v1
-impact_VERSION ?= 5.3.2.0.0
+impact_VERSION ?= 5.5.0.0.0
 
 DOCKER          ?= $(shell which docker)
 BUILD_NUMBER    ?= $(shell date +%Y%m%d%H%M%S)
@@ -120,7 +120,8 @@ desired_otsdb_bigtable_ImageID = gcr.io/zing-registry-188222/otsdb-bigtable:$(ot
 svcdef_ImageID_maps     += $(jsonsrc_otsdb_bigtable_ImageID),$(desired_otsdb_bigtable_ImageID)
 #
 jsonsrc_impact_ImageID = zendev/impact-devimg
-desired_impact_ImageID = gcr.io/zing-registry-188222/impact_5.3:$(impact_VERSION)
+impact_folder = impact_$(shell echo $(impact_VERSION) | sed -E 's/([0-9]+).([0-9]+).*/\1.\2/')
+desired_impact_ImageID = gcr.io/zing-registry-188222/$(impact_folder):$(impact_VERSION)
 svcdef_ImageID_maps += $(jsonsrc_impact_ImageID),$(desired_impact_ImageID)
 
 
