@@ -100,6 +100,10 @@ svcdef_ImageID_maps  += $(jsonsrc_hdfs_ImageID),$(desired_hdfs_ImageID)
 jsonsrc_opentsdb_ImageID = zenoss/opentsdb:xx
 desired_opentsdb_ImageID = $(docker_PREFIX)opentsdb:$(opentsdb_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_opentsdb_ImageID),$(desired_opentsdb_ImageID)
+#
+jsonsrc_mariadb_ImageID = zenoss/mariadb:xx
+desired_mariadb_ImageID = $(docker_PREFIX)mariadb:10.1-$(IMAGE_TAG)
+svcdef_ImageID_maps     += $(jsonsrc_mariadb_ImageID),$(desired_mariadb_ImageID)
 
 .PHONY: default docker_buildimage docker_svcdefpkg-% docker_svcdef-%
 

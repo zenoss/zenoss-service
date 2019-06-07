@@ -25,7 +25,7 @@
             "Script": "mysql --protocol TCP -u{{(getContext . \"global.conf.zep-admin-user\")}} -h{{(getContext . \"global.conf.zep-host\")}} -P{{(getContext . \"global.conf.zep-port\")}} -p{{getContext . \"global.conf.zep-admin-password\"}} -e 'select 1' > /dev/null"
         }
     },
-    "ImageID": "zenoss/zenoss5x",
+    "ImageID": "zenoss/mariadb:xx",
     "Instances": {
         "max": 1,
         "min": 1
