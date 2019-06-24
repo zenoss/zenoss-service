@@ -107,7 +107,7 @@
         },
         "deadlock_check": {
             "Interval": 60.0,
-            "KillCountLimit": 3,
+            "KillCountLimit": 5,
             "KillExitCodes": [
                 28
             ],
