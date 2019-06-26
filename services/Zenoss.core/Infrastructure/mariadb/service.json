@@ -19,7 +19,7 @@
             "Script": "mysql --protocol TCP -u{{(getContext . \"global.conf.zodb-admin-user\")}} -h{{(getContext . \"global.conf.zodb-host\")}} -P{{(getContext . \"global.conf.zodb-port\")}} -p{{getContext . \"global.conf.zodb-admin-password\"}} -e 'select 1' > /dev/null"
         }
     },
-    "ImageID": "zenoss/mariadb:xx",
+    "ImageID": "zenoss/zenoss5x",
     "Instances": {
         "min": 1
     },
