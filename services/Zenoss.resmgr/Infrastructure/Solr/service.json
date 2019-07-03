@@ -76,6 +76,8 @@
         }
     ],
     "Name": "Solr",
+    "OomKillDisable": true,
+    "OomScoreAdj": 0,
     "Prereqs": [],
     "RAMCommitment": "1G",
     "StartLevel": 1,
