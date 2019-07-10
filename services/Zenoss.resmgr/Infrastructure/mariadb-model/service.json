@@ -26,7 +26,7 @@
             "Script": "mysql --protocol TCP -u{{(getContext . \"global.conf.zodb-admin-user\")}} -h{{(getContext . \"global.conf.zodb-host\")}} -P{{(getContext . \"global.conf.zodb-port\")}} -p{{getContext . \"global.conf.zodb-admin-password\"}} -e 'select 1' > /dev/null"
         }
     },
-    "ImageID": "zenoss/zenoss5x",
+    "ImageID": "zenoss/mariadb:xx",
     "Instances": {
         "max": 1,
         "min": 1
@@ -42,6 +42,8 @@
         }
     ],
     "Name": "mariadb-model",
+    "OomKillDisable": true,
+    "OomScoreAdj": 0,
     "PIDFile": "exec echo /var/lib/mysql/$(hostname).pid",
     "RAMCommitment": "4G",
     "Snapshot": {

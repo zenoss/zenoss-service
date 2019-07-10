@@ -80,6 +80,8 @@
         ]
     },
     "Name": "redis",
+    "OomKillDisable": true,
+    "OomScoreAdj": 0,
     "RAMCommitment": "1G",
     "StartLevel": 1,
     "Tags": [
