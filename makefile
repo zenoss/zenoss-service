@@ -123,7 +123,10 @@ jsonsrc_impact_ImageID = zendev/impact-devimg
 impact_folder = impact_$(shell echo $(impact_VERSION) | sed -E 's/([0-9]+).([0-9]+).*/\1.\2/')
 desired_impact_ImageID = gcr.io/zing-registry-188222/$(impact_folder):$(impact_VERSION)
 svcdef_ImageID_maps += $(jsonsrc_impact_ImageID),$(desired_impact_ImageID)
-
+#
+jsonsrc_mariadb_ImageID = zenoss/mariadb:xx
+desired_mariadb_ImageID = gcr.io/zing-registry-188222/mariadb:10.1-$(IMAGE_TAG)
+svcdef_ImageID_maps     += $(jsonsrc_mariadb_ImageID),$(desired_mariadb_ImageID)
 
 .PHONY: default docker_buildimage docker_svcdefpkg-% docker_svcdef-%
 
