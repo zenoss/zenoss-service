@@ -229,8 +229,6 @@
         ]
     },
     "Name": "HMaster",
-    "OomKillDisable": true,
-    "OomScoreAdj": 0,
     "Prereqs": [
         {
             "Name": "All ZooKeepers up",

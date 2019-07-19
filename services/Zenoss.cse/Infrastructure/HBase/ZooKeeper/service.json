@@ -85,8 +85,6 @@
         }
     ],
     "Name": "ZooKeeper",
-    "OomKillDisable": true,
-    "OomScoreAdj": 0,
     "Privileged": true,
     "RAMCommitment": "1G",
     "StartLevel": 1,
