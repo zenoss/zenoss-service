@@ -326,8 +326,6 @@
         ]
     },
     "Name": "RegionServer",
-    "OomKillDisable": true,
-    "OomScoreAdj": 0,
     "Prereqs": [],
     "Privileged": true,
     "RAMCommitment": "1G",
