@@ -177,8 +177,8 @@
             "Script": "curl -A 'zendebug answering healthcheck' --retry 3 --max-time 2 -s http://localhost:9310/zport/ruok | grep -q imok"
         },
         "deadlock_check": {
-            "Interval": 30.0,
-            "KillCountLimit": 3,
+            "Interval": 60.0,
+            "KillCountLimit": 5,
             "KillExitCodes": [
                 28
             ],
