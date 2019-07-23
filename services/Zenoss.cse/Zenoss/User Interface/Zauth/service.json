@@ -76,8 +76,8 @@
             "Script": "curl -A 'zauth answering healthcheck' -s http://localhost:9180/zport/ruok | grep -q imok"
         },
         "deadlock_check": {
-            "Interval": 30.0,
-            "KillCountLimit": 3,
+            "Interval": 60.0,
+            "KillCountLimit": 5,
             "KillExitCodes": [
                 28
             ],
