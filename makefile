@@ -23,7 +23,7 @@ opentsdb_VERSION ?= v23
 zing_connector_VERSION ?= latest
 zing_api_proxy_VERSION ?= latest
 otsdb_bigtable_VERSION ?= v1
-impact_VERSION ?= 5.5.0.0.0
+impact_VERSION ?= 5.5.1.0.0
 
 DOCKER          ?= $(shell which docker)
 BUILD_NUMBER    ?= $(shell date +%Y%m%d%H%M%S)
