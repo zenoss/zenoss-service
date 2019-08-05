@@ -18,6 +18,7 @@
         "ZenPack.Default.WorkerArgs": "--workers {{.Instances}} --workerid $CONTROLPLANE_INSTANCE_ID",
         "centralquery.ratecutoff": -1,
         "cse.api-key-server-ip": "",
+        "cse.domain": "",
         "cse.fqn": "",
         "cse.project": "",
         "cse.source": "",
