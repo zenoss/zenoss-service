@@ -3,7 +3,7 @@
         "debug": "bash -c 'curl -X POST http://localhost:58888/tasks/debugtoggle'"
     },
     "CPUCommitment": 1,
-    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/central-query/supervisord.conf\"",
+    "Command": "/opt/zenoss/bin/supervisord -n -c /opt/zenoss/etc/central-query/supervisord.conf",
     "ConfigFiles": {
         "/opt/zenoss/etc/central-query/central-query_supervisor.conf": {
             "FileName": "/opt/zenoss/etc/central-query/central-query_supervisor.conf",
@@ -290,6 +290,7 @@
     },
     "Name": "central_query",
     "RAMCommitment": "1G",
+    "RunAs": "zenoss",
     "StartLevel": 4,
     "Tags": [
         "daemon"
