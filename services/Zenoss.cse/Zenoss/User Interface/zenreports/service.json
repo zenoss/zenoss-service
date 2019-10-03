@@ -101,7 +101,7 @@
         }
     ],
     "Environment": [
-        "CONFIG_FILE=/opt/zenoss/etc/zenapi.conf"
+        "CONFIG_FILE=/opt/zenoss/etc/zenreports.conf"
     ],
     "HealthChecks": {
         "answering": {

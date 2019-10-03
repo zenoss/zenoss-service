@@ -4,7 +4,7 @@
         "stats": "su - zenoss -c '${ZENHOME:-/opt/zenoss}/bin/{{.Name}} stats'"
     },
     "CPUCommitment": 1,
-    "Command": "su - zenoss -c \"/usr/bin/nice -n 10 /opt/zenoss/bin/zenimpactstate run -c --duallog \"",
+    "Command": "su - zenoss -c \"/usr/bin/nice -n 10 /opt/zenoss/bin/zenimpactstate run -c --duallog --pidfile {{.Name}}_$(hostname).pid\"",
     "Commands": {
         "check": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun zenimpactgraph.sh run --check",
@@ -91,6 +91,9 @@
             "Protocol": "tcp",
             "Purpose": "import"
         }
+    ],
+    "Environment": [
+        "SERVICE={{.Name}}"
     ],
     "HealthChecks": {
         "amqp_established": {
@@ -186,6 +189,7 @@
         ]
     },
     "Name": "zenimpactstate",
+    "PIDFile": "exec echo /opt/zenoss/var/${SERVICE}_${HOSTNAME}.pid",
     "Prereqs": [
         {
             "Name": "MariaDB connectivity",
