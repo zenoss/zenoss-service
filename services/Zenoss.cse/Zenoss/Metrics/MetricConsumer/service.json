@@ -3,7 +3,7 @@
         "debug": "bash -c 'curl -X POST http://localhost:58443/tasks/debugtoggle'"
     },
     "CPUCommitment": 1,
-    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/metric-consumer-app/supervisord.conf\"",
+    "Command": "/opt/zenoss/bin/supervisord -n -c /opt/zenoss/etc/metric-consumer-app/supervisord.conf",
     "ConfigFiles": {
         "/opt/zenoss/etc/metric-consumer-app/configuration.yaml": {
             "FileName": "/opt/zenoss/etc/metric-consumer-app/configuration.yaml",
@@ -614,6 +614,7 @@
     },
     "Name": "metric_consumer",
     "RAMCommitment": "2G",
+    "RunAs": "zenoss",
     "StartLevel": 4,
     "Tags": [
         "daemon"
