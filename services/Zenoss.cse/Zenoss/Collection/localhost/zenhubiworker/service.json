@@ -161,7 +161,8 @@
     "Services": [],
     "StartLevel": 2,
     "Tags": [
-        "daemon"
+        "daemon",
+        "hub"
     ],
     "Volumes": [
         {
