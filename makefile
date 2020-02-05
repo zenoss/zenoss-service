@@ -81,6 +81,10 @@ docker_PREFIX         = $($(docker_HOST)_REGPATH)$($(docker_HOST)_USER)/
 jsonsrc_zenoss_ImageID = zenoss/zenoss5x
 desired_zenoss_ImageID = $(docker_PREFIX)$($(docker_HOST)_$(short_product)_REPO)$($(docker_HOST)_SUFFIX):$(IMAGE_TAG)
 svcdef_ImageID_maps   += $(jsonsrc_zenoss_ImageID),$(desired_zenoss_ImageID)
+#
+jsonsrc_mariadb_ImageID = zenoss/mariadb:xx
+desired_mariadb_ImageID = $(docker_PREFIX)mariadb-$(short_product):$(IMAGE_TAG)
+svcdef_ImageID_maps     += $(jsonsrc_mariadb_ImageID),$(desired_mariadb_ImageID)
 
 #
 # Allow json to be updated automatically at build time if we switch publish
@@ -100,10 +104,6 @@ svcdef_ImageID_maps  += $(jsonsrc_hdfs_ImageID),$(desired_hdfs_ImageID)
 jsonsrc_opentsdb_ImageID = zenoss/opentsdb:xx
 desired_opentsdb_ImageID = $(docker_PREFIX)opentsdb:$(opentsdb_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_opentsdb_ImageID),$(desired_opentsdb_ImageID)
-#
-jsonsrc_mariadb_ImageID = zenoss/mariadb:xx
-desired_mariadb_ImageID = $(docker_PREFIX)mariadb:10.1-$(IMAGE_TAG)
-svcdef_ImageID_maps     += $(jsonsrc_mariadb_ImageID),$(desired_mariadb_ImageID)
 
 .PHONY: default docker_buildimage docker_svcdefpkg-% docker_svcdef-%
 
@@ -155,16 +155,12 @@ svcdef_PRODUCTS = zenoss-core zenoss-resmgr zenoss-ucspm zenoss-cse
 svcdef_SRC_DIR  = services
 
 zenoss-core-$(BUILD_TAG).json_SRC_DIR   := $(svcdef_SRC_DIR)/Zenoss.core
-zenoss-core-$(BUILD_TAG).json_SRC       := $(shell find $(zenoss-core-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json' -print0)
 
 zenoss-resmgr-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/Zenoss.resmgr
-zenoss-resmgr-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-resmgr-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json' -print0)
 
 zenoss-ucspm-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/ucspm
-zenoss-ucspm-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-ucspm-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json' -print0)
 
 zenoss-cse-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/Zenoss.cse
-zenoss-cse-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-cse-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json' -print0)
 #-------------------------------------#
 
 # Rule to build service defintions for a list of products.
@@ -180,7 +176,7 @@ svcdef_BUILD_TARGETS := $(foreach product,$(svcdef_PRODUCTS),$(svcdef_BUILD_DIR)
 $(svcdef_BUILD_TARGETS): short_product = $(patsubst zenoss-%,%,$(patsubst %-$(BUILD_TAG).json,%,$(@F)))
 $(svcdef_BUILD_TARGETS): map_opt       = $(patsubst %,-map %,$(svcdef_ImageID_maps))
 $(svcdef_BUILD_TARGETS): src_dir       = $($(@F)_SRC_DIR)
-$(svcdef_BUILD_TARGETS): $$($$(@F)_SRC) | $(SVCDEF_EXE) $(OUTPUT) $$(@D)
+$(svcdef_BUILD_TARGETS): | $(SVCDEF_EXE) $(OUTPUT) $$(@D)
 	@echo "Compiling service definitions with the following version of serviced:"
 	@$(SVCDEF_EXE) version
 	@compile_CMD="$(SVCDEF_EXE) template compile $(map_opt) $(src_dir) > $@" ;\
