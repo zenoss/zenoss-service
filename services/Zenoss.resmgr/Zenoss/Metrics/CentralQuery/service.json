@@ -289,11 +289,10 @@
         ]
     },
     "Name": "central_query",
-    "RunAs": "zenoss",
     "RAMCommitment": "1G",
+    "RunAs": "zenoss",
     "StartLevel": 4,
     "Tags": [
         "daemon"
     ]
 }
-
