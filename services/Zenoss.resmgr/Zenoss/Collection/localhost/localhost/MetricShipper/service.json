@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/metricshipper/supervisord.conf\"",
+    "Command": "/opt/zenoss/bin/supervisord -n -c /opt/zenoss/etc/metricshipper/supervisord.conf",
     "ConfigFiles": {
         "/opt/zenoss/etc/metricshipper/metricshipper.yaml": {
             "FileName": "/opt/zenoss/etc/metricshipper/metricshipper.yaml",
@@ -167,6 +167,7 @@
     },
     "Name": "metric_shipper",
     "RAMCommitment": "1G",
+    "RunAs": "zenoss",
     "Tags": [
         "daemon",
         "collector"
