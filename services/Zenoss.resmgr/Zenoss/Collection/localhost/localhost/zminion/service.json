@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "/bin/supervisord -n -c /opt/zenoss/etc/zminion/supervisord.conf",
+    "Command": "/opt/zenoss/bin/supervisord -n -c /opt/zenoss/etc/zminion/supervisord.conf",
     "Description": "Performs distributed bash executions",
     "Endpoints": [
         {

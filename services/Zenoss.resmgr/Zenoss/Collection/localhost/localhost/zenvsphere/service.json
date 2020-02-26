@@ -73,7 +73,7 @@
     "Instances": {
         "min": 1
     },
-    "Launch": "manual",
+    "Launch": "auto",
     "LogConfigs": [
         {
             "LogTags": [
