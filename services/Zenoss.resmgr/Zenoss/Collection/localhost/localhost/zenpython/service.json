@@ -57,6 +57,13 @@
             "PortNumber": 5672,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Application": "{{(parent .).Name}}_aws_modeler_server",
+            "Name": "AWSModelerServer",
+            "PortNumber": 8289,
+            "Protocol": "tcp",
+            "Purpose": "export"
         }
     ],
     "Environment": [
