@@ -28,6 +28,9 @@
             "Purpose": "export"
         }
     ],
+    "Environment": [
+        "MARIADB_DB=zep"
+    ],
     "HealthChecks": {
         "answering": {
             "Interval": 5.0,
