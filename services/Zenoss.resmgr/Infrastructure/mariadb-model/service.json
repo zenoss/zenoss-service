@@ -26,6 +26,9 @@
             "Purpose": "export"
         }
     ],
+    "Environment": [
+        "MARIADB_DB=zodb"
+    ],
     "HealthChecks": {
         "answering": {
             "Interval": 5.0,
