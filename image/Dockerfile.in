@@ -1,0 +1,12 @@
+FROM zenoss/zenoss-centos-base:%VERSION%.devtools
+
+RUN yum makecache && \
+	yum install -y ruby ruby-devel && \
+	yum autoremove -y && \
+	yum clean all && \
+	gem install --no-ri --no-rdoc fpm
+
+RUN pip install -U setuptools
+
+RUN groupadd --gid %GID% builder
+RUN useradd --uid %UID% --gid %GID% --comment "" builder
