@@ -373,6 +373,7 @@
         ]
     },
     "Name": "zenpython",
+    "PIDFile": "exec echo /opt/zenoss/var/${SERVICE}_${HOSTNAME}.pid",
     "RAMCommitment": "1G",
     "RunAs": "zenoss",
     "Services": [],
