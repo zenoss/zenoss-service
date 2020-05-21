@@ -11,5 +11,5 @@
 
 set -e
 
-adduser --shell /bin/bash --uid $1 --gecos "" --disabled-password --home /home/serviceduser serviceduser
-
+groupadd --gid $2 builder
+useradd --uid $1 --gid $2 --comment "" builder
