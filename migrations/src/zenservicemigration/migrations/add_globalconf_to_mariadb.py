@@ -6,14 +6,13 @@
 # License.zenoss under the directory where your Zenoss product is installed.
 #
 ##############################################################################
-
+from __future__ import print_function
 
 __doc__ = '''
 Add global.conf built by serviced to mariadb services
 to have actual config instead of default
 '''
 
-from __future__ import print_function
 import servicemigration as sm
 
 version = "6.5.0"
@@ -38,7 +37,7 @@ def migrate(ctx, *args, **kw):
 
         if not [cfg for cfg in svc.configFiles if cfg.name == global_conf.name]:
             svc.configFiles.append(global_conf)
-           updated = True
-           print("Updated %s service" % svc.name)
+            updated = True
+            print("Updated %s service" % svc.name)
 
     return updated
