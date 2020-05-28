@@ -47,6 +47,10 @@ innodb_file_format = re.compile(
 )
 innodb_purge_threads = re.compile(r"innodb_purge_threads\s*=\s*(\d+)\s*")
 purge_threads = 1
+buffer_pool_instances = re.compile(
+    r"\n\n(#\s*.*\n)*innodb_buffer_pool_instances\s*=.*\n",
+    re.MULTILINE,
+)
 
 
 def update_config(name, configs):
@@ -63,6 +67,7 @@ def update_config(name, configs):
     content = deleteConfig(innodb_additional_mem_pool_size, content)
     content = deleteConfig(innodb_file_format, content)
     content = update_purge_threads(innodb_purge_threads, content)
+    content = update_buffer_pool_instances(buffer_pool_instances, content)
     if config.content != content:
         config.content = content
         return True
@@ -102,6 +107,25 @@ def update_purge_threads(matcher, config):
             config[end:],
         ))
     return config
+
+
+_updated_buffer_pool_entry = """
+
+# Setting innodb_buffer_pool_instances to 1 to avoid issue MDEV-21826.
+# Additionally, this option was removed in MariaDB 10.5.1 because it offers
+# little performance benefits.
+innodb_buffer_pool_instances = 1
+"""
+
+
+def update_buffer_pool_instances(matcher, config):
+    result = matcher.search(config)
+    if not result:
+        return config
+    start, end = result.span()
+    return ''.join((
+        config[:start], _updated_buffer_pool_entry, config[end:]
+    ))
 
 
 def deleteConfig(matcher, config):
