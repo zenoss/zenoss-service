@@ -8,13 +8,12 @@ THIS_MAKEFILE := $(notdir $(CURDIR)/$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_
 # NAME is typically overridden from the toplevel make:
 #    e.g. make -f makefile NAME=zenoss-core
 #
-NAME          = product
-FULL_NAME     = $(NAME)-service
-#FROMVERSION  = 0.3.70
-VERSION       = 5.0.70
-RELEASE_PHASE = # eg, ALPHA1 | BETA1 | CR1 | GA
-MAINTAINER    ="Zenoss CM <cm@zenoss.com>"
-PKGROOT       = pkgroot/$(FULL_NAME)
+NAME           = product
+FULL_NAME      = $(NAME)-service
+VERSION       ?= 5.0.70
+RELEASE_PHASE  = # eg, ALPHA1 | BETA1 | CR1 | GA
+MAINTAINER     ="Zenoss CM <cm@zenoss.com>"
+PKGROOT        = pkgroot/$(FULL_NAME)
 
 # Package versions will follow the following idiom:
 #
@@ -75,7 +74,7 @@ desc:
 
 .PHONY: clean_files
 clean_files:
-	for pkg in *.deb *.rpm serviced;\
+	@for pkg in *.deb *.rpm serviced;\
 	do \
 		if [ -f "$${pkg}" ];then \
 			echo "rm -f $${pkg}" ;\
@@ -92,7 +91,7 @@ clean_files:
 .PHONY: clean_dirs
 clean_dirs = $(PKGROOT) pkgroot templates
 clean_dirs:
-	for dir in $(clean_dirs) ;\
+	@for dir in $(clean_dirs) ;\
 	do \
 		if [ -d "$${dir}" ];then \
 			echo "rm -rf $${dir}" ;\
@@ -122,7 +121,7 @@ mrclean: clean
 #       by git SHA, but starting with CC 1.1.4 and RM 5.1.3, the naming convention
 #       for the tgz artifacts was updated to use CC version and build number.
 ZENPIPPKGSURL = http://zenpip.zenoss.eng/packages
-SERVICED_ARCHIVE=serviced-1.6.5-0.0.358.unstable.tgz
+SERVICED_ARCHIVE=serviced-1.7.0-0.0.368.unstable.tgz
 serviced:
 	echo " extracting: $@"
 	curl -s $(ZENPIPPKGSURL)/$(SERVICED_ARCHIVE) | \

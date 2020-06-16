@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "su - zenoss -c \"/bin/supervisord -n -c /opt/zenoss/etc/zminion/supervisord.conf\"",
+    "Command": "/bin/supervisord -n -c /opt/zenoss/etc/zminion/supervisord.conf",
     "Description": "Performs distributed bash executions",
     "Endpoints": [
         {
@@ -61,6 +61,7 @@
     ],
     "Name": "zminion",
     "RAMCommitment": "256M",
+    "RunAs": "zenoss",
     "Tags": [
         "daemon",
         "collector"

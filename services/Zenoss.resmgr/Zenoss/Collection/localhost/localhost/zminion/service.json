@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "su - zenoss -c \"/bin/supervisord -n -c /opt/zenoss/etc/zminion/supervisord.conf\"",
+    "Command": "/opt/zenoss/bin/supervisord -n -c /opt/zenoss/etc/zminion/supervisord.conf",
     "Description": "Performs distributed bash executions",
     "Endpoints": [
         {
@@ -30,6 +30,13 @@
             "PortNumber": 8444,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Application": "{{(parent .).Name}}_aws_modeler_server",
+            "Name": "AWSModelerServer",
+            "PortNumber": 8289,
+            "Protocol": "tcp",
+            "Purpose": "import_all"
         }
     ],
     "HealthChecks": {
@@ -61,6 +68,7 @@
     ],
     "Name": "zminion",
     "RAMCommitment": "256M",
+    "RunAs": "zenoss",
     "Tags": [
         "daemon",
         "collector"
