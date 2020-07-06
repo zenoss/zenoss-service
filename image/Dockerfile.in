@@ -1,0 +1,18 @@
+FROM ubuntu:xenial
+
+RUN apt-get update -qq && \
+    apt-get install -y -q \
+    build-essential \
+    libtool \
+    rpm \
+    curl \
+    make \
+    autoconf \
+    ruby \
+    ruby-dev \
+    python-wheel \
+    python-setuptools
+
+
+RUN groupadd --gid %GID% builder
+RUN useradd --uid %UID% --gid %GID% --comment "" builder

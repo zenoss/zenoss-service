@@ -10,30 +10,35 @@
 #        also recorded in the zenoss/product-assembly repo.
 #
 
+space := $(subst ,, )
+# Local environment information
+DOCKER = $(shell which docker)
+PWD    = ${CURDIR}
+UID    = $(shell id -u)
+GID    = $(shell id -g)
+
 # VERSION is the full Zenoss version; e.g., 5.0.0
 # SHORT_VERSION is the two-digit Zenoss version; e.g., 5.0
 # Note: these values are set in the build jobs, so the defaults =? aren't going to be used.
 VERSION         ?= 7.0.16
-SHORT_VERSION   ?= 7.0
+SHORT_VERSION   = = $(subst $(space),.,$(wordlist 1,2,$(subst ., ,$(VERSION))))
 
 # These three xyz_VERSION variables define the corresponding docker image versions
-hbase_VERSION    ?= v16
-hdfs_VERSION     ?= v4
-opentsdb_VERSION ?= v23
+hbase_VERSION    ?= 24.0.8
+hdfs_VERSION     ?= 24.0.8
+opentsdb_VERSION ?= 24.0.8
 zing_connector_VERSION ?= latest
 zing_api_proxy_VERSION ?= latest
-otsdb_bigtable_VERSION ?= v1
+otsdb_bigtable_VERSION ?= v3
 impact_VERSION ?= 5.5.2.0.0
 
-DOCKER          ?= $(shell which docker)
-BUILD_NUMBER    ?= $(shell date +%Y%m%d%H%M%S)
 #
 # Latch in the date with an immediate assignment to avoid
 # date roll-over edge case incurred by lazy evaluation.
 #
+BUILD_NUMBER     ?= $(shell date +%Y%m%d%H%M%S)
 _BUILD_NUMBER    := $(BUILD_NUMBER)
-BUILD_IMAGE      ?= "zenoss/svcdefbuild:trusty"
-SRCROOT          ?= $(shell pwd)/src
+BUILD_IMAGE      ?= "zenoss/svcdefbuild"
 BUILD_TYPE       ?= core
 BUILD_NAME       ?= zenoss_$(BUILD_TYPE)-$(VERSION)
 PREFIX           ?= /opt/zenoss
@@ -42,8 +47,6 @@ MILESTONE        ?= unstable # unstable | testing | stable
 MILESTONE_SUFFIX  =
 RELEASE_PHASE    ?= # eg, BETA2 | ALPHA1 | CR13 | 1 | 2 | <blank>
 _RELEASE_PHASE   := $(strip $(RELEASE_PHASE))
-PWD				  = $(shell pwd)
-UID				  = $(shell id -u)
 
 # Allow milestone to influence our artifact versioning.
 BUILD_TAG      = $($(strip $(MILESTONE))_TAG)
@@ -52,7 +55,7 @@ testing_TAG    = $(VERSION)_$(_RELEASE_PHASE)
 unstable_TAG   = $(VERSION)_$(_BUILD_NUMBER)
 
 # Suck in reference to an image
-IMAGE_NUMBER        ?= ""
+IMAGE_NUMBER        ?= $(_BUILD_NUMBER)
 IMAGE_TAG            = $($(strip $(MILESTONE))_IMAGE_TAG)
 stable_IMAGE_TAG     = $(VERSION)_$(_RELEASE_PHASE)
 testing_IMAGE_TAG    = $(VERSION)_$(_RELEASE_PHASE)
@@ -61,30 +64,22 @@ unstable_IMAGE_TAG   = $(VERSION)_$(IMAGE_NUMBER)_unstable
 # Describe docker repositories where we push entitled content.
 repo_name_suffix      := _$(SHORT_VERSION)
 
-docker.io_REGPATH     =
-docker.io_USER        = zenoss
-docker.io_core_REPO   = core$(repo_name_suffix)
-docker.io_resmgr_REPO = resmgr$(repo_name_suffix)
-docker.io_ucspm_REPO  = ucspm$(repo_name_suffix)
-docker.io_cse_REPO    = cse$(repo_name_suffix)
-docker.io_SUFFIX      = $(MILESTONE_SUFFIX)
-
-docker_HOST           = docker.io
-docker_PREFIX         = $($(docker_HOST)_REGPATH)$($(docker_HOST)_USER)/
-
-#
-# docker_HOST         docker_PREFIX
-# ------------------  -------------------
-# docker.io           zenoss/
-#
+image_REGPATH     =
+image_PROJECT     = zenoss
+image_core_REPO   = core$(repo_name_suffix
+image_core_REPO   = core$(repo_name_suffix
+image_ucspm_REPO  = ucspm$(repo_name_suffix)
+image_cse_REPO    = cse$(repo_name_suffix)
+image_SUFFIX      = $(MILESTONE_SUFFIX)
 
 # Mechanism for overriding ImageIDs in service definition json source:
 #
 # from: ImageID: "zenoss/zenoss5x"
 # into: ImageID: "zenoss/core_5.1:5.1.1_78_unstable"
+#
 
 jsonsrc_zenoss_ImageID = zenoss/zenoss5x
-desired_zenoss_ImageID = gcr.io/zing-registry-188222/$($(docker_HOST)_$(short_product)_REPO)$($(docker_HOST)_SUFFIX):$(IMAGE_TAG)
+desired_zenoss_ImageID = gcr.io/zing-registry-188222/$(image_PROJECT)/$(image_$(short_product)_REPO)$(image_SUFFIX):$(IMAGE_TAG)
 svcdef_ImageID_maps   += $(jsonsrc_zenoss_ImageID),$(desired_zenoss_ImageID)
 
 #
@@ -95,15 +90,15 @@ svcdef_ImageID_maps   += $(jsonsrc_zenoss_ImageID),$(desired_zenoss_ImageID)
 #     desired_<prod>_ImageID = what you want the ID to be
 #
 jsonsrc_hbase_ImageID = zenoss/hbase:xx
-desired_hbase_ImageID = $(docker_PREFIX)hbase:$(hbase_VERSION)
+desired_hbase_ImageID = $(image_PROJECT)/hbase:$(hbase_VERSION)
 svcdef_ImageID_maps  += $(jsonsrc_hbase_ImageID),$(desired_hbase_ImageID)
 #
 jsonsrc_hdfs_ImageID = zenoss/hdfs:xx
-desired_hdfs_ImageID = $(docker_PREFIX)hdfs:$(hdfs_VERSION)
+desired_hdfs_ImageID = $(image_PROJECT)/hdfs:$(hdfs_VERSION)
 svcdef_ImageID_maps  += $(jsonsrc_hdfs_ImageID),$(desired_hdfs_ImageID)
 #
 jsonsrc_opentsdb_ImageID = zenoss/opentsdb:xx
-desired_opentsdb_ImageID = $(docker_PREFIX)opentsdb:$(opentsdb_VERSION)
+desired_opentsdb_ImageID = $(image_PROJECT)/opentsdb:$(opentsdb_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_opentsdb_ImageID),$(desired_opentsdb_ImageID)
 #
 jsonsrc_zing_connector_ImageID = gcr-repo/zing-connector:xx
@@ -124,14 +119,10 @@ desired_impact_ImageID = gcr.io/zing-registry-188222/$(impact_folder):$(impact_V
 svcdef_ImageID_maps += $(jsonsrc_impact_ImageID),$(desired_impact_ImageID)
 #
 jsonsrc_mariadb_ImageID = zenoss/mariadb:xx
-desired_mariadb_ImageID = gcr.io/zing-registry-188222/mariadb:$(IMAGE_TAG)
-svcdef_ImageID_maps     += $(jsonsrc_mariadb_ImageID),$(desired_mariadb_ImageID)
+desired_mariadb_ImageID = $(image_PROJECT)/mariadb-$(short_product):$(IMAGE_TAG)
+svcdef_ImageID_maps    += $(JSonsrc_mariadb_ImageID),$(desired_mariadb_ImageID)
 
-.PHONY: default docker_buildimage docker_svcdefpkg-% docker_svcdef-%
-
-
-$(SRCROOT):
-	services
+.PHONY: default docker_buildimage docker_svcdefpkg-% docker_svcdef-% migrations clean-migrations
 
 #
 # The serviced binary referenced by SVCDEF_EXE is injected into the build
@@ -198,7 +189,8 @@ zenoss-cse-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-cse-$(BUILD_TAG).j
 #
 svcdef_BUILD_DIR      = pkg/templates
 svcdef_BUILD_TARGETS := $(foreach product,$(svcdef_PRODUCTS),$(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json)
-.SECONDEXPANSION:
+
+.secondeXPANSION:
 $(svcdef_BUILD_TARGETS): short_product = $(patsubst zenoss-%,%,$(patsubst %-$(BUILD_TAG).json,%,$(@F)))
 $(svcdef_BUILD_TARGETS): map_opt       = $(patsubst %,-map %,$(svcdef_ImageID_maps))
 $(svcdef_BUILD_TARGETS): src_dir       = $($(@F)_SRC_DIR)
@@ -232,31 +224,34 @@ svcdef-%: | $(svcdef_BUILD_DIR)
 # Dockerized targets #
 #####################
 
-docker_buildimage:
-	$(DOCKER) build -t $(BUILD_IMAGE) hack/
+image/Dockerfile: image/Dockerfile.in
+	@sed \
+		-e "s/%GID%/$(GID)/g" \
+		-e "s/%UID%/$(UID)/g" \
+		$< > $@
+docker_buildimage: image/Dockerfile
+	@$(DOCKER) build -t $(BUILD_IMAGE) $(<D)
 
 docker_svcdef-%: docker_buildimage $(OUTPUT)
-	$(DOCKER) run --rm -v $(PWD):/mnt/pwd \
-		-v $(OUTPUT):/mnt/pwd/output \
-		-w /mnt/pwd \
-		$(BUILD_IMAGE) \
-		bash -c '/mnt/pwd/pkg/add_user.sh $(UID) && su serviceduser -c "make \
-			VERSION=$(VERSION) \
-			SHORT_VERSION=$(SHORT_VERSION) \
-			hbase_VERSION=$(hbase_VERSION) \
-			hdfs_VERSION=$(hdfs_VERSION) \
-			opentsdb_VERSION=$(opentsdb_VERSION) \
-			impact_VERSION=$(impact_VERSION) \
-			otsdb_bigtable_VERSION=$(otsdb_bigtable_VERSION) \
-			zing_connector_VERSION=$(zing_connector_VERSION) \
-			BUILD_NUMBER=$(_BUILD_NUMBER) \
-			IMAGE_NUMBER=$(IMAGE_NUMBER) \
-			MILESTONE=$(MILESTONE) \
-			RELEASE_PHASE=$(RELEASE_PHASE) \
-			zing_api_proxy_VERSION=$(zing_api_proxy_VERSION) \
-			svcdef-$*"'
-
-clean:
+	$(DOCKER) run \
+			--rm \
+			-v $(PWD):/mnt/pwd \
+			-v $(OUTPUT):/mnt/pwd/output \
+			-e "VERSION=$(VERSION)" \
+			-e "SHORT_VERSION=$(SHORT_VERSION)" \
+			-e "hbase_VERSION=$(hbase_VERSION)" \
+			-e "hdfs_VERSION=$(hdfs_VERSION)" \
+			-e "opentsdb_VERSION=$(opentsdb_VERSION)" \
+			-e "BUILD_NUMBER=$(_BUILD_NUMBER)" \
+			-e "IMAGE_NUMBER=$(IMAGE_NUMBER)" \
+			-e "MILESTONE=$(MILESTONE)" \
+			-e "RELEASE_PHASE=$(RELEASE_PHASE)" \
+			-w /mnt/pwd \
+			-u builder \
+			$(BUILD_IMAGE) \
+			make svcdefpkg-$*
+clean: clean-migrations
+	@rm -f image/Dockerfile
 	@for dir in $(MKDIRS) ;\
 	do \
 		if [ -d $${dir} ];then \
@@ -264,7 +259,7 @@ clean:
 			rm -rf $${dir} ;\
 		fi ;\
 	done
-	cd pkg && make clean
+	@make -C pkg clean
 
 MKDIRS = $(OUTPUT) buildroot buildroot/output $(svcdef_BUILD_DIR)
 $(MKDIRS):
@@ -272,3 +267,26 @@ $(MKDIRS):
 		echo "mkdir -p $@" ;\
 		mkdir -p $@ ;\
 	fi
+
+###############################
+# zenservicemigration package #
+###############################
+
+build-migrations: docker_buildimage $(OUTPUT)
+	$(DOCKER) run \
+			--rm \
+			-v $(PWD):/mnt/pwd \
+			-v $(OUTPUT):/mnt/pwd/output \
+			-e "VERSION=$(VERSION)" \
+			-e "BUILD_NUMBER=$(_BUILD_NUMBER)" \
+			-e "IMAGE_NUMBER=$(IMAGE_NUMBER)" \
+			-e "MILESTONE=$(MILESTONE)" \
+			-e "RELEASE_PHASE=$(RELEASE_PHASE)" \
+			-w /mnt/pwd \
+			-u builder \
+			$(BUILD_IMAGE) \
+			make -C migrations wheel
+	cp migrations/dist/*.whl output/
+
+clean-migrations:
+	@make -C migrations clean
