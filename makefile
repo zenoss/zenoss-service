@@ -120,7 +120,7 @@ svcdef_ImageID_maps += $(jsonsrc_impact_ImageID),$(desired_impact_ImageID)
 #
 jsonsrc_mariadb_ImageID = zenoss/mariadb:xx
 desired_mariadb_ImageID = $(image_PROJECT)/mariadb-$(short_product):$(IMAGE_TAG)
-svcdef_ImageID_maps    += $(JSonsrc_mariadb_ImageID),$(desired_mariadb_ImageID)
+svcdef_ImageID_maps    += $(jsonsrc_mariadb_ImageID),$(desired_mariadb_ImageID)
 
 .PHONY: default docker_buildimage docker_svcdef-% migrations clean-migrations
 
@@ -229,6 +229,7 @@ image/Dockerfile: image/Dockerfile.in
 		-e "s/%GID%/$(GID)/g" \
 		-e "s/%UID%/$(UID)/g" \
 		$< > $@
+
 docker_buildimage: image/Dockerfile
 	@$(DOCKER) build -t $(BUILD_IMAGE) $(<D)
 
@@ -254,6 +255,7 @@ docker_svcdef-%: docker_buildimage $(OUTPUT)
 			-u builder \
 			$(BUILD_IMAGE) \
 			make svcdef-$*
+
 clean: clean-migrations
 	@rm -f image/Dockerfile
 	@for dir in $(MKDIRS) ;\
@@ -266,6 +268,7 @@ clean: clean-migrations
 	@make -C pkg clean
 
 MKDIRS = $(OUTPUT) buildroot buildroot/output $(svcdef_BUILD_DIR)
+
 $(MKDIRS):
 	@if [ ! -d "$@" ];then \
 		echo "mkdir -p $@" ;\
