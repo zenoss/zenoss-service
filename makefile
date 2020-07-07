@@ -21,7 +21,7 @@ GID    = $(shell id -g)
 # SHORT_VERSION is the two-digit Zenoss version; e.g., 5.0
 # Note: these values are set in the build jobs, so the defaults =? aren't going to be used.
 VERSION         ?= 7.0.16
-SHORT_VERSION   = = $(subst $(space),.,$(wordlist 1,2,$(subst ., ,$(VERSION))))
+SHORT_VERSION   = $(subst $(space),.,$(wordlist 1,2,$(subst ., ,$(VERSION))))
 
 # These three xyz_VERSION variables define the corresponding docker image versions
 hbase_VERSION    ?= 24.0.8
@@ -66,8 +66,8 @@ repo_name_suffix      := _$(SHORT_VERSION)
 
 image_REGPATH     =
 image_PROJECT     = zenoss
-image_core_REPO   = core$(repo_name_suffix
-image_core_REPO   = core$(repo_name_suffix
+image_core_REPO   = core$(repo_name_suffix)
+image_core_REPO   = core$(repo_name_suffix)
 image_ucspm_REPO  = ucspm$(repo_name_suffix)
 image_cse_REPO    = cse$(repo_name_suffix)
 image_SUFFIX      = $(MILESTONE_SUFFIX)
@@ -122,7 +122,7 @@ jsonsrc_mariadb_ImageID = zenoss/mariadb:xx
 desired_mariadb_ImageID = $(image_PROJECT)/mariadb-$(short_product):$(IMAGE_TAG)
 svcdef_ImageID_maps    += $(JSonsrc_mariadb_ImageID),$(desired_mariadb_ImageID)
 
-.PHONY: default docker_buildimage docker_svcdefpkg-% docker_svcdef-% migrations clean-migrations
+.PHONY: default docker_buildimage docker_svcdef-% migrations clean-migrations
 
 #
 # The serviced binary referenced by SVCDEF_EXE is injected into the build
@@ -190,11 +190,11 @@ zenoss-cse-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-cse-$(BUILD_TAG).j
 svcdef_BUILD_DIR      = pkg/templates
 svcdef_BUILD_TARGETS := $(foreach product,$(svcdef_PRODUCTS),$(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json)
 
-.secondeXPANSION:
+.SECONDEXPANSION:
 $(svcdef_BUILD_TARGETS): short_product = $(patsubst zenoss-%,%,$(patsubst %-$(BUILD_TAG).json,%,$(@F)))
 $(svcdef_BUILD_TARGETS): map_opt       = $(patsubst %,-map %,$(svcdef_ImageID_maps))
 $(svcdef_BUILD_TARGETS): src_dir       = $($(@F)_SRC_DIR)
-$(svcdef_BUILD_TARGETS): $$($$(@F)_SRC) | $(SVCDEF_EXE) $(OUTPUT) $$(@D)
+$(svcdef_BUILD_TARGETS): | $(SVCDEF_EXE) $(OUTPUT) $$(@D)
 	@echo "Compiling service definitions with the following version of serviced:"
 	@$(SVCDEF_EXE) version
 	@compile_CMD="$(SVCDEF_EXE) template compile $(map_opt) $(src_dir) > $@" ;\
@@ -242,6 +242,10 @@ docker_svcdef-%: docker_buildimage $(OUTPUT)
 			-e "hbase_VERSION=$(hbase_VERSION)" \
 			-e "hdfs_VERSION=$(hdfs_VERSION)" \
 			-e "opentsdb_VERSION=$(opentsdb_VERSION)" \
+			-e "impact_VERSION=$(impact_VERSION)" \
+			-e "otsdb_bigtable_VERSION=$(otsdb_bigtable_VERSION)" \
+			-e "zing_connector_VERSION=$(zing_connector_VERSION)" \
+			-e "zing_api_proxy_VERSION=$(zing_api_proxy_VERSION)" \
 			-e "BUILD_NUMBER=$(_BUILD_NUMBER)" \
 			-e "IMAGE_NUMBER=$(IMAGE_NUMBER)" \
 			-e "MILESTONE=$(MILESTONE)" \
@@ -249,7 +253,7 @@ docker_svcdef-%: docker_buildimage $(OUTPUT)
 			-w /mnt/pwd \
 			-u builder \
 			$(BUILD_IMAGE) \
-			make svcdefpkg-$*
+			make svcdef-$*
 clean: clean-migrations
 	@rm -f image/Dockerfile
 	@for dir in $(MKDIRS) ;\
