@@ -4,7 +4,7 @@ RUN yum makecache && \
 	yum install -y ruby ruby-devel && \
 	yum autoremove -y && \
 	yum clean all && \
-	gem install --no-ri --no-rdoc fpm
+	gem install --no-ri --no-rdoc ffi:1.11.3 fpm:1.11.0
 
 RUN pip install -U setuptools
 
