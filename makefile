@@ -119,7 +119,7 @@ desired_impact_ImageID = gcr.io/zing-registry-188222/$(impact_folder):$(impact_V
 svcdef_ImageID_maps += $(jsonsrc_impact_ImageID),$(desired_impact_ImageID)
 #
 jsonsrc_mariadb_ImageID = zenoss/mariadb:xx
-desired_mariadb_ImageID = $(image_PROJECT)/mariadb-$(short_product):$(IMAGE_TAG)
+desired_mariadb_ImageID = gcr.io/zing-registry-188222/mariadb:$(IMAGE_TAG)
 svcdef_ImageID_maps    += $(jsonsrc_mariadb_ImageID),$(desired_mariadb_ImageID)
 
 .PHONY: default docker_buildimage docker_svcdef-% migrations clean-migrations
