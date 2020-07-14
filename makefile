@@ -79,7 +79,7 @@ image_SUFFIX      = $(MILESTONE_SUFFIX)
 #
 
 jsonsrc_zenoss_ImageID = zenoss/zenoss5x
-desired_zenoss_ImageID = gcr.io/zing-registry-188222/$(image_PROJECT)/$(image_$(short_product)_REPO)$(image_SUFFIX):$(IMAGE_TAG)
+desired_zenoss_ImageID = gcr.io/zing-registry-188222/$(image_$(short_product)_REPO)$(image_SUFFIX):$(IMAGE_TAG)
 svcdef_ImageID_maps   += $(jsonsrc_zenoss_ImageID),$(desired_zenoss_ImageID)
 
 #
