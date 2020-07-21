@@ -68,7 +68,6 @@ image_REGPATH     =
 image_PROJECT     = zenoss
 image_core_REPO   = core$(repo_name_suffix)
 image_core_REPO   = core$(repo_name_suffix)
-image_ucspm_REPO  = ucspm$(repo_name_suffix)
 image_cse_REPO    = cse$(repo_name_suffix)
 image_SUFFIX      = $(MILESTONE_SUFFIX)
 
@@ -164,7 +163,7 @@ $(SVCDEF_EXE):
 # service definitions for each product
 # to be managed by serviced.
 #-------------------------------------#
-svcdef_PRODUCTS = zenoss-core zenoss-resmgr zenoss-ucspm zenoss-cse
+svcdef_PRODUCTS = zenoss-core zenoss-resmgr zenoss-cse
 svcdef_SRC_DIR  = services
 
 zenoss-core-$(BUILD_TAG).json_SRC_DIR   := $(svcdef_SRC_DIR)/Zenoss.core
@@ -172,9 +171,6 @@ zenoss-core-$(BUILD_TAG).json_SRC       := $(shell find $(zenoss-core-$(BUILD_TA
 
 zenoss-resmgr-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/Zenoss.resmgr
 zenoss-resmgr-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-resmgr-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json' -print0)
-
-zenoss-ucspm-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/ucspm
-zenoss-ucspm-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-ucspm-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json' -print0)
 
 zenoss-cse-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/Zenoss.cse
 zenoss-cse-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-cse-$(BUILD_TAG).json_SRC_DIR) -type f -name '*.json' -print0)
@@ -185,7 +181,6 @@ zenoss-cse-$(BUILD_TAG).json_SRC     := $(shell find $(zenoss-cse-$(BUILD_TAG).j
 #
 # e.g., <dir>/templates/zenoss-core-5.0.0_140705.json
 #       <dir>/templates/zenoss-resmgr-5.0.0_140705.json
-#       <dir>/templates/zenoss-ucspm-5.0.0_140705.json
 #
 svcdef_BUILD_DIR      = pkg/templates
 svcdef_BUILD_TARGETS := $(foreach product,$(svcdef_PRODUCTS),$(svcdef_BUILD_DIR)/$(product)-$(BUILD_TAG).json)
