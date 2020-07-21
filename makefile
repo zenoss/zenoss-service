@@ -68,7 +68,6 @@ image_PROJECT     = zenoss
 image_core_REPO   = core$(repo_name_suffix)
 image_resmgr_REPO = resmgr$(repo_name_suffix)
 image_ucspm_REPO  = ucspm$(repo_name_suffix)
-image_cse_REPO    = cse$(repo_name_suffix)
 image_SUFFIX      = $(MILESTONE_SUFFIX)
 
 # Mechanism for overriding ImageIDs in service definition json source:
@@ -149,7 +148,7 @@ $(SVCDEF_EXE):
 # service definitions for each product
 # to be managed by serviced.
 #-------------------------------------#
-svcdef_PRODUCTS = zenoss-core zenoss-resmgr zenoss-ucspm zenoss-cse
+svcdef_PRODUCTS = zenoss-core zenoss-resmgr zenoss-ucspm
 svcdef_SRC_DIR  = services
 
 zenoss-core-$(BUILD_TAG).json_SRC_DIR   := $(svcdef_SRC_DIR)/Zenoss.core
@@ -157,8 +156,6 @@ zenoss-core-$(BUILD_TAG).json_SRC_DIR   := $(svcdef_SRC_DIR)/Zenoss.core
 zenoss-resmgr-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/Zenoss.resmgr
 
 zenoss-ucspm-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/ucspm
-
-zenoss-cse-$(BUILD_TAG).json_SRC_DIR := $(svcdef_SRC_DIR)/Zenoss.cse
 #-------------------------------------#
 
 # Rule to build service defintions for a list of products.
