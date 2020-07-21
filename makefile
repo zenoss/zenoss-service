@@ -8,7 +8,8 @@
 #        once we've resolved the build use-case for local developer builds.
 #        The problem with the default values is that they repeat information
 #        also recorded in the zenoss/product-assembly repo.
-#
+
+include versions.mk
 
 space := $(subst ,, )
 # Local environment information
@@ -17,20 +18,8 @@ PWD    = ${CURDIR}
 UID    = $(shell id -u)
 GID    = $(shell id -g)
 
-# VERSION is the full Zenoss version; e.g., 5.0.0
 # SHORT_VERSION is the two-digit Zenoss version; e.g., 5.0
-# Note: these values are set in the build jobs, so the defaults =? aren't going to be used.
-VERSION         ?= 7.0.16
-SHORT_VERSION   = $(subst $(space),.,$(wordlist 1,2,$(subst ., ,$(VERSION))))
-
-# These three xyz_VERSION variables define the corresponding docker image versions
-hbase_VERSION    ?= 24.0.8
-hdfs_VERSION     ?= 24.0.8
-opentsdb_VERSION ?= 24.0.8
-zing_connector_VERSION ?= latest
-zing_api_proxy_VERSION ?= latest
-otsdb_bigtable_VERSION ?= v3
-impact_VERSION ?= 5.5.2.0.0
+SHORT_VERSION = $(subst $(space),.,$(wordlist 1,2,$(subst ., ,$(VERSION))))
 
 #
 # Latch in the date with an immediate assignment to avoid
@@ -49,20 +38,20 @@ RELEASE_PHASE    ?= # eg, BETA2 | ALPHA1 | CR13 | 1 | 2 | <blank>
 _RELEASE_PHASE   := $(strip $(RELEASE_PHASE))
 
 # Allow milestone to influence our artifact versioning.
-BUILD_TAG      = $($(strip $(MILESTONE))_TAG)
-stable_TAG     = $(VERSION)_$(_RELEASE_PHASE)
-testing_TAG    = $(VERSION)_$(_RELEASE_PHASE)
-unstable_TAG   = $(VERSION)_$(_BUILD_NUMBER)
+BUILD_TAG    = $($(strip $(MILESTONE))_TAG)
+stable_TAG   = $(VERSION)_$(_RELEASE_PHASE)
+testing_TAG  = $(VERSION)_$(_RELEASE_PHASE)
+unstable_TAG = $(VERSION)_$(_BUILD_NUMBER)
 
 # Suck in reference to an image
-IMAGE_NUMBER        ?= $(_BUILD_NUMBER)
-IMAGE_TAG            = $($(strip $(MILESTONE))_IMAGE_TAG)
-stable_IMAGE_TAG     = $(VERSION)_$(_RELEASE_PHASE)
-testing_IMAGE_TAG    = $(VERSION)_$(_RELEASE_PHASE)
-unstable_IMAGE_TAG   = $(VERSION)_$(IMAGE_NUMBER)_unstable
+IMAGE_NUMBER       ?= $(_BUILD_NUMBER)
+IMAGE_TAG           = $($(strip $(MILESTONE))_IMAGE_TAG)
+stable_IMAGE_TAG    = $(VERSION)_$(_RELEASE_PHASE)
+testing_IMAGE_TAG   = $(VERSION)_$(_RELEASE_PHASE)
+unstable_IMAGE_TAG  = $(VERSION)_$(IMAGE_NUMBER)_unstable
 
 # Describe docker repositories where we push entitled content.
-repo_name_suffix      := _$(SHORT_VERSION)
+repo_name_suffix := _$(SHORT_VERSION)
 
 image_REGPATH     =
 image_PROJECT     = zenoss
@@ -71,6 +60,8 @@ image_core_REPO   = core$(repo_name_suffix)
 image_cse_REPO    = cse$(repo_name_suffix)
 image_SUFFIX      = $(MILESTONE_SUFFIX)
 
+image_cloud_project = gcr.io/zing-registry-188222
+
 # Mechanism for overriding ImageIDs in service definition json source:
 #
 # from: ImageID: "zenoss/zenoss5x"
@@ -78,7 +69,7 @@ image_SUFFIX      = $(MILESTONE_SUFFIX)
 #
 
 jsonsrc_zenoss_ImageID = zenoss/zenoss5x
-desired_zenoss_ImageID = gcr.io/zing-registry-188222/$(image_$(short_product)_REPO)$(image_SUFFIX):$(IMAGE_TAG)
+desired_zenoss_ImageID = $(image_cloud_project)/$(image_$(short_product)_REPO)$(image_SUFFIX):$(IMAGE_TAG)
 svcdef_ImageID_maps   += $(jsonsrc_zenoss_ImageID),$(desired_zenoss_ImageID)
 
 #
@@ -101,24 +92,24 @@ desired_opentsdb_ImageID = $(image_PROJECT)/opentsdb:$(opentsdb_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_opentsdb_ImageID),$(desired_opentsdb_ImageID)
 #
 jsonsrc_zing_connector_ImageID = gcr-repo/zing-connector:xx
-desired_zing_connector_ImageID = gcr.io/zing-registry-188222/zing-connector:$(zing_connector_VERSION)
+desired_zing_connector_ImageID = $(image_cloud_project)/zing-connector:$(zing_connector_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_zing_connector_ImageID),$(desired_zing_connector_ImageID)
 #
 jsonsrc_zing_api_proxy_ImageID = gcr-repo/api-key-proxy:xx
-desired_zing_api_proxy_ImageID = gcr.io/zing-registry-188222/api-key-proxy:$(zing_api_proxy_VERSION)
+desired_zing_api_proxy_ImageID = $(image_cloud_project)/api-key-proxy:$(zing_api_proxy_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_zing_api_proxy_ImageID),$(desired_zing_api_proxy_ImageID)
 #
 jsonsrc_otsdb_bigtable_ImageID = zenoss/opentsdb-bigtable:xx
-desired_otsdb_bigtable_ImageID = gcr.io/zing-registry-188222/otsdb-bigtable:$(otsdb_bigtable_VERSION)
+desired_otsdb_bigtable_ImageID = $(image_cloud_project)/otsdb-bigtable:$(otsdb_bigtable_VERSION)
 svcdef_ImageID_maps     += $(jsonsrc_otsdb_bigtable_ImageID),$(desired_otsdb_bigtable_ImageID)
 #
 jsonsrc_impact_ImageID = zendev/impact-devimg
 impact_folder = impact_$(shell echo $(impact_VERSION) | sed -E 's/([0-9]+).([0-9]+).*/\1.\2/')
-desired_impact_ImageID = gcr.io/zing-registry-188222/$(impact_folder):$(impact_VERSION)
+desired_impact_ImageID = $(image_cloud_project)/$(impact_folder):$(impact_VERSION)
 svcdef_ImageID_maps += $(jsonsrc_impact_ImageID),$(desired_impact_ImageID)
 #
 jsonsrc_mariadb_ImageID = zenoss/mariadb:xx
-desired_mariadb_ImageID = gcr.io/zing-registry-188222/mariadb:$(IMAGE_TAG)
+desired_mariadb_ImageID = $(image_cloud_project)/mariadb:$(IMAGE_TAG)
 svcdef_ImageID_maps    += $(jsonsrc_mariadb_ImageID),$(desired_mariadb_ImageID)
 
 .PHONY: default docker_buildimage docker_svcdef-% migrations clean-migrations
@@ -274,6 +265,8 @@ $(MKDIRS):
 # zenservicemigration package #
 ###############################
 
+.PHONY: build-migrations test-migrations clean-migrations
+
 build-migrations: docker_buildimage $(OUTPUT)
 	$(DOCKER) run \
 			--rm \
@@ -289,6 +282,9 @@ build-migrations: docker_buildimage $(OUTPUT)
 			$(BUILD_IMAGE) \
 			make -C migrations wheel
 	cp migrations/dist/*.whl output/
+
+test-migrations:
+	@echo testing migrations
 
 clean-migrations:
 	@make -C migrations clean
