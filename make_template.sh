@@ -14,7 +14,10 @@ if [ "$1" == "-h" ] ; then
    echo "   HBASE_VERSION"
    echo "   HDFS_VERSION"
    echo "   OPENTSDB_VERSION"
+   echo "   ZING_CONNECTOR_VERSION"
+   echo "   ZING_API_PROXY_VERSION"
    echo "   OTSDB_BIGTABLE_VERSION"
+   echo "   IMPACT_VERSION"
    echo
    echo If the ZENOSS_IMAGE_TAG and MARIADB_IMAGE_TAG variables are not set,
    echo their values are set to the name of the current zendev environment.
@@ -96,14 +99,24 @@ fi
 hbase_version=$(get_variable HBASE_VERSION) || exit 1
 hdfs_version=$(get_variable HDFS_VERSION) || exit 1
 opentsdb_version=$(get_variable OPENTSDB_VERSION) || exit 1
+zing_connector_version=$(get_variable ZING_CONNECTOR_VERSION) || exit 1
+zing_api_proxy_version=$(get_variable ZING_API_PROXY_VERSION) || exit 1
 otsdb_bigtable_version=$(get_variable OTSDB_BIGTABLE_VERSION) || exit 1
+impact_version=$(get_variable IMPACT_VERSION) || exit 1
 
 # Retrieve the project image name
 project_image=$(get_variable IMAGE_PROJECT)
 if [ -z ${project_image:+x} ]; then
    # PROJECT_IMAGE is null or not set, set a default
-   project_image=zenoss
+   project_image=zing-registry-188222
 fi
+
+bigtable_image=gcr.io/${project_image}/otsdb-bigtable
+zing_connector_image=gcr.io/${project_image}/zing-connector
+api_key_proxy_image=gcr.io/${project_image}/api-key-proxy
+
+impact_folder=impact_$(echo ${impact_version} | sed -E 's/([0-9]+).([0-9]+).*/\1.\2/')
+impact_image=gcr.io/${project_image}/${impact_folder}
 
 if [ "$1" == "" ] ; then
    printf "%-30s %s\n" zenoss/zenoss5x ${zenoss_image}:${zenoss_tag}
@@ -111,20 +124,28 @@ if [ "$1" == "" ] ; then
    printf "%-30s %s\n" zenoss/hbase:xx zenoss/hbase:${hbase_version}
    printf "%-30s %s\n" zenoss/hdfs:xx zenoss/hbase:${hdfs_version}
    printf "%-30s %s\n" zenoss/opentsdb:xx zenoss/opentsdb:${opentsdb_version}
+   printf "%-30s %s\n" zenoss/opentsdb-bigtable:xx ${bigtable_image}:${otsdb_bigtable_version}
+   printf "%-30s %s\n" gcr-repo/zing-connector:xx ${zing_connector_image}:${zing_connector_version}
+   printf "%-30s %s\n" gcr-repo/api-key-proxy:xx ${api_key_proxy_image}:${zing_api_proxy_version}
+   printf "%-30s %s\n" zendev/impact-devimg ${impact_image}:${impact_version}
 else
 
-   ss=$(which serviced)
+   serviced=$(which serviced-service)
    if [ $? -ne 0 ] ; then
       echo "serviced: command not found" 1>&2
       exit 1
    fi
 
    sed -i -e "s/\"Version\": \".*\",/\"Version\": \"${version}\",/" $1/service.json
-   ${ss} template compile \
+   ${serviced} compile \
       --map zenoss/zenoss5x,zendev/devimg:${zenoss_tag} \
       --map zenoss/mariadb:xx,zendev/mariadb:${mariadb_version} \
       --map zenoss/hbase:xx,zenoss/hbase:${hbase_version} \
       --map zenoss/hdfs:xx,zenoss/hbase:${hdfs_version} \
       --map zenoss/opentsdb:xx,zenoss/opentsdb:${opentsdb_version} \
+      --map zenoss/opentsdb-bigtable:xx,${bigtable_image}:${otsdb_bigtable_version} \
+      --map gcr-repo/zing-connector:xx,${zing_connector_image}:${zing_connector_version} \
+      --map gcr-repo/api-key-proxy:xx,${api_key_proxy_image}:${zing_api_proxy_version} \
+      --map zendev/impact-devimg,${impact_image}:${impact_version} \
       $1
 fi
