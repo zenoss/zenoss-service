@@ -25,6 +25,7 @@ def migrate(ctx, *args, **kw):
     changes = []
 
     changes.append(_updateStartup(service))
+    changes.append(_updateRunAs(service))
     changes.append(_deleteActions(service))
     changes.append(_updateInstances(service))
 
@@ -51,9 +52,8 @@ def migrate(ctx, *args, **kw):
 class _MigrationData(object):
 
     startup_command = (
-        "su - zenoss -c "
-        "\"/opt/zenoss/bin/zenjobs worker "
-        "-n zenjobs_$CONTROLPLANE_INSTANCE_ID\""
+        "/opt/zenoss/bin/zenjobs worker "
+        "-n \"zenjobs-$CONTROLPLANE_INSTANCE_ID@%h\""
     )
 
     loglevels_config_filename = "/opt/zenoss/etc/zenjobs_log_levels.conf"
@@ -111,6 +111,14 @@ def _updateStartup(service):
     return False
 
 
+def _updateRunAs(service):
+    if service.runAs != "zenoss":
+        service.runAs = "zenoss"
+        print("Updated zenjobs RunAs field")
+        return True
+    return False
+
+
 def _deleteActions(service):
     if service._Service__data["Actions"]:
         # Delete Actions as they're now obsolete
@@ -153,7 +161,6 @@ def _replaceZenJobsConfig(configfiles, configname):
         if cf.name == filename
     ), None)
     if configFile is None:
-        print("Adding missing config file %s" % (filename,))
         configFile = sm.ConfigFile(
             name=filename,
             filename=filename,
@@ -161,6 +168,7 @@ def _replaceZenJobsConfig(configfiles, configname):
             permissions="0664",
         )
         configfiles.append(configFile)
+        print("Added missing config file %s" % (filename,))
     if configFile.content != migrationData.zenjobs_config_content:
         configFile.content = migrationData.zenjobs_config_content
         print(
