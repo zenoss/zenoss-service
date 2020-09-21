@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "su - zenoss -c \"CONFIG_FILE=${ZENHOME:-/opt/zenoss}/etc/zendebug.conf /opt/zenoss/bin/runzope\" ",
+    "Command": "CONFIG_FILE=${ZENHOME:-/opt/zenoss}/etc/zendebug.conf /opt/zenoss/bin/runzope",
     "Commands": {
         "apply-custom-patches": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun patch.sh applyPatches",
@@ -261,6 +261,7 @@
         }
     ],
     "RAMCommitment": "1G",
+    "RunAs": "zenoss",
     "Services": [],
     "StartLevel": 0,
     "Tags": [

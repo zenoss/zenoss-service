@@ -1,5 +1,5 @@
 {
-    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/zing-connector/supervisord.conf\"",
+    "Command": "cd /opt/zenoss && /bin/supervisord -n -c etc/zing-connector/supervisord.conf",
     "ConfigFiles": {
         "/etc/zing-connector.yml": {
             "Filename": "/opt/zenoss/etc/zing-connector/zing-connector.yml",
@@ -747,6 +747,7 @@
         ]
     },
     "Name": "zing-connector",
+    "RunAs": "zenoss",
     "Tags": [
         "daemon"
     ]
