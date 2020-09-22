@@ -1,5 +1,5 @@
 {
-    "Command": "cd /opt/zenoss && /bin/supervisord -n -c etc/api-key-proxy/supervisord.conf",
+    "Command": "su - zenoss -c \"cd /opt/zenoss && /bin/supervisord -n -c etc/api-key-proxy/supervisord.conf\"",
     "ConfigFiles": {},
     "Description": "Zing API Proxy Service",
     "Endpoints": [
@@ -94,7 +94,6 @@
         }
     ],
     "Name": "zing-api-proxy",
-    "RunAs": "zenoss",
     "Tags": [
         "daemon"
     ]

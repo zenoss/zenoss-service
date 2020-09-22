@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "/opt/zenoss/bin/runzope",
+    "Command": "su - zenoss -c \"CONFIG_FILE=${ZENHOME:-/opt/zenoss}/etc/zendebug.conf /opt/zenoss/bin/runzope\" ",
     "Commands": {
         "apply-custom-patches": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun patch.sh applyPatches",
@@ -171,9 +171,6 @@
             "Purpose": "import"
         }
     ],
-    "Environment": [
-        "CONFIG_FILE=/opt/zenoss/etc/zendebug.conf"
-    ],
     "HealthChecks": {
         "answering": {
             "Interval": 15.0,
@@ -264,7 +261,6 @@
         }
     ],
     "RAMCommitment": "1G",
-    "RunAs": "zenoss",
     "Services": [],
     "StartLevel": 0,
     "Tags": [
