@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "CONFIG_FILE=${ZENHOME:-/opt/zenoss}/etc/zendebug.conf /opt/zenoss/bin/runzope",
+    "Command": "/opt/zenoss/zopehome/runzope -C /opt/zenoss/etc/zendebug.conf",
     "Commands": {
         "apply-custom-patches": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun patch.sh applyPatches",

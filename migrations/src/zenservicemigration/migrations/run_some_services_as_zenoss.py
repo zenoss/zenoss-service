@@ -39,8 +39,7 @@ class _MigrationData(object):
 
     startup_command = {
         "zendebug": (
-            "CONFIG_FILE=${ZENHOME:-/opt/zenoss}/etc/zendebug.conf "
-            "/opt/zenoss/bin/runzope"
+            "/opt/zenoss/zopehome/runzope -C /opt/zenoss/etc/zendebug.conf"
         ),
         "metric_shipper": (
             "cd /opt/zenoss && "
