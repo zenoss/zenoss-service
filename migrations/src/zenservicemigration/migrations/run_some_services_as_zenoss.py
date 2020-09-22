@@ -31,6 +31,7 @@ def migrate(ctx, *args, **kw):
 
         changes.append(_updateStartup(service))
         changes.append(_updateRunAs(service))
+        changes.append(_updateEnvironment(service))
 
     return any(changes)
 
@@ -39,7 +40,7 @@ class _MigrationData(object):
 
     startup_command = {
         "zendebug": (
-            "/opt/zenoss/zopehome/runzope -C /opt/zenoss/etc/zendebug.conf"
+            "/opt/zenoss/bin/runzope"
         ),
         "metric_shipper": (
             "cd /opt/zenoss && "
@@ -55,6 +56,12 @@ class _MigrationData(object):
         ),
     }
 
+    environment = {
+        "zendebug": ([
+            "CONFIG_FILE=/opt/zenoss/etc/zendebug.conf",
+        ]),
+    }
+
 
 migrationData = _MigrationData()
 
@@ -63,7 +70,7 @@ def _updateStartup(service):
     command = migrationData.startup_command[service.name]
     if service.startup != command:
         service.startup = command
-        print("Updated %s startup command".format(service.name))
+        print("Updated %s Startup command".format(service.name))
         return True
     return False
 
@@ -72,5 +79,15 @@ def _updateRunAs(service):
     if service.runAs != "zenoss":
         service.runAs = "zenoss"
         print("Updated %s RunAs field".format(service.name))
+        return True
+    return False
+
+
+def _updateEnvironment(service):
+    env = migrationData.environment.get(service.name, [])
+    missing = set(env) - set(service.environment)
+    if missing:
+        service.environment.extend(missing)
+        print("Updated %s Environment field".format(service.name))
         return True
     return False

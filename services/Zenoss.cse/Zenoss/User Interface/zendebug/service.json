@@ -1,6 +1,6 @@
 {
     "CPUCommitment": 1,
-    "Command": "/opt/zenoss/zopehome/runzope -C /opt/zenoss/etc/zendebug.conf",
+    "Command": "/opt/zenoss/bin/runzope",
     "Commands": {
         "apply-custom-patches": {
             "Command": "${ZENHOME:-/opt/zenoss}/bin/zenrun patch.sh applyPatches",
@@ -170,6 +170,9 @@
             "Protocol": "tcp",
             "Purpose": "import"
         }
+    ],
+    "Environment": [
+        "CONFIG_FILE=/opt/zenoss/etc/zendebug.conf"
     ],
     "HealthChecks": {
         "answering": {
