@@ -32,12 +32,12 @@ def migrate(ctx, *args, **kw):
 
         insert_point = re.search('http \{', config_text)
         if not insert_point:
-            log.info("Couldn't update zproxy configuration, skipping.")
+            print("Couldn't update zproxy configuration, skipping.")
             continue
 
         insert_point = insert_point.end()
         config_text = config_text[:insert_point] + "\n" + directive + config_text[insert_point:]
-        log.info("Adding 'server_tokens off' to '%s' for '%s'", configfile.name, zproxy.name)
+        print("Adding 'server_tokens off' to '%s' for '%s'" % (configfile.name, zproxy.name))
         configfile.content = config_text
         changed = True
 
