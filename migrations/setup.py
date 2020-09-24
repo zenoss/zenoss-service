@@ -20,7 +20,7 @@ setup(
     packages=find_packages(where="src"),
     include_package_data=True,
     package_data={
-        "zenservicemigration": ["migrations/*.py"],
+        "zenservicemigration": ["migrations/*.py", "migrations/data/*"],
     },
     zip_safe=False,
     install_requires=["servicemigration"],
