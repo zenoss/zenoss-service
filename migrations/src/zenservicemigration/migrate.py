@@ -7,8 +7,9 @@ import imp
 import os
 import pkg_resources
 import sys
+import toposort
 
-from itertools import dropwhile
+from itertools import chain, groupby
 
 import Globals  # noqa: F401 because Zenoss
 
@@ -21,9 +22,12 @@ class Script(object):
 
     version = None
     script = None
+    dependencies = None
 
     def __init__(self, script):
         self.version = pkg_resources.parse_version(script.version)
+        self.dependencies = getattr(script, "dependencies", ())
+        self.name = script.__name__
         self.script = script
         self.__key = (self.version, self.script.__name__)
 
@@ -71,6 +75,24 @@ def get_scripts(path):
     return scripts
 
 
+def sort_scripts(scripts):
+    """Sort scripts into dependency order"""
+    result = []
+    for version, group in groupby(scripts, lambda x: x.version):
+        dependencies = {
+            script.name: set(script.dependencies)
+            for script in group
+        }
+        ordered = toposort.toposort_flatten(dependencies)
+        ordered_scripts = [
+            next(s for s in scripts if s.name == name)
+            for name in ordered
+        ]
+        result.append((version, ordered_scripts))
+    sorted_result = sorted(result, lambda x: x[0])
+    return tuple(chain.from_iterable(e[1] for e in sorted_result))
+
+
 def get_service_context():
     try:
         return sm.ServiceContext()
@@ -97,9 +119,13 @@ def main():
     from_version = pkg_resources.parse_version(args.after)
 
     path = os.path.join(os.path.dirname(__file__), "migrations")
-    scripts = sorted(get_scripts(path))
-
-    for script in dropwhile(lambda s: s.version <= from_version, scripts):
+    all_scripts = get_scripts(path)
+    relevant_scripts = [
+        script
+        for script in all_scripts
+        if script.version > from_version
+    ]
+    for script in sort_scripts(relevant_scripts):
         ctx = get_service_context()
         if ctx is None:
             print("Skipping migration {}.".format(script))
