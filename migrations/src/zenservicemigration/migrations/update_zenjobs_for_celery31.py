@@ -46,6 +46,8 @@ def migrate(ctx, *args, **kw):
         changes.append(_replaceZenJobsConfig(configFiles, configName))
     changes.append(_updateRunningHealthCheck(service))
 
+    changes.append(_add_job_expires_to_global_conf(ctx))
+
     return any(changes)
 
 
@@ -79,6 +81,10 @@ class _MigrationData(object):
     }
 
     running_healthcheck = "pgrep -fu zenoss zenjobs > /dev/null"
+
+    global_conf = {
+        "global.conf.zenjobs-job-expires": "604800",  # 7 days
+    }
 
     @property
     def zodb_config(self):
@@ -197,3 +203,14 @@ def _updateRunningHealthCheck(service):
         print("Updated 'running' healthcheck script.")
         return True
     return False
+
+
+def _add_job_expires_to_global_conf(ctx):
+    service = ctx.getTopService()
+    changed = False
+    for key, value in migrationData.global_conf.items():
+        if key in service.context:
+            continue
+        service.context[key] = value
+        changed = True
+    return changed
