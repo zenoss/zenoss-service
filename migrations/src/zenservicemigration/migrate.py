@@ -15,7 +15,7 @@ import Globals  # noqa: F401 because Zenoss
 
 # Import _after_ importing Globals due to Zenoss Product dependencies
 import servicemigration as sm
-sm.require("1.1.15")
+sm.require("1.1.16")
 
 
 class Script(object):
