@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 import os
 import sys
@@ -8,12 +8,20 @@ import json
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
-def get_args():
+
+def get_parser():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="subcommand")
-    format_command = subparsers.add_parser("format", description="Format services.")
-    validate_command = subparsers.add_parser("validate", description="Validate services.")
-    return parser.parse_args()
+    format_parser = subparsers.add_parser(
+        "format", description="Format services."
+    )
+    format_parser.set_defaults(func=format_cmd)
+    validate_parser = subparsers.add_parser(
+        "validate", description="Validate services."
+    )
+    validate_parser.set_defaults(func=validate_cmd)
+    return parser
+
 
 def get_service_filenames(root):
     filenames = []
@@ -25,21 +33,26 @@ def get_service_filenames(root):
                 filenames.append(item)
     return filenames
 
-def format(args):
-    for fn in get_service_filenames(ROOT):
-        with open(fn, 'r') as f:
-            data = json.load(f)
-        with open(fn, 'w') as f:
-            json.dump(data, f, indent=4, sort_keys=True, separators=(',', ': '))
 
-def validate(args):
+def format_cmd(args):
+    for fn in get_service_filenames(ROOT):
+        with open(fn, "r") as f:
+            data = json.load(f)
+        with open(fn, "w") as f:
+            json.dump(
+                data, f, indent=4, sort_keys=True, separators=(",", ": ")
+            )
+            f.write("\n")  # add final newline that dump doesn't add.
+
+
+def validate_cmd(args):
     failed = []
     for fn in get_service_filenames(ROOT):
-        with open(fn, 'r') as f:
+        with open(fn, "r") as f:
             data = f.read().rstrip()
         try:
             j = json.loads(data)
-            j = json.dumps(j, indent=4, sort_keys=True, separators=(',', ': '))
+            j = json.dumps(j, indent=4, sort_keys=True, separators=(",", ": "))
             if data != j.rstrip():
                 failed.append(fn)
         except ValueError:
@@ -50,12 +63,12 @@ def validate(args):
             print f
         sys.exit(1)
 
+
 def main():
-    args = get_args()
-    if args.subcommand == "format":
-        format(args)
-    elif args.subcommand == "validate":
-        validate(args)
-    
+    parser = get_parser()
+    args = parser.parse_args()
+    args.func(args)
+
+
 if __name__ == "__main__":
     main()
