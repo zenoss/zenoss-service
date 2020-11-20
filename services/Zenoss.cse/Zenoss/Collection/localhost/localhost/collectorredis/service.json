@@ -3,7 +3,7 @@
     "ChangeOptions": [
         "restartAllOnInstanceZeroDown"
     ],
-    "Command": "{{ if ne .InstanceID 0 }} /bin/sed -i 's/# slaveof <masterip> <masterport>/slaveof rd1 6379/' /etc/redis.conf & {{ end }} /usr/bin/redis-server /etc/redis.conf",
+    "Command": "/usr/bin/redis-server /etc/redis.conf{{if ne .InstanceID 0}} --slaveof rd1 6379{{end}}",
     "Description": "Redis server",
     "EmergencyShutdownLevel": 2,
     "Endpoints": [
