@@ -11,7 +11,8 @@ RUN apt-get update -qq && \
     ruby \
     ruby-dev \
     python-wheel \
-    python-setuptools
+    python-setuptools \
+    libdevmapper-dev
 
 
 RUN groupadd --gid %GID% builder
