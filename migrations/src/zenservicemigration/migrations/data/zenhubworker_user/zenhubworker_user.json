@@ -18,6 +18,9 @@
             "Permissions": "0664"
         }
     },
+    "Context": {
+        "call-limit": "200"
+    },
     "Description": "Executes service requests on ZenHub's behalf",
     "Endpoints": [
         {
@@ -78,6 +81,20 @@
             "PortNumber": 8080,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Application": "zing-connector",
+            "Name": "zing-connector",
+            "PortNumber": 9237,
+            "Protocol": "tcp",
+            "Purpose": "import"
+        },
+        {
+            "Application": "zing-connector-admin",
+            "Name": "zing-connector-admin",
+            "PortNumber": 9000,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "HealthChecks": {
@@ -125,7 +142,7 @@
     "HostPolicy": "PREFER_SEPARATE",
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
-        "Default": 1,
+        "Default": 2,
         "Min": 1
     },
     "Launch": "manual",
