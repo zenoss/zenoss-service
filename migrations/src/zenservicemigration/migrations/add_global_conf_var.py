@@ -18,5 +18,7 @@ version = "7.0.16"
 def migrate(ctx, *args, **kw):
     topContext = ctx.getTopService().context
     print("Adding zcml-enable-cz-dashboard global property to the service context")
-    topContext["global.conf.zcml-enable-cz-dashboard"] = "Feature"
+    prop = "global.conf.zcml-enable-cz-dashboard"
+    if prop not in topContext:
+        topContext[prop] = "Feature"
     return True
