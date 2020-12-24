@@ -88,9 +88,9 @@
             "Interval": 5.0,
             "Script": "curl -A 'zeneventserver answering healthcheck' -f -s http://localhost:8084/zeneventserver/api/1.0/heartbeats/"
         },
-        "mariadb_answering": {
+        "mariadb_events_answering": {
             "Interval": 10.0,
-            "Script": "/opt/zenoss/bin/healthchecks/mariadb_answering"
+            "Script": "su - zenoss -c '/opt/zenoss/bin/python /opt/zenoss/Products/ZenUtils/ZenDB.py --usedb zep --execsql=\";\"'"
         },
         "memcached_answering": {
             "Interval": 10.0,

@@ -12,6 +12,11 @@
             "Owner": "zenoss:zenoss",
             "Permissions": "660"
         },
+        "/opt/zenoss/etc/zenhub-server.yaml": {
+            "FileName": "/opt/zenoss/etc/zenhub-server.yaml",
+            "Owner": "zenoss:zenoss",
+            "Permissions": "0664"
+        },
         "/opt/zenoss/etc/zenhub.conf": {
             "FileName": "/opt/zenoss/etc/zenhub.conf",
             "Owner": "zenoss:zenoss",

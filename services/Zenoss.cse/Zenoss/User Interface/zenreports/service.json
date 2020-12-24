@@ -98,6 +98,13 @@
             "PortNumber": 8444,
             "Protocol": "tcp",
             "Purpose": "import"
+        },
+        {
+            "Application": "opentsdb-reader",
+            "Name": "opentsdb-reader",
+            "PortNumber": 4242,
+            "Protocol": "tcp",
+            "Purpose": "import"
         }
     ],
     "Environment": [
@@ -107,14 +114,6 @@
         "answering": {
             "Interval": 15.0,
             "Script": "curl -A 'zenreports answering healthcheck' --retry 3 --max-time 2 -s http://localhost:9290/zport/ruok | grep -q imok"
-        },
-        "deadlock_check": {
-            "Interval": 60.0,
-            "KillCountLimit": 5,
-            "KillExitCodes": [
-                28
-            ],
-            "Script": "curl -A 'zenreports deadlock healthcheck' --max-time 15 -s http://localhost:9290/zport/ruok"
         },
         "mariadb_answering": {
             "Interval": 10.0,

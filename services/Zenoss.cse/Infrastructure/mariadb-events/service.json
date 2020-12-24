@@ -28,10 +28,13 @@
             "Purpose": "export"
         }
     ],
+    "Environment": [
+        "MARIADB_DB=zep"
+    ],
     "HealthChecks": {
         "answering": {
             "Interval": 5.0,
-            "Script": "mysql --protocol TCP -u{{(getContext . \"global.conf.zep-admin-user\")}} -h{{(getContext . \"global.conf.zep-host\")}} -P{{(getContext . \"global.conf.zep-port\")}} -p{{getContext . \"global.conf.zep-admin-password\"}} -e 'select 1' > /dev/null"
+            "Script": "mysql --protocol TCP -u{{(getContext . \"global.conf.zep-user\")}} -h{{(getContext . \"global.conf.zep-host\")}} -P{{(getContext . \"global.conf.zep-port\")}} -p{{getContext . \"global.conf.zep-password\"}} -e 'select 1' > /dev/null"
         }
     },
     "ImageID": "zenoss/mariadb:xx",
