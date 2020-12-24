@@ -30,7 +30,7 @@ opentsdb_VERSION ?= 24.0.8
 zing_connector_VERSION ?= latest
 zing_api_proxy_VERSION ?= latest
 otsdb_bigtable_VERSION ?= v3
-impact_VERSION ?= 5.5.2.0.0
+impact_VERSION ?= 5.5.3.0.0
 
 #
 # Latch in the date with an immediate assignment to avoid
