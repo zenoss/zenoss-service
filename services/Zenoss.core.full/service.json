@@ -28,6 +28,7 @@
         "global.conf.solr-search-limit": "10000",
         "global.conf.zauth-password": "MY_PASSWORD",
         "global.conf.zauth-username": "zenoss_system",
+        "global.conf.zenjobs-job-expires": "604800",
         "global.conf.zep-admin-password": "",
         "global.conf.zep-admin-user": "root",
         "global.conf.zep-db": "zenoss_zep",
