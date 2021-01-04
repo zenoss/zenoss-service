@@ -21,8 +21,12 @@ webSocketConfiguration:
 metricService:
     jobSize: 1000
     highCollisionMark: 2000000
+    lowCollisionMark: 1000000
+    perClientMaxBacklogSize: -1
+    perClientMaxPercentOfFairBacklogSize: 100
     maxClientWaitTime: 60000
-    minTimeBetweenBroadcast: 200
+    minTimeBetweenBroadcast: 100
+    minTimeBetweenNotification: 100
     tsdbWriterThreads: 1
     maxIdleTime: 10000
     maxConnectionBackOff: 5000
