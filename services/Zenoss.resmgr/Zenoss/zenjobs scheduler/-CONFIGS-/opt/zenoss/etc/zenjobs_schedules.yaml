@@ -1,0 +1,5 @@
+purge_job_logs:
+  task: "zen.zenjobs.purge_logs"
+  schedule:
+    cron:
+      minute: "0"
