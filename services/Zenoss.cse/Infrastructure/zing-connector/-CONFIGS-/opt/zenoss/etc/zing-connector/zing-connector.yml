@@ -3,17 +3,28 @@
 #
 log:
   level: info
-http:
-  port: 9237
+  stackdriver: 0
+http2:
+  listen_addr: 9237
 admin:
   port: 9000
 tracing:
   enabled: false
+metrics:
+  enabled: false
+jwt:
+  skip: true
+auth:
+  disabled: true
 stats:
   #
   # The interval in seconds to report internal performance stats to ControlCenter
   #
   interval: 30
+gcloud:
+  project_id: {{getContext . "cse.project"}}
+streaming:
+  api_key: ""
 pubsub:
   #
   # project, tenant and source should be set by editing variables on the Zenoss.cse service definition
@@ -23,6 +34,7 @@ pubsub:
   source: {{getContext . "cse.source"}}
   metric-topic: metric-in
   model-topic: model-raw-rm
+  compact-topic: metric-in-compact
   #
   # Set use-emulator=true AND emulator-host-port to send data to the GCP pubsub emulator
   #
