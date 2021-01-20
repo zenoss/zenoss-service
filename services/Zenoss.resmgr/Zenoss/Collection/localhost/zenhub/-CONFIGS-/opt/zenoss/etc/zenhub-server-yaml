@@ -1,0 +1,28 @@
+# zenhub server configuration
+#
+# <executorid>:
+#    spec: "<module-path>:<class-name>",
+#    worklist: "<worklist-name>"  ### not required, if empty uses <executorid> as a name
+#    routes:
+#        - <service-name>:<method-name>
+#        ...
+#
+
+default:
+    spec: "Products.ZenHub.server.executors:WorkerPoolExecutor"
+    routes:
+      - "*:*"
+
+event:
+    spec: "Products.ZenHub.server.executors:SendEventExecutor"
+    routes:
+      - "EventService:sendEvent"
+      - "EventService:sendEvents"
+
+adm:
+    spec: "Products.ZenHub.server.executors:WorkerPoolExecutor"
+    routes:
+      - "*:applyDataMaps"
+
+user:
+    spec: "Products.ZenHub.server.executors:WorkerPoolExecutor"
