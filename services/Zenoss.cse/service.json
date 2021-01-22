@@ -48,6 +48,7 @@
         "global.conf.solr-search-limit": "10000",
         "global.conf.zauth-password": "MY_PASSWORD",
         "global.conf.zauth-username": "zenoss_system",
+        "global.conf.zcml-enable-cz-dashboard": "Feature",
         "global.conf.zcml-enable-impact-cse": "Feature",
         "global.conf.zenjobs-job-expires": "604800",
         "global.conf.zep-admin-password": "",
@@ -186,7 +187,7 @@
         "daemon"
     ],
     "Title": "zproxy",
-    "Version": "7.0.16",
+    "Version": "7.0.17",
     "Volumes": [
         {
             "#####": "drwxrwxr-x  3 zenoss zenoss 4.0K Jul 24 01:54 zproxy",
