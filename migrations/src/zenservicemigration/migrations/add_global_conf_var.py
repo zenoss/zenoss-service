@@ -12,7 +12,7 @@ Adding zcml-enable-cz-dashboard global property to the service context for disab
 """
 
 
-version = "7.0.16"
+version = "7.0.17"
 
 
 def migrate(ctx, *args, **kw):
