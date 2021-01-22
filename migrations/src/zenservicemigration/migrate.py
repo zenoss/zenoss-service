@@ -9,7 +9,7 @@ import pkg_resources
 import sys
 import toposort
 
-from itertools import chain, groupby
+from itertools import groupby
 
 import Globals  # noqa: F401 because Zenoss
 
@@ -83,19 +83,23 @@ def get_scripts(path):
 def sort_scripts(scripts):
     """Sort scripts into dependency order"""
     result = []
-    for version, group in groupby(scripts, lambda x: x.version):
+
+    def key_func(s):
+        return s.version
+
+    sorted_scripts = sorted(scripts, key=key_func)
+    for version, group in groupby(sorted_scripts, key_func):
         dependencies = {
             script.name: set(script.dependencies)
             for script in group
         }
         ordered = toposort.toposort_flatten(dependencies)
-        ordered_scripts = [
+        ordered_scripts = (
             next(s for s in scripts if s.name == name)
             for name in ordered
-        ]
-        result.append((version, ordered_scripts))
-    sorted_result = sorted(result, lambda x: x[0])
-    return tuple(chain.from_iterable(e[1] for e in sorted_result))
+        )
+        result.extend(ordered_scripts)
+    return result
 
 
 def get_service_context():
