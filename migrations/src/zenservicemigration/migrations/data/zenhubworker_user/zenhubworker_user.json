@@ -125,7 +125,7 @@
     "HostPolicy": "PREFER_SEPARATE",
     "ImageID": "zenoss/zenoss5x",
     "Instances": {
-        "Default": 1,
+        "Default": 2,
         "Min": 1
     },
     "Launch": "manual",
