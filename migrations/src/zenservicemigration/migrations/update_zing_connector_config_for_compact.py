@@ -15,7 +15,7 @@ from __future__ import print_function
 
 import sys
 
-version = "7.0.17"
+version = "7.0.18"
 
 new_configs = """metrics:
   enabled: false
@@ -30,7 +30,7 @@ streaming:
 """
 
 http2_config = """http2:
-  listen_addr: 9237
+  listen_addr: ":9237"
 """
 
 
@@ -96,8 +96,8 @@ def update_svc_port(content):
                 port_updated = True
                 newLines.append("http2:")
                 port_line = lines[i+1]
-                newLines.append(port_line.replace(
-                    "port", "listen_addr"))
+                simple_port = port_line.replace("port:", "").strip()
+                newLines.append("  listen_addr: \":" + simple_port + "\"")
                 i += 1
         else:
             newLines.append(lines[i])
