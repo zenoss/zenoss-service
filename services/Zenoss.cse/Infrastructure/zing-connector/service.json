@@ -20,13 +20,6 @@
             "PortNumber": 9237,
             "Protocol": "tcp",
             "Purpose": "export"
-        },
-        {
-            "Application": "zing-connector-admin",
-            "Name": "zing-connector-admin",
-            "PortNumber": 9000,
-            "Protocol": "tcp",
-            "Purpose": "export"
         }
     ],
     "Environment": [
@@ -35,7 +28,7 @@
     "HealthChecks": {
         "answering": {
             "Interval": 5.0,
-            "Script": "test \"$(curl localhost:9000/ping)\" = \"PONG\""
+            "Script": "test \"$(/opt/zenoss/bin/hctest 9237)\" = \"PONG\""
         }
     },
     "ImageId": "gcr-repo/zing-connector:xx",
