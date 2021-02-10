@@ -135,6 +135,7 @@ def _deleteActions(service):
 
 
 def _updateInstances(service):
+    service.instances = 2
     service.instanceLimits.default = 2
     service.instanceLimits.minimum = 1
     service.instanceLimits.maximum = 0
