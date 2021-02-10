@@ -20,7 +20,7 @@ GID    = $(shell id -g)
 # VERSION is the full Zenoss version; e.g., 5.0.0
 # SHORT_VERSION is the two-digit Zenoss version; e.g., 5.0
 # Note: these values are set in the build jobs, so the defaults =? aren't going to be used.
-VERSION         ?= 7.0.18
+VERSION         ?= 7.1.0
 SHORT_VERSION   = $(subst $(space),.,$(wordlist 1,2,$(subst ., ,$(VERSION))))
 
 # These three xyz_VERSION variables define the corresponding docker image versions

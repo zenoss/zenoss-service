@@ -15,7 +15,7 @@ from __future__ import print_function
 
 import sys
 
-version = "7.0.18"
+version = "7.1.0"
 
 new_configs = """metrics:
   enabled: false
