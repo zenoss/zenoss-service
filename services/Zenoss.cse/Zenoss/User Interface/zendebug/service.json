@@ -157,13 +157,6 @@
             "Purpose": "import"
         },
         {
-            "Application": "zing-connector-admin",
-            "Name": "zing-connector-admin",
-            "PortNumber": 9000,
-            "Protocol": "tcp",
-            "Purpose": "import"
-        },
-        {
             "Application": "controlplane_consumer",
             "Name": "controlplane_consumer",
             "PortNumber": 8444,
@@ -217,7 +210,7 @@
         },
         "zing-connector-answering": {
             "Interval": 10.0,
-            "Script": "test \"$(curl localhost:9000/ping)\" = \"PONG\""
+            "Script": "test \"$(/opt/zenoss/bin/healthchecks/zing_connector_answering 9237)\" = \"PONG\""
         }
     },
     "ImageID": "zenoss/zenoss5x",

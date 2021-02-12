@@ -28,7 +28,7 @@
     "HealthChecks": {
         "answering": {
             "Interval": 5.0,
-            "Script": "test \"$(/opt/zenoss/bin/hctest 9237)\" = \"PONG\""
+            "Script": "test \"$(/opt/zenoss/bin/healthchecks/zing_connector_answering 9237)\" = \"PONG\""
         }
     },
     "ImageId": "gcr-repo/zing-connector:xx",
