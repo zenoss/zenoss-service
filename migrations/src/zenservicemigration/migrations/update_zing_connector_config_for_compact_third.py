@@ -17,7 +17,7 @@ import sys
 
 import servicemigration as sm
 
-version = "7.0.20"
+version = "7.1.0"
 
 
 other_services = (
@@ -55,7 +55,8 @@ def migrate(ctx, *args, **kw):
         changed = True
 
     for svc in other_services:
-        changed = changed or remove_endpoint_and_fix_hc(svc)
+        other_svc_changed = remove_endpoint_and_fix_hc(svc)
+        changed = changed or other_svc_changed
 
     return changed
 
