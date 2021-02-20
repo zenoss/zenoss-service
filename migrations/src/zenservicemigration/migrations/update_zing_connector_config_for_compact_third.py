@@ -55,13 +55,13 @@ def migrate(ctx, *args, **kw):
         changed = True
 
     for svc in other_services:
-        other_svc_changed = remove_endpoint_and_fix_hc(svc)
+        other_svc_changed = remove_endpoint_and_fix_hc(ctx, svc)
         changed = changed or other_svc_changed
 
     return changed
 
 
-def remove_endpoint_and_fix_hc(svc):
+def remove_endpoint_and_fix_hc(ctx, svc):
     """
     remove the zing-connector-admin endpoint and maybe update the zing-connector-answering healthcheck script
     """
