@@ -15,7 +15,9 @@ from __future__ import print_function
 
 import sys
 
-version = "7.1.0"
+import servicemigration as sm
+
+version = "7.0.19"
 
 new_configs = """metrics:
   enabled: false
@@ -33,31 +35,76 @@ http2_config = """http2:
   listen_addr: ":9237"
 """
 
+new_script="test \"$(/opt/zenoss/bin/healthchecks/zing_connector_answering 9237)\" = \"PONG\""
+
+other_services = (
+        "zenhubiworker",
+        "zenhubworker (adm)",
+        "zenhubworker (default)",
+        "zenhubworker (user)",
+        "zenhub",
+        "MetricConsumer",
+        "Zope",
+        "zenapi",
+        "zendebug",
+        "zenjobs",
+        )
+
 
 def migrate(ctx, *args, **kw):
-    services = [s for s in ctx.services if s.name == "zing-connector"]
-    if not services:
-        print("No zing-connector services found.", file=sys.stderr)
+    service = next((s for s in ctx.services if s.name == "zing-connector"), None)
+    if service is None:
+        print("No zing-connector service found.", file=sys.stderr)
         return False
 
     changed = False
-    for service in services:
-        configfiles = service.originalConfigs + service.configFiles
-        for configfile in filter(lambda f: f.name == '/opt/zenoss/etc/zing-connector/zing-connector.yml', configfiles):
-            if "stackdriver" not in configfile.content:
-                configfile.content = add_to_section(
-                    configfile.content, "log:", "  stackdriver: 0")
-                changed = True
-            if "compact-topic" not in configfile.content:
-                configfile.content = add_to_section(
-                    configfile.content, "pubsub:", "  compact-topic: metric-in-compact")
-                changed = True
-            if "metrics" not in configfile.content or "gcloud" not in configfile.content:
-                configfile.content = configfile.content + new_configs
-                changed = True
-            if "http2" not in configfile.content:
-                configfile.content = update_svc_port(configfile.content)
-                changed = True
+
+    configfiles = service.originalConfigs + service.configFiles
+    for configfile in filter(lambda f: f.name == '/opt/zenoss/etc/zing-connector/zing-connector.yml', configfiles):
+        if "stackdriver" not in configfile.content:
+            configfile.content = add_to_section(
+                configfile.content, "log:", "  stackdriver: 0")
+            changed = True
+        if "compact-topic" not in configfile.content:
+            configfile.content = add_to_section(
+                configfile.content, "pubsub:", "  compact-topic: metric-in-compact")
+            changed = True
+        if "metrics" not in configfile.content or "gcloud" not in configfile.content:
+            configfile.content = configfile.content + new_configs
+            changed = True
+        if "http2" not in configfile.content:
+            configfile.content = update_svc_port(configfile.content)
+            changed = True
+        if "admin" in configfile.content:
+            configfile.content = remove_admin_port(configfile.content)
+            changed = True
+
+    initialLength = len(service.endpoints)
+    service.endpoints = [ep for ep in service.endpoints[:] if ep.application != "zing-connector-admin"]
+
+    changed = changed or len(service.endpoints) < initialLength
+
+    answering = next((hc for hc in service.healthChecks if hc.name == "answering"), None)
+
+    if answering is None:
+        print("Adding missing 'answering' healthcheck", file=sys.stderr)
+        answering = sm.HealthCheck(
+            name="answering",
+            script=new_script,
+            interval=5.0,
+        )
+        service.healthChecks = [answering]
+        changed = True
+
+    if answering.script != new_script:
+        answering.script = new_script
+        print("Updated 'answering' healthcheck script.", file=sys.stderr)
+        service.healthChecks = [answering]
+        changed = True
+
+    for svc in other_services:
+        other_svc_changed = remove_endpoint_and_fix_hc(ctx, svc)
+        changed = changed or other_svc_changed
 
     return changed
 
@@ -106,3 +153,52 @@ def update_svc_port(content):
     if not port_updated:
         content = content + http2_config
     return content
+
+
+def remove_admin_port(content):
+    """
+    remove the old zing-connector admin port config
+    """
+    lines = content.split('\n')
+    newLines = []
+    i = 0
+    admin_removed = False
+    while i < len(lines):
+        if "admin:" in lines[i]:
+            if "port:" in lines[i+1]:
+                admin_removed = True
+                i += 1
+        else:
+            newLines.append(lines[i])
+        i += 1
+    content = '\n'.join(newLines)
+    if admin_removed:
+        print("Removed 'admin' section.")
+    return content
+
+
+def remove_endpoint_and_fix_hc(ctx, svc):
+    """
+    remove the zing-connector-admin endpoint and maybe update the zing-connector-answering healthcheck script
+    """
+    service = next((s for s in ctx.services if s.name == svc), None)
+    if service is None:
+        print("No {} service found, so did not remove endpoint.".format(svc), file=sys.stderr)
+        return False
+
+    initialLength = len(service.endpoints)
+    service.endpoints = [ep for ep in service.endpoints[:] if ep.application != "zing-connector-admin"]
+
+    changed = len(service.endpoints) < initialLength
+    print("{} zing-connector-admin endpoint from {} service".format("Removed" if changed else "Did NOT remove", svc), file=sys.stderr)
+
+    answering = next((hc for hc in service.healthChecks if hc.name == "zing-connector-answering"), None)
+
+    # not all these services have the healthcheck
+    if answering and answering.script != new_script:
+        answering.script = new_script
+        print("Updated 'zing-connector-answering' healthcheck script for {} service.".format(svc), file=sys.stderr)
+        service.healthChecks = [answering]
+        changed = True
+
+    return changed
