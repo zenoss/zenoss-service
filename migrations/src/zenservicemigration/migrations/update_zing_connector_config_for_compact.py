@@ -102,6 +102,9 @@ def migrate(ctx, *args, **kw):
         service.healthChecks = [answering]
         changed = True
 
+    service.ramCommitment = "1G"
+    changed = True
+
     for svc in other_services:
         other_svc_changed = remove_endpoint_and_fix_hc(ctx, svc)
         changed = changed or other_svc_changed

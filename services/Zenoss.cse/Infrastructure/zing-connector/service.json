@@ -740,6 +740,7 @@
         ]
     },
     "Name": "zing-connector",
+    "RAMCommitment": "1G",
     "Tags": [
         "daemon"
     ]
