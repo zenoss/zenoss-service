@@ -105,6 +105,13 @@ def migrate(ctx, *args, **kw):
     service.ramCommitment = "1G"
     changed = True
 
+    print("Adding zing-connector-timeout global property to the service context", file=sys.stderr)
+    topContext = ctx.getTopService().context
+    prop = "global.conf.zing-connector-timeout"
+    if prop not in topContext:
+        topContext[prop] = "30"
+        changed = True
+
     for svc in other_services:
         other_svc_changed = remove_endpoint_and_fix_hc(ctx, svc)
         changed = changed or other_svc_changed
